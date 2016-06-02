@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <object name="portal_types" meta_type="Plone Types Tool">
-  <object name="EEAMeeting" meta_type="Dexterity FTI"/>
-  <object name="Subscribers" meta_type="Dexterity FTI"/>
-  <object name="Subscriber" meta_type="Dexterity FTI"/>
+  <object name="eea.meeting" meta_type="Dexterity FTI"/>
+  <object name="eea.meeting.subscribers" meta_type="Dexterity FTI"/>
+  <object name="eea.meeting.subscriber" meta_type="Dexterity FTI"/>
 </object>

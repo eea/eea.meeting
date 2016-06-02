@@ -35,8 +35,13 @@
       name="eea.meeting-hiddenprofiles" />
 
   <subscriber
-      for="eea.meeting.interfaces.IEEAMeeting zope.lifecycleevent.interfaces.IObjectAddedEvent"
+      for="eea.meeting.interfaces.IMeeting zope.lifecycleevent.interfaces.IObjectAddedEvent"
       handler=".add.handler"
+      />
+
+  <permission
+      id="eea.meeting.admin_meeting"
+      title="EEA Meting: Admin Meeting"
       />
 
 </configure>

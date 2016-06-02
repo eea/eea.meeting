@@ -26,11 +26,11 @@ def validate_email(email):
     return True
 
 
-class IEEAMeetingLayer(IDefaultBrowserLayer):
+class IMeetingLayer(IDefaultBrowserLayer):
     """Marker interface that defines a browser layer."""
 
 
-class IEEAMeeting(Interface):
+class IMeeting(Interface):
 
     body_text = RichText(
         title=_(u"Body text"),

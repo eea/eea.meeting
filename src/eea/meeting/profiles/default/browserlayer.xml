@@ -2,6 +2,6 @@
 <layers>
   <layer
       name="eea.meeting"
-      interface="eea.meeting.interfaces.IEEAMeetingLayer"
+      interface="eea.meeting.interfaces.IMeetingLayer"
       />
 </layers>

@@ -22,11 +22,11 @@ class TestSetup(unittest.TestCase):
             'eea.meeting'))
 
     def test_browserlayer(self):
-        """Test that IEEAMeetingLayer is registered."""
+        """Test that IMeetingLayer is registered."""
         from eea.meeting.interfaces import (
-            IEEAMeetingLayer)
+            IMeetingLayer)
         from plone.browserlayer import utils
-        self.assertIn(IEEAMeetingLayer, utils.registered_layers())
+        self.assertIn(IMeetingLayer, utils.registered_layers())
 
 
 class TestUninstall(unittest.TestCase):
@@ -44,7 +44,7 @@ class TestUninstall(unittest.TestCase):
             'eea.meeting'))
 
     def test_browserlayer_removed(self):
-        """Test that IEEAMeetingLayer is removed."""
-        from eea.meeting.interfaces import IEEAMeetingLayer
+        """Test that IMeetingLayer is removed."""
+        from eea.meeting.interfaces import IMeetingLayer
         from plone.browserlayer import utils
-        self.assertNotIn(IEEAMeetingLayer, utils.registered_layers())
+        self.assertNotIn(IMeetingLayer, utils.registered_layers())

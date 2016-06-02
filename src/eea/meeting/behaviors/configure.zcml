@@ -6,9 +6,17 @@
   <plone:behavior
     title="EEA Meeting Addable Constrains"
     description="Restrict the content types that can be added to the meeting"
-    provides=".behaviors.IEEAMeetingConstrainTypes"
-    factory=".behaviors.EEAMeetingConstrainTypes"
-    for="eea.meeting.interfaces.IEEAMeeting"
+    provides=".behaviors.IMeetingConstrainTypes"
+    factory=".behaviors.MeetingConstrainTypes"
+    for="eea.meeting.interfaces.IMeeting"
+    />
+
+  <plone:behavior
+    title="EEA Meeting Subscribers Addable Constrains"
+    description="Restrict the content types that can be added to the subscribers folder"
+    provides=".behaviors.ISubscribersConstrainTypes"
+    factory=".behaviors.SubscribersConstrainTypes"
+    for="eea.meeting.interfaces.ISubscribers"
     />
 
 </configure>

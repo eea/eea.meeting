@@ -8,7 +8,7 @@
   <include package="z3c.jbot" file="meta.zcml" />
   <browser:jbot
       directory="overrides"
-      layer="eea.meeting.interfaces.IEEAMeetingLayer"
+      layer="eea.meeting.interfaces.IMeetingLayer"
       />
 
   <!-- Publish static files -->
@@ -20,24 +20,24 @@
   <!-- EEA Meeting overrides -->
 
   <browser:page
-      for="eea.meeting.interfaces.IEEAMeeting"
+      for="eea.meeting.interfaces.IMeeting"
       name="view"
       permission="zope2.View"
-      class=".views.EEAMeetingView"
-      layer="eea.meeting.interfaces.IEEAMeetingLayer" />
+      class=".views.MeetingView"
+      layer="eea.meeting.interfaces.IMeetingLayer" />
+
+  <browser:page
+      for="eea.meeting.interfaces.ISubscribers"
+      name="view"
+      permission="zope2.View"
+      class=".views.SubscribersView"
+      layer="eea.meeting.interfaces.IMeetingLayer" />
 
   <browser:page
       name="register"
       class="eea.meeting.content.meeting.Register"
-      for="eea.meeting.interfaces.IEEAMeeting"
+      for="eea.meeting.interfaces.IMeeting"
       permission="zope2.View"
-      layer="eea.meeting.interfaces.IEEAMeetingLayer" />
-
-  <browser:page
-      name="view"
-      for="eea.meeting.interfaces.ISubscribers"
-      template="pt/subscribers_index.pt"
-      permission="zope2.View"
-      layer="eea.meeting.interfaces.IEEAMeetingLayer" />
+      layer="eea.meeting.interfaces.IMeetingLayer" />
 
 </configure>

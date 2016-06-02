@@ -10,7 +10,7 @@ from plone.testing import z2
 import eea.meeting
 
 
-class EEAMeetingLayer(PloneSandboxLayer):
+class MeetingLayer(PloneSandboxLayer):
 
     defaultBases = (PLONE_FIXTURE,)
 
@@ -24,26 +24,26 @@ class EEAMeetingLayer(PloneSandboxLayer):
         applyProfile(portal, 'eea.meeting:default')
 
 
-EEA_MEETING_FIXTURE = EEAMeetingLayer()
+MEETING_FIXTURE = MeetingLayer()
 
 
-EEA_MEETING_INTEGRATION_TESTING = IntegrationTesting(
-    bases=(EEA_MEETING_FIXTURE,),
-    name='EEAMeetingLayer:IntegrationTesting'
+MEETING_INTEGRATION_TESTING = IntegrationTesting(
+    bases=(MEETING_FIXTURE,),
+    name='MeetingLayer:IntegrationTesting'
 )
 
 
-EEA_MEETING_FUNCTIONAL_TESTING = FunctionalTesting(
-    bases=(EEA_MEETING_FIXTURE,),
-    name='EEAMeetingLayer:FunctionalTesting'
+MEETING_FUNCTIONAL_TESTING = FunctionalTesting(
+    bases=(MEETING_FIXTURE,),
+    name='MeetingLayer:FunctionalTesting'
 )
 
 
-EEA_MEETING_ACCEPTANCE_TESTING = FunctionalTesting(
+MEETING_ACCEPTANCE_TESTING = FunctionalTesting(
     bases=(
-        EEA_MEETING_FIXTURE,
+        MEETING_FIXTURE,
         REMOTE_LIBRARY_BUNDLE_FIXTURE,
         z2.ZSERVER_FIXTURE
     ),
-    name='EEAMeetingLayer:AcceptanceTesting'
+    name='MeetingLayer:AcceptanceTesting'
 )

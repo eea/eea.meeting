@@ -1,11 +1,12 @@
 from zope.interface import implementer
-from Products.Five import BrowserView
 from plone.dexterity.content import Container
 from eea.meeting.interfaces import ISubscribers
+
+SUBSCRIBERS_META_TYPE = 'EEA Meeting Subscribers'
 
 
 @implementer(ISubscribers)
 class Subscribers(Container):
-    """ Subscribers container"""
+    """ EEA Meeting Subscribers container"""
 
-    meta_type = 'EEA Meeting subscribers'
+    meta_type = SUBSCRIBERS_META_TYPE

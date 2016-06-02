@@ -5,6 +5,11 @@
     <div metal:fill-slot="content-core" >
       <span tal:replace="structure context/@@authenticator/authenticator"/>
         <h1 i18n:translate="">Subscribers listing</h1>
+        <ol>
+          <li tal:repeat="subscriber view/get_subscribers">
+          <a tal:attributes="href subscriber/absolute_url" tal:content="string:${subscriber/first_name} ${subscriber/last_name}" />
+          </li>
+        </ol>
     </div>
   </body>
 </html>
