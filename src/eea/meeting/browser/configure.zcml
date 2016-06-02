@@ -1,0 +1,43 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    xmlns:plone="http://namespaces.plone.org/plone"
+    i18n_domain="eea.meeting">
+
+  <!-- Set overrides folder for Just-a-Bunch-Of-Templates product -->
+  <include package="z3c.jbot" file="meta.zcml" />
+  <browser:jbot
+      directory="overrides"
+      layer="eea.meeting.interfaces.IEEAMeetingLayer"
+      />
+
+  <!-- Publish static files -->
+  <browser:resourceDirectory
+      name="eea.meeting"
+      directory="static"
+      />
+
+  <!-- EEA Meeting overrides -->
+
+  <browser:page
+      for="eea.meeting.interfaces.IEEAMeeting"
+      name="view"
+      permission="zope2.View"
+      class=".views.EEAMeetingView"
+      layer="eea.meeting.interfaces.IEEAMeetingLayer" />
+
+  <browser:page
+      name="register"
+      class="eea.meeting.content.meeting.Register"
+      for="eea.meeting.interfaces.IEEAMeeting"
+      permission="zope2.View"
+      layer="eea.meeting.interfaces.IEEAMeetingLayer" />
+
+  <browser:page
+      name="view"
+      for="eea.meeting.interfaces.ISubscribers"
+      template="pt/subscribers_index.pt"
+      permission="zope2.View"
+      layer="eea.meeting.interfaces.IEEAMeetingLayer" />
+
+</configure>

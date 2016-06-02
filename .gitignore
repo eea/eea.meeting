@@ -1,0 +1,11 @@
+.coverage
+*.egg-info
+*.log
+*.mo
+*.py?
+*.swp
+# excludes
+!.coveragerc
+!.gitattributes
+!.gitignore
+!.gitkeep

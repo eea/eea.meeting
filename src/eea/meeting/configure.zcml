@@ -1,0 +1,42 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
+    xmlns:i18n="http://namespaces.zope.org/i18n"
+    i18n_domain="eea.meeting">
+
+  <i18n:registerTranslations directory="locales" />
+
+  <includeDependencies package="." />
+
+  <include package=".browser" />
+  <include package=".behaviors" />
+
+
+  <genericsetup:registerProfile
+      name="default"
+      title="eea.meeting"
+      directory="profiles/default"
+      description="Installs the eea.meeting add-on."
+      provides="Products.GenericSetup.interfaces.EXTENSION"
+      post_handler=".setuphandlers.post_install"
+      />
+
+  <genericsetup:registerProfile
+      name="uninstall"
+      title="eea.meeting (uninstall)"
+      directory="profiles/uninstall"
+      description="Uninstalls the eea.meeting add-on."
+      provides="Products.GenericSetup.interfaces.EXTENSION"
+      post_handler=".setuphandlers.uninstall"
+      />
+
+  <utility
+      factory=".setuphandlers.HiddenProfiles"
+      name="eea.meeting-hiddenprofiles" />
+
+  <subscriber
+      for="eea.meeting.interfaces.IEEAMeeting zope.lifecycleevent.interfaces.IObjectAddedEvent"
+      handler=".add.handler"
+      />
+
+</configure>
