@@ -1,4 +1,4 @@
-from plone import api
+from plone.dexterity.utils import createContentInContainer
 
 
 def handler(obj, evt):
@@ -6,8 +6,5 @@ def handler(obj, evt):
 
 
 def create_subscribers(container):
-    api.content.create(
-        type='eea.meeting.subscribers',
-        title='Subscribers',
-        id='subscribers',
-        container=container)
+    createContentInContainer(container, 'eea.meeting.subscribers',
+                             title='Subscribers', id='subscribers')
