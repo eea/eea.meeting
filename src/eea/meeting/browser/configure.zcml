@@ -35,7 +35,7 @@
 
   <browser:page
       name="register"
-      class="eea.meeting.content.meeting.Register"
+      class="eea.meeting.browser.views.Register"
       for="eea.meeting.interfaces.IMeeting"
       permission="zope2.View"
       layer="eea.meeting.interfaces.IMeetingLayer" />
