@@ -3,8 +3,55 @@
   i18n:domain="eea">
   <body>
     <div metal:fill-slot="content-core" >
-      <p><a tal:attributes="href string:${here/absolute_url}/register" >Register</a></>
-      <p><a tal:condition="here/subscribers|nothing" tal:attributes="href string:${here/absolute_url}/subscribers" >Subscribers</a></>
+      <tal:block condition="context/can_register">
+        <tal:block condition="not: context/is_anonymous">
+          <p>
+            <a tal:attributes="href string:${context/absolute_url}/register">Register</a>
+            for this meeting as <span class="username" tal:content="view/get_auth_user_name" />
+          </p>
+          <p>You can also <a tal:attributes="href string:${context/absolute_url}/subscribers/++add++eea.meeting.subscriber">sign up</a>
+            for someone else to participate in this meeting</p>
+        </tal:block>
+        <p tal:condition="context/is_anonymous">
+          <a tal:attributes="href string:${context/absolute_url}/subscribers/++add++eea.meeting.subscriber">Sign up</a>
+          to participate in this meeting
+        </p>
+      </tal:block>
+      <p><a tal:condition="python:here.get('subscribers', None)" tal:attributes="href string:${here/absolute_url}/subscribers" >Subscribers</a>
+         <span tal:content="python:here.subscribers.state()" /></>
+      <table class="listing">
+        <thead>
+          <tr>
+            <th>First name</th>
+            <th>Last name</th>
+            <th>UID</th>
+            <th>State</th>
+          </tr>
+        <thead>
+        <tbody>
+          <tr tal:repeat="subscriber python:context.get_subscribers()">
+            <td tal:content="python:subscriber.firstname" />
+            <td tal:content="python:subscriber.lastname" />
+            <td>
+              <a tal:attributes="href subscriber/absolute_url" tal:content="subscriber/uid" />
+            </td>
+            <td>
+              <span tal:content="subscriber/state" />
+            </td>
+          </tr>
+        </tbody>
+        <tfoot>
+        </tfoot>
+      </table>
+
+      <form name="folderContentsForm"
+        method="post"
+        action="folder_object"
+        tal:attributes="action context/absolute_url"
+        class="kssattr-serveraction-foldercontents_update_table">
+        <div tal:replace="structure view/contents_table"></div>
+        <input tal:replace="structure context/@@authenticator/authenticator" />
+      </form>
     </div>
   </body>
 </html>
