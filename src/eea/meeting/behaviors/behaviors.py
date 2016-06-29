@@ -1,6 +1,3 @@
-from datetime import datetime
-import pytz
-from zope.security import checkPermission
 from plone import api
 from plone.app.dexterity.behaviors.constrains import ConstrainTypesBehavior
 from Products.CMFPlone.interfaces.constrains import ISelectableConstrainTypes
@@ -119,8 +116,9 @@ class SubscribersConstrainTypes(ConstrainTypesBehavior):
                 mode)
 
         if ISubscribers.providedBy(context) and subscriber in allowed:
-            if not allow_register(context):
-                allowed.remove(subscriber)
+            if not (IMeeting.providedBy(context.aq_parent) and
+                    context.aq_parent.can_register()):
+                        allowed.remove(subscriber)
 
         return allowed
 
@@ -140,16 +138,3 @@ class SubscribersConstrainTypes(ConstrainTypesBehavior):
 class ISubscribersConstrainTypes(ISelectableConstrainTypes):
 
     """ """
-
-
-def allow_register(context):
-    meeting = context.aq_parent
-    if not IMeeting.providedBy(meeting):
-        return False
-    if (not meeting.allow_register or datetime.now(pytz.UTC) > meeting.end or
-        len(context.objectValues(
-            'EEA Meeting Subscriber')) >= context.max_participants):
-        if not checkPermission("EEA Meting: Admin Meeting", meeting):
-            return False
-
-    return True
