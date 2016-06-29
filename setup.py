@@ -44,6 +44,7 @@ setup(
         'z3c.jbot',
         'plone.app.dexterity',
         'plone.app.contenttypes',
+        'plone.app.ldap',
     ],
     extras_require={
         'test': [
