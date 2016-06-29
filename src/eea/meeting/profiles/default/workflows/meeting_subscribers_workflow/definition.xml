@@ -1,0 +1,151 @@
+<?xml version="1.0"?>
+<dc-workflow workflow_id="meeting_subscribers_workflow" title="Meeting Subscribers Workflow" description="Two-state workflow: Open (Registrations open) and Closed (Registrations closed - either because of period, explicit setting or max participants reached)" state_variable="review_state" initial_state="closed" manager_bypass="False">
+ <permission>Access contents information</permission>
+ <permission>Change portal events</permission>
+ <permission>Modify portal content</permission>
+ <permission>View</permission>
+ <permission>EEA Meting: Approve subscribers</permission>
+ <permission>EEA Meting: Reject subscribers</permission>
+ <state state_id="closed" title="Registrations closed">
+  <description>Registrations are closed</description>
+  <exit-transition transition_id="to_full"/>
+  <exit-transition transition_id="to_open"/>
+  <permission-map name="Access contents information" acquired="True">
+   <permission-role>Anonymous</permission-role>
+  </permission-map>
+  <permission-map name="Change portal events" acquired="True">
+   <permission-role>Manager</permission-role>
+   <permission-role>Owner</permission-role>
+   <permission-role>Site Administrator</permission-role>
+  </permission-map>
+  <permission-map name="EEA Meting: Approve subscribers" acquired="True">
+   <permission-role>Manager</permission-role>
+   <permission-role>Owner</permission-role>
+   <permission-role>Site Administrator</permission-role>
+  </permission-map>
+  <permission-map name="EEA Meting: Reject subscribers" acquired="True">
+   <permission-role>Manager</permission-role>
+   <permission-role>Owner</permission-role>
+   <permission-role>Site Administrator</permission-role>
+  </permission-map>
+  <permission-map name="Modify portal content" acquired="True">
+   <permission-role>Manager</permission-role>
+   <permission-role>Owner</permission-role>
+   <permission-role>Site Administrator</permission-role>
+  </permission-map>
+  <permission-map name="View" acquired="True">
+   <permission-role>Anonymous</permission-role>
+  </permission-map>
+ </state>
+ <state state_id="full" title="Max participants reached">
+  <description>The maximum number of participants is reached</description>
+  <exit-transition transition_id="close"/>
+  <exit-transition transition_id="to_open"/>
+  <permission-map name="Access contents information" acquired="True">
+   <permission-role>Anonymous</permission-role>
+  </permission-map>
+  <permission-map name="Change portal events" acquired="True">
+  </permission-map>
+  <permission-map name="EEA Meting: Approve subscribers" acquired="True">
+  </permission-map>
+  <permission-map name="EEA Meting: Reject subscribers" acquired="True">
+   <permission-role>Manager</permission-role>
+   <permission-role>Owner</permission-role>
+   <permission-role>Site Administrator</permission-role>
+  </permission-map>
+  <permission-map name="Modify portal content" acquired="True">
+  </permission-map>
+  <permission-map name="View" acquired="True">
+   <permission-role>Anonymous</permission-role>
+  </permission-map>
+ </state>
+ <state state_id="open" title="Registrations open">
+  <description>Registrations are open</description>
+  <exit-transition transition_id="close"/>
+  <exit-transition transition_id="to_full"/>
+  <permission-map name="Access contents information" acquired="True">
+   <permission-role>Anonymous</permission-role>
+  </permission-map>
+  <permission-map name="Change portal events" acquired="True">
+   <permission-role>Manager</permission-role>
+   <permission-role>Owner</permission-role>
+   <permission-role>Site Administrator</permission-role>
+  </permission-map>
+  <permission-map name="EEA Meting: Approve subscribers" acquired="True">
+   <permission-role>Manager</permission-role>
+   <permission-role>Owner</permission-role>
+   <permission-role>Site Administrator</permission-role>
+  </permission-map>
+  <permission-map name="EEA Meting: Reject subscribers" acquired="True">
+   <permission-role>Manager</permission-role>
+   <permission-role>Owner</permission-role>
+   <permission-role>Site Administrator</permission-role>
+  </permission-map>
+  <permission-map name="Modify portal content" acquired="True">
+   <permission-role>Anonymous</permission-role>
+   <permission-role>Manager</permission-role>
+   <permission-role>Owner</permission-role>
+   <permission-role>Site Administrator</permission-role>
+  </permission-map>
+  <permission-map name="View" acquired="True">
+   <permission-role>Anonymous</permission-role>
+  </permission-map>
+ </state>
+ <transition transition_id="close" title="Close registrations" new_state="closed" trigger="USER" before_script="" after_script="">
+  <description>Close registrations</description>
+  <guard>
+  </guard>
+ </transition>
+ <transition transition_id="to_full" title="" new_state="full" trigger="USER" before_script="" after_script="">
+  <guard>
+  </guard>
+ </transition>
+ <transition transition_id="to_open" title="Open registrations" new_state="open" trigger="USER" before_script="" after_script="">
+  <description>Open registrations</description>
+  <guard>
+  </guard>
+ </transition>
+ <variable variable_id="action" for_catalog="False" for_status="True" update_always="True">
+  <description>Previous transition</description>
+  <default>
+   <expression>transition/getId|nothing</expression>
+  </default>
+  <guard>
+  </guard>
+ </variable>
+ <variable variable_id="actor" for_catalog="False" for_status="True" update_always="True">
+  <description>The ID of the user who performed the previous transition</description>
+  <default>
+   <expression>user/getId</expression>
+  </default>
+  <guard>
+  </guard>
+ </variable>
+ <variable variable_id="comments" for_catalog="False" for_status="True" update_always="True">
+  <description>Comment about the last transition</description>
+  <default>
+   <expression>python:state_change.kwargs.get('comment', '')</expression>
+  </default>
+  <guard>
+  </guard>
+ </variable>
+ <variable variable_id="review_history" for_catalog="False" for_status="False" update_always="False">
+  <description>Provides access to workflow history</description>
+  <default>
+   <expression>state_change/getHistory</expression>
+  </default>
+  <guard>
+   <guard-permission>Request review</guard-permission>
+   <guard-permission>Review portal content</guard-permission>
+  </guard>
+ </variable>
+ <variable variable_id="time" for_catalog="False" for_status="True" update_always="True">
+  <description>When the previous transition was performed</description>
+  <default>
+   <expression>state_change/getDateTime</expression>
+  </default>
+  <guard>
+  </guard>
+ </variable>
+</dc-workflow>
+
