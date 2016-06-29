@@ -6,6 +6,8 @@ from plone import api
 from plone.dexterity.content import Container
 from plone.dexterity.utils import createContentInContainer
 from eea.meeting.interfaces import IMeeting
+from plone import api
+from plone.dexterity.utils import createContentInContainer
 
 
 MEETING_META_TYPE = 'EEA Meeting'
