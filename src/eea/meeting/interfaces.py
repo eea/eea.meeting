@@ -77,12 +77,12 @@ class ISubscriber(Interface):
         required=True,
     )
 
-    first_name = schema.TextLine(
+    firstname = schema.TextLine(
         title=_(u"First name"),
         required=True,
     )
 
-    last_name = schema.TextLine(
+    lastname = schema.TextLine(
         title=_(u"Last name"),
         required=True,
     )
