@@ -6,8 +6,6 @@ from plone import api
 from plone.dexterity.content import Container
 from plone.dexterity.utils import createContentInContainer
 from eea.meeting.interfaces import IMeeting
-from plone import api
-from plone.dexterity.utils import createContentInContainer
 
 
 MEETING_META_TYPE = 'EEA Meeting'
@@ -27,11 +25,21 @@ class Meeting(Container):
             uid = api.user.get_current().getId()
         return uid in self.subscribers.subscriber_ids()
 
+    def subscriber_status(self, uid=None):
+        if not uid:
+            uid = api.user.get_current().getId()
+        if self.is_registered(uid):
+            return api.content.get_status(getattr(self.subscribers, uid))
+
     def can_register(self):
         sm = getSecurityManager()
         if sm.checkPermission("EEA Meting: Admin Meeting", self):
             return True
         return self.registrations_open()
+
+    def is_admin(self):
+        sm = getSecurityManager()
+        return sm.checkPermission("EEA Meting: Admin Meeting", self)
 
     def registrations_open(self):
         return (self.allow_register and

@@ -4,13 +4,14 @@
   <body>
     <div metal:fill-slot="content-core" >
       <span tal:replace="structure context/@@authenticator/authenticator"/>
-        <h1 i18n:translate="">Subscribers listing</h1>
-        <ol>
-          <li tal:repeat="subscriber context/get_subscribers">
-            <a tal:attributes="href subscriber/absolute_url" tal:content="string:${subscriber/firstname} ${subscriber/lastname}" />
-            <span tal:content="subscriber/state" />
-          </li>
-        </ol>
+        <form name="folderContentsForm"
+          method="post"
+          action="folder_object"
+          tal:attributes="action context/absolute_url"
+          class="kssattr-serveraction-foldercontents_update_table">
+          <div tal:replace="structure view/contents_table"></div>
+          <input tal:replace="structure context/@@authenticator/authenticator" />
+        </form>
     </div>
   </body>
 </html>

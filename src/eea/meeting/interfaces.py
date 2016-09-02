@@ -72,10 +72,10 @@ class IMeeting(Interface):
 
 class ISubscriber(Interface):
 
-    uid = schema.TextLine(
-        title=_(u"UID"),
-        required=True,
-    )
+    # uid = schema.TextLine(
+    #     title=_(u"UID"),
+    #     required=True,
+    # )
 
     firstname = schema.TextLine(
         title=_(u"First name"),
@@ -85,6 +85,12 @@ class ISubscriber(Interface):
     lastname = schema.TextLine(
         title=_(u"Last name"),
         required=True,
+    )
+
+    email = schema.TextLine(
+        title=_(u"Email"),
+        required=True,
+        constraint=validate_email
     )
 
 

@@ -89,6 +89,24 @@
                     <item id="friendly_name" value="Canonical Name"/>
                     <item id="multivalued" value="False"/>
                 </attr>
+                <attr id="employeeType">
+                    <item id="public_name" value="disabled"/>
+                    <item id="ldap_name" value="employeeType"/>
+                    <item id="friendly_name" value="User is disabled"/>
+                    <item id="multivalued" value="False"/>
+                </attr>
+                <attr id="telephoneNumber">
+                    <item id="public_name" value="phone"/>
+                    <item id="ldap_name" value="telephoneNumber"/>
+                    <item id="friendly_name" value="Telephone number"/>
+                    <item id="multivalued" value="False"/>
+                </attr>
+                <attr id="o">
+                    <item id="public_name" value="organisation"/>
+                    <item id="ldap_name" value="o"/>
+                    <item id="friendly_name" value="Organisation"/>
+                    <item id="multivalued" value="False"/>
+                </attr>
             </schema>
             <server update="False" delete="False">
                 <item id="host" value="ldap2.eionet.europa.eu" type="str"/>

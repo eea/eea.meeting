@@ -6,6 +6,7 @@ from plone.dexterity.utils import createContentInContainer
 from plone.app.content.browser import foldercontents
 
 from eea.meeting.content.meeting import create_subscribers
+from eea.meeting.content.subscribers import APPROVED_STATE
 
 
 class MeetingView(foldercontents.FolderContentsView):
@@ -13,25 +14,22 @@ class MeetingView(foldercontents.FolderContentsView):
 
     index = ViewPageTemplateFile("pt/meeting_index.pt")
 
-    def render(self):
-        return self.index()
-
     def __call__(self):
         if not self.context.get('subscribers'):
             create_subscribers(self.context)
-        return self.render()
+        return self.index()
 
     def get_auth_user_name(self):
         return api.user.get_current().getId()
 
     def contents_table(self):
-        table = FolderContentsTable(aq_inner(self.context), self.request)
+        table = MeetingContentsTable(aq_inner(self.context), self.request)
         return table.render()
 
 
-class FolderContentsTable(foldercontents.FolderContentsTable):
+class MeetingContentsTable(foldercontents.FolderContentsTable):
     def folderitems(self):
-        items = super(FolderContentsTable, self).folderitems()
+        items = super(MeetingContentsTable, self).folderitems()
         filtered = [item for item in items if item['id'] != 'subscribers']
         return filtered
 
@@ -41,11 +39,22 @@ class SubscribersView(BrowserView):
 
     index = ViewPageTemplateFile("pt/subscribers_index.pt")
 
-    def render(self):
+    def __call__(self):
         return self.index()
 
-    def __call__(self):
-        return self.render()
+    def contents_table(self):
+        table = SubscribersContentsTable(aq_inner(self.context), self.request)
+        return table.render()
+
+
+class SubscribersContentsTable(foldercontents.FolderContentsTable):
+    def folderitems(self):
+        items = super(SubscribersContentsTable, self).folderitems()
+        if not self.context.is_admin():
+            return [item for item in items
+                    if item['wf_state'] == APPROVED_STATE]
+        else:
+            return items
 
 
 class Register(BrowserView):
@@ -64,10 +73,12 @@ class Register(BrowserView):
             firstname = current_user.getProperty('firstname')
             lastname = current_user.getProperty('lastname')
             fullname = current_user.getProperty('fullname')
+            email = current_user.getProperty('email')
 
             createContentInContainer(subscribers, 'eea.meeting.subscriber',
                                      title=fullname, id=uid, uid=uid,
-                                     firstname=firstname, lastname=lastname)
+                                     firstname=firstname, lastname=lastname,
+                                     email=email)
             # TODO put success message on session
             return self.context.REQUEST.RESPONSE.redirect(
                 self.context.absolute_url())
