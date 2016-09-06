@@ -11,6 +11,7 @@
 
   <include package=".browser" />
   <include package=".behaviors" />
+  <include package=".email_form" />
 
 
   <genericsetup:registerProfile

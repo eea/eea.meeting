@@ -1,0 +1,16 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    i18n_domain="eea.meeting">
+
+  <!-- Set overrides folder for Just-a-Bunch-Of-Templates product -->
+  <include package="z3c.jbot" file="meta.zcml" />
+
+  <browser:page
+      name="email_sender"
+      for="*"
+      permission="zope2.View"
+      class=".email_form.SendEmailView"
+        />
+</configure>
+

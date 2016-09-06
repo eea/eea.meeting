@@ -45,6 +45,7 @@ setup(
         'plone.app.dexterity',
         'plone.app.contenttypes',
         'plone.app.ldap',
+        'plone.schema',
     ],
     extras_require={
         'test': [
