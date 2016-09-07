@@ -3,9 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="e89b1c93-cc5a-487c-9e58-57c4c1544732" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/eea/meeting/configure.zcml" afterPath="$PROJECT_DIR$/src/eea/meeting/configure.zcml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/eea/meeting/email_form/email_form.py" afterPath="$PROJECT_DIR$/src/eea/meeting/email_form/email_form.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/eea/meeting/email_form/send_email.pt" afterPath="$PROJECT_DIR$/src/eea/meeting/email_form/send_email.pt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/eea/meeting/events/configure.zcml" afterPath="$PROJECT_DIR$/src/eea/meeting/events/configure.zcml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/eea/meeting/events/rules.py" afterPath="$PROJECT_DIR$/src/eea/meeting/events/rules.py" />
     </list>
     <ignored path="eea.meeting.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -26,7 +26,7 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="configure.zcml" pinned="false" current-in-tab="true">
+      <file leaf-file-name="configure.zcml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/eea/meeting/email_form/configure.zcml">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="240">
@@ -39,18 +39,42 @@
       <file leaf-file-name="configure.zcml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/eea/meeting/events/configure.zcml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="195">
-              <caret line="13" column="23" selection-start-line="13" selection-start-column="23" selection-end-line="13" selection-end-column="23" />
+            <state relative-caret-position="450">
+              <caret line="30" column="3" selection-start-line="30" selection-start-column="3" selection-end-line="35" selection-end-column="6" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="rules.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="adapters.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/eea/meeting/events/adapters.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="583">
+              <caret line="51" column="0" selection-start-line="51" selection-start-column="0" selection-end-line="54" selection-end-column="27" />
+              <folding>
+                <element signature="e#0#56#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="email_form.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/eea/meeting/email_form/email_form.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="720">
+              <caret line="59" column="0" selection-start-line="59" selection-start-column="0" selection-end-line="59" selection-end-column="0" />
+              <folding>
+                <element signature="e#0#35#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="rules.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/eea/meeting/events/rules.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="270">
-              <caret line="18" column="4" selection-start-line="18" selection-start-column="4" selection-end-line="18" selection-end-column="4" />
+            <state relative-caret-position="330">
+              <caret line="22" column="0" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
               <folding>
                 <element signature="e#0#38#0" expanded="true" />
               </folding>
@@ -63,28 +87,6 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="90">
               <caret line="6" column="24" selection-start-line="6" selection-start-column="6" selection-end-line="6" selection-end-column="24" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="email_form.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/eea/meeting/email_form/email_form.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="645">
-              <caret line="56" column="6" selection-start-line="56" selection-start-column="6" selection-end-line="58" selection-end-column="19" />
-              <folding>
-                <element signature="e#0#35#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="setup.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/setup.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="165">
-              <caret line="22" column="29" selection-start-line="22" selection-start-column="29" selection-end-line="22" selection-end-column="29" />
               <folding />
             </state>
           </provider>
@@ -111,10 +113,12 @@
         <option value="$PROJECT_DIR$/setup.py" />
         <option value="$PROJECT_DIR$/src/eea/meeting/email_form/send_email.pt" />
         <option value="$PROJECT_DIR$/src/eea/meeting/configure.zcml" />
-        <option value="$PROJECT_DIR$/src/eea/meeting/email_form/email_form.py" />
         <option value="$PROJECT_DIR$/src/eea/meeting/events/interfaces.py" />
-        <option value="$PROJECT_DIR$/src/eea/meeting/events/configure.zcml" />
+        <option value="$PROJECT_DIR$/../../buildout.cfg" />
         <option value="$PROJECT_DIR$/src/eea/meeting/events/rules.py" />
+        <option value="$PROJECT_DIR$/src/eea/meeting/email_form/email_form.py" />
+        <option value="$PROJECT_DIR$/src/eea/meeting/events/adapters.py" />
+        <option value="$PROJECT_DIR$/src/eea/meeting/events/configure.zcml" />
       </list>
     </option>
   </component>
@@ -247,6 +251,32 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="eea.meeting" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="eea.meeting" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="eea" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="meeting" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="email_form" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
       <pane id="Scratches" />
@@ -255,6 +285,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="SearchEverywhereHistoryKey" value="buildou&#9;FILE&#9;file:///home/irina/Plone/zinstance/buildout.cfg&#10;buil&#9;FILE&#9;file:///home/irina/Plone/zinstance/src/ploneconf.site/buildout.cfg&#10;mailer.py&#9;null&#9;null&#10;smtplib.py&#9;FILE&#9;file:///usr/lib/python2.7/smtplib.py" />
   </component>
   <component name="RunManager">
     <configuration default="true" type="PythonConfigurationType" factoryName="Python">
@@ -395,6 +426,9 @@
   <component name="ShelveChangesManager" show_recycled="false">
     <option name="remove_strategy" value="false" />
   </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
       <changelist id="e89b1c93-cc5a-487c-9e58-57c4c1544732" name="Default" comment="" />
@@ -477,20 +511,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../../buildout.cfg">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1935">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../ploneconf.site/buildout.cfg">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/../ploneconf.site/setup.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-90">
@@ -502,14 +522,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/eea/meeting/email_form/send_email.pt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="14" column="0" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -530,16 +542,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/eea/meeting/events/rules.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="18" column="4" selection-start-line="18" selection-start-column="4" selection-end-line="18" selection-end-column="4" />
-          <folding>
-            <element signature="e#0#38#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/eea/meeting/events/interfaces.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="90">
@@ -548,20 +550,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/eea/meeting/email_form/email_form.py">
+    <entry file="file://$PROJECT_DIR$/src/eea/meeting/email_form/send_email.pt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="645">
-          <caret line="56" column="6" selection-start-line="56" selection-start-column="6" selection-end-line="58" selection-end-column="19" />
-          <folding>
-            <element signature="e#0#35#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/eea/meeting/events/configure.zcml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="13" column="23" selection-start-line="13" selection-start-column="23" selection-end-line="13" selection-end-column="23" />
+        <state relative-caret-position="210">
+          <caret line="14" column="0" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -571,6 +563,68 @@
         <state relative-caret-position="240">
           <caret line="16" column="0" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/lib/python2.7/smtplib.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="269">
+          <caret line="332" column="31" selection-start-line="332" selection-start-column="31" selection-end-line="332" selection-end-column="31" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../ploneconf.site/buildout.cfg">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../buildout.cfg">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="780">
+          <caret line="82" column="29" selection-start-line="82" selection-start-column="29" selection-end-line="82" selection-end-column="29" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/eea/meeting/events/configure.zcml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="450">
+          <caret line="30" column="3" selection-start-line="30" selection-start-column="3" selection-end-line="35" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/eea/meeting/events/adapters.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="583">
+          <caret line="51" column="0" selection-start-line="51" selection-start-column="0" selection-end-line="54" selection-end-column="27" />
+          <folding>
+            <element signature="e#0#56#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/eea/meeting/email_form/email_form.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="720">
+          <caret line="59" column="0" selection-start-line="59" selection-start-column="0" selection-end-line="59" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#35#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/eea/meeting/events/rules.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="330">
+          <caret line="22" column="0" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#38#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

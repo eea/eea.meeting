@@ -8,9 +8,9 @@ from z3c.form.browser.text import TextFieldWidget
 from plone.z3cform.layout import wrap_form
 from z3c.form import button, form, field
 from Products.statusmessages.interfaces import IStatusMessage
+from eea.meeting.events.rules import SendEmailAddEvent
+from zope.event import notify
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile as FiveViewPageTemplateFile
-
-from Products.CMFCore.utils import getToolByName
 
 @provider(IFormFieldProvider)
 class ISendEmail(model.Schema):
@@ -58,15 +58,7 @@ class SendEmail(form.Form):
             "From %s to %s" % (sender, receiver),
             'info')
 
-        # try:
-        #     host = getToolByName(self, 'MailHost')
-        #     # The ``immediate`` parameter causes an email to be sent immediately
-        #     # (if any error is raised) rather than sent at the transaction
-        #     # boundary or queued for later delivery.
-        #     return host.send(mail_text, immediate=True)
-        # except SMTPRecipientsRefused:
-        #     # Don't disclose email address on failure
-        #     raise SMTPRecipientsRefused('Recipient address rejected by server')
+        notify(SendEmailAddEvent(self.context, data))
 
         redirect_url = "%s/@@email_sender" % self.context.absolute_url()
         self.request.response.redirect(redirect_url)
