@@ -1,0 +1,17 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    i18n_domain="eea.meeting">
+
+  <interface
+   interface="eea.meeting.events.interfaces.ISendEmailAddEvent"
+   type="plone.contentrules.rule.interfaces.IRuleEventType"
+   name="Send email after form submission"
+   />
+
+   <subscriber
+   for="eea.meeting.events.interfaces.ISendEmailAddEvent"
+   handler="eea.meeting.events.rules.execute_event"
+   />
+
+</configure>

@@ -12,6 +12,7 @@
   <include package=".browser" />
   <include package=".behaviors" />
   <include package=".email_form" />
+  <include package=".events" />
 
 
   <genericsetup:registerProfile

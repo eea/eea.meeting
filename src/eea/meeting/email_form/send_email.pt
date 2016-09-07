@@ -13,7 +13,6 @@
     </metal:block>
 </head>
 
-
 <body>
   <metal:block fill-slot="main">
     <h1 class="documentFirstHeading" tal:content="view/label | nothing" />

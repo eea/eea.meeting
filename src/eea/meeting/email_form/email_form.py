@@ -10,9 +10,10 @@ from z3c.form import button, form, field
 from Products.statusmessages.interfaces import IStatusMessage
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile as FiveViewPageTemplateFile
 
+from Products.CMFCore.utils import getToolByName
+
 @provider(IFormFieldProvider)
 class ISendEmail(model.Schema):
-    """lalalal"""
 
     sender = Email(
         title=_(u"From"),
@@ -56,6 +57,16 @@ class SendEmail(form.Form):
         IStatusMessage(self.request).addStatusMessage(
             "From %s to %s" % (sender, receiver),
             'info')
+
+        # try:
+        #     host = getToolByName(self, 'MailHost')
+        #     # The ``immediate`` parameter causes an email to be sent immediately
+        #     # (if any error is raised) rather than sent at the transaction
+        #     # boundary or queued for later delivery.
+        #     return host.send(mail_text, immediate=True)
+        # except SMTPRecipientsRefused:
+        #     # Don't disclose email address on failure
+        #     raise SMTPRecipientsRefused('Recipient address rejected by server')
 
         redirect_url = "%s/@@email_sender" % self.context.absolute_url()
         self.request.response.redirect(redirect_url)
