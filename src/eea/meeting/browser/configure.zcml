@@ -40,4 +40,10 @@
       permission="zope2.View"
       layer="eea.meeting.interfaces.IMeetingLayer" />
 
+  <browser:page
+      name="email_sender_confirmation"
+      for="*"
+      template="pt/email_sender_confirmation.pt"
+      permission="zope2.View"
+   />
 </configure>

@@ -63,7 +63,7 @@ class SendEmail(form.Form):
 
         notify(SendEmailAddEvent(self.context, data))
 
-        redirect_url = "%s/@@email_sender" % self.context.absolute_url()
+        redirect_url = "%s/@@email_sender_confirmation" % self.context.absolute_url()
         self.request.response.redirect(redirect_url)
 
 SendEmailView = wrap_form(SendEmail, index=FiveViewPageTemplateFile("send_email.pt"))
