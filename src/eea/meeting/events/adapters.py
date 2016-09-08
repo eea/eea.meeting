@@ -28,15 +28,15 @@ class SetEmailSubstitution(BaseSubstitution):
         """Email receiver"""
         return self.session.get('receiver', '')
 
-    # @property
-    # def subject(self):
-    #     """Email subject"""
-    #     return self.session.get('subject', '')
-    #
-    # @property
-    # def body(self):
-    #     """Email body"""
-    #     return self.session.get('body', '')
+    @property
+    def subject(self):
+        """Email subject"""
+        return self.session.get('subject', '')
+
+    @property
+    def body(self):
+        """Email body"""
+        return self.session.get('body', '')
 
     def safe_call(self):
         """ Safe call
@@ -53,16 +53,13 @@ class SetEmailReceiver(SetEmailSubstitution):
     category = _(u'Email Send')
     description = _(u'Email receiver address')
     attribute = u'receiver'
-#
-#
-# class SetEmailSubject(SetEmailSubstitution):
-#     category = _(u'Email Send')
-#     description = _(u'Email subject')
-#     attribute = u'subject'
-#
-#
-# class SetEmailBody(SetEmailSubstitution):
-#     category = _(u'Email Send')
-#     description = _(u'Email body')
-#     attribute = u'body'
 
+class SetEmailSubject(SetEmailSubstitution):
+    category = _(u'Email Send')
+    description = _(u'Email subject')
+    attribute = u'subject'
+
+class SetEmailBody(SetEmailSubstitution):
+    category = _(u'Email Send')
+    description = _(u'Email body')
+    attribute = u'body'

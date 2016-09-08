@@ -11,6 +11,6 @@
       for="*"
       permission="zope2.View"
       class=".email_form.SendEmailView"
-        />
+  />
 </configure>
 

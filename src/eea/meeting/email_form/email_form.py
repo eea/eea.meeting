@@ -2,12 +2,12 @@ from zope.interface import provider
 from plone.autoform.interfaces import IFormFieldProvider
 from plone.supermodel import model
 from eea.meeting import _
+from zope import schema
 from plone.autoform import directives
 from plone.schema import Email
 from z3c.form.browser.text import TextFieldWidget
 from plone.z3cform.layout import wrap_form
 from z3c.form import button, form, field
-from Products.statusmessages.interfaces import IStatusMessage
 from eea.meeting.events.rules import SendEmailAddEvent
 from zope.event import notify
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile as FiveViewPageTemplateFile
@@ -22,6 +22,16 @@ class ISendEmail(model.Schema):
 
     receiver = Email(
         title=_(u"To"),
+        required=True,
+    )
+
+    subject = schema.TextLine(
+        title=_(u"Subject"),
+        required=True,
+    )
+
+    body = schema.Text(
+        title=_(u"Body"),
         required=True,
     )
 
@@ -50,13 +60,6 @@ class SendEmail(form.Form):
         data, errors = self.extractData()
         if errors:
             return False
-
-        sender = data['sender']
-        receiver = data['receiver']
-
-        IStatusMessage(self.request).addStatusMessage(
-            "From %s to %s" % (sender, receiver),
-            'info')
 
         notify(SendEmailAddEvent(self.context, data))
 

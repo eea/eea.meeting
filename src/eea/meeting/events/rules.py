@@ -3,7 +3,6 @@ from plone.app.contentrules.handlers import execute
 from interfaces import ISendEmailEvent
 from interfaces import ISendEmailAddEvent
 
-
 @implementer(ISendEmailEvent)
 class SendEmailEvent(object):
     def __init__(self, context, **kwargs):
