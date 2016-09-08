@@ -46,4 +46,11 @@
       template="pt/email_sender_confirmation.pt"
       permission="zope2.View"
    />
+
+  <browser:page
+      name="email_view"
+      for="*"
+      template="pt/email_view.pt"
+      permission="zope2.View"
+   />
 </configure>
