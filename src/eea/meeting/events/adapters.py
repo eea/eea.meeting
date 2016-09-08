@@ -1,7 +1,5 @@
 from plone.stringinterp.adapters import BaseSubstitution
 from eea.meeting import _
-from eea.meeting.email_form.email_form import ISendEmail
-
 
 class SetEmailSubstitution(BaseSubstitution):
 

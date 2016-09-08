@@ -25,6 +25,12 @@ class ISendEmail(model.Schema):
         required=True,
     )
 
+    cc = schema.Text(
+        title=_(u"CC"),
+        description=_(u'Add CC addresses one per line, no separator'),
+        required=False,
+    )
+
     subject = schema.TextLine(
         title=_(u"Subject"),
         required=True,
