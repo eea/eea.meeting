@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="e89b1c93-cc5a-487c-9e58-57c4c1544732" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/eea/meeting/browser/configure.zcml" afterPath="$PROJECT_DIR$/src/eea/meeting/browser/configure.zcml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/eea/meeting/browser/pt/email_sender_confirmation.pt" afterPath="$PROJECT_DIR$/src/eea/meeting/browser/pt/email_sender_confirmation.pt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/eea/meeting/email_form/send_email.pt" afterPath="$PROJECT_DIR$/src/eea/meeting/email_form/send_email.pt" />
-    </list>
+    <list default="true" id="e89b1c93-cc5a-487c-9e58-57c4c1544732" name="Default" comment="" />
     <ignored path="eea.meeting.iws" />
     <ignored path=".idea/workspace.xml" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -59,11 +55,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="send_email.pt" pinned="false" current-in-tab="true">
+      <file leaf-file-name="send_email.pt" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/eea/meeting/email_form/send_email.pt">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="315">
               <caret line="21" column="4" selection-start-line="21" selection-start-column="4" selection-end-line="21" selection-end-column="4" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="actions.xml" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/eea/meeting/profiles/default/actions.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="9900">
+              <caret line="660" column="9" selection-start-line="660" selection-start-column="9" selection-end-line="660" selection-end-column="9" />
               <folding />
             </state>
           </provider>
@@ -123,6 +129,7 @@
         <option value="$PROJECT_DIR$/src/eea/meeting/browser/configure.zcml" />
         <option value="$PROJECT_DIR$/src/eea/meeting/browser/pt/email_view.pt" />
         <option value="$PROJECT_DIR$/src/eea/meeting/email_form/send_email.pt" />
+        <option value="$PROJECT_DIR$/src/eea/meeting/profiles/default/actions.xml" />
       </list>
     </option>
   </component>
@@ -361,36 +368,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="browser" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="eea.meeting" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="eea.meeting" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="eea" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="meeting" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="browser" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="pt" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -840,6 +817,14 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="315">
           <caret line="21" column="4" selection-start-line="21" selection-start-column="4" selection-end-line="21" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/eea/meeting/profiles/default/actions.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="9900">
+          <caret line="660" column="9" selection-start-line="660" selection-start-column="9" selection-end-line="660" selection-end-column="9" />
           <folding />
         </state>
       </provider>
