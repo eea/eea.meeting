@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<contentrules>
+  <rule name="email_sender" title="Sending email" cascading="False" description=""
+    enabled="True" event="eea.meeting.events.interfaces.ISendEmailAddEvent"
+    stop-after="False">
+  <conditions>
+   <condition type="plone.conditions.TalesExpression">
+    <property name="tales_expression">python:True</property>
+   </condition>
+  </conditions>
+  <actions>
+   <action type="plone.actions.Mail">
+    <property name="source">${email_sender}</property>
+    <property name="message">${email_body}</property>
+    <property name="subject">${email_subject}</property>
+    <property name="recipients">${email_receiver}</property>
+    <property name="exclude_actor">False</property>
+   </action>
+  </actions>
+ </rule>
+ <assignment name="email_sender" bubbles="True" enabled="True" location=""/>
+</contentrules>
