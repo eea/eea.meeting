@@ -41,4 +41,11 @@
     name="email_body"
     />
 
+    <adapter
+    for="plone.app.layout.navigation.interfaces.INavigationRoot"
+    provides="plone.stringinterp.interfaces.IStringSubstitution"
+    factory=".adapters.SetEmailCC"
+    name="email_cc"
+    />
+
 </configure>

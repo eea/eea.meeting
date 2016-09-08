@@ -36,6 +36,11 @@ class SetEmailSubstitution(BaseSubstitution):
         """Email body"""
         return self.session.get('body', '')
 
+    @property
+    def cc(self):
+        """Email cc addresses"""
+        return self.session.get('cc', '')
+
     def safe_call(self):
         """ Safe call
         """
@@ -61,3 +66,8 @@ class SetEmailBody(SetEmailSubstitution):
     category = _(u'Email Send')
     description = _(u'Email body')
     attribute = u'body'
+
+class SetEmailCC(SetEmailSubstitution):
+    category = _(u'Email Send')
+    description = _(u'Email CC addresses')
+    attribute = u'cc'

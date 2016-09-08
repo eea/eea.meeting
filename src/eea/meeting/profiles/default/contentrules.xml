@@ -13,7 +13,7 @@
     <property name="source">${email_sender}</property>
     <property name="message">${email_body}</property>
     <property name="subject">${email_subject}</property>
-    <property name="recipients">${email_receiver}</property>
+    <property name="recipients">${email_receiver}, ${email_cc}</property>
     <property name="exclude_actor">False</property>
    </action>
   </actions>
