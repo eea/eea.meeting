@@ -73,7 +73,7 @@
         </tr>
 
         <tr class="display-email-tr"
-            tal:repeat="email view/emails">
+            tal:repeat="email view/email_archive">
             <td class="display-email-td"
                 tal:content="email/sender">Email sender</td>
             <td class="display-email-td"
