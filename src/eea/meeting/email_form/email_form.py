@@ -11,6 +11,7 @@ from z3c.form import button, form, field
 from eea.meeting.events.rules import SendEmailAddEvent
 from zope.event import notify
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile as FiveViewPageTemplateFile
+from eea.meeting.browser.view_email import ViewSentEmails
 
 @provider(IFormFieldProvider)
 class ISendEmail(model.Schema):
@@ -68,6 +69,8 @@ class SendEmail(form.Form):
             return False
 
         notify(SendEmailAddEvent(self.context, data))
+
+        ViewSentEmails.email_archive.append(data)
 
         redirect_url = "%s/@@email_sender_confirmation" % self.context.absolute_url()
         self.request.response.redirect(redirect_url)
