@@ -17,4 +17,4 @@ class ViewSentEmails(BrowserView):
                 'body': email['body'],
             })
 
-        print results
+        return results

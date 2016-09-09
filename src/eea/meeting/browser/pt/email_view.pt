@@ -9,6 +9,7 @@
     <metal:block fill-slot="style_slot">
         <link rel="stylesheet" type="text/css"
             tal:define="navroot context/@@plone_portal_state/navigation_root_url"
+            tal:attributes="href string:${navroot}/++resource++eea.meeting/email_view.css"
             />
     </metal:block>
 </head>
@@ -18,8 +19,20 @@
     <h1 class="documentFirstHeading" tal:content="view/label | nothing" />
 
     <table>
-        <tr tal:repeat="vari view/emails">
+        <tr>
+            <th>Sender</th>
+            <th>Recipients</th>
+            <th>CC</th>
+            <th>Subject</th>
+            <th>Content</th>
+        </tr>
 
+        <tr tal:repeat="email view/emails">
+            <td tal:content="email/sender">Email sender</td>
+            <td tal:content="email/receiver">Email receiver</td>
+            <td tal:content="email/cc">Email CC</td>
+            <td tal:content="email/subject">Email subject</td>
+            <td tal:content="email/body">Email body</td>
         </tr>
     </table>
 
