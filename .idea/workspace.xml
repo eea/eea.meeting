@@ -2,8 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e89b1c93-cc5a-487c-9e58-57c4c1544732" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/eea/meeting/browser/pt/email_view.pt" afterPath="$PROJECT_DIR$/src/eea/meeting/browser/pt/email_view.pt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/eea/meeting/browser/view_email.py" afterPath="$PROJECT_DIR$/src/eea/meeting/browser/view_email.py" />
     </list>
     <ignored path="eea.meeting.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -58,32 +57,20 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="view_email.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="view_email.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/eea/meeting/browser/view_email.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="285">
-              <caret line="19" column="14" selection-start-line="19" selection-start-column="14" selection-end-line="19" selection-end-column="14" />
+            <state relative-caret-position="120">
+              <caret line="8" column="0" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="rules.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/eea/meeting/events/rules.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="195">
-              <caret line="13" column="7" selection-start-line="13" selection-start-column="7" selection-end-line="13" selection-end-column="7" />
-              <folding>
-                <element signature="e#0#38#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="email_view.pt" pinned="false" current-in-tab="true">
+      <file leaf-file-name="email_view.pt" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/eea/meeting/browser/pt/email_view.pt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="435">
+            <state relative-caret-position="975">
               <caret line="65" column="45" selection-start-line="65" selection-start-column="45" selection-end-line="65" selection-end-column="45" />
               <folding />
             </state>
@@ -132,11 +119,11 @@
         <option value="$PROJECT_DIR$/src/eea/meeting/browser/configure.zcml" />
         <option value="$PROJECT_DIR$/src/eea/meeting/events/rules.py" />
         <option value="$PROJECT_DIR$/src/eea/meeting/email_form/email_form.py" />
-        <option value="$PROJECT_DIR$/src/eea/meeting/browser/view_email.py" />
         <option value="$PROJECT_DIR$/src/eea/meeting/browser/static/email_view.css" />
         <option value="$PROJECT_DIR$/src/eea/meeting/browser/src/table2excel.js" />
         <option value="$PROJECT_DIR$/src/eea/meeting/browser/static/excel.js" />
         <option value="$PROJECT_DIR$/src/eea/meeting/browser/pt/email_view.pt" />
+        <option value="$PROJECT_DIR$/src/eea/meeting/browser/view_email.py" />
       </list>
     </option>
   </component>
@@ -758,16 +745,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/eea/meeting/email_form/email_form.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="765">
-          <caret line="72" column="36" selection-start-line="72" selection-start-column="36" selection-end-line="72" selection-end-column="36" />
-          <folding>
-            <element signature="e#0#35#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/eea/meeting/events/adapters.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1080">
@@ -791,24 +768,6 @@
         <state relative-caret-position="690">
           <caret line="46" column="33" selection-start-line="46" selection-start-column="33" selection-end-line="46" selection-end-column="33" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/eea/meeting/browser/view_email.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="19" column="14" selection-start-line="19" selection-start-column="14" selection-end-line="19" selection-end-column="14" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/eea/meeting/events/rules.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="13" column="7" selection-start-line="13" selection-start-column="7" selection-end-line="13" selection-end-column="7" />
-          <folding>
-            <element signature="e#0#38#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -846,8 +805,36 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/eea/meeting/browser/pt/email_view.pt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="435">
+        <state relative-caret-position="975">
           <caret line="65" column="45" selection-start-line="65" selection-start-column="45" selection-end-line="65" selection-end-column="45" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/eea/meeting/events/rules.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="195">
+          <caret line="13" column="7" selection-start-line="13" selection-start-column="7" selection-end-line="13" selection-end-column="7" />
+          <folding>
+            <element signature="e#0#38#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/eea/meeting/email_form/email_form.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="765">
+          <caret line="72" column="36" selection-start-line="72" selection-start-column="36" selection-end-line="72" selection-end-column="36" />
+          <folding>
+            <element signature="e#0#35#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/eea/meeting/browser/view_email.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="8" column="0" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
           <folding />
         </state>
       </provider>
