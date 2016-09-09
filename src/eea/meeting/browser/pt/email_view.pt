@@ -18,21 +18,27 @@
   <metal:block fill-slot="main">
     <h1 class="documentFirstHeading" tal:content="view/label | nothing" />
 
-    <table>
-        <tr>
-            <th>Sender</th>
-            <th>Recipients</th>
-            <th>CC</th>
-            <th>Subject</th>
-            <th>Content</th>
+    <table class="display-email">
+        <tr class="display-email-tr">
+            <th class="display-email-th">Sender</th>
+            <th class="display-email-th">Recipients</th>
+            <th class="display-email-th">CC</th>
+            <th class="display-email-th">Subject</th>
+            <th class="display-email-th">Content</th>
         </tr>
 
-        <tr tal:repeat="email view/emails">
-            <td tal:content="email/sender">Email sender</td>
-            <td tal:content="email/receiver">Email receiver</td>
-            <td tal:content="email/cc">Email CC</td>
-            <td tal:content="email/subject">Email subject</td>
-            <td tal:content="email/body">Email body</td>
+        <tr class="display-email-tr"
+            tal:repeat="email view/emails">
+            <td class="display-email-td"
+                tal:content="email/sender">Email sender</td>
+            <td class="display-email-td"
+                tal:content="email/receiver">Email receiver</td>
+            <td class="display-email-td"
+                tal:content="email/cc">Email CC</td>
+            <td class="display-email-td"
+                tal:content="email/subject">Email subject</td>
+            <td class="display-email-td"
+                tal:content="email/body">Email body</td>
         </tr>
     </table>
 
