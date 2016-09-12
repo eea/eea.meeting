@@ -9,7 +9,9 @@ from zope.schema.vocabulary import SimpleVocabulary, SimpleTerm
 from Products.CMFDefault.utils import checkEmailAddress
 from Products.CMFDefault.exceptions import EmailAddressInvalid
 from plone.app.textfield import RichText
-
+from plone.schema import Email
+from plone.autoform import directives
+from z3c.form.browser.text import TextFieldWidget
 
 meeting_types = SimpleVocabulary(
     [SimpleTerm(value=u'meeting', title=_(u'Meeting')),
@@ -97,3 +99,44 @@ class ISubscriber(Interface):
 class ISubscribers(Interface):
 
     pass
+
+
+class IEmail(Interface):
+
+    sender = Email(
+        title=_(u"From"),
+        required=True,
+    )
+
+    receiver = Email(
+        title=_(u"To"),
+        required=True,
+    )
+
+    cc = schema.Text(
+        title=_(u"CC"),
+        description=_(u'Add CC addresses one per line, no separator'),
+        required=False,
+    )
+
+    subject = schema.TextLine(
+        title=_(u"Subject"),
+        required=True,
+    )
+
+    body = schema.Text(
+        title=_(u"Body"),
+        required=True,
+    )
+
+    directives.widget(
+        'sender',
+        TextFieldWidget,
+        klass=u'mail_widget'
+    )
+
+    directives.widget(
+        'receiver',
+        TextFieldWidget,
+        klass=u'mail_widget'
+    )
