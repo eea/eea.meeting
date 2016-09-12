@@ -1,62 +1,15 @@
-from zope.interface import provider
-from plone.autoform.interfaces import IFormFieldProvider
-from plone.supermodel import model
 from eea.meeting import _
-from zope import schema
-from plone.autoform import directives
-from plone.schema import Email
-from z3c.form.browser.text import TextFieldWidget
 from plone.z3cform.layout import wrap_form
 from z3c.form import button, form, field
 from eea.meeting.events.rules import SendEmailAddEvent
 from zope.event import notify
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile as FiveViewPageTemplateFile
 from eea.meeting.browser.view_email import ViewSentEmails
-
-@provider(IFormFieldProvider)
-class ISendEmail(model.Schema):
-
-    sender = Email(
-        title=_(u"From"),
-        required=True,
-    )
-
-    receiver = Email(
-        title=_(u"To"),
-        required=True,
-    )
-
-    cc = schema.Text(
-        title=_(u"CC"),
-        description=_(u'Add CC addresses one per line, no separator'),
-        required=False,
-    )
-
-    subject = schema.TextLine(
-        title=_(u"Subject"),
-        required=True,
-    )
-
-    body = schema.Text(
-        title=_(u"Body"),
-        required=True,
-    )
-
-    directives.widget(
-        'sender',
-        TextFieldWidget,
-        klass=u'mail_widget'
-    )
-
-    directives.widget(
-        'receiver',
-        TextFieldWidget,
-        klass=u'mail_widget'
-    )
+from eea.meeting.interfaces import IEmail
 
 class SendEmail(form.Form):
 
-    fields = field.Fields(ISendEmail)
+    fields = field.Fields(IEmail)
     ignoreContext = True
 
     def updateWidgets(self):

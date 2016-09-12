@@ -5,12 +5,12 @@
   <property name="description"
     i18n:translate=""></property>
   <property name="icon_expr"></property>
-  <property name="factory">EEA Meeting Subscriber</property>
+  <property name="factory">EEA Meeting Email</property>
   <property name="add_view_expr">string:${folder_url}/++add++eea.meeting.email</property>
   <property name="link_target"></property>
   <property name="immediate_view">view</property>
-  <property name="global_allow">True</property>
-  <property name="filter_content_types">True</property>
+  <property name="global_allow">False</property>
+  <property name="filter_content_types">False</property>
   <property name="allowed_content_types">
   </property>
   <property name="allow_discussion">False</property>
@@ -20,10 +20,10 @@
   </property>
   <property name="default_view_fallback">False</property>
   <property name="add_permission">cmf.AddPortalContent</property>
-  <property name="klass">eea.meeting.content.email.Email</property>
-  <property name="behaviors">
-        <element value="plone.app.dexterity.behaviors.metadata.IBasic"/>
-  </property>
+  <property name="klass">plone.dexterity.content.Item<</property>
+  <!--<property name="behaviors">-->
+        <!--<element value="plone.app.dexterity.behaviors.metadata.IBasic"/>-->
+  <!--</property>-->
   <property name="schema">eea.meeting.interfaces.IEmail</property>
   <property name="model_source"></property>
   <property name="model_file"></property>

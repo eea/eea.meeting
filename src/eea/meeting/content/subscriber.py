@@ -31,6 +31,7 @@ def state_change(obj, evt):
 
 
 def on_add(obj, evt):
+    # import pdb;pdb.set_trace()
     meeting = obj.aq_parent.aq_parent
     if meeting.auto_approve:
         api.content.transition(obj=obj, transition='approve')
