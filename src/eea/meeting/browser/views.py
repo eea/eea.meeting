@@ -56,7 +56,6 @@ class SubscribersContentsTable(foldercontents.FolderContentsTable):
         else:
             return items
 
-
 class Register(BrowserView):
 
     def __call__(self):

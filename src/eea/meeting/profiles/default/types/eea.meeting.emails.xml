@@ -1,17 +1,18 @@
-<?xml version="1.0"?>
-<object name="eea.meeting.email" meta_type="Dexterity FTI" i18n:domain="eea.meeting"
+<?xml version="1.0" encoding="UTF-8"?>
+<object name="eea.meeting.subscribers" meta_type="Dexterity FTI" i18n:domain="eea.meeting"
    xmlns:i18n="http://xml.zope.org/namespaces/i18n">
-  <property name="title" i18n:translate="">EEA Meeting Email</property>
+  <property name="title" i18n:translate="">EEA Meeting Emails</property>
   <property name="description"
     i18n:translate=""></property>
   <property name="icon_expr"></property>
-  <property name="factory">EEA Meeting Email</property>
-  <property name="add_view_expr">string:${folder_url}/++add++eea.meeting.email</property>
+  <property name="factory">EEA Meeting Emails</property>
+  <property name="add_view_expr">string:${folder_url}/++add++eea.meeting.subscribers</property>
   <property name="link_target"></property>
   <property name="immediate_view">view</property>
   <property name="global_allow">False</property>
-  <property name="filter_content_types">False</property>
+  <property name="filter_content_types">True</property>
   <property name="allowed_content_types">
+    <element value="eea.meeting.email"/>
   </property>
   <property name="allow_discussion">False</property>
   <property name="default_view">view</property>
@@ -20,11 +21,13 @@
   </property>
   <property name="default_view_fallback">False</property>
   <property name="add_permission">cmf.AddPortalContent</property>
-  <property name="klass">plone.dexterity.content.Item</property>
+  <property name="klass">plone.dexterity.content.Container</property>
   <property name="behaviors">
-        <element value="plone.app.dexterity.behaviors.metadata.IBasic"/>
+    <!--<element value="plone.app.dexterity.behaviors.metadata.IBasic"/>-->
+    <!--<element value="plone.app.content.interfaces.INameFromTitle"/>-->
+    <!--<element value="eea.meeting.behaviors.behaviors.ISubscribersConstrainTypes"/>-->
   </property>
-  <property name="schema">eea.meeting.interfaces.IEmail</property>
+  <property name="schema">eea.meeting.interfaces.IEmails</property>
   <property name="model_source"></property>
   <property name="model_file"></property>
   <alias from="(Default)" to="(dynamic view)"/>

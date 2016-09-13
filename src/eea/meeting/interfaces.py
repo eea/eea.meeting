@@ -100,6 +100,9 @@ class ISubscribers(Interface):
 
     pass
 
+class IEmails(Interface):
+
+    pass
 
 class IEmail(Interface):
 

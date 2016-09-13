@@ -46,6 +46,7 @@ setup(
         'plone.app.contenttypes',
         'plone.app.ldap',
         'plone.schema',
+        'plone.behavior',
     ],
     extras_require={
         'test': [
