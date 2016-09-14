@@ -4,8 +4,9 @@ from z3c.form import button, form, field
 from eea.meeting.events.rules import SendEmailAddEvent
 from zope.event import notify
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile as FiveViewPageTemplateFile
-from eea.meeting.browser.view_email import ViewSentEmails
 from eea.meeting.interfaces import IEmail
+from plone import api
+from zope.container.interfaces import INameChooser
 
 class SendEmail(form.Form):
 
@@ -21,9 +22,23 @@ class SendEmail(form.Form):
         if errors:
             return False
 
-        notify(SendEmailAddEvent(self.context, data))
+        types = api.portal.get_tool('portal_types')
+        type_info = types.getTypeInfo('eea.meeting.email')
 
-        ViewSentEmails.email_archive.append(data)
+        name_chooser = INameChooser(self.context)
+        content_id = name_chooser.chooseName(data['title'], self.context)
+
+        obj = type_info._constructInstance(self.context, content_id)
+
+        obj.sender = data['sender']
+        obj.receiver = data['receiver']
+        obj.cc = data['cc']
+        obj.subject = data['subject']
+        obj.body = data['body']
+
+        obj.reindexObject()
+
+        notify(SendEmailAddEvent(obj))
 
         redirect_url = "%s/@@email_sender_confirmation" % self.context.absolute_url()
         self.request.response.redirect(redirect_url)

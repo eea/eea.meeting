@@ -51,7 +51,7 @@
       name="email_view"
       for="*"
       template="pt/email_view.pt"
-      class=".view_email.ViewSentEmails"
+      class=".views.ViewSentEmails"
       permission="zope2.View"
    />
 </configure>

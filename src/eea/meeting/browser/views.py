@@ -81,3 +81,26 @@ class Register(BrowserView):
             # TODO put success message on session
             return self.context.REQUEST.RESPONSE.redirect(
                 self.context.absolute_url())
+
+class ViewSentEmails(BrowserView):
+    """Sent Emails Archive"""
+
+    def email_archive(self):
+        results = []
+        portal_catalog = api.portal.get_tool('portal_catalog')
+        current_path = "/".join(self.context.getPhysicalPath())
+
+        brains = portal_catalog(portal_type="eea.meeting.email",
+                                path=current_path)
+
+        for brain in brains:
+            email = brain.getObject()
+            results.append({
+                'sender': email.sender,
+                'receiver': email.receiver,
+                'cc': email.cc,
+                'subject': email.subject,
+                'body': email.body,
+            })
+
+        return results

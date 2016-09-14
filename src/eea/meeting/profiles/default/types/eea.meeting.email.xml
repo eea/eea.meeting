@@ -6,7 +6,7 @@
     i18n:translate=""></property>
   <property name="icon_expr"></property>
   <property name="factory">EEA Meeting Email</property>
-  <property name="add_view_expr">string:${folder_url}/@@email_sender</property>
+  <property name="add_view_expr">string:${folder_url}/++add++eea.meeting.email</property>
   <property name="link_target"></property>
   <property name="immediate_view">view</property>
   <property name="global_allow">False</property>
