@@ -14,35 +14,35 @@
    />
 
    <adapter
-    for="plone.app.layout.navigation.interfaces.INavigationRoot"
+    for="*"
     provides="plone.stringinterp.interfaces.IStringSubstitution"
     factory=".adapters.SetEmailSender"
     name="email_sender"
     />
 
     <adapter
-    for="plone.app.layout.navigation.interfaces.INavigationRoot"
+    for="*"
     provides="plone.stringinterp.interfaces.IStringSubstitution"
     factory=".adapters.SetEmailSubject"
     name="email_subject"
     />
 
     <adapter
-    for="plone.app.layout.navigation.interfaces.INavigationRoot"
+    for="*"
     provides="plone.stringinterp.interfaces.IStringSubstitution"
     factory=".adapters.SetEmailReceiver"
     name="email_receiver"
     />
 
     <adapter
-    for="plone.app.layout.navigation.interfaces.INavigationRoot"
+    for="*"
     provides="plone.stringinterp.interfaces.IStringSubstitution"
     factory=".adapters.SetEmailBody"
     name="email_body"
     />
 
     <adapter
-    for="plone.app.layout.navigation.interfaces.INavigationRoot"
+    for="*"
     provides="plone.stringinterp.interfaces.IStringSubstitution"
     factory=".adapters.SetEmailCC"
     name="email_cc"

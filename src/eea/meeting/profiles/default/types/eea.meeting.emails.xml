@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<object name="eea.meeting.subscribers" meta_type="Dexterity FTI" i18n:domain="eea.meeting"
+<object name="eea.meeting.emails" meta_type="Dexterity FTI" i18n:domain="eea.meeting"
    xmlns:i18n="http://xml.zope.org/namespaces/i18n">
   <property name="title" i18n:translate="">EEA Meeting Emails</property>
   <property name="description"

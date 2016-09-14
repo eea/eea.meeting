@@ -47,7 +47,6 @@ class SetEmailSubstitution(BaseSubstitution):
         return getattr(self, self.attribute, u'')
 
 class SetEmailSender(SetEmailSubstitution):
-
     category = _(u'Email Send')
     description = _(u'Email sender address')
     attribute = u'sender'

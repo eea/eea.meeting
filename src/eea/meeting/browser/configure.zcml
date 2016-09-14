@@ -50,7 +50,7 @@
   <browser:page
       name="email_view"
       for="*"
-      template="pt/email_view.pt"
+      template="pt/email_listing_view.pt"
       class=".views.ViewSentEmails"
       permission="zope2.View"
    />

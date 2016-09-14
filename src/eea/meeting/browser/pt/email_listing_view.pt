@@ -49,6 +49,8 @@
         </tr>
     </table>
 
+    <a tal:attributes="href string:${context/absolute_url}">Back to emails</a>
+
   </metal:block>
 </body>
 </html>

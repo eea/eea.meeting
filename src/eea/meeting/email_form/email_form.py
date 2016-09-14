@@ -30,6 +30,8 @@ class SendEmail(form.Form):
 
         obj = type_info._constructInstance(self.context, content_id)
 
+        obj.title = data['subject']
+
         obj.sender = data['sender']
         obj.receiver = data['receiver']
         obj.cc = data['cc']
@@ -38,7 +40,7 @@ class SendEmail(form.Form):
 
         obj.reindexObject()
 
-        notify(SendEmailAddEvent(obj))
+        notify(SendEmailAddEvent(self.context, data))
 
         redirect_url = "%s/@@email_sender_confirmation" % self.context.absolute_url()
         self.request.response.redirect(redirect_url)
