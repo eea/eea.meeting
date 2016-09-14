@@ -13,12 +13,12 @@ class SendEmailAddEvent(SendEmailEvent):
     """ Sending email after form submission
     """
 
-    def __init__(self, context, data):
-        self.object = context
-        sdm = getattr(context, 'session_data_manager', None)
-        session = sdm.getSessionData(create=True) if sdm else None
-
-        session.update(data)
+    # def __init__(self, context, data):
+    #     self.object = context
+    #     sdm = getattr(context, 'session_data_manager', None)
+    #     session = sdm.getSessionData(create=True) if sdm else None
+    #
+    #     session.update(data)
 
 def execute_event(event):
     """ Execute custom rules

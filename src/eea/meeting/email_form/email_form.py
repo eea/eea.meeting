@@ -26,7 +26,7 @@ class SendEmail(form.Form):
         type_info = types.getTypeInfo('eea.meeting.email')
 
         name_chooser = INameChooser(self.context)
-        content_id = name_chooser.chooseName(data['title'], self.context)
+        content_id = name_chooser.chooseName(data['subject'], self.context)
 
         obj = type_info._constructInstance(self.context, content_id)
 
