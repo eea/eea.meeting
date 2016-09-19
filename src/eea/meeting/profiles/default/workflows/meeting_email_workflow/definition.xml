@@ -1,3 +1,0 @@
-<?xml version="1.0"?>
-<dc-workflow workflow_id="meeting_email_workflow" title="Meeting Email Workflow" description="Added email will be published by default" state_variable="review_state" initial_state="new" manager_bypass="False">
-</dc-workflow>
