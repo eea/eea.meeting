@@ -2,20 +2,20 @@
 <object name="portal_workflow" meta_type="Plone Workflow Tool">
  <object name="meeting_subscriber_workflow" meta_type="Workflow"/>
  <object name="meeting_subscribers_workflow" meta_type="Workflow"/>
- <object name="meeting_email_workflow" meta_type="Workflow"/>
- <object name="meeting_emails_workflow" meta_type="Workflow"/>
+ <!--<object name="meeting_email_workflow" meta_type="Workflow"/>-->
+ <!--<object name="meeting_emails_workflow" meta_type="Workflow"/>-->
  <bindings>
-  <type type_id="eea.meeting.subscriber">
+  <type type_id="EEA Meeting Email">
    <bound-workflow workflow_id="meeting_subscriber_workflow"/>
   </type>
   <type type_id="eea.meeting.subscribers">
    <bound-workflow workflow_id="meeting_subscribers_workflow"/>
   </type>
-  <type type_id="eea.meeting.email">
-   <bound-workflow workflow_id="meeting_email_workflow"/>
-  </type>
-  <type type_id="eea.meeting.emails">
-   <bound-workflow workflow_id="meeting_emails_workflow"/>
-  </type>
+  <!--<type type_id="EEA Meeting Email">-->
+   <!--<bound-workflow workflow_id="meeting_email_workflow"/>-->
+  <!--</type>-->
+  <!--<type type_id="eea.meeting.emails">-->
+   <!--<bound-workflow workflow_id="meeting_emails_workflow"/>-->
+  <!--</type>-->
  </bindings>
 </object>

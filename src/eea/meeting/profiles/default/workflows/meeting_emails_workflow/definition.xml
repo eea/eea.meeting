@@ -1,0 +1,3 @@
+<?xml version="1.0"?>
+<dc-workflow workflow_id="meeting_emails_workflow" title="Meeting Emails Workflow" description="Emails folder will be published by default" state_variable="review_state" initial_state="new" manager_bypass="False">
+</dc-workflow>
