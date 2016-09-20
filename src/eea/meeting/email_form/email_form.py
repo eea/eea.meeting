@@ -33,12 +33,13 @@ class SendEmail(form.Form):
         obj.title = data['subject']
 
         obj.sender = data['sender']
-        obj.receiver = data['receiver']
-        # obj.receiver2 = data['receiver2']
+        obj.receiver = "\r\n".join(data['receiver'])
+
+        data['receiver'] = obj.receiver
+
         obj.cc = data['cc']
         obj.subject = data['subject']
         obj.body = data['body']
-
         obj.reindexObject()
 
         notify(SendEmailAddEvent(self.context, data))
