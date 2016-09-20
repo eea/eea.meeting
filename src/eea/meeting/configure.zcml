@@ -91,4 +91,8 @@
       title="EEA Meting: Reject subscribers"
       />
 
+  <utility
+      factory=".vocabularies.RecipientsVocabulary"
+      name="eea.meeting.vocabularies.RecipientsVocabulary"/>
+
 </configure>

@@ -7,14 +7,14 @@ from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile as FiveV
 from eea.meeting.interfaces import IEmail
 from plone import api
 from zope.container.interfaces import INameChooser
+from z3c.form.browser.checkbox import CheckBoxFieldWidget
 
 class SendEmail(form.Form):
 
     fields = field.Fields(IEmail)
     ignoreContext = True
 
-    def updateWidgets(self):
-        super(SendEmail, self).updateWidgets()
+    fields['receiver'].widgetFactory = CheckBoxFieldWidget
 
     @button.buttonAndHandler(_('Send Email'), name='send_email')
     def handleSave(self, action):
@@ -34,6 +34,7 @@ class SendEmail(form.Form):
 
         obj.sender = data['sender']
         obj.receiver = data['receiver']
+        # obj.receiver2 = data['receiver2']
         obj.cc = data['cc']
         obj.subject = data['subject']
         obj.body = data['body']

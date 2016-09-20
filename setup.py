@@ -47,6 +47,8 @@ setup(
         'plone.app.ldap',
         'plone.schema',
         'plone.behavior',
+        'plone.app.z3cform',
+        'plone.app.vocabularies'
     ],
     extras_require={
         'test': [
