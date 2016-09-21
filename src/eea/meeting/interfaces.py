@@ -111,11 +111,6 @@ class IEmail(Interface):
         required=True,
     )
 
-    # receiver = Email(
-    #     title=_(u"To"),
-    #     required=True,
-    # )
-
     receiver = schema.Set(
         title=u'Recipients',
         value_type=schema.Choice(vocabulary='eea.meeting.vocabularies.RecipientsVocabulary')
@@ -142,10 +137,3 @@ class IEmail(Interface):
         TextFieldWidget,
         klass=u'mail_widget'
     )
-
-    # directives.widget(
-    #     'receiver',
-    #     TextFieldWidget,
-    #     klass=u'mail_widget'
-    # )
-
