@@ -23,9 +23,6 @@
   <property name="add_permission">cmf.AddPortalContent</property>
   <property name="klass">plone.dexterity.content.Container</property>
   <property name="behaviors">
-    <!--<element value="plone.app.dexterity.behaviors.metadata.IBasic"/>-->
-    <!--<element value="plone.app.content.interfaces.INameFromTitle"/>-->
-    <!--<element value="eea.meeting.behaviors.behaviors.ISubscribersConstrainTypes"/>-->
   </property>
   <property name="schema">eea.meeting.interfaces.IEmails</property>
   <property name="model_source"></property>

@@ -21,6 +21,7 @@ class MeetingConstrainTypes(ConstrainTypesBehavior):
         """
         portal = api.portal.getSite()
         subscribers = portal.portal_types.get('eea.meeting.subscribers')
+        emails = portal.portal_types.get('eea.meeting.emails')
         if context is None:
             context = self.context
         mode = self.getConstrainTypesMode()
@@ -54,11 +55,17 @@ class MeetingConstrainTypes(ConstrainTypesBehavior):
             if subscribers in allowed:
                 allowed.remove(subscribers)
 
+        if (IMeeting.providedBy(context) and
+                context.get('emails')):
+            if emails in allowed:
+                allowed.remove(emails)
+
         return allowed
 
     def getDefaultAddableTypes(self, context=None):
         portal = api.portal.getSite()
         subscribers = portal.portal_types.get('eea.meeting.subscribers')
+        emails = portal.portal_types.get('eea.meeting.emails')
         if context is None:
             context = self.context
         allowed = self._getAddableTypesFor(self.context, context)
@@ -66,6 +73,11 @@ class MeetingConstrainTypes(ConstrainTypesBehavior):
                 context.get('subscribers')):
             if subscribers in allowed:
                 allowed.remove(subscribers)
+
+        if (IMeeting.providedBy(context) and
+                context.get('emails')):
+            if emails in allowed:
+                allowed.remove(emails)
         return allowed
 
 
