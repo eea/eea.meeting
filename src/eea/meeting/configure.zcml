@@ -41,6 +41,7 @@
       for="eea.meeting.interfaces.IMeeting zope.lifecycleevent.interfaces.IObjectAddedEvent"
       handler=".content.meeting.on_add"
       />
+
    <subscriber
       for="eea.meeting.interfaces.ISubscribers zope.lifecycleevent.interfaces.IObjectAddedEvent"
       handler=".content.subscribers.on_add"

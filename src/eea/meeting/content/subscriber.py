@@ -4,6 +4,7 @@ from plone.dexterity.content import Item
 from eea.meeting.interfaces import ISubscriber
 from eea.meeting.constants import SUBSCRIBER_META_TYPE
 from eea.meeting.constants import ACTION_APPROVE, ACTION_REJECT
+import uuid
 
 
 @implementer(ISubscriber)
@@ -32,7 +33,7 @@ def state_change(obj, evt):
 
 def on_add(obj, evt):
 
-    obj.uid=1234
+    obj.uid = uuid.uuid4()
     meeting = obj.aq_parent.aq_parent
     if meeting.auto_approve:
         api.content.transition(obj=obj, transition='approve')
