@@ -13,6 +13,10 @@ from plone.schema import Email
 from plone.autoform import directives
 from z3c.form.browser.text import TextFieldWidget
 
+from zope.interface import Invalid
+import re
+
+
 meeting_types = SimpleVocabulary(
     [SimpleTerm(value=u'meeting', title=_(u'Meeting')),
      SimpleTerm(value=u'conference', title=_(u'Conference')),
@@ -27,6 +31,15 @@ def validate_email(email):
         raise EmailAddressInvalid(email)
     return True
 
+def cc_constraint(value):
+    data_lines = value.split('\r\n')
+
+    for idx, email in enumerate(data_lines):
+        idx += 1
+        if not re.match(r"[^@]+@[^@]+\.[^@]+", email):
+            raise Invalid(_(u"Invalid email address on line %d" % idx))
+
+    return True
 
 class IMeetingLayer(IDefaultBrowserLayer):
     """Marker interface that defines a browser layer."""
@@ -74,11 +87,6 @@ class IMeeting(Interface):
 
 class ISubscriber(Interface):
 
-    # uid = schema.TextLine(
-    #     title=_(u"UID"),
-    #     required=True,
-    # )
-
     firstname = schema.TextLine(
         title=_(u"First name"),
         required=True,
@@ -119,6 +127,7 @@ class IEmail(Interface):
     cc = schema.Text(
         title=_(u"CC"),
         description=_(u'Add CC addresses one per line, no separator'),
+        constraint = cc_constraint,
         required=False,
     )
 
