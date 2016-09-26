@@ -119,7 +119,7 @@ class ISearchUser(Interface):
         required=False
     )
 
-    user_name = schema.TextLine(
+    containing = schema.TextLine(
         title=_(u"containing"),
         required=False,
     )

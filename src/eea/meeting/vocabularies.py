@@ -11,7 +11,6 @@ class RecipientsVocabulary(object):
         results = []
         portal_catalog = api.portal.get_tool('portal_catalog')
 
-
         brains = portal_catalog(portal_type="eea.meeting.subscriber")
 
         for brain in brains:
