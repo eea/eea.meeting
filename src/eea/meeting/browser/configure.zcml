@@ -64,14 +64,4 @@
       template="pt/email_viewlet.pt"
       permission="zope2.View"
   />
-
-  <!--<browser:viewlet-->
-      <!--name="search_users"-->
-      <!--for="eea.meeting.interfaces.IEmails"-->
-      <!--manager="plone.app.layout.viewlets.interfaces.IAboveContentBody"-->
-      <!--class=".viewlets.EmailViewlet"-->
-      <!--layer="zope.interface.Interface"-->
-      <!--template="pt/email_viewlet.pt"-->
-      <!--permission="zope2.View"-->
-  <!--/>-->
 </configure>

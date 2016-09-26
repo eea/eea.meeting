@@ -23,7 +23,7 @@ class RecipientsVocabulary(object):
     def __call__(self, *args, **kwargs):
         return SimpleVocabulary(self.subscriber_list())
 
-class SearchCriteria(object):
+class SearchCriteriaVocabulary(object):
 
     implements(IVocabularyFactory)
 

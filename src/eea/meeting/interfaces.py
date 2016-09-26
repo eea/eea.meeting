@@ -113,16 +113,17 @@ class IEmails(Interface):
     pass
 
 class ISearchUser(Interface):
+    criteria = schema.Choice(
+        source='eea.meeting.vocabularies.SearchCriteriaVocabulary',
+        title=_(u'Search for'),
+        required=False
+    )
+
     user_name = schema.TextLine(
         title=_(u"containing"),
         required=False,
     )
 
-    criteria = schema.Choice(
-        source='eea.meeting.vocabularies.ResourceTypeVocabulary',
-        title=_(u'Search for'),
-        required=False
-    )
 
 class IEmail(Interface):
 

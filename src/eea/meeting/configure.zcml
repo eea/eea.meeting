@@ -96,4 +96,8 @@
       factory=".vocabularies.RecipientsVocabulary"
       name="eea.meeting.vocabularies.RecipientsVocabulary"/>
 
+  <utility
+      factory=".vocabularies.SearchCriteriaVocabulary"
+      name="eea.meeting.vocabularies.SearchCriteriaVocabulary"/>
+
 </configure>
