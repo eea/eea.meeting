@@ -22,3 +22,16 @@ class RecipientsVocabulary(object):
 
     def __call__(self, *args, **kwargs):
         return SimpleVocabulary(self.subscriber_list())
+
+class SearchCriteria(object):
+
+    implements(IVocabularyFactory)
+
+    def __call__(self, *args, **kwargs):
+        items = (
+            SimpleTerm("name", u"Name"),
+            SimpleTerm("email", u"Email"),
+            SimpleTerm("organization", u"Organization"),
+            SimpleTerm("user_id", u"User ID"),
+        )
+        return SimpleVocabulary(items)

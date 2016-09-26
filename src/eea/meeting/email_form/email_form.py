@@ -4,21 +4,47 @@ from z3c.form import button, form, field
 from eea.meeting.events.rules import SendEmailAddEvent
 from zope.event import notify
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile as FiveViewPageTemplateFile
-from eea.meeting.interfaces import IEmail
+from eea.meeting.interfaces import IEmail, ISearchUser
 from plone import api
 from zope.container.interfaces import INameChooser
 from z3c.form.browser.checkbox import CheckBoxFieldWidget
 
-class SendEmail(form.Form):
 
+class SearchUser(form.Form):
+
+    fields = field.Fields(ISearchUser)
+    ignoreContext = True
+    prefix = 'search_user'
+    template = FiveViewPageTemplateFile('search_user.pt')
+
+    @button.buttonAndHandler(_('Search user'), name='search_user')
+    def handleSave(self, action):
+        data, errors = self.extractData()
+
+        if errors:
+            return False
+
+
+class SendEmail(form.Form):
     fields = field.Fields(IEmail)
     ignoreContext = True
 
     fields['receiver'].widgetFactory = CheckBoxFieldWidget
 
+    prefix = 'send_email'
+
+    template = FiveViewPageTemplateFile('main_form.pt')
+
+    def update(self):
+        super(SendEmail, self).update()
+        self.search_user = SearchUser(self.context, self.request)
+        self.search_user.update()
+
+
     @button.buttonAndHandler(_('Send Email'), name='send_email')
     def handleSave(self, action):
         data, errors = self.extractData()
+
         if errors:
             return False
 

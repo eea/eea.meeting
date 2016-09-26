@@ -20,7 +20,7 @@
     <a tal:attributes="href string:${context/absolute_url}/@@email_view">View sent emails</a>
 
     <div id="form-input">
-      <span tal:replace="structure view/contents" />
+        <span tal:replace="structure view/contents" />
     </div>
 
   </metal:block>
