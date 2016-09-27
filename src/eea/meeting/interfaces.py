@@ -124,6 +124,11 @@ class ISearchUser(Interface):
         required=False,
     )
 
+    results = schema.List(
+        required=False,
+        value_type=schema.Choice(vocabulary='eea.meeting.vocabularies.LDAPListingVocabulary')
+    )
+
 
 class IEmail(Interface):
 

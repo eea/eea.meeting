@@ -3,6 +3,54 @@ from zope.interface import implements
 from zope.schema.vocabulary import SimpleVocabulary, SimpleTerm
 from plone import api
 
+def place_results(obj, results):
+     # term_title = '| | |'.format(obj.firstname + " " + obj.lastname, obj.uid, obj.email) #, title=term_title)
+    results.append(SimpleTerm(obj.email))
+
+def user_listing(substring, criteria):
+    results = []
+    portal_catalog = api.portal.get_tool('portal_catalog')
+
+    print type(criteria)
+    print substring == ''
+
+    brains = portal_catalog(portal_type="eea.meeting.subscriber")
+
+    for brain in brains:
+        user = brain.getObject()
+
+        if criteria[0] == 'Name':
+            if user.firstname.find(substring) > -1 or user.lastname.find(substring) > -1:
+                place_results(user, results)
+        elif criteria[0] == 'Email':
+            if user.email.find(substring) > -1:
+                place_results(user, results)
+        elif criteria[0] == 'Organization':
+            pass
+        elif criteria[0] == 'User ID':
+            if str(user.uid).find(substring) > -1:
+                place_results(user, results)
+
+
+    return results
+
+class LDAPListingVocabulary(object):
+
+    implements(IVocabularyFactory)
+
+
+    def __call__(self, context, **kwargs):
+
+        vocab = []
+
+        if context.REQUEST.get('search_user.buttons.search_user') is not None:
+            criteria = context.REQUEST.get('search_user.widgets.criteria')
+            containing = context.REQUEST.get('search_user.widgets.containing')
+            if containing != '':
+                vocab = user_listing(containing, criteria)
+
+        return SimpleVocabulary(vocab)
+
 class RecipientsVocabulary(object):
 
     implements(IVocabularyFactory)

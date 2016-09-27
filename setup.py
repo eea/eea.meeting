@@ -48,7 +48,8 @@ setup(
         'plone.schema',
         'plone.behavior',
         'plone.app.z3cform',
-        'plone.app.vocabularies'
+        'plone.app.vocabularies',
+        'plone.app.registry',
     ],
     extras_require={
         'test': [

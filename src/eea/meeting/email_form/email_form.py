@@ -9,44 +9,17 @@ from plone import api
 from zope.container.interfaces import INameChooser
 from z3c.form.browser.checkbox import CheckBoxFieldWidget
 
-def place_results(obj, results):
-    results.append({
-        'user_name': obj.firstname+" "+obj.lastname,
-        'user_id': obj.uid,
-        'email': obj.email
-    })
-
-def user_listing(substring, criteria):
-
-    results = []
-    portal_catalog = api.portal.get_tool('portal_catalog')
-
-    brains = portal_catalog(portal_type="eea.meeting.subscriber")
-
-    for brain in brains:
-        user = brain.getObject()
-
-        if criteria == 'name':
-            if user.firstname.find(substring)>-1 or user.lastname.find(substring)>-1:
-                place_results(user, results)
-        elif criteria == 'email':
-            if user.email.find(substring) > -1:
-                place_results(user, results)
-        elif criteria == 'organization':
-            pass
-        elif criteria == 'user_id':
-            if str(user.uid).find(substring) > -1:
-                place_results(user, results)
-
-    print results
-
-
 class SearchUser(form.Form):
 
     fields = field.Fields(ISearchUser)
     ignoreContext = True
+
+    fields['results'].widgetFactory = CheckBoxFieldWidget
+
     prefix = 'search_user'
     template = FiveViewPageTemplateFile('search_user.pt')
+
+
 
     @button.buttonAndHandler(_('Search user'), name='search_user')
     def handleSave(self, action):
@@ -55,10 +28,13 @@ class SearchUser(form.Form):
         if errors:
             return False
 
-        if data['criteria'] is not None and data['containing'] is not None:
-            criteria = data['criteria']
-            containing = data['containing']
-            user_listing(containing, criteria)
+
+        # if data['criteria'] is not None and data['containing'] is not None:
+        #     criteria = data['criteria']
+        #     containing = data['containing']
+            # result = user_listing(containing, criteria)
+            # self.widgets['results'].value = result
+
 
 class SendEmail(form.Form):
     fields = field.Fields(IEmail)
