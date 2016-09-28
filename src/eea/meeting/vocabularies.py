@@ -4,6 +4,11 @@ from zope.schema.vocabulary import SimpleVocabulary, SimpleTerm
 from plone import api
 
 def place_results(obj, results):
+    # results.append({
+    #     'user_name': obj.firstname + " " + obj.lastname,
+    #     'user_id': obj.uid,
+    #     'email': obj.email
+    # })
 
     term_title = '{} | {} | {}'.format(obj.firstname + " " + obj.lastname, obj.uid, obj.email)
 

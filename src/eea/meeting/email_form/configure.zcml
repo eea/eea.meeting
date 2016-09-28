@@ -6,6 +6,8 @@
   <!-- Set overrides folder for Just-a-Bunch-Of-Templates product -->
   <include package="z3c.jbot" file="meta.zcml" />
 
+  <include package=".custom_widgets" />
+
   <browser:page
       name="email_sender"
       for="*"

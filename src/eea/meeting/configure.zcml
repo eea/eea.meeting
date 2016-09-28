@@ -13,7 +13,7 @@
   <include package=".behaviors" />
   <include package=".email_form" />
   <include package=".events" />
-  <include package=".custom_widgets" />
+
 
 
   <genericsetup:registerProfile

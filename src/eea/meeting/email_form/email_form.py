@@ -1,6 +1,6 @@
 from eea.meeting import _
 from plone.z3cform.layout import wrap_form
-from z3c.form import button, form, field
+from z3c.form import button, form, field, group
 from eea.meeting.events.rules import SendEmailAddEvent
 from zope.event import notify
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile as FiveViewPageTemplateFile
@@ -9,7 +9,11 @@ from plone import api
 from zope.container.interfaces import INameChooser
 from z3c.form.browser.checkbox import CheckBoxFieldWidget
 
-class SearchUser(form.Form):
+import custom_widgets.ldap_users
+
+class SearchUser(group.GroupForm, form.Form):
+
+    # results_group = custom_widgets.ldap_users.ResultsGroup
 
     fields = field.Fields(ISearchUser)
     ignoreContext = True
