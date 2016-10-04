@@ -4,12 +4,6 @@ from zope.schema.vocabulary import SimpleVocabulary, SimpleTerm
 from plone import api
 
 def place_results(obj, results):
-    # results.append({
-    #     'user_name': obj.firstname + " " + obj.lastname,
-    #     'user_id': obj.uid,
-    #     'email': obj.email
-    # })
-
     term_title = '{} | {} | {}'.format(obj.firstname + " " + obj.lastname, obj.uid, obj.email)
 
     results.append(SimpleTerm(obj.email, title=term_title))
@@ -41,18 +35,22 @@ class LDAPListingVocabulary(object):
 
     implements(IVocabularyFactory)
 
-
     def __call__(self, context, **kwargs):
 
         vocab = []
 
-        if context.REQUEST.get('search_user.buttons.search_user') is not None:
-            criteria = context.REQUEST.get('search_user.widgets.criteria')
-            containing = context.REQUEST.get('search_user.widgets.containing')
-            if containing != '':
-                vocab = user_listing(containing, criteria)
+        containing = context.REQUEST.get('search_user.widgets.containing')
+        criteria = context.REQUEST.get('search_user.widgets.criteria')
+
+        if containing == '' and criteria == ['--NOVALUE--']:
+            vocab = []
+
+        if context.REQUEST.get('search_user.buttons.search_user') is not None or context.REQUEST.get('search_user.buttons.addCC') is not None:
+            vocab = user_listing(containing, criteria)
+
 
         return SimpleVocabulary(vocab)
+
 
 class RecipientsVocabulary(object):
 

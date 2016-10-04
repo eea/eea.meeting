@@ -11,6 +11,7 @@ class ResultsGroup(group.Group):
     label = u'LDAP Users'
     fields = field.Fields(ISearchUser).select('results')
 
+    # fields['results'].widgetFactory = CheckBoxFieldWidget
 
 
     def updateWidgets(self, prefix=None):

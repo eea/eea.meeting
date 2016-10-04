@@ -124,7 +124,7 @@ class ISearchUser(Interface):
         required=False,
     )
 
-    results = schema.List(
+    results = schema.Set(
         required=False,
         value_type=schema.Choice(vocabulary='eea.meeting.vocabularies.LDAPListingVocabulary')
     )

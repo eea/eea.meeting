@@ -8,22 +8,23 @@ from eea.meeting.interfaces import IEmail, ISearchUser
 from plone import api
 from zope.container.interfaces import INameChooser
 from z3c.form.browser.checkbox import CheckBoxFieldWidget
+from widgets import CustomCheckBoxFieldWidget
 
-import custom_widgets.ldap_users
-
-class SearchUser(group.GroupForm, form.Form):
-
-    # results_group = custom_widgets.ldap_users.ResultsGroup
+class SearchUser(form.Form):
 
     fields = field.Fields(ISearchUser)
     ignoreContext = True
 
-    fields['results'].widgetFactory = CheckBoxFieldWidget
+    fields['results'].widgetFactory = CustomCheckBoxFieldWidget
 
     prefix = 'search_user'
     template = FiveViewPageTemplateFile('search_user.pt')
 
+    _parent_form = None
 
+    def __init__(self, context, request, parent_form=None):
+        super(SearchUser, self).__init__(context, request)
+        self._parent_form = parent_form
 
     @button.buttonAndHandler(_('Search user'), name='search_user')
     def handleSave(self, action):
@@ -33,11 +34,14 @@ class SearchUser(group.GroupForm, form.Form):
             return False
 
 
-        # if data['criteria'] is not None and data['containing'] is not None:
-        #     criteria = data['criteria']
-        #     containing = data['containing']
-            # result = user_listing(containing, criteria)
-            # self.widgets['results'].value = result
+    @button.buttonAndHandler(_('Add to CC'), name='addCC')
+    def handle_addCC(self, action):
+        data, errors = self.extractData()
+
+        self._parent_form.widgets['cc'].value += '\n'+"\r\n".join(data['results'])
+
+        if errors:
+            return False
 
 
 class SendEmail(form.Form):
@@ -52,7 +56,7 @@ class SendEmail(form.Form):
 
     def update(self):
         super(SendEmail, self).update()
-        self.search_user = SearchUser(self.context, self.request)
+        self.search_user = SearchUser(self.context, self.request, self)
         self.search_user.update()
 
 
@@ -74,11 +78,13 @@ class SendEmail(form.Form):
         obj.title = data['subject']
 
         obj.sender = data['sender']
+
         obj.receiver = "\r\n".join(data['receiver'])
 
         data['receiver'] = obj.receiver
 
         obj.cc = data['cc']
+
         obj.subject = data['subject']
         obj.body = data['body']
         obj.reindexObject()
@@ -89,3 +95,5 @@ class SendEmail(form.Form):
         self.request.response.redirect(redirect_url)
 
 SendEmailView = wrap_form(SendEmail, index=FiveViewPageTemplateFile("send_email.pt"))
+
+
