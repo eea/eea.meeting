@@ -30,7 +30,7 @@ class MeetingView(foldercontents.FolderContentsView):
 class MeetingContentsTable(foldercontents.FolderContentsTable):
     def folderitems(self):
         items = super(MeetingContentsTable, self).folderitems()
-        filtered = [item for item in items if item['id'] != 'subscribers']
+        filtered = [item for item in items if item['id'] != 'subscribers' and item['id']!= 'emails']
         return filtered
 
 
