@@ -33,7 +33,6 @@ class SearchUser(form.Form):
         if errors:
             return False
 
-
     @button.buttonAndHandler(_('Add to CC'), name='addCC')
     def handle_addCC(self, action):
         data, errors = self.extractData()

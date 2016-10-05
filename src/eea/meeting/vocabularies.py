@@ -2,6 +2,9 @@ from zope.schema.interfaces import IVocabularyFactory
 from zope.interface import implements
 from zope.schema.vocabulary import SimpleVocabulary, SimpleTerm
 from plone import api
+from plone.app.ldap.ploneldap import util
+
+
 
 def place_results(obj, results):
     term_title = '{} | {} | {}'.format(obj.firstname + " " + obj.lastname, obj.uid, obj.email)
@@ -10,8 +13,10 @@ def place_results(obj, results):
 
 def user_listing(substring, criteria):
     results = []
-    portal_catalog = api.portal.get_tool('portal_catalog')
+    # import pdb;pdb.set_trace()
+    # print util.getLDAPPlugin()['acl_users'].getUserNames()
 
+    portal_catalog = api.portal.get_tool('portal_catalog')
     brains = portal_catalog(portal_type="eea.meeting.subscriber")
 
     for brain in brains:
