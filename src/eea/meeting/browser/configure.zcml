@@ -67,10 +67,10 @@
 
   <browser:viewlet
       name="view_subscribers"
-      for="eea.meeting.interfaces.IMeetingLayer"
+      for="eea.meeting.interfaces.IMeeting"
       manager="plone.app.layout.viewlets.interfaces.IBelowContentBody"
       class=".viewlets.SubscribersViewlet"
-      layer="zope.interface.Interface"
+      layer="eea.meeting.interfaces.IMeetingLayer"
       template="pt/subscribers_viewlet.pt"
       permission="cmf.ManagePortal"
   />

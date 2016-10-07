@@ -5,9 +5,9 @@ from plone import api
 from Products.CMFCore.utils import getToolByName
 
 
-def search_user2(context, containing, criteria):
+def search_user(context, containing, criteria):
 
-    results = []
+    results = {}
     users = []
 
     aclu = getToolByName(context, 'acl_users')
@@ -25,12 +25,14 @@ def search_user2(context, containing, criteria):
         if user['pluginid'] == 'ldap-plugin':
             org = user.get('o', '')
             term_title = '{cn} | {mail} | {uid} | {o}'.format(cn=user['cn'], mail=user['mail'], uid=user['uid'], o=org)
-            results.append(SimpleTerm(user['mail'], title=term_title))
+            results[user['mail']] = term_title
         else:
             term_title = '{} | {} | {} '.format(user['title'], user['email'], user['userid'])
-            results.append(SimpleTerm(user['email'], title=term_title))
+            results[user['email']] = term_title
 
-    return results
+    for email, title in results.items():
+        yield SimpleTerm(email,title=title)
+
 
 class LDAPListingVocabulary(object):
 
@@ -47,9 +49,9 @@ class LDAPListingVocabulary(object):
             vocab = []
 
         if context.REQUEST.get('search_user.buttons.search_user') is not None or context.REQUEST.get('search_user.buttons.addCC') is not None:
-            vocab = search_user2(context, containing, criteria)
+            vocab = search_user(context, containing, criteria)
 
-        return SimpleVocabulary(vocab)
+        return SimpleVocabulary([x for x in vocab])
 
 
 class RecipientsVocabulary(object):
