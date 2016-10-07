@@ -2,33 +2,24 @@ from zope.schema.interfaces import IVocabularyFactory
 from zope.interface import implements
 from zope.schema.vocabulary import SimpleVocabulary, SimpleTerm
 from plone import api
-from zope.component import getMultiAdapter
-from Acquisition import aq_inner
+from Products.CMFCore.utils import getToolByName
 
-def search_user2(context, request, containing, criteria):
+
+def search_user2(context, containing, criteria):
 
     results = []
-    ldap_field = ''
-    regular_field = ''
+    users = []
 
-    searchView = getMultiAdapter((aq_inner(context), request), name='pas_search')
+    aclu = getToolByName(context, 'acl_users')
 
     if criteria[0] == 'Name':
-        ldap_field = 'cn'
-        regular_field = 'title'
+        users = list(aclu.searchUsers(fullname=containing))
     elif criteria[0] == 'Email':
-        ldap_field = 'mail'
-        regular_field = 'email'
+        users = list(aclu.searchUsers(email=containing))
     elif criteria[0] == 'Organization':
-        ldap_field = 'o'
+        users = list(aclu.searchUsers(organisation=containing))
     elif criteria[0] == 'User ID':
-        ldap_field = 'uid'
-        regular_field = 'userid'
-
-    ldapUsers = searchView.searchUsers(**{ldap_field: containing})
-    localUsers = searchView.searchUsers(**{regular_field: containing})
-
-    users = ldapUsers + [x for x in localUsers if x not in localUsers]
+        users = list(aclu.searchUsers(uid=containing))
 
     for user in users:
         if user['pluginid'] == 'ldap-plugin':
@@ -56,7 +47,7 @@ class LDAPListingVocabulary(object):
             vocab = []
 
         if context.REQUEST.get('search_user.buttons.search_user') is not None or context.REQUEST.get('search_user.buttons.addCC') is not None:
-            vocab = search_user2(context, context.REQUEST, containing, criteria)
+            vocab = search_user2(context, containing, criteria)
 
         return SimpleVocabulary(vocab)
 
