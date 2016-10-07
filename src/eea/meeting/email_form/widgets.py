@@ -1,6 +1,6 @@
 import zope.schema.interfaces
 
-from z3c.form import interfaces
+from z3c.form import interfaces, util
 from z3c.form.widget import FieldWidget, SequenceWidget
 from z3c.form.browser import widget
 from zope.i18n import translate
