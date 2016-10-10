@@ -41,7 +41,6 @@ setup(
         'plone.api',
         'Products.GenericSetup>=1.8.2',
         'setuptools',
-        'z3c.jbot',
         'plone.app.dexterity',
         'plone.app.contenttypes',
         'plone.app.ldap',

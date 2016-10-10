@@ -9,7 +9,7 @@ from eea.meeting.content.meeting import create_subscribers
 from eea.meeting.content.subscribers import APPROVED_STATE
 
 
-class MeetingView(foldercontents.FolderContentsView):
+class MeetingView(BrowserView):
     """ EEA Meeting index """
 
     index = ViewPageTemplateFile("pt/meeting_index.pt")
