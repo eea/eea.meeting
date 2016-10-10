@@ -48,7 +48,7 @@ class IMeetingLayer(IDefaultBrowserLayer):
 
 class IMeeting(Interface):
     """ Meeting """
-    body_text = RichText(
+    text = RichText(
         title=_(u"Body text"),
         required=True,
     )
@@ -74,7 +74,7 @@ class IMeeting(Interface):
         required=True,
     )
 
-    contact_person = schema.TextLine(
+    contact_name = schema.TextLine(
         title=_(u"Contact person"),
         required=True,
     )

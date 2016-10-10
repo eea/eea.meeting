@@ -18,7 +18,7 @@
             <td tal:content="python:subscriber.firstname" />
             <td tal:content="python:subscriber.lastname" />
             <td>
-              <a tal:attributes="href subscriber/absolute_url" tal:content="subscriber/uid" />
+              <a tal:attributes="href subscriber/absolute_url" tal:content="subscriber/getId" />
             </td>
             <td>
               <span tal:content="subscriber/state" />

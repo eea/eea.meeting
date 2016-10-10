@@ -35,6 +35,15 @@
       />
 
   <browser:page
+      name="register_user"
+      class="eea.meeting.browser.views.RegisterUser"
+      for="eea.meeting.interfaces.IMeeting"
+      permission="zope2.View"
+      template="pt/register_user.pt"
+      layer="eea.meeting.interfaces.IMeetingLayer"
+      />
+
+  <browser:page
       name="view"
       for="eea.meeting.interfaces.IEmails"
       template="pt/email_listing_view.pt"
@@ -42,5 +51,13 @@
       permission="zope2.View"
       layer="eea.meeting.interfaces.IMeetingLayer"
       />
+
+  <browser:page
+    for="eea.meeting.interfaces.IMeeting"
+    name="ics_view"
+    class="Products.ATContentTypes.browser.calendar.CalendarView"
+    permission="zope2.View"
+    layer="eea.meeting.interfaces.IMeetingLayer"
+    />
 
 </configure>

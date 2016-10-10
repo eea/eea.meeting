@@ -1,25 +1,101 @@
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"
-  metal:use-macro="here/main_template/macros/master"
-  i18n:domain="eea">
-  <body>
-    <div metal:fill-slot="content-core" >
-      <p tal:condition="python: context.is_registered()">
-        You are registered for this meeting.
-      </p>
-      <tal:block condition="context/can_register">
-        <p tal:condition="context/is_anonymous">
-          <a tal:attributes="href string:${context/absolute_url}/subscribers/++add++eea.meeting.subscriber">Sign up</a>
-          to participate in this meeting
-        </p>
-      </tal:block>
-      <form name="folderContentsForm"
-        method="post"
-        action="folder_object"
-        tal:attributes="action context/absolute_url"
-        class="kssattr-serveraction-foldercontents_update_table">
-        <div tal:replace="structure view/contents_table"></div>
-        <input tal:replace="structure context/@@authenticator/authenticator" />
-      </form>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      i18n:domain="eea.meeting"
+      metal:use-macro="context/main_template/macros/master">
+<body>
+<div metal:fill-slot="content-core" >
+
+  <div class="event clearfix" itemscope itemtype="http://data-vocabulary.org/Event">
+
+    <ul class="hiddenStructure">
+      <li><a itemprop="url" class="url" href="" tal:attributes="href context/absolute_url" tal:content="context/absolute_url">url</a></li>
+      <li itemprop="summary" class="summary" tal:content="context/title">title</li>
+      <li itemprop="startDate" class="dtstart" tal:content="context/start/isoformat">start</li>
+      <li itemprop="endDate" class="dtend" tal:content="context/end/isoformat">end</li>
+      <li itemprop="description" class="description" tal:content="context/description">description</li>
+    </ul>
+
+    <!-- Event summary -->
+      <div class="eventDetails vcard">
+        <table class="vertical listing"
+               summary="Event details" i18n:attributes="summary summary_event_details;">
+
+            <tbody>
+
+                <tr>
+                    <th i18n:translate="event_when">When</th>
+                    <td>
+                      <span tal:define="start_tzname context/timezone;
+                      start_utcdelta python:context.start.tzinfo.utcoffset(context.start);
+                      start_utcoffset python:(start_utcdelta.days*86400+start_utcdelta.seconds)*100/60/60;">
+                      <tal:date replace="structure python:view.formatted_date(context)" />
+                      <span class="timezone"
+                          tal:condition="start_tzname">
+                        (<tal:tzname replace="start_tzname">timezone name</tal:tzname> / UTC<tal:tzoffset replace="start_utcoffset" />)
+                      </span>
+                    </span>
+                    </td>
+                </tr>
+                <tr tal:condition="context/location">
+                    <th i18n:translate="event_where">Where</th>
+                    <td class="location">
+                        <span itemprop="location" tal:content="structure context/location">Location</span>
+                    </td>
+                </tr>
+                <tr tal:define="mail context/contact_email;
+                                name context/contact_name"
+                    tal:condition="python:name or email">
+                    <th i18n:translate="contact_name">Contact Name</th>
+                    <td>
+                      <tal:span>
+                        <a class="email" tal:condition="mail" tal:attributes="href string:mailto:${mail}" tal:content="name" />
+                        <span tal:condition="not:mail" tal:content="name" />
+                      </tal:span>
+                    </td>
+                </tr>
+                <tr tal:define="event_type context/meeting_type;"
+                    tal:condition="event_type">
+                    <th i18n:translate="type">Type</th>
+                    <td>
+                      <span itemprop="type" tal:content="event_type">Type</span>
+                    </td>
+                </tr>
+                <tr>
+                    <th i18n:translate="heading_add_to_calendar">Add event to calendar</th>
+                    <td tal:define="here_url context/@@plone_context_state/object_url;
+                                    portal context/@@plone_portal_state/portal;">
+                        <a href="#"
+                           tal:attributes="href string:$here_url/ics_view"
+                           title="Download this event in iCal format"
+                           i18n:attributes="title title_add_to_ical;">
+                            <img tal:replace="structure portal/icon_export_ical.png" src="" alt="" />
+                            <span i18n:translate="label_add_to_ical">iCal</span></a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
     </div>
-  </body>
+
+    <div id="parent-fieldname-text">
+      <tal:text content="structure context/text/output" />
+    </div>
+
+  </div>
+
+  <tal:block condition="context/can_register">
+    <p tal:condition="context/is_anonymous">
+      <a tal:attributes="href string:${context/absolute_url}/subscribers/++add++eea.meeting.subscriber">Sign up</a>
+      to participate in this meeting
+    </p>
+  </tal:block>
+
+  <tal:items tal:define="
+    contentFilter python:{'portal_type': ['File', 'Image', 'Link', 'Folder']}">
+    <metal:content metal:use-macro="here/folder_tabular_view/macros/listing" />
+  </tal:items>
+
+</div>
+</body>
 </html>

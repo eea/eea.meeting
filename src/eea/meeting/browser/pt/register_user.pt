@@ -1,0 +1,77 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      i18n:domain="eea.meeting"
+      metal:use-macro="context/main_template/macros/master">
+
+<metal:title fill-slot="content-title">
+  <h1 class="documentFirstHeading">
+    <tal:title tal:replace="context/title">Title</tal:title> -
+    <tal:view tal:replace="view/label"> Action</tal:view>
+  </h1>
+</metal:title>
+
+<body>
+  <metal:block fill-slot="content-core">
+    <form action="." method="post" name="users_search" tal:attributes="action python:view.__name__" tal:define="
+          searchString python:view.searchString;
+          users python:view.users">
+      <table class="listing nosort" summary="User Listing">
+        <thead>
+          <tr class="odd">
+            <th colspan="4">
+              <span i18n:translate="label_user_search">Search for existing users to register</span>
+              <input class="quickSearch"
+                     type="text"
+                     name="searchstring"
+                     value=""
+                     tal:attributes="value searchString"
+                     />
+
+              <input type="submit"
+                     class="searchButton"
+                     name="form.button.Search"
+                     value="Search"
+                     i18n:attributes="value"
+                     />
+              <span>or</span>
+              <a tal:attributes="href string:${context/absolute_url}/signup" i18n:translate="">Register a new user</a>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tal:results tal:condition="python:searchString">
+            <tal:users tal:condition="users">
+              <tr tal:repeat="user users">
+                <td style="vertical-align: inherit">
+                  <input type="checkbox" name="users:list" tal:attributes="value user/uid" />
+                </td>
+                <td>
+                  <tal:fullname tal:replace="user/fullname" />
+                  <tal:userid tal:replace="string:(${user/userid})" />
+                </td>
+                <td tal:content="user/email">User e-mail</td>
+                <td tal:content="user/o|string:">User organisation</td>
+              </tr>
+            </tal:users>
+            <tal:nousers tal:condition="not:users">
+              <td colspan="4">
+                <span i18n:translate="">No user found.</span>
+              </td>
+            </tal:nousers>
+          </tal:results>
+        </tbody>
+      </table>
+
+      <tal:buttons tal:condition="users">
+        <input type="submit"
+               name="form.button.register"
+               value="Register"
+               i18n:attributes="value" />
+      </tal:buttons>
+      <input tal:replace="structure context/@@authenticator/authenticator" />
+    </form>
+  </metal:block>
+</body>
+</html>

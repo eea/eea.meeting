@@ -1,10 +1,17 @@
+""" Browser controllers
+"""
+from zope.component import getMultiAdapter
+from zope.component.hooks import getSite
 from Acquisition import aq_inner
+from Products.statusmessages.interfaces import IStatusMessage
 from Products.Five.browser import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from plone import api
 from plone.dexterity.utils import createContentInContainer
 from plone.app.content.browser import foldercontents
+from zope.contentprovider.interfaces import IContentProvider
 
+from eea.meeting import _
 from eea.meeting.content.meeting import create_subscribers
 from eea.meeting.content.subscribers import APPROVED_STATE
 
@@ -13,6 +20,13 @@ class MeetingView(BrowserView):
     """ EEA Meeting index """
 
     index = ViewPageTemplateFile("pt/meeting_index.pt")
+
+    def formatted_date(self, occ):
+        provider = getMultiAdapter(
+            (self.context, self.request, self),
+            IContentProvider, name='formatted_date'
+        )
+        return provider(occ)
 
     def __call__(self):
         if not self.context.get('subscribers'):
@@ -56,31 +70,75 @@ class SubscribersContentsTable(foldercontents.FolderContentsTable):
         else:
             return items
 
-class Register(BrowserView):
 
+class Register(BrowserView):
+    """ Register current user
+    """
     def __call__(self):
         subscribers = self.context.get('subscribers')
         if not subscribers:
-            # TODO return a warning
-            pass
+            IStatusMessage(self.request).addStatusMessage(
+                "Can't find subscribers directory", type="error")
+            return
         if not self.context.can_register():
-            # TODO return a warning
+            IStatusMessage(self.request).addStatusMessage(
+                "Registration not allowed", type="error")
             return
         else:
             current_user = api.user.get_current()
-            uid = current_user.getProperty('uid')
+            uid = current_user.getId()
             firstname = current_user.getProperty('firstname')
             lastname = current_user.getProperty('lastname')
             fullname = current_user.getProperty('fullname')
             email = current_user.getProperty('email')
 
             createContentInContainer(subscribers, 'eea.meeting.subscriber',
-                                     title=fullname, id=uid, uid=uid,
+                                     title=fullname, id=uid,
                                      firstname=firstname, lastname=lastname,
                                      email=email)
-            # TODO put success message on session
-            return self.context.REQUEST.RESPONSE.redirect(
-                self.context.absolute_url())
+
+            IStatusMessage(self.request).addStatusMessage(
+                "You have succesfully registered to this meeting", type="info")
+            return self.request.response.redirect(self.context.absolute_url())
+
+
+class RegisterUser(BrowserView):
+    """ Register a user
+    """
+    label = _(u"Register user")
+
+    def __init__(self, context, request):
+        super(RegisterUser, self).__init__(context, request)
+        self._searchString = ''
+
+    @property
+    def searchString(self):
+        """ Search string
+        """
+        if not self._searchString:
+            self._searchString = self.request.get('searchstring', '')
+        return self._searchString
+
+    @property
+    def users(self):
+        """ Users
+        """
+        if not self.searchString:
+            return []
+
+        site = getSite()
+        cpanel = getMultiAdapter((site, self.request), name=u"usergroup-userprefs")
+        return cpanel.doSearch(self.searchString)
+
+    def __call__(self, *args, **kwargs):
+        if self.request.method.lower() != 'post':
+            return self.index()
+
+        if not self.request.get('form.button.add', None):
+            return self.index()
+
+        raise NotImplementedError
+
 
 class ViewSentEmails(BrowserView):
     """Sent Emails Archive"""

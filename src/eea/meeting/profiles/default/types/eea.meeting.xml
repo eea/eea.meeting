@@ -68,7 +68,7 @@
     category="object_buttons"
     condition_expr="python:context.can_register() and not context.is_anonymous()"
     description="" icon_expr="" link_target=""
-    url_expr="string:${object_url}/subscribers/++add++eea.meeting.subscriber"
+    url_expr="string:${object_url}/register_user"
     visible="True">
   <permission value="View"/>
  </action>
