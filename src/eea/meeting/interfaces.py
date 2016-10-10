@@ -154,7 +154,7 @@ class IEmail(Interface):
         required=True,
     )
 
-    body = schema.Text(
+    body = RichText(
         title=_(u"Body"),
         required=True,
     )
