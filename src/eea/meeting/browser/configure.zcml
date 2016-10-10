@@ -4,20 +4,11 @@
     xmlns:plone="http://namespaces.plone.org/plone"
     i18n_domain="eea.meeting">
 
-  <!-- Set overrides folder for Just-a-Bunch-Of-Templates product -->
-  <include package="z3c.jbot" file="meta.zcml" />
-  <browser:jbot
-      directory="overrides"
-      layer="eea.meeting.interfaces.IMeetingLayer"
-      />
-
   <!-- Publish static files -->
   <browser:resourceDirectory
       name="eea.meeting"
       directory="static"
       />
-
-  <!-- EEA Meeting overrides -->
 
   <browser:page
       for="eea.meeting.interfaces.IMeeting"
@@ -55,23 +46,4 @@
       permission="zope2.View"
    />
 
-  <browser:viewlet
-      name="view_emails"
-      for="eea.meeting.interfaces.IEmails"
-      manager="plone.app.layout.viewlets.interfaces.IAboveContentBody"
-      class=".viewlets.EmailViewlet"
-      layer="zope.interface.Interface"
-      template="pt/email_viewlet.pt"
-      permission="zope2.View"
-  />
-
-  <browser:viewlet
-      name="view_subscribers"
-      for="eea.meeting.interfaces.IMeeting"
-      manager="plone.app.layout.viewlets.interfaces.IBelowContentBody"
-      class=".viewlets.SubscribersViewlet"
-      layer="eea.meeting.interfaces.IMeetingLayer"
-      template="pt/subscribers_viewlet.pt"
-      permission="cmf.ManagePortal"
-  />
 </configure>

@@ -7,12 +7,6 @@
         You are registered for this meeting.
       </p>
       <tal:block condition="context/can_register">
-        <tal:block condition="not:python: context.is_anonymous()">
-          <a tal:condition="not:python: context.is_registered()"
-             tal:attributes="href string:${context/absolute_url}/register">Register to participate</a>
-
-          <p><a tal:attributes="href string:${context/absolute_url}/subscribers/++add++eea.meeting.subscriber">Sign up someone else</a></p>
-        </tal:block>
         <p tal:condition="context/is_anonymous">
           <a tal:attributes="href string:${context/absolute_url}/subscribers/++add++eea.meeting.subscriber">Sign up</a>
           to participate in this meeting

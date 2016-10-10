@@ -18,7 +18,7 @@
 </head>
 
 <body>
-  <metal:block fill-slot="main">
+  <metal:block fill-slot="content-core">
     <h1 class="documentFirstHeading" tal:content="view/label | nothing" />
 
     <p>This page lists all emails sent to participants.</p>

@@ -1,2 +1,0 @@
-<a tal:condition="python:here.get('subscribers', None)" tal:attributes="href string:${here/absolute_url}/@@subscriber_listing" >
-          Subscribers</a>

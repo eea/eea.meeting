@@ -1,1 +1,0 @@
-<a tal:attributes="href string:${context/absolute_url}/@@email_view">View sent emails</a>
