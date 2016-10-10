@@ -116,12 +116,12 @@ class ISearchUser(Interface):
     criteria = schema.Choice(
         source='eea.meeting.vocabularies.SearchCriteriaVocabulary',
         title=_(u'Search for'),
-        required=False
+        required= True,
     )
 
     containing = schema.TextLine(
         title=_(u"containing"),
-        required=False,
+        required=True,
     )
 
     results = schema.Set(
@@ -154,7 +154,7 @@ class IEmail(Interface):
         required=True,
     )
 
-    body = schema.Text(
+    body = RichText(
         title=_(u"Body"),
         required=True,
     )

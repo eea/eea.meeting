@@ -39,6 +39,9 @@ class SearchUser(form.Form):
 
         self._parent_form.widgets['cc'].value += '\n'+"\r\n".join(data['results'])
 
+        del self.widgets.values()[2].items[:]
+        self.widgets.values()[1].value = ''
+
         if errors:
             return False
 

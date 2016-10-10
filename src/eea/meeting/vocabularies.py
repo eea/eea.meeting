@@ -45,9 +45,6 @@ class LDAPListingVocabulary(object):
         containing = context.REQUEST.get('search_user.widgets.containing')
         criteria = context.REQUEST.get('search_user.widgets.criteria')
 
-        if containing == '' and criteria == ['--NOVALUE--']:
-            vocab = []
-
         if context.REQUEST.get('search_user.buttons.search_user') is not None or context.REQUEST.get('search_user.buttons.addCC') is not None:
             vocab = search_user(context, containing, criteria)
 
