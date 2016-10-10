@@ -18,7 +18,10 @@ class SendEmailAddEvent(SendEmailEvent):
         sdm = getattr(context, 'session_data_manager', None)
         session = sdm.getSessionData(create=True) if sdm else None
 
+        data['body'] = data['body'].raw
+
         session.update(data)
+
 
 def execute_event(event):
     """ Execute custom rules

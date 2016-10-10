@@ -1,6 +1,6 @@
 from eea.meeting import _
 from plone.z3cform.layout import wrap_form
-from z3c.form import button, form, field, group
+from z3c.form import button, form, field
 from eea.meeting.events.rules import SendEmailAddEvent
 from zope.event import notify
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile as FiveViewPageTemplateFile
@@ -97,5 +97,3 @@ class SendEmail(form.Form):
         self.request.response.redirect(redirect_url)
 
 SendEmailView = wrap_form(SendEmail, index=FiveViewPageTemplateFile("send_email.pt"))
-
-

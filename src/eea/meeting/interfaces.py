@@ -9,6 +9,7 @@ from zope.schema.vocabulary import SimpleVocabulary, SimpleTerm
 from Products.CMFDefault.utils import checkEmailAddress
 from Products.CMFDefault.exceptions import EmailAddressInvalid
 from plone.app.textfield import RichText
+
 from plone.schema import Email
 from plone.autoform import directives
 from z3c.form.browser.text import TextFieldWidget
@@ -157,6 +158,8 @@ class IEmail(Interface):
     body = RichText(
         title=_(u"Body"),
         required=True,
+        output_mime_type='text/plain',
+        allowed_mime_types=('text/html', 'text/structured', 'text/plain'),
     )
 
     directives.widget(
