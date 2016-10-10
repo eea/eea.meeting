@@ -15,35 +15,32 @@
       name="view"
       permission="zope2.View"
       class=".views.MeetingView"
-      layer="eea.meeting.interfaces.IMeetingLayer" />
+      layer="eea.meeting.interfaces.IMeetingLayer"
+      />
 
   <browser:page
-      for="*"
-      name="subscriber_listing"
+      for="eea.meeting.interfaces.ISubscribers"
+      name="view"
       permission="cmf.ManagePortal"
       class=".views.SubscribersView"
-  />
+      layer="eea.meeting.interfaces.IMeetingLayer"
+      />
 
   <browser:page
       name="register"
       class="eea.meeting.browser.views.Register"
       for="eea.meeting.interfaces.IMeeting"
       permission="zope2.View"
-      layer="eea.meeting.interfaces.IMeetingLayer" />
+      layer="eea.meeting.interfaces.IMeetingLayer"
+      />
 
   <browser:page
-      name="email_sender_confirmation"
-      for="*"
-      template="pt/email_sender_confirmation.pt"
-      permission="zope2.View"
-   />
-
-  <browser:page
-      name="email_view"
-      for="*"
+      name="view"
+      for="eea.meeting.interfaces.IEmails"
       template="pt/email_listing_view.pt"
       class=".views.ViewSentEmails"
       permission="zope2.View"
-   />
+      layer="eea.meeting.interfaces.IMeetingLayer"
+      />
 
 </configure>

@@ -7,7 +7,7 @@
 
   <browser:page
       name="email_sender"
-      for="*"
+      for="eea.meeting.interfaces.IEmails"
       permission="zope2.View"
       class=".email_form.SendEmailView"
   />

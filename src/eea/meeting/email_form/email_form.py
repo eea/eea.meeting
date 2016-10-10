@@ -4,6 +4,7 @@ from z3c.form import button, form, field, group
 from eea.meeting.events.rules import SendEmailAddEvent
 from zope.event import notify
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile as FiveViewPageTemplateFile
+from Products.statusmessages.interfaces import IStatusMessage
 from eea.meeting.interfaces import IEmail, ISearchUser
 from plone import api
 from zope.container.interfaces import INameChooser
@@ -50,6 +51,8 @@ class SendEmail(form.Form):
     fields = field.Fields(IEmail)
     ignoreContext = True
 
+    label = _(u"Send email")
+
     fields['receiver'].widgetFactory = CheckBoxFieldWidget
 
     prefix = 'send_email'
@@ -93,8 +96,9 @@ class SendEmail(form.Form):
 
         notify(SendEmailAddEvent(self.context, data))
 
-        redirect_url = "%s/@@email_sender_confirmation" % self.context.absolute_url()
-        self.request.response.redirect(redirect_url)
+        msg = _(u"Email successfully sent")
+        IStatusMessage(self.request).addStatusMessage(msg, type='info')
+        self.request.response.redirect(self.context.getParentNode().absolute_url())
 
 SendEmailView = wrap_form(SendEmail, index=FiveViewPageTemplateFile("send_email.pt"))
 

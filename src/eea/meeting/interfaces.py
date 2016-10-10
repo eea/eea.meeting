@@ -46,7 +46,7 @@ class IMeetingLayer(IDefaultBrowserLayer):
 
 
 class IMeeting(Interface):
-
+    """ Meeting """
     body_text = RichText(
         title=_(u"Body text"),
         required=True,
@@ -86,7 +86,7 @@ class IMeeting(Interface):
 
 
 class ISubscriber(Interface):
-
+    """ Meeting subscriber """
     firstname = schema.TextLine(
         title=_(u"First name"),
         required=True,
@@ -105,14 +105,15 @@ class ISubscriber(Interface):
 
 
 class ISubscribers(Interface):
+    """ Meeting subscribers """
 
-    pass
 
 class IEmails(Interface):
+    """ Meeting emails """
 
-    pass
 
 class ISearchUser(Interface):
+    """ Search user """
     criteria = schema.Choice(
         source='eea.meeting.vocabularies.SearchCriteriaVocabulary',
         title=_(u'Search for'),
@@ -131,7 +132,7 @@ class ISearchUser(Interface):
 
 
 class IEmail(Interface):
-
+    """ Email """
     sender = Email(
         title=_(u"From"),
         required=True,

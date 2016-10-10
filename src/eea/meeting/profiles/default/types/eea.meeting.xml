@@ -55,7 +55,7 @@
  </action>
  <action title="Subscribers" action_id="subscribers" category="object"
     condition_expr="" description="" icon_expr="" link_target=""
-    url_expr="string:${object_url}/subscriber_listing" visible="True">
+    url_expr="string:${object_url}/subscribers" visible="True">
   <permission value="View"/>
  </action>
  <action title="Register" action_id="register" category="object_buttons"
@@ -74,12 +74,12 @@
  </action>
  <action title="Send email" action_id="send_email" category="object_buttons"
     condition_expr="" description="" icon_expr="" link_target=""
-    url_expr="string:${object_url}/email_sender" visible="True">
+    url_expr="string:${object_url}/emails/email_sender" visible="True">
   <permission value="View"/>
  </action>
  <action title="Mail archive" action_id="mail_archive" category="object"
     condition_expr="" description="" icon_expr="" link_target=""
-    url_expr="string:${object_url}/email_view" visible="True">
+    url_expr="string:${object_url}/emails" visible="True">
   <permission value="View"/>
  </action>
 </object>

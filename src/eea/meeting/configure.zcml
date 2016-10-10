@@ -5,34 +5,15 @@
     xmlns:i18n="http://namespaces.zope.org/i18n"
     i18n_domain="eea.meeting">
 
-  <i18n:registerTranslations directory="locales" />
-
   <includeDependencies package="." />
 
+  <include file="profiles.zcml" />
+  <include file="permissions.zcml" />
   <include package=".browser" />
   <include package=".behaviors" />
   <include package=".email_form" />
   <include package=".events" />
 
-
-
-  <genericsetup:registerProfile
-      name="default"
-      title="eea.meeting"
-      directory="profiles/default"
-      description="Installs the eea.meeting add-on."
-      provides="Products.GenericSetup.interfaces.EXTENSION"
-      post_handler=".setuphandlers.post_install"
-      />
-
-  <genericsetup:registerProfile
-      name="uninstall"
-      title="eea.meeting (uninstall)"
-      directory="profiles/uninstall"
-      description="Uninstalls the eea.meeting add-on."
-      provides="Products.GenericSetup.interfaces.EXTENSION"
-      post_handler=".setuphandlers.uninstall"
-      />
 
   <utility
       factory=".setuphandlers.HiddenProfiles"
@@ -71,26 +52,6 @@
   <subscriber
       for="eea.meeting.interfaces.ISubscriber Products.CMFCore.interfaces.IActionSucceededEvent"
       handler=".content.subscriber.state_change"
-      />
-
-  <permission
-      id="eea.meeting.admin_meeting"
-      title="EEA Meting: Admin Meeting"
-      />
-
-  <permission
-      id="eea.meeting.add_subscribers"
-      title="EEA Meting: Add subscribers"
-      />
-
-  <permission
-      id="eea.meeting.approve_subscribers"
-      title="EEA Meting: Approve subscribers"
-      />
-
-  <permission
-      id="eea.meeting.reject_subscribers"
-      title="EEA Meting: Reject subscribers"
       />
 
   <utility

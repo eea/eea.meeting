@@ -1,0 +1,25 @@
+<configure
+  xmlns="http://namespaces.zope.org/zope"
+  i18n_domain="eea">
+
+  <permission
+      id="eea.meeting.admin_meeting"
+      title="EEA Meting: Admin Meeting"
+      />
+
+  <permission
+      id="eea.meeting.add_subscribers"
+      title="EEA Meting: Add subscribers"
+      />
+
+  <permission
+      id="eea.meeting.approve_subscribers"
+      title="EEA Meting: Approve subscribers"
+      />
+
+  <permission
+      id="eea.meeting.reject_subscribers"
+      title="EEA Meting: Reject subscribers"
+      />
+
+</configure>

@@ -25,7 +25,8 @@
 
     <a href="#" id="email_download" onclick="javascript:fnExcelReport();">Export to Excel</a>
 
-    <table class="display-email" >
+    <table class="display-email listing" id="listing-table">
+      <thead>
         <tr class="display-email-tr">
             <th class="display-email-th">Sender</th>
             <th class="display-email-th">Recipients</th>
@@ -33,7 +34,8 @@
             <th class="display-email-th">Subject</th>
             <th class="display-email-th">Content</th>
         </tr>
-
+      </thead>
+      <tbody>
         <tr class="display-email-tr"
             tal:repeat="email view/email_archive">
             <td class="display-email-td"
@@ -47,10 +49,8 @@
             <td class="display-email-td"
                 tal:content="email/body">Email body</td>
         </tr>
+      </tbody>
     </table>
-
-    <a tal:attributes="href string:${context/absolute_url}">Back to emails</a>
-
   </metal:block>
 </body>
 </html>
