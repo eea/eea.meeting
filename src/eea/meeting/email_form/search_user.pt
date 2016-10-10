@@ -1,0 +1,27 @@
+<div xmlns="http://www.w3.org/1999/xhtml"
+     xmlns:tal="http://xml.zope.org/namespaces/tal"
+     xmlns:metal="http://xml.zope.org/namespaces/metal"
+     tal:attributes="class view/css_class|nothing">
+  <fieldset>
+    <legend>Use this form to find EIONET LDAP or local users and add them to CC.</legend>
+    <h3 tal:replace="structure view/heading|nothing" />
+    <div tal:replace="structure view/contents_top|nothing" />
+    <metal:use use-macro="context/@@ploneform-macros/fields" />
+    <metal:use use-macro="context/@@ploneform-macros/actions" />
+    <div tal:replace="structure view/contents_bottom|nothing" />
+
+    <!--<table>-->
+      <!--<tr>-->
+        <!--<th>User Name</th>-->
+        <!--<th>User ID</th>-->
+        <!--<th>Email</th>-->
+      <!--</tr>-->
+
+      <!--<tr tal:repeat="user view/user_listing">-->
+        <!--<td tal:content="user/user_name"></td>-->
+        <!--<td tal:content="user/user_id"></td>-->
+        <!--<td tal:content="user/email"></td>-->
+      <!--</tr>-->
+    <!--</table>-->
+  </fieldset>
+</div>

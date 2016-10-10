@@ -9,6 +9,12 @@ from zope.schema.vocabulary import SimpleVocabulary, SimpleTerm
 from Products.CMFDefault.utils import checkEmailAddress
 from Products.CMFDefault.exceptions import EmailAddressInvalid
 from plone.app.textfield import RichText
+from plone.schema import Email
+from plone.autoform import directives
+from z3c.form.browser.text import TextFieldWidget
+
+from zope.interface import Invalid
+import re
 
 
 meeting_types = SimpleVocabulary(
@@ -25,6 +31,15 @@ def validate_email(email):
         raise EmailAddressInvalid(email)
     return True
 
+def cc_constraint(value):
+    data_lines = value.split('\r\n')
+
+    for idx, email in enumerate(data_lines):
+        idx += 1
+        if not re.match(r"[^@]+@[^@]+\.[^@]+", email):
+            raise Invalid(_(u"Invalid email address on line %d" % idx))
+
+    return True
 
 class IMeetingLayer(IDefaultBrowserLayer):
     """Marker interface that defines a browser layer."""
@@ -72,11 +87,6 @@ class IMeeting(Interface):
 
 class ISubscriber(Interface):
 
-    # uid = schema.TextLine(
-    #     title=_(u"UID"),
-    #     required=True,
-    # )
-
     firstname = schema.TextLine(
         title=_(u"First name"),
         required=True,
@@ -97,3 +107,60 @@ class ISubscriber(Interface):
 class ISubscribers(Interface):
 
     pass
+
+class IEmails(Interface):
+
+    pass
+
+class ISearchUser(Interface):
+    criteria = schema.Choice(
+        source='eea.meeting.vocabularies.SearchCriteriaVocabulary',
+        title=_(u'Search for'),
+        required=False
+    )
+
+    containing = schema.TextLine(
+        title=_(u"containing"),
+        required=False,
+    )
+
+    results = schema.Set(
+        required=False,
+        value_type=schema.Choice(vocabulary='eea.meeting.vocabularies.LDAPListingVocabulary')
+    )
+
+
+class IEmail(Interface):
+
+    sender = Email(
+        title=_(u"From"),
+        required=True,
+    )
+
+    receiver = schema.Set(
+        title=u'Recipients',
+        value_type=schema.Choice(vocabulary='eea.meeting.vocabularies.RecipientsVocabulary')
+    )
+
+    cc = schema.Text(
+        title=_(u"CC"),
+        description=_(u'Add CC addresses one per line, no separator'),
+        constraint = cc_constraint,
+        required=False,
+    )
+
+    subject = schema.TextLine(
+        title=_(u"Subject"),
+        required=True,
+    )
+
+    body = schema.Text(
+        title=_(u"Body"),
+        required=True,
+    )
+
+    directives.widget(
+        'sender',
+        TextFieldWidget,
+        klass=u'mail_widget'
+    )

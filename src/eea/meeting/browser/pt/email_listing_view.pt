@@ -1,0 +1,56 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      i18n:domain="eea.meeting"
+      metal:use-macro="context/main_template/macros/master">
+
+<head>
+    <metal:block fill-slot="style_slot">
+        <link rel="stylesheet" type="text/css"
+            tal:define="navroot context/@@plone_portal_state/navigation_root_url"
+            tal:attributes="href string:${navroot}/++resource++eea.meeting/email_view.css"
+            />
+
+        <script tal:define="navroot context/@@plone_portal_state/navigation_root_url"
+                tal:attributes="src string:${navroot}/++resource++eea.meeting/excel.js"></script>
+    </metal:block>
+</head>
+
+<body>
+  <metal:block fill-slot="main">
+    <h1 class="documentFirstHeading" tal:content="view/label | nothing" />
+
+    <p>This page lists all emails sent to participants.</p>
+
+    <a href="#" id="email_download" onclick="javascript:fnExcelReport();">Export to Excel</a>
+
+    <table class="display-email" >
+        <tr class="display-email-tr">
+            <th class="display-email-th">Sender</th>
+            <th class="display-email-th">Recipients</th>
+            <th class="display-email-th">CC</th>
+            <th class="display-email-th">Subject</th>
+            <th class="display-email-th">Content</th>
+        </tr>
+
+        <tr class="display-email-tr"
+            tal:repeat="email view/email_archive">
+            <td class="display-email-td"
+                tal:content="email/sender">Email sender</td>
+            <td class="display-email-td"
+                tal:content="email/receiver">Email receiver</td>
+            <td class="display-email-td"
+                tal:content="email/cc">Email CC</td>
+            <td class="display-email-td"
+                tal:content="email/subject">Email subject</td>
+            <td class="display-email-td"
+                tal:content="email/body">Email body</td>
+        </tr>
+    </table>
+
+    <a tal:attributes="href string:${context/absolute_url}">Back to emails</a>
+
+  </metal:block>
+</body>
+</html>

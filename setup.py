@@ -45,6 +45,11 @@ setup(
         'plone.app.dexterity',
         'plone.app.contenttypes',
         'plone.app.ldap',
+        'plone.schema',
+        'plone.behavior',
+        'plone.app.z3cform',
+        'plone.app.vocabularies',
+        'plone.app.registry',
     ],
     extras_require={
         'test': [

@@ -1,0 +1,51 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    i18n_domain="eea.meeting">
+
+  <interface
+   interface="eea.meeting.events.interfaces.ISendEmailAddEvent"
+   type="plone.contentrules.rule.interfaces.IRuleEventType"
+   name="Send email after form submission"
+   />
+
+   <subscriber
+   for="eea.meeting.events.interfaces.ISendEmailAddEvent"
+   handler="eea.meeting.events.rules.execute_event"
+   />
+
+   <adapter
+    for="*"
+    provides="plone.stringinterp.interfaces.IStringSubstitution"
+    factory=".adapters.SetEmailSender"
+    name="email_sender"
+    />
+
+    <adapter
+    for="*"
+    provides="plone.stringinterp.interfaces.IStringSubstitution"
+    factory=".adapters.SetEmailSubject"
+    name="email_subject"
+    />
+
+    <adapter
+    for="*"
+    provides="plone.stringinterp.interfaces.IStringSubstitution"
+    factory=".adapters.SetEmailReceiver"
+    name="email_receiver"
+    />
+
+    <adapter
+    for="*"
+    provides="plone.stringinterp.interfaces.IStringSubstitution"
+    factory=".adapters.SetEmailBody"
+    name="email_body"
+    />
+
+    <adapter
+    for="*"
+    provides="plone.stringinterp.interfaces.IStringSubstitution"
+    factory=".adapters.SetEmailCC"
+    name="email_cc"
+    />
+
+</configure>

@@ -27,11 +27,11 @@
       layer="eea.meeting.interfaces.IMeetingLayer" />
 
   <browser:page
-      for="eea.meeting.interfaces.ISubscribers"
-      name="view"
-      permission="zope2.View"
+      for="*"
+      name="subscriber_listing"
+      permission="cmf.ManagePortal"
       class=".views.SubscribersView"
-      layer="eea.meeting.interfaces.IMeetingLayer" />
+  />
 
   <browser:page
       name="register"
@@ -40,4 +40,38 @@
       permission="zope2.View"
       layer="eea.meeting.interfaces.IMeetingLayer" />
 
+  <browser:page
+      name="email_sender_confirmation"
+      for="*"
+      template="pt/email_sender_confirmation.pt"
+      permission="zope2.View"
+   />
+
+  <browser:page
+      name="email_view"
+      for="*"
+      template="pt/email_listing_view.pt"
+      class=".views.ViewSentEmails"
+      permission="zope2.View"
+   />
+
+  <browser:viewlet
+      name="view_emails"
+      for="eea.meeting.interfaces.IEmails"
+      manager="plone.app.layout.viewlets.interfaces.IAboveContentBody"
+      class=".viewlets.EmailViewlet"
+      layer="zope.interface.Interface"
+      template="pt/email_viewlet.pt"
+      permission="zope2.View"
+  />
+
+  <browser:viewlet
+      name="view_subscribers"
+      for="eea.meeting.interfaces.IMeeting"
+      manager="plone.app.layout.viewlets.interfaces.IBelowContentBody"
+      class=".viewlets.SubscribersViewlet"
+      layer="eea.meeting.interfaces.IMeetingLayer"
+      template="pt/subscribers_viewlet.pt"
+      permission="cmf.ManagePortal"
+  />
 </configure>

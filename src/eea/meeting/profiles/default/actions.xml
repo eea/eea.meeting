@@ -1,0 +1,661 @@
+<?xml version="1.0"?>
+<object name="portal_actions" meta_type="Plone Actions Tool"
+   xmlns:i18n="http://xml.zope.org/namespaces/i18n">
+ <action-provider name="portal_workflow"/>
+ <action-provider name="portal_types"/>
+ <action-provider name="portal_actions"/>
+ <object name="document_actions" meta_type="CMF Action Category">
+  <property name="title"></property>
+  <object name="rss" meta_type="CMF Action" i18n:domain="plone">
+   <property name="title" i18n:translate="">RSS feed</property>
+   <property name="description" i18n:translate=""></property>
+   <property name="url_expr">object/@@syndication-util/rss_url</property>
+   <property name="link_target"></property>
+   <property name="icon_expr">string:$portal_url/rss.png</property>
+   <property
+      name="available_expr">object/@@syndication-util/context_enabled</property>
+   <property name="permissions">
+    <element value="View"/>
+   </property>
+   <property name="visible">False</property>
+  </object>
+  <object name="print" meta_type="CMF Action" i18n:domain="plone">
+   <property name="title" i18n:translate="">Print this</property>
+   <property name="description" i18n:translate=""></property>
+   <property name="url_expr">string:javascript:this.print();</property>
+   <property name="link_target"></property>
+   <property name="icon_expr">string:$portal_url/print_icon.png</property>
+   <property name="available_expr"></property>
+   <property name="permissions">
+    <element value="View"/>
+   </property>
+   <property name="visible">False</property>
+  </object>
+  <object name="full_screen" meta_type="CMF Action" i18n:domain="plone">
+   <property name="title" i18n:translate="">Toggle full screen mode</property>
+   <property name="description" i18n:translate=""></property>
+   <property
+      name="url_expr">string:javascript:toggleFullScreenMode();</property>
+   <property name="link_target"></property>
+   <property
+      name="icon_expr">string:$portal_url/fullscreenexpand_icon.png</property>
+   <property name="available_expr">python:member is not None</property>
+   <property name="permissions">
+    <element value="View"/>
+   </property>
+   <property name="visible">False</property>
+  </object>
+  <object name="extedit" meta_type="CMF Action" i18n:domain="plone">
+   <property name="title"
+      i18n:translate="">Edit with external application</property>
+   <property name="description" i18n:translate=""></property>
+   <property name="url_expr">string:$object_url/external_edit</property>
+   <property name="link_target"></property>
+   <property name="icon_expr">string:$portal_url/extedit_icon.png</property>
+   <property name="available_expr">object/externalEditorEnabled</property>
+   <property name="permissions">
+    <element value="Modify portal content"/>
+   </property>
+   <property name="visible">True</property>
+  </object>
+ </object>
+ <object name="site_actions" meta_type="CMF Action Category">
+  <property name="title"></property>
+  <object name="sitemap" meta_type="CMF Action" i18n:domain="plone">
+   <property name="title" i18n:translate="">Site Map</property>
+   <property name="description" i18n:translate=""></property>
+   <property
+      name="url_expr">string:${globals_view/navigationRootUrl}/sitemap</property>
+   <property name="link_target"></property>
+   <property name="icon_expr"></property>
+   <property name="available_expr"></property>
+   <property name="permissions">
+    <element value="View"/>
+   </property>
+   <property name="visible">True</property>
+  </object>
+  <object name="accessibility" meta_type="CMF Action" i18n:domain="plone">
+   <property name="title" i18n:translate="">Accessibility</property>
+   <property name="description" i18n:translate=""></property>
+   <property
+      name="url_expr">string:${globals_view/navigationRootUrl}/accessibility-info</property>
+   <property name="link_target"></property>
+   <property name="icon_expr"></property>
+   <property name="available_expr"></property>
+   <property name="permissions">
+    <element value="View"/>
+   </property>
+   <property name="visible">True</property>
+  </object>
+  <object name="contact" meta_type="CMF Action" i18n:domain="plone">
+   <property name="title" i18n:translate="">Contact</property>
+   <property name="description" i18n:translate=""></property>
+   <property
+      name="url_expr">string:${globals_view/navigationRootUrl}/contact-info</property>
+   <property name="link_target"></property>
+   <property name="icon_expr"></property>
+   <property name="available_expr"></property>
+   <property name="permissions">
+    <element value="View"/>
+   </property>
+   <property name="visible">True</property>
+  </object>
+  <object name="plone_setup" meta_type="CMF Action" i18n:domain="plone">
+   <property name="title" i18n:translate="">Site Setup</property>
+   <property name="description" i18n:translate=""></property>
+   <property
+      name="url_expr">string:${portal_url}/@@overview-controlpanel</property>
+   <property name="link_target"></property>
+   <property name="icon_expr"></property>
+   <property name="available_expr"></property>
+   <property name="permissions">
+    <element value="Plone Site Setup: Overview"/>
+   </property>
+   <property name="visible">False</property>
+  </object>
+  <object name="imprint" meta_type="CMF Action">
+   <property name="title">Imprint</property>
+   <property name="description"></property>
+   <property name="url_expr">string:${portal_url}/imprint</property>
+   <property name="link_target"></property>
+   <property name="icon_expr"></property>
+   <property name="available_expr"></property>
+   <property name="permissions">
+    <element value="View"/>
+   </property>
+   <property name="visible">True</property>
+  </object>
+ </object>
+ <object name="folder_buttons" meta_type="CMF Action Category">
+  <property name="title"></property>
+  <object name="copy" meta_type="CMF Action" i18n:domain="plone">
+   <property name="title" i18n:translate="">Copy</property>
+   <property name="description" i18n:translate=""></property>
+   <property name="url_expr">string:folder_copy:method</property>
+   <property name="link_target"></property>
+   <property name="icon_expr"></property>
+   <property name="available_expr"></property>
+   <property name="permissions">
+    <element value="Copy or Move"/>
+   </property>
+   <property name="visible">True</property>
+  </object>
+  <object name="cut" meta_type="CMF Action" i18n:domain="plone">
+   <property name="title" i18n:translate="">Cut</property>
+   <property name="description" i18n:translate=""></property>
+   <property name="url_expr">string:folder_cut:method</property>
+   <property name="link_target"></property>
+   <property name="icon_expr"></property>
+   <property
+      name="available_expr">python:checkPermission("Delete objects", object)</property>
+   <property name="permissions">
+    <element value="Copy or Move"/>
+   </property>
+   <property name="visible">True</property>
+  </object>
+  <object name="rename" meta_type="CMF Action" i18n:domain="plone">
+   <property name="title" i18n:translate="">Rename</property>
+   <property name="description" i18n:translate=""></property>
+   <property name="url_expr">string:folder_rename_form:method</property>
+   <property name="link_target"></property>
+   <property name="icon_expr"></property>
+   <property name="available_expr"></property>
+   <property name="permissions">
+    <element value="Add portal content"/>
+   </property>
+   <property name="visible">True</property>
+  </object>
+  <object name="paste" meta_type="CMF Action" i18n:domain="plone">
+   <property name="title" i18n:translate="">Paste</property>
+   <property name="description" i18n:translate=""></property>
+   <property name="url_expr">string:folder_paste:method</property>
+   <property name="link_target"></property>
+   <property name="icon_expr"></property>
+   <property name="available_expr">folder/cb_dataValid</property>
+   <property name="permissions">
+    <element value="Add portal content"/>
+   </property>
+   <property name="visible">True</property>
+  </object>
+  <object name="delete" meta_type="CMF Action" i18n:domain="plone">
+   <property name="title" i18n:translate="">Delete</property>
+   <property name="description" i18n:translate=""></property>
+   <property name="url_expr">string:folder_delete:method</property>
+   <property name="link_target"></property>
+   <property name="icon_expr"></property>
+   <property name="available_expr"></property>
+   <property name="permissions">
+    <element value="Delete objects"/>
+   </property>
+   <property name="visible">True</property>
+  </object>
+  <object name="change_state" meta_type="CMF Action" i18n:domain="plone">
+   <property name="title" i18n:translate="">Change State</property>
+   <property name="description" i18n:translate=""></property>
+   <property name="url_expr">string:content_status_history:method</property>
+   <property name="link_target"></property>
+   <property name="icon_expr"></property>
+   <property
+      name="available_expr">python:checkPermission("Modify portal content", object) or checkPermission("Review portal content", object)</property>
+   <property name="permissions">
+    <element value="View"/>
+   </property>
+   <property name="visible">True</property>
+  </object>
+ </object>
+ <object name="object" meta_type="CMF Action Category">
+  <property name="title"></property>
+  <object name="folderContents" meta_type="CMF Action" i18n:domain="plone">
+   <property name="title" i18n:translate="">Contents</property>
+   <property name="description" i18n:translate=""></property>
+   <property
+      name="url_expr">string:${globals_view/getCurrentFolderUrl}/folder_contents</property>
+   <property name="link_target"></property>
+   <property name="icon_expr"></property>
+   <property name="available_expr">object/displayContentsTab</property>
+   <property name="permissions">
+    <element value="List folder contents"/>
+   </property>
+   <property name="visible">True</property>
+  </object>
+  <object name="syndication" meta_type="CMF Action" i18n:domain="plone">
+   <property name="title" i18n:translate="">Syndication</property>
+   <property name="description" i18n:translate=""></property>
+   <property name="url_expr">string:${object_url}/synPropertiesForm</property>
+   <property name="link_target"></property>
+   <property name="icon_expr"></property>
+   <property
+      name="available_expr">object/@@syndication-util/context_allowed</property>
+   <property name="permissions">
+    <element value="Manage properties"/>
+   </property>
+   <property name="visible">False</property>
+  </object>
+  <object name="contentrules" meta_type="CMF Action" i18n:domain="plone">
+   <property name="title" i18n:translate="">Rules</property>
+   <property name="description" i18n:translate=""></property>
+   <property
+      name="url_expr">string:${plone_context_state/canonical_object_url}/@@manage-content-rules</property>
+   <property name="link_target"></property>
+   <property name="icon_expr"></property>
+   <property
+      name="available_expr">python:plone_context_state.canonical_object().restrictedTraverse('@@plone_contentrules_info').show_rules_tab()</property>
+   <property name="permissions">
+    <element value="Content rules: Manage rules"/>
+   </property>
+   <property name="visible">True</property>
+  </object>
+  <object name="local_roles" meta_type="CMF Action" i18n:domain="plone">
+   <property name="title" i18n:translate="">Sharing</property>
+   <property name="description" i18n:translate=""></property>
+   <property name="url_expr">string:${object_url}/@@sharing</property>
+   <property name="link_target"></property>
+   <property name="icon_expr"></property>
+   <property name="available_expr"></property>
+   <property name="permissions">
+    <element value="Sharing page: Delegate roles"/>
+   </property>
+   <property name="visible">True</property>
+  </object>
+  <object name="event_listing_settings" meta_type="CMF Action"
+     i18n:domain="plone.app.event">
+   <property name="title" i18n:translate="">Event Listing Settings</property>
+   <property name="description"
+      i18n:translate="">Settings for the event listing view.</property>
+   <property
+      name="url_expr">string:${object_url}/@@event_listing_settings</property>
+   <property name="link_target"></property>
+   <property name="icon_expr"></property>
+   <property
+      name="available_expr">python:object.defaultView()=='event_listing' and object.portal_type not in ('Collection', 'Topic')</property>
+   <property name="permissions">
+    <element value="Manage properties"/>
+   </property>
+   <property name="visible">True</property>
+  </object>
+  <object name="ical_import_settings" meta_type="CMF Action"
+     i18n:domain="plone.app.event">
+   <property name="title" i18n:translate="">Ical import</property>
+   <property name="description"
+      i18n:translate="">Import Events from icalendar files.</property>
+   <property
+      name="url_expr">string:${object_url}/@@ical_import_settings</property>
+   <property name="link_target"></property>
+   <property name="icon_expr"></property>
+   <property
+      name="available_expr">object/@@ical_import_tool/enabled|nothing</property>
+   <property name="permissions">
+    <element value="plone.app.event: Import Ical"/>
+   </property>
+   <property name="visible">True</property>
+  </object>
+  <object name="faceted.configure" meta_type="CMF Action" i18n:domain="eea">
+   <property name="title" i18n:translate="">Faceted criteria</property>
+   <property name="description" i18n:translate=""></property>
+   <property
+      name="url_expr">string:${object/absolute_url}/configure_faceted.html</property>
+   <property name="link_target"></property>
+   <property name="icon_expr"></property>
+   <property
+      name="available_expr">object/@@faceted_subtyper/is_faceted</property>
+   <property name="permissions">
+    <element value="eea.facetednavigation: Configure faceted"/>
+   </property>
+   <property name="visible">True</property>
+  </object>
+ </object>
+ <object name="object_buttons" meta_type="CMF Action Category">
+  <property name="title"></property>
+  <object name="cut" meta_type="CMF Action" i18n:domain="plone">
+   <property name="title" i18n:translate="">Cut</property>
+   <property name="description" i18n:translate=""></property>
+   <property name="url_expr">string:$object_url/object_cut</property>
+   <property name="link_target"></property>
+   <property name="icon_expr"></property>
+   <property
+      name="available_expr">python:checkPermission("Delete objects", globals_view.getParentObject()) and checkPermission("Copy or Move", object) and not globals_view.isPortalOrPortalDefaultPage()</property>
+   <property name="permissions">
+    <element value="Delete objects"/>
+   </property>
+   <property name="visible">True</property>
+  </object>
+  <object name="copy" meta_type="CMF Action" i18n:domain="plone">
+   <property name="title" i18n:translate="">Copy</property>
+   <property name="description" i18n:translate=""></property>
+   <property name="url_expr">string:$object_url/object_copy</property>
+   <property name="link_target"></property>
+   <property name="icon_expr"></property>
+   <property
+      name="available_expr">python:checkPermission("Copy or Move", object) and not globals_view.isPortalOrPortalDefaultPage()</property>
+   <property name="permissions">
+    <element value="View"/>
+   </property>
+   <property name="visible">True</property>
+  </object>
+  <object name="paste" meta_type="CMF Action" i18n:domain="plone">
+   <property name="title" i18n:translate="">Paste</property>
+   <property name="description" i18n:translate=""></property>
+   <property
+      name="url_expr">string:${globals_view/getCurrentFolderUrl}/object_paste</property>
+   <property name="link_target"></property>
+   <property name="icon_expr"></property>
+   <property name="available_expr">folder/cb_dataValid|nothing</property>
+   <property name="permissions">
+    <element value="View"/>
+   </property>
+   <property name="visible">True</property>
+  </object>
+  <object name="delete" meta_type="CMF Action" i18n:domain="plone">
+   <property name="title" i18n:translate="">Delete</property>
+   <property name="description" i18n:translate=""></property>
+   <property name="url_expr">string:$object_url/delete_confirmation</property>
+   <property name="link_target"></property>
+   <property name="icon_expr"></property>
+   <property
+      name="available_expr">python:checkPermission("Delete objects", globals_view.getParentObject()) and not globals_view.isPortalOrPortalDefaultPage()</property>
+   <property name="permissions">
+    <element value="Delete objects"/>
+   </property>
+   <property name="visible">True</property>
+  </object>
+  <object name="rename" meta_type="CMF Action" i18n:domain="plone">
+   <property name="title" i18n:translate="">Rename</property>
+   <property name="description" i18n:translate=""></property>
+   <property name="url_expr">string:$object_url/object_rename</property>
+   <property name="link_target"></property>
+   <property name="icon_expr"></property>
+   <property
+      name="available_expr">python:checkPermission("Delete objects", globals_view.getParentObject()) and checkPermission("Copy or Move", object) and checkPermission("Add portal content", object) and not globals_view.isPortalOrPortalDefaultPage()</property>
+   <property name="permissions">
+    <element value="Add portal content"/>
+   </property>
+   <property name="visible">True</property>
+  </object>
+  <object name="ical_import_enable" meta_type="CMF Action"
+     i18n:domain="plone.app.event">
+   <property name="title" i18n:translate="">Enable icalendar import</property>
+   <property name="description"
+      i18n:translate="">Click to enable the icalendar import feature on this context.</property>
+   <property
+      name="url_expr">string:$object_url/@@ical_import_settings/enable</property>
+   <property name="link_target"></property>
+   <property name="icon_expr"></property>
+   <property
+      name="available_expr">object/@@ical_import_tool/available_disabled|nothing</property>
+   <property name="permissions">
+    <element value="plone.app.event: Import Ical"/>
+   </property>
+   <property name="visible">True</property>
+  </object>
+  <object name="ical_import_disable" meta_type="CMF Action"
+     i18n:domain="plone.app.event">
+   <property name="title"
+      i18n:translate="">Disable icalendar import</property>
+   <property name="description"
+      i18n:translate="">Click to disable the icalendar import feature on this context.</property>
+   <property
+      name="url_expr">string:$object_url/@@ical_import_settings/disable</property>
+   <property name="link_target"></property>
+   <property name="icon_expr"></property>
+   <property
+      name="available_expr">object/@@ical_import_tool/enabled|nothing</property>
+   <property name="permissions">
+    <element value="plone.app.event: Import Ical"/>
+   </property>
+   <property name="visible">True</property>
+  </object>
+  <object name="faceted.sync" meta_type="CMF Action" i18n:domain="eea">
+   <property name="title"
+      i18n:translate="">Sync faceted translations</property>
+   <property name="description" i18n:translate=""></property>
+   <property
+      name="url_expr">string:${object/absolute_url}/@@faceted_sync_translations</property>
+   <property name="link_target"></property>
+   <property name="icon_expr"></property>
+   <property
+      name="available_expr">object/@@faceted_subtyper/is_lingua_faceted</property>
+   <property name="permissions">
+    <element value="eea.facetednavigation: Configure faceted"/>
+   </property>
+   <property name="visible">True</property>
+  </object>
+  <object name="faceted.disable" meta_type="CMF Action" i18n:domain="eea">
+   <property name="title"
+      i18n:translate="">Disable faceted navigation</property>
+   <property name="description" i18n:translate=""></property>
+   <property
+      name="url_expr">string:${object/absolute_url}/@@faceted_subtyper/disable</property>
+   <property name="link_target"></property>
+   <property name="icon_expr"></property>
+   <property
+      name="available_expr">object/@@faceted_subtyper/can_disable</property>
+   <property name="permissions">
+    <element value="eea.facetednavigation: Configure faceted"/>
+   </property>
+   <property name="visible">True</property>
+  </object>
+  <object name="faceted.enable" meta_type="CMF Action" i18n:domain="eea">
+   <property name="title"
+      i18n:translate="">Enable faceted navigation</property>
+   <property name="description" i18n:translate=""></property>
+   <property
+      name="url_expr">string:${object/absolute_url}/@@faceted_subtyper/enable</property>
+   <property name="link_target"></property>
+   <property name="icon_expr"></property>
+   <property
+      name="available_expr">object/@@faceted_subtyper/can_enable</property>
+   <property name="permissions">
+    <element value="eea.facetednavigation: Configure faceted"/>
+   </property>
+   <property name="visible">True</property>
+  </object>
+  <object name="faceted.search.disable" meta_type="CMF Action"
+     i18n:domain="eea">
+   <property name="title" i18n:translate="">Disable faceted search</property>
+   <property name="description" i18n:translate=""></property>
+   <property
+      name="url_expr">string:${object/absolute_url}/@@faceted_search_subtyper/disable</property>
+   <property name="link_target"></property>
+   <property name="icon_expr"></property>
+   <property
+      name="available_expr">object/@@faceted_search_subtyper/can_disable</property>
+   <property name="permissions">
+    <element value="eea.facetednavigation: Configure faceted"/>
+   </property>
+   <property name="visible">True</property>
+  </object>
+  <object name="faceted.search.enable" meta_type="CMF Action"
+     i18n:domain="eea">
+   <property name="title" i18n:translate="">Enable faceted search</property>
+   <property name="description" i18n:translate=""></property>
+   <property
+      name="url_expr">string:${object/absolute_url}/@@faceted_search_subtyper/enable</property>
+   <property name="link_target"></property>
+   <property name="icon_expr"></property>
+   <property
+      name="available_expr">object/@@faceted_search_subtyper/can_enable</property>
+   <property name="permissions">
+    <element value="eea.facetednavigation: Configure faceted"/>
+   </property>
+   <property name="visible">True</property>
+  </object>
+ </object>
+ <object name="portal_tabs" meta_type="CMF Action Category">
+  <property name="title"></property>
+  <object name="index_html" meta_type="CMF Action" i18n:domain="plone">
+   <property name="title" i18n:translate="">Home</property>
+   <property name="description" i18n:translate="">lalala index</property>
+   <property
+      name="url_expr">string:${globals_view/navigationRootUrl}</property>
+   <property name="link_target"></property>
+   <property name="icon_expr"></property>
+   <property name="available_expr"></property>
+   <property name="permissions">
+    <element value="View"/>
+   </property>
+   <property name="visible">True</property>
+  </object>
+ </object>
+ <object name="user" meta_type="CMF Action Category">
+  <property name="title"></property>
+  <object name="dashboard" meta_type="CMF Action" i18n:domain="plone">
+   <property name="title" i18n:translate="">Dashboard</property>
+   <property name="description" i18n:translate=""></property>
+   <property name="url_expr">string:${portal_url}/dashboard</property>
+   <property name="link_target"></property>
+   <property name="icon_expr"></property>
+   <property name="available_expr">python:member is not None</property>
+   <property name="permissions">
+    <element value="Portlets: Manage own portlets"/>
+   </property>
+   <property name="visible">True</property>
+  </object>
+  <object name="preferences" meta_type="CMF Action" i18n:domain="plone">
+   <property name="title" i18n:translate="">Preferences</property>
+   <property name="description" i18n:translate=""></property>
+   <property
+      name="url_expr">string:${globals_view/navigationRootUrl}/@@personal-preferences</property>
+   <property name="link_target"></property>
+   <property name="icon_expr"></property>
+   <property name="available_expr">python:member is not None</property>
+   <property name="permissions">
+    <element value="View"/>
+   </property>
+   <property name="visible">True</property>
+  </object>
+  <object name="plone_setup" meta_type="CMF Action" i18n:domain="plone">
+   <property name="title" i18n:translate="">Site Setup</property>
+   <property name="description" i18n:translate=""></property>
+   <property
+      name="url_expr">string:${portal_url}/@@overview-controlpanel</property>
+   <property name="link_target"></property>
+   <property name="icon_expr"></property>
+   <property name="available_expr"></property>
+   <property name="permissions">
+    <element value="Plone Site Setup: Overview"/>
+   </property>
+   <property name="visible">True</property>
+  </object>
+  <object name="login" meta_type="CMF Action" i18n:domain="plone">
+   <property name="title" i18n:translate="">Log in</property>
+   <property name="description" i18n:translate=""></property>
+   <property
+      name="url_expr">string:${globals_view/navigationRootUrl}/login</property>
+   <property name="link_target"></property>
+   <property name="icon_expr"></property>
+   <property name="available_expr">python:member is None</property>
+   <property name="permissions">
+    <element value="View"/>
+   </property>
+   <property name="visible">True</property>
+  </object>
+  <object name="join" meta_type="CMF Action" i18n:domain="plone">
+   <property name="title" i18n:translate="">Register</property>
+   <property name="description" i18n:translate=""></property>
+   <property
+      name="url_expr">string:${globals_view/navigationRootUrl}/@@register</property>
+   <property name="link_target"></property>
+   <property name="icon_expr"></property>
+   <property name="available_expr">python:member is None</property>
+   <property name="permissions">
+    <element value="Add portal member"/>
+   </property>
+   <property name="visible">True</property>
+  </object>
+  <object name="undo" meta_type="CMF Action" i18n:domain="plone">
+   <property name="title" i18n:translate="">Undo</property>
+   <property name="description" i18n:translate=""></property>
+   <property
+      name="url_expr">string:${globals_view/navigationRootUrl}/undo_form</property>
+   <property name="link_target"></property>
+   <property name="icon_expr"></property>
+   <property name="available_expr">python:member is not None</property>
+   <property name="permissions">
+    <element value="List undoable changes"/>
+   </property>
+   <property name="visible">False</property>
+  </object>
+  <object name="review-comments" meta_type="CMF Action" i18n:domain="plone">
+   <property name="title" i18n:translate="">Moderate comments</property>
+   <property name="description" i18n:translate=""></property>
+   <property
+      name="url_expr">string:${globals_view/navigationRootUrl}/@@moderate-comments</property>
+   <property name="link_target"></property>
+   <property
+      name="icon_expr">string:${globals_view/navigationRootUrl}/discussionitem_icon.png</property>
+   <property
+      name="available_expr">portal/@@moderate-comments-enabled|nothing</property>
+   <property name="permissions">
+    <element value="Review comments"/>
+   </property>
+   <property name="visible">True</property>
+  </object>
+  <object name="logout" meta_type="CMF Action" i18n:domain="plone">
+   <property name="title" i18n:translate="">Log out</property>
+   <property name="description" i18n:translate=""></property>
+   <property
+      name="url_expr">string:${globals_view/navigationRootUrl}/logout</property>
+   <property name="link_target"></property>
+   <property name="icon_expr"></property>
+   <property name="available_expr">python:member is not None</property>
+   <property name="permissions">
+    <element value="View"/>
+   </property>
+   <property name="visible">True</property>
+  </object>
+ </object>
+ <object name="controlpanel" meta_type="CMF Action Category">
+  <property name="title"></property>
+  <object name="controlpanel_addons" meta_type="CMF Action Category">
+   <property name="title"></property>
+   <object name="dexterity-types" meta_type="CMF Action"
+      i18n:domain="plone.app.dexterity">
+    <property name="title"
+       i18n:translate="">Dexterity Content Types</property>
+    <property name="description" i18n:translate=""></property>
+    <property
+       name="url_expr">string:${portal_url}/@@dexterity-types</property>
+    <property name="link_target"></property>
+    <property name="icon_expr"></property>
+    <property name="available_expr"></property>
+    <property name="permissions">
+     <element value="Manage portal"/>
+    </property>
+    <property name="visible">True</property>
+   </object>
+  </object>
+ </object>
+ <object name="jqueryui_panels" meta_type="CMF Action Category">
+  <property name="title"></property>
+  <object name="plugins" meta_type="CMF Action"
+     i18n:domain="collective.js.jqueryui">
+   <property name="title" i18n:translate="">Plugins</property>
+   <property name="description" i18n:translate=""></property>
+   <property
+      name="url_expr">string:$object_url/@@jqueryui-plugins-controlpanel</property>
+   <property name="link_target"></property>
+   <property
+      name="icon_expr">string:$portal_url/++resource++jqueryui_icon.jpg</property>
+   <property name="available_expr"></property>
+   <property name="permissions">
+    <element value="Plone Site Setup: Overview"/>
+   </property>
+   <property name="visible">True</property>
+  </object>
+  <object name="sunburst" meta_type="CMF Action"
+     i18n:domain="collective.js.jqueryui">
+   <property name="title" i18n:translate="">Sunburst Theme</property>
+   <property name="description" i18n:translate=""></property>
+   <property
+      name="url_expr">string:$object_url/@@jqueryui-sunburst-controlpanel</property>
+   <property name="link_target"></property>
+   <property
+      name="icon_expr">string:$portal_url/++resource++jqueryui_icon.jpg</property>
+   <property name="available_expr"></property>
+   <property name="permissions">
+    <element value="Plone Site Setup: Overview"/>
+   </property>
+   <property name="visible">True</property>
+  </object>
+ </object>
+</object>

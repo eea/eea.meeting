@@ -1,0 +1,41 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      i18n:domain="eea.meeting"
+      metal:use-macro="context/main_template/macros/master">
+
+<!--<table>-->
+    <!--<tr><th>Hello</th></tr>-->
+    <!--<tr tal:repeat="user view/results">-->
+        <!--<td>HI</td>-->
+        <!--&lt;!&ndash;<td tal:content="user/value"></td>&ndash;&gt;-->
+    <!--</tr>-->
+<!--</table>-->
+
+<table id="" class=""
+      tal:attributes="id view/id;
+                      class view/klass;
+                      style view/style;
+                      title view/title;
+                      lang view/lang;
+                      onclick view/onclick;
+                      ondblclick view/ondblclick;
+                      onmousedown view/onmousedown;
+                      onmouseup view/onmouseup;
+                      onmouseover view/onmouseover;
+                      onmousemove view/onmousemove;
+                      onmouseout view/onmouseout;
+                      onkeypress view/onkeypress;
+                      onkeydown view/onkeydown;
+                      onkeyup view/onkeyup"><tal:block
+      condition="view/value"
+/>
+
+    <tr><th>Hello</th></tr>
+    <tr tal:repeat="user view/value"><td tal:content="user"></tr>
+
+
+</table>
+
+</html>

@@ -1,0 +1,9 @@
+table {
+    border-collapse: collapse;
+}
+
+.display-email, .display-email-th, .display-email-td {
+    border: 1px solid black;
+    text-align: center;
+    padding: 1em;
+}

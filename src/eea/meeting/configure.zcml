@@ -11,6 +11,9 @@
 
   <include package=".browser" />
   <include package=".behaviors" />
+  <include package=".email_form" />
+  <include package=".events" />
+
 
 
   <genericsetup:registerProfile
@@ -39,6 +42,7 @@
       for="eea.meeting.interfaces.IMeeting zope.lifecycleevent.interfaces.IObjectAddedEvent"
       handler=".content.meeting.on_add"
       />
+
    <subscriber
       for="eea.meeting.interfaces.ISubscribers zope.lifecycleevent.interfaces.IObjectAddedEvent"
       handler=".content.subscribers.on_add"
@@ -89,4 +93,15 @@
       title="EEA Meting: Reject subscribers"
       />
 
+  <utility
+      factory=".vocabularies.RecipientsVocabulary"
+      name="eea.meeting.vocabularies.RecipientsVocabulary"/>
+
+  <utility
+      factory=".vocabularies.SearchCriteriaVocabulary"
+      name="eea.meeting.vocabularies.SearchCriteriaVocabulary"/>
+
+  <utility
+      factory=".vocabularies.LDAPListingVocabulary"
+      name="eea.meeting.vocabularies.LDAPListingVocabulary"/>
 </configure>

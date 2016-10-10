@@ -8,47 +8,16 @@
       </p>
       <tal:block condition="context/can_register">
         <tal:block condition="not:python: context.is_anonymous()">
-          <p tal:condition="not:python: context.is_registered()">
-            <a tal:attributes="href string:${context/absolute_url}/register">Register</a>
-            for this meeting as <span class="username" tal:content="view/get_auth_user_name" />
-          </p>
-          <p>You can <a tal:attributes="href string:${context/absolute_url}/subscribers/++add++eea.meeting.subscriber">sign up</a>
-            for someone else to participate in this meeting</p>
+          <a tal:condition="not:python: context.is_registered()"
+             tal:attributes="href string:${context/absolute_url}/register">Register to participate</a>
+
+          <p><a tal:attributes="href string:${context/absolute_url}/subscribers/++add++eea.meeting.subscriber">Sign up someone else</a></p>
         </tal:block>
         <p tal:condition="context/is_anonymous">
           <a tal:attributes="href string:${context/absolute_url}/subscribers/++add++eea.meeting.subscriber">Sign up</a>
           to participate in this meeting
         </p>
       </tal:block>
-      <p>
-        <a tal:condition="python:here.get('subscribers', None)" tal:attributes="href string:${here/absolute_url}/subscribers" >
-          Subscribers</a>
-      </p>
-      <table class="listing">
-        <thead>
-          <tr>
-            <th>First name</th>
-            <th>Last name</th>
-            <th>UID</th>
-            <th>State</th>
-          </tr>
-        <thead>
-        <tbody>
-          <tr tal:repeat="subscriber python:context.get_subscribers()">
-            <td tal:content="python:subscriber.firstname" />
-            <td tal:content="python:subscriber.lastname" />
-            <td>
-              <a tal:attributes="href subscriber/absolute_url" tal:content="subscriber/uid" />
-            </td>
-            <td>
-              <span tal:content="subscriber/state" />
-            </td>
-          </tr>
-        </tbody>
-        <tfoot>
-        </tfoot>
-      </table>
-
       <form name="folderContentsForm"
         method="post"
         action="folder_object"

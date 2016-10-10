@@ -1,23 +1,17 @@
 <?xml version="1.0"?>
-<object name="eea.meeting" meta_type="Dexterity FTI" i18n:domain="eea.meeting"
+<object name="eea.meeting.email" meta_type="Dexterity FTI" i18n:domain="eea.meeting"
    xmlns:i18n="http://xml.zope.org/namespaces/i18n">
-  <property name="title" i18n:translate="">EEA Meeting</property>
+  <property name="title" i18n:translate="">EEA Meeting Email</property>
   <property name="description"
-    i18n:translate="">EEA Meeting management tool</property>
+    i18n:translate=""></property>
   <property name="icon_expr"></property>
-  <property name="factory">EEA Meeting</property>
-  <property name="add_view_expr">string:${folder_url}/++add++eea.meeting</property>
+  <property name="factory">EEA Meeting Email</property>
+  <property name="add_view_expr">string:${folder_url}/@@email_sender</property>
   <property name="link_target"></property>
   <property name="immediate_view">view</property>
-  <property name="global_allow">True</property>
-  <property name="filter_content_types">True</property>
+  <property name="global_allow">False</property>
+  <property name="filter_content_types">False</property>
   <property name="allowed_content_types">
-    <element value="Folder"/>
-    <element value="Link"/>
-    <element value="Image"/>
-    <element value="File"/>
-    <element value="eea.meeting.subscribers"/>
-    <element value="eea.meeting.emails"/>
   </property>
   <property name="allow_discussion">False</property>
   <property name="default_view">view</property>
@@ -26,18 +20,13 @@
   </property>
   <property name="default_view_fallback">False</property>
   <property name="add_permission">cmf.AddPortalContent</property>
-  <property name="klass">eea.meeting.content.meeting.Meeting</property>
+  <property name="klass">plone.dexterity.content.Item</property>
   <property name="behaviors">
-    <element value="plone.app.dexterity.behaviors.metadata.IBasic"/>
-    <element value="plone.app.content.interfaces.INameFromTitle"/>
-    <element value="plone.app.event.dx.behaviors.IEventBasic"/>
-    <element value="plone.app.event.dx.behaviors.IEventLocation"/>
-    <element value="eea.meeting.behaviors.behaviors.IMeetingConstrainTypes"/>
+        <element value="plone.app.dexterity.behaviors.metadata.IBasic"/>
   </property>
-  <property name="schema">eea.meeting.interfaces.IMeeting</property>
+  <property name="schema">eea.meeting.interfaces.IEmail</property>
   <property name="model_source"></property>
   <property name="model_file"></property>
-  <property name="schema_policy">dexterity</property>
   <alias from="(Default)" to="(dynamic view)"/>
   <alias from="edit" to="@@edit"/>
   <alias from="sharing" to="@@sharing"/>
@@ -53,6 +42,3 @@
     <permission value="Modify portal content"/>
   </action>
 </object>
-
-
-
