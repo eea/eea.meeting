@@ -39,7 +39,9 @@ class MeetingView(BrowserView):
     def allowedPortalTypes(self):
         """ Get allowed children portal_types
         """
-        return ["File", "Image", "Folder", "Link"]
+        allowed_content = self.context.allowedContentTypes()
+        results = [ct_type.title for ct_type in allowed_content]
+        return results
 
     def __call__(self):
         if not self.context.get('subscribers'):

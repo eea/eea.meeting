@@ -42,6 +42,7 @@ def cc_constraint(value):
 
     return True
 
+
 class IMeetingLayer(IDefaultBrowserLayer):
     """Marker interface that defines a browser layer."""
 
@@ -83,6 +84,19 @@ class IMeeting(Interface):
         title=_(u"Contact email"),
         required=True,
         constraint=validate_email
+    )
+
+    location =  schema.TextLine(
+        title=_(
+            u'label_event_location',
+            default=u'Location'
+        ),
+        description=_(
+            u'help_event_location',
+            default=u'Location of the event.'
+        ),
+        required=True,
+        default=None
     )
 
 
