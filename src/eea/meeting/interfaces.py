@@ -102,16 +102,6 @@ class IMeeting(Interface):
 
 class ISubscriber(Interface):
     """ Meeting subscriber """
-    firstname = schema.TextLine(
-        title=_(u"First name"),
-        required=True,
-    )
-
-    lastname = schema.TextLine(
-        title=_(u"Last name"),
-        required=True,
-    )
-
     email = schema.TextLine(
         title=_(u"Email"),
         required=True,
@@ -129,14 +119,8 @@ class IEmails(Interface):
 
 class ISearchUser(Interface):
     """ Search user """
-    criteria = schema.Choice(
-        source='eea.meeting.vocabularies.SearchCriteriaVocabulary',
-        title=_(u'Search for'),
-        required= True,
-    )
-
     containing = schema.TextLine(
-        title=_(u"containing"),
+        title=_(u"Add users to E-mail CC"),
         required=True,
     )
 

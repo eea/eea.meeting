@@ -1,34 +1,37 @@
+""" Vocabularies
+"""
 from zope.schema.interfaces import IVocabularyFactory
+from zope.component import queryMultiAdapter
+from zope.component.hooks import getSite
 from zope.interface import implements
 from zope.schema.vocabulary import SimpleVocabulary, SimpleTerm
 from plone import api
 from Products.CMFCore.utils import getToolByName
 
 
-def search_user(context, containing, criteria):
+def search_user(context, searchstring):
 
     results = {}
     users = []
 
-    aclu = getToolByName(context, 'acl_users')
-
-    if criteria[0] == 'Name':
-        users = list(aclu.searchUsers(fullname=containing))
-    elif criteria[0] == 'Email':
-        users = list(aclu.searchUsers(email=containing))
-    elif criteria[0] == 'Organization':
-        users = list(aclu.searchUsers(organisation=containing))
-    elif criteria[0] == 'User ID':
-        users = list(aclu.searchUsers(uid=containing))
+    site = getSite()
+    request = getattr(site, 'REQUEST', None)
+    cpanel = queryMultiAdapter((site, request), name=u"usergroup-userprefs")
+    if cpanel:
+        users = cpanel.doSearch(searchstring)
 
     for user in users:
-        if user['pluginid'] == 'ldap-plugin':
-            org = user.get('o', '')
-            term_title = '{cn} | {mail} | {uid} | {o}'.format(cn=user['cn'], mail=user['mail'], uid=user['uid'], o=org)
-            results[user['mail']] = term_title
-        else:
-            term_title = '{} | {} | {} '.format(user['title'], user['email'], user['userid'])
-            results[user['email']] = term_title
+        uid = user.get('userid', '')
+        fullname = user.get('fullname', '')
+        email = user.get('email', '')
+        org = user.get('o', '')
+        title = '"{fullname} ({userid}) {org}" <{email}>'.format(
+            fullname=fullname,
+            userid=uid,
+            email=email,
+            org=org
+        )
+        results[email] = title
 
     for email, title in results.items():
         yield SimpleTerm(email,title=title)
@@ -46,7 +49,7 @@ class LDAPListingVocabulary(object):
         criteria = context.REQUEST.get('search_user.widgets.criteria')
 
         if context.REQUEST.get('search_user.buttons.search_user') is not None or context.REQUEST.get('search_user.buttons.addCC') is not None:
-            vocab = search_user(context, containing, criteria)
+            vocab = search_user(context, containing)
 
         return SimpleVocabulary([x for x in vocab])
 
@@ -63,22 +66,9 @@ class RecipientsVocabulary(object):
 
         for brain in brains:
             subscriber = brain.getObject()
-            term_title = '{} {} ({})'.format(subscriber.firstname, subscriber.lastname, subscriber.email)
+            term_title = '{} ({})'.format(subscriber.title, subscriber.email)
             results.append(SimpleTerm(subscriber.email, title=term_title))
         return results
 
     def __call__(self, *args, **kwargs):
         return SimpleVocabulary(self.subscriber_list())
-
-class SearchCriteriaVocabulary(object):
-
-    implements(IVocabularyFactory)
-
-    def __call__(self, *args, **kwargs):
-        items = (
-            SimpleTerm("name", u"Name"),
-            SimpleTerm("email", u"Email"),
-            SimpleTerm("organization", u"Organization"),
-            SimpleTerm("user_id", u"User ID"),
-        )
-        return SimpleVocabulary(items)

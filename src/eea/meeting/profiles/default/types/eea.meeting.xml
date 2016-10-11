@@ -26,7 +26,7 @@
   <element value="view"/>
  </property>
  <property name="default_view_fallback">False</property>
- <property name="add_permission">cmf.AddPortalContent</property>
+ <property name="add_permission">eea.meeting.admin_meeting</property>
  <property name="klass">eea.meeting.content.meeting.Meeting</property>
  <property name="behaviors">
   <element value="plone.app.dexterity.behaviors.metadata.IBasic"/>
@@ -45,7 +45,7 @@
  <action title="View" action_id="view" category="object" condition_expr=""
     description="" icon_expr="" link_target="" url_expr="string:${object_url}"
     visible="True">
-  <permission value="View"/>
+  <permission value="EEA Meting: View Meeting"/>
  </action>
  <action title="Edit" action_id="edit" category="object" condition_expr=""
     description="" icon_expr="" link_target=""
@@ -55,30 +55,30 @@
  <action title="Subscribers" action_id="subscribers" category="object"
     condition_expr="" description="" icon_expr="" link_target=""
     url_expr="string:${object_url}/subscribers" visible="True">
-  <permission value="View"/>
+  <permission value="EEA Meting: View subscribers"/>
  </action>
  <action title="Register" action_id="register" category="object_buttons"
-    condition_expr="python:context.can_register() and not (context.is_anonymous() and context.is_registered())"
+    condition_expr="python:not context.is_registered()"
     description="" icon_expr="" link_target=""
     url_expr="string:${object_url}/register" visible="True">
-  <permission value="View"/>
+  <permission value="EEA Meting: Register"/>
  </action>
- <action title="Register another user" action_id="register_user"
+ <action title="Register users" action_id="register_user"
     category="object_buttons"
-    condition_expr="python:context.can_register() and not context.is_anonymous()"
+    condition_expr="python:context.can_register()"
     description="" icon_expr="" link_target=""
     url_expr="string:${object_url}/register_user"
     visible="True">
-  <permission value="View"/>
+  <permission value="EEA Meting: Register User"/>
  </action>
  <action title="Send email" action_id="send_email" category="object_buttons"
     condition_expr="" description="" icon_expr="" link_target=""
     url_expr="string:${object_url}/emails/email_sender" visible="True">
-  <permission value="View"/>
+  <permission value="EEA Meting: Send Email"/>
  </action>
  <action title="Mail archive" action_id="mail_archive" category="object"
     condition_expr="" description="" icon_expr="" link_target=""
     url_expr="string:${object_url}/emails" visible="True">
-  <permission value="View"/>
+  <permission value="EEA Meting: View Emails"/>
  </action>
 </object>

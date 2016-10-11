@@ -35,8 +35,7 @@
                      value="Search"
                      i18n:attributes="value"
                      />
-              <span>or</span>
-              <a tal:attributes="href string:${context/absolute_url}/signup" i18n:translate="">Register a new user</a>
+              <a tal:attributes="href string:${context/portal_url}/new-user" i18n:translate="">Add new user</a>
             </th>
           </tr>
         </thead>
@@ -45,7 +44,7 @@
             <tal:users tal:condition="users">
               <tr tal:repeat="user users">
                 <td style="vertical-align: inherit">
-                  <input type="checkbox" name="users:list" tal:attributes="value user/uid" />
+                  <input type="checkbox" name="users:list" tal:attributes="value user/userid" />
                 </td>
                 <td>
                   <tal:fullname tal:replace="user/fullname" />

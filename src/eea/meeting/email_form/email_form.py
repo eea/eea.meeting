@@ -27,21 +27,21 @@ class SearchUser(form.Form):
         super(SearchUser, self).__init__(context, request)
         self._parent_form = parent_form
 
-    @button.buttonAndHandler(_('Search user'), name='search_user')
+    @button.buttonAndHandler(_('Search'), name='search_user')
     def handleSave(self, action):
         data, errors = self.extractData()
 
         if errors:
             return False
 
-    @button.buttonAndHandler(_('Add to CC'), name='addCC')
+    @button.buttonAndHandler(_('Add'), name='addCC')
     def handle_addCC(self, action):
         data, errors = self.extractData()
 
-        self._parent_form.widgets['cc'].value += '\n'+"\r\n".join(data['results'])
+        self._parent_form.widgets['cc'].value += '\n'+"\n".join(data['results'])
 
-        del self.widgets.values()[2].items[:]
-        self.widgets.values()[1].value = ''
+        del self.widgets['results'].items
+        self.widgets['results'].value = ''
 
         if errors:
             return False

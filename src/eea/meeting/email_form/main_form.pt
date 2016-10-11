@@ -1,5 +1,5 @@
 <metal:use use-macro="context/@@ploneform-macros/titlelessform">
-    <metal:slot fill-slot="formbottom">
-        <div tal:replace="structure python:view.search_user.render()"></div>
+    <metal:slot fill-slot="formtop">
+        <div tal:content="structure python:view.search_user.render()" class="meeting-search-user"></div>
     </metal:slot>
 </metal:use>

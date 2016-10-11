@@ -7,6 +7,9 @@
   <type type_id="EEA Meeting Email">
    <bound-workflow workflow_id="meeting_subscriber_workflow"/>
   </type>
+  <type type_id="eea.meeting.subscriber">
+   <bound-workflow workflow_id="meeting_subscriber_workflow"/>
+  </type>
   <type type_id="eea.meeting.subscribers">
    <bound-workflow workflow_id="meeting_subscribers_workflow"/>
   </type>

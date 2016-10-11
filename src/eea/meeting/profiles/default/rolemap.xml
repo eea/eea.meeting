@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<rolemap>
+  <permissions>
+    <permission name="EEA Meting: View Meeting" acquire="True">
+      <role name="Anonymous"/>
+      <role name="Authenticated"/>
+    </permission>
+    <permission name="EEA Meting: Admin Meeting" acquire="True">
+      <role name="Manager"/>
+      <role name="Owner"/>
+      <role name="Site Administrator"/>
+    </permission>
+    <permission name="EEA Meting: View subscribers" acquire="True">
+      <role name="Manager"/>
+      <role name="Owner"/>
+      <role name="Site Administrator"/>
+    </permission>
+    <permission name="EEA Meting: Add subscribers" acquire="True">
+      <role name="Manager"/>
+      <role name="Owner"/>
+      <role name="Site Administrator"/>
+    </permission>
+    <permission name="EEA Meting: Approve subscribers" acquire="True">
+      <role name="Manager"/>
+      <role name="Owner"/>
+      <role name="Site Administrator"/>
+    </permission>
+    <permission name="EEA Meting: Reject subscribers" acquire="True">
+      <role name="Manager"/>
+      <role name="Owner"/>
+      <role name="Site Administrator"/>
+    </permission>
+    <permission name="EEA Meting: Register" acquire="True">
+      <role name="Authenticated"/>
+    </permission>
+    <permission name="EEA Meting: Register User" acquire="True">
+      <role name="Manager"/>
+      <role name="Owner"/>
+      <role name="Site Administrator"/>
+    </permission>
+    <permission name="EEA Meting: View Emails" acquire="True">
+      <role name="Manager"/>
+      <role name="Owner"/>
+      <role name="Site Administrator"/>
+    </permission>
+    <permission name="EEA Meting: Send Email" acquire="True">
+      <role name="Manager"/>
+      <role name="Owner"/>
+      <role name="Site Administrator"/>
+    </permission>
+  </permissions>
+</rolemap>

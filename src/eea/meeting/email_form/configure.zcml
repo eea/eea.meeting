@@ -8,8 +8,8 @@
   <browser:page
       name="email_sender"
       for="eea.meeting.interfaces.IEmails"
-      permission="zope2.View"
+      permission="eea.meeting.send_email"
       class=".email_form.SendEmailView"
   />
-</configure>
 
+</configure>

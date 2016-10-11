@@ -3,11 +3,6 @@
   <rule name="email_sender" title="Sending email" cascading="False" description=""
     enabled="True" event="eea.meeting.events.interfaces.ISendEmailAddEvent"
     stop-after="False">
-  <conditions>
-   <condition type="plone.conditions.TalesExpression">
-    <property name="tales_expression">python:True</property>
-   </condition>
-  </conditions>
   <actions>
    <action type="plone.actions.Mail">
     <property name="source">${email_sender}</property>

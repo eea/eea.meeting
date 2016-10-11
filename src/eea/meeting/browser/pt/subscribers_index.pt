@@ -2,24 +2,22 @@
   metal:use-macro="here/main_template/macros/master"
   i18n:domain="eea">
   <body>
-    <div metal:fill-slot="content-core" >
+    <div metal:fill-slot="content-core" class="meeting-items">
        <p>Users subscribed to this meeting</p>
        <table class="listing">
         <thead>
           <tr>
-            <th>First name</th>
-            <th>Last name</th>
-            <th>UID</th>
+            <th>User Name</th>
+            <th>E-mail</th>
             <th>State</th>
           </tr>
         <thead>
         <tbody>
           <tr tal:repeat="subscriber python:context.get_subscribers()">
-            <td tal:content="python:subscriber.firstname" />
-            <td tal:content="python:subscriber.lastname" />
             <td>
-              <a tal:attributes="href subscriber/absolute_url" tal:content="subscriber/getId" />
+              <a tal:attributes="href subscriber/absolute_url" tal:content="string:${subscriber/title} (${subscriber/getId})" />
             </td>
+            <td tal:content="subscriber/email|string:" />
             <td>
               <span tal:content="subscriber/state" />
             </td>

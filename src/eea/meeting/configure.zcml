@@ -59,10 +59,7 @@
       name="eea.meeting.vocabularies.RecipientsVocabulary"/>
 
   <utility
-      factory=".vocabularies.SearchCriteriaVocabulary"
-      name="eea.meeting.vocabularies.SearchCriteriaVocabulary"/>
-
-  <utility
       factory=".vocabularies.LDAPListingVocabulary"
       name="eea.meeting.vocabularies.LDAPListingVocabulary"/>
+
 </configure>

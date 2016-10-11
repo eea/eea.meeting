@@ -94,14 +94,12 @@ class Register(BrowserView):
         else:
             current_user = api.user.get_current()
             uid = current_user.getId()
-            firstname = current_user.getProperty('firstname')
-            lastname = current_user.getProperty('lastname')
-            fullname = current_user.getProperty('fullname')
+            fullname = current_user.getProperty('fullname', uid)
             email = current_user.getProperty('email')
 
             createContentInContainer(subscribers, 'eea.meeting.subscriber',
+                                     checkConstraints=False,
                                      title=fullname, id=uid,
-                                     firstname=firstname, lastname=lastname,
                                      email=email)
 
             IStatusMessage(self.request).addStatusMessage(
@@ -137,14 +135,42 @@ class RegisterUser(BrowserView):
         cpanel = getMultiAdapter((site, self.request), name=u"usergroup-userprefs")
         return cpanel.doSearch(self.searchString)
 
+    def _register(self, users):
+        """ Register users
+        """
+        subscribers = self.context.get('subscribers')
+        emails = [sub.email for sub in subscribers.values()]
+        for username in users:
+            user = api.user.get(username)
+            fullname = user.getProperty('fullname', username)
+            email = user.getProperty('email')
+            if email in emails:
+                continue
+
+            createContentInContainer(
+                subscribers, 'eea.meeting.subscriber',
+                checkConstraints=False,
+                title=fullname, id=username,
+                email=email)
+
+        IStatusMessage(self.request).addStatusMessage(
+                "Users registered to this meeting", type="info")
+        return self.request.response.redirect(
+            self.context.absolute_url() + '/register_user')
+
+
     def __call__(self, *args, **kwargs):
         if self.request.method.lower() != 'post':
             return self.index()
 
-        if not self.request.get('form.button.add', None):
+        if not self.request.get('form.button.register', None):
             return self.index()
 
-        raise NotImplementedError
+        users = self.request.get('users', [])
+        if not users:
+            return self.index()
+
+        return self._register(users)
 
 
 class ViewSentEmails(BrowserView):

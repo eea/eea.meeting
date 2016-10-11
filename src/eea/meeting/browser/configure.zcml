@@ -13,15 +13,15 @@
   <browser:page
       for="eea.meeting.interfaces.IMeeting"
       name="view"
-      permission="zope2.View"
       class=".views.MeetingView"
       layer="eea.meeting.interfaces.IMeetingLayer"
+      permission="eea.meeting.view_meeting"
       />
 
   <browser:page
       for="eea.meeting.interfaces.ISubscribers"
       name="view"
-      permission="cmf.ManagePortal"
+      permission="eea.meeting.view_subscribers"
       class=".views.SubscribersView"
       layer="eea.meeting.interfaces.IMeetingLayer"
       />
@@ -30,7 +30,7 @@
       name="register"
       class="eea.meeting.browser.views.Register"
       for="eea.meeting.interfaces.IMeeting"
-      permission="zope2.View"
+      permission="eea.meeting.register"
       layer="eea.meeting.interfaces.IMeetingLayer"
       />
 
@@ -38,7 +38,7 @@
       name="register_user"
       class="eea.meeting.browser.views.RegisterUser"
       for="eea.meeting.interfaces.IMeeting"
-      permission="zope2.View"
+      permission="eea.meeting.register_user"
       template="pt/register_user.pt"
       layer="eea.meeting.interfaces.IMeetingLayer"
       />
@@ -48,7 +48,7 @@
       for="eea.meeting.interfaces.IEmails"
       template="pt/email_listing_view.pt"
       class=".views.ViewSentEmails"
-      permission="zope2.View"
+      permission="eea.meeting.view_email"
       layer="eea.meeting.interfaces.IMeetingLayer"
       />
 
@@ -56,7 +56,7 @@
     for="eea.meeting.interfaces.IMeeting"
     name="ics_view"
     class="Products.ATContentTypes.browser.calendar.CalendarView"
-    permission="zope2.View"
+    permission="eea.meeting.view_meeting"
     layer="eea.meeting.interfaces.IMeetingLayer"
     />
 

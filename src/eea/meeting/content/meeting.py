@@ -32,10 +32,10 @@ class Meeting(Container):
             return api.content.get_status(getattr(self.subscribers, uid))
 
     def can_register(self):
-        sm = getSecurityManager()
-        if sm.checkPermission("EEA Meting: Admin Meeting", self):
-            return True
-        return self.registrations_open()
+        open = self.registrations_open()
+        if not open:
+            return False
+        return True
 
     def is_admin(self):
         sm = getSecurityManager()

@@ -31,17 +31,18 @@
                       start_utcdelta python:context.start.tzinfo.utcoffset(context.start);
                       start_utcoffset python:(start_utcdelta.days*86400+start_utcdelta.seconds)*100/60/60;">
                       <tal:date replace="structure python:view.formatted_date(context)" />
-                      <span class="timezone"
-                          tal:condition="start_tzname">
-                        (<tal:tzname replace="start_tzname">timezone name</tal:tzname> / UTC<tal:tzoffset replace="start_utcoffset" />)
-                      </span>
+                      <!--?<span class="timezone"-->
+                          <!--?tal:condition="start_tzname">-->
+                        <!--?(<tal:tzname replace="start_tzname">timezone name</tal:tzname> / UTC<tal:tzoffset replace="start_utcoffset" />)-->
+                      <!--?</span>-->
                     </span>
                     </td>
                 </tr>
-                <tr tal:condition="context/location">
+                <tr tal:define="location context/location" tal:condition="location">
                     <th i18n:translate="event_where">Where</th>
                     <td class="location">
-                        <span itemprop="location" tal:content="structure context/location">Location</span>
+                      <a tal:attributes="href string:http://maps.google.com?q=$location"
+                        title="View on map" itemprop="location" tal:content="location">Location</a>
                     </td>
                 </tr>
                 <tr tal:define="mail context/contact_email;
@@ -74,6 +75,20 @@
                             <span i18n:translate="label_add_to_ical">iCal</span></a>
                     </td>
                 </tr>
+                <tr>
+                    <th i18n:translate="">Registration</th>
+                    <td tal:define="registered context/is_registered">
+                      <tal:notregister tal:condition="not:registered">
+                        <a href="#" tal:condition="context/can_register"
+                           tal:attributes="href string:${context/absolute_url}/register"
+                           title="Register">Register now</a>
+                        <span tal:condition="not:context/can_register">Closed</span>
+                      </tal:notregister>
+                      <tal:registered tal:condition="registered">
+                        <span>You are registered</span>
+                      </tal:registered>
+                    </td>
+                </tr>
             </tbody>
         </table>
     </div>
@@ -84,17 +99,11 @@
 
   </div>
 
-  <tal:block condition="context/can_register">
-    <p tal:condition="context/is_anonymous">
-      <a tal:attributes="href string:${context/absolute_url}/subscribers/++add++eea.meeting.subscriber">Sign up</a>
-      to participate in this meeting
-    </p>
-  </tal:block>
-
-  <tal:items tal:define="
-    contentFilter python:{'portal_type': view.allowedPortalTypes}">
+  <div class="meeting-items" tal:define="
+    contentFilter python:{'portal_type': view.allowedPortalTypes};
+    folderContents python:context.getFolderContents(contentFilter);" tal:condition="folderContents">
     <metal:content metal:use-macro="here/folder_tabular_view/macros/listing" />
-  </tal:items>
+  </div>
 
 </div>
 </body>
