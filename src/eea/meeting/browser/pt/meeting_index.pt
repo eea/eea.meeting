@@ -92,7 +92,7 @@
   </tal:block>
 
   <tal:items tal:define="
-    contentFilter python:{'portal_type': ['File', 'Image', 'Link', 'Folder']}">
+    contentFilter python:{'portal_type': view.allowedPortalTypes}">
     <metal:content metal:use-macro="here/folder_tabular_view/macros/listing" />
   </tal:items>
 

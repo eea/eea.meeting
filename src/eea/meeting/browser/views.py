@@ -28,11 +28,6 @@ class MeetingView(BrowserView):
         )
         return provider(occ)
 
-    def __call__(self):
-        if not self.context.get('subscribers'):
-            create_subscribers(self.context)
-        return self.index()
-
     def get_auth_user_name(self):
         return api.user.get_current().getId()
 
@@ -40,6 +35,16 @@ class MeetingView(BrowserView):
         table = MeetingContentsTable(aq_inner(self.context), self.request)
         return table.render()
 
+    @property
+    def allowedPortalTypes(self):
+        """ Get allowed children portal_types
+        """
+        return ["File", "Image", "Folder", "Link"]
+
+    def __call__(self):
+        if not self.context.get('subscribers'):
+            create_subscribers(self.context)
+        return self.index()
 
 class MeetingContentsTable(foldercontents.FolderContentsTable):
     def folderitems(self):
