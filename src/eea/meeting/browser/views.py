@@ -2,13 +2,11 @@
 """
 from zope.component import getMultiAdapter
 from zope.component.hooks import getSite
-from Acquisition import aq_inner
 from Products.statusmessages.interfaces import IStatusMessage
 from Products.Five.browser import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from plone import api
 from plone.dexterity.utils import createContentInContainer
-from plone.app.content.browser import foldercontents
 from zope.contentprovider.interfaces import IContentProvider
 
 from eea.meeting import _
@@ -31,51 +29,50 @@ class MeetingView(BrowserView):
     def get_auth_user_name(self):
         return api.user.get_current().getId()
 
-    def contents_table(self):
-        table = MeetingContentsTable(aq_inner(self.context), self.request)
-        return table.render()
+    @property
+    def can_list_content(self):
+        if not self.context.restrict_content_access:
+            return True
+
+        if self.context.is_admin():
+            return True
+
+        user = self.get_auth_user_name()
+        for subscriber in self.context.subscribers.values():
+            if subscriber.state() != APPROVED_STATE:
+                continue
+            if subscriber.userid == user:
+                return True
+        return False
+
+    def _allowedPortalTypes(self):
+        """ Filter allowed ctypes
+        """
+        allowed = [ctype.title for ctype in self.context.allowedContentTypes()]
+        if not allowed:
+            allowed = ['Folder', 'File', 'Image', 'Link']
+
+        for ctype in allowed:
+            if 'Subscribers' in ctype:
+                continue
+            if 'Emails' in ctype:
+                continue
+            yield ctype
 
     @property
     def allowedPortalTypes(self):
         """ Get allowed children portal_types
         """
-        allowed_content = self.context.allowedContentTypes()
-        results = [ct_type.title for ct_type in allowed_content]
-        return results
+        return [ctype for ctype in self._allowedPortalTypes()]
 
     def __call__(self):
         if not self.context.get('subscribers'):
             create_subscribers(self.context)
         return self.index()
 
-class MeetingContentsTable(foldercontents.FolderContentsTable):
-    def folderitems(self):
-        items = super(MeetingContentsTable, self).folderitems()
-        filtered = [item for item in items if item['id'] != 'subscribers' and item['id']!= 'emails']
-        return filtered
-
 
 class SubscribersView(BrowserView):
     """ EEA Meeting Subscribers index """
-
-    index = ViewPageTemplateFile("pt/subscribers_index.pt")
-
-    def __call__(self):
-        return self.index()
-
-    def contents_table(self):
-        table = SubscribersContentsTable(aq_inner(self.context), self.request)
-        return table.render()
-
-
-class SubscribersContentsTable(foldercontents.FolderContentsTable):
-    def folderitems(self):
-        items = super(SubscribersContentsTable, self).folderitems()
-        if not self.context.is_admin():
-            return [item for item in items
-                    if item['wf_state'] == APPROVED_STATE]
-        else:
-            return items
 
 
 class Register(BrowserView):
@@ -99,7 +96,7 @@ class Register(BrowserView):
 
             createContentInContainer(subscribers, 'eea.meeting.subscriber',
                                      checkConstraints=False,
-                                     title=fullname, id=uid,
+                                     title=fullname, id=uid, userid=uid,
                                      email=email)
 
             IStatusMessage(self.request).addStatusMessage(
@@ -150,7 +147,7 @@ class RegisterUser(BrowserView):
             createContentInContainer(
                 subscribers, 'eea.meeting.subscriber',
                 checkConstraints=False,
-                title=fullname, id=username,
+                title=fullname, id=username, userid=username,
                 email=email)
 
         IStatusMessage(self.request).addStatusMessage(

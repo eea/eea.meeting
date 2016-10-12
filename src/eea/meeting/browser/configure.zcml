@@ -23,6 +23,7 @@
       name="view"
       permission="eea.meeting.view_subscribers"
       class=".views.SubscribersView"
+      template="pt/subscribers_index.pt"
       layer="eea.meeting.interfaces.IMeetingLayer"
       />
 

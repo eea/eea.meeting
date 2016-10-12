@@ -74,6 +74,7 @@ def create_subscribers(container):
     createContentInContainer(container, 'eea.meeting.subscribers',
                              title='Subscribers', id='subscribers')
 
+
 def create_emails(container):
     createContentInContainer(container, 'eea.meeting.emails',
                              title='Emails', id='emails')

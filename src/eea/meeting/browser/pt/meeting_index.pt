@@ -99,11 +99,13 @@
 
   </div>
 
-  <div class="meeting-items" tal:define="
-    contentFilter python:{'portal_type': view.allowedPortalTypes};
-    folderContents python:context.getFolderContents(contentFilter);" tal:condition="folderContents">
-    <metal:content metal:use-macro="here/folder_tabular_view/macros/listing" />
-  </div>
+  <tal:listing tal:define="allowed view/can_list_content" tal:condition="allowed">
+    <div class="meeting-items" tal:define="
+      contentFilter python:{'portal_type': view.allowedPortalTypes};
+      folderContents python:context.getFolderContents(contentFilter);" tal:condition="folderContents">
+      <metal:content metal:use-macro="here/folder_tabular_view/macros/listing" />
+    </div>
+  </tal:listing>
 
 </div>
 </body>

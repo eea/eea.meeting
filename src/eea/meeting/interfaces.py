@@ -65,6 +65,11 @@ class IMeeting(Interface):
         required=True,
     )
 
+    restrict_content_access = schema.Bool(
+        title=(u"Restrict user access to the contents in the meeting"),
+        required=True
+    )
+
     auto_approve = schema.Bool(
         title=_(u"Automatically approve registrations"),
         required=True,
@@ -102,6 +107,11 @@ class IMeeting(Interface):
 
 class ISubscriber(Interface):
     """ Meeting subscriber """
+    userid = schema.TextLine(
+        title=_("User id"),
+        required=True
+    )
+
     email = schema.TextLine(
         title=_(u"Email"),
         required=True,
