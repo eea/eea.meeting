@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 """Installer for the eea.meeting package."""
 
+import os
 from setuptools import find_packages
 from setuptools import setup
 
@@ -11,10 +12,13 @@ long_description = '\n\n'.join([
     open('CHANGES.rst').read(),
 ])
 
+NAME = "eea.meeting"
+PATH = ['src'] + NAME.split('.') + ['version.txt']
+VERSION = open(os.path.join(*PATH)).read().strip()
 
 setup(
-    name='eea.meeting',
-    version='1.0a1',
+    name=NAME,
+    version=VERSION,
     description="Meeting support for Plone",
     long_description=long_description,
     # Get more from https://pypi.python.org/pypi?%3Aaction=list_classifiers
@@ -49,6 +53,7 @@ setup(
         'plone.app.z3cform',
         'plone.app.vocabularies',
         'plone.app.registry',
+        'Products.MemcachedManager',
     ],
     extras_require={
         'test': [

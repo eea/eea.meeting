@@ -24,6 +24,17 @@ def post_install(context):
         security.enable_self_reg = True
         security.enable_user_pwd_choice = True
 
+    # Add memcached
+    if 'MEMCache' not in site.objectIds():
+        oid = site.manage_addProduct[
+            'MemcachedManager'].manage_addMemcachedManager('MEMCache')
+        cache = site._getOb('MEMCache')
+        cache._settings['servers'] = ('memcached:11211',)
+        cache._p_changed = True
+
+        # Set cache for ldap-plugin
+        ldap_plugin = site['acl_users']['ldap-plugin']
+        ldap_plugin.ZCacheable_setManagerId(manager_id='MEMCache')
 
 def uninstall(context):
     """Uninstall script"""
