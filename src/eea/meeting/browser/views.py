@@ -13,6 +13,56 @@ from eea.meeting import _
 from eea.meeting.content.meeting import create_subscribers
 from eea.meeting.content.subscribers import APPROVED_STATE
 
+from Products.CMFCore.utils import getToolByName
+from Products.ATContentTypes.interfaces import ICalendarSupport
+from Products.ATContentTypes.lib import calendarsupport as cs
+from plone.memoize import ram
+from Products.ATContentTypes.browser.calendar import cachekey
+from DateTime import DateTime
+
+class CustomCalendar(BrowserView):
+
+    def update(self):
+        context = self.context
+        catalog = getToolByName(context, 'portal_catalog')
+        path = '/'.join(context.getPhysicalPath())
+        provides = ICalendarSupport.__identifier__
+        self.events = catalog(dict(path=path, object_provides=provides))
+
+    def render(self):
+        self.update()  # collect events
+        context = self.context
+        request = self.request
+        name = '%s.ics' % context.getId()
+        request.RESPONSE.setHeader('Content-Type', 'text/calendar')
+        request.RESPONSE.setHeader('Content-Disposition', 'attachment; filename="%s"' % name)
+        request.RESPONSE.write(self.feeddata())
+
+    @ram.cache(cachekey)
+    def feeddata(self):
+        context = self.context
+        data = cs.ICS_HEADER % dict(prodid=cs.PRODID)
+        data += 'DTSTAMP:%s\n' % cs.rfc2445dt(DateTime())
+        data += 'CREATED:%s\n' % cs.rfc2445dt(DateTime(context.CreationDate()))
+        data += 'UID:ATEvent-%s\n' % self.context.UID()
+        data += 'LAST-MODIFIED:%s\n' %  cs.rfc2445dt(DateTime(context.ModificationDate()))
+        data += 'SUMMARY:%s\n' %  cs.vformat(context.Title())
+        data += 'DESCRIPTION:%s\n' %  cs.vformat(context.Description())
+        # data += 'CONTACT:%s\n' %  cs.vformat(context.contact_name())
+        # data += 'LOCATION:%s\n' %  cs.vformat(context.getLocation())
+        # data += 'DTSTART:%s\n' %  cs.rfc2445dt((context.start())
+        # data += 'DTEND:%s\n' %  cs.rfc2445dt(context.end())
+
+
+        for brain in self.events:
+            data += brain.getObject().getICal()
+        data += cs.ICS_FOOTER
+        return data
+
+
+    __call__ = render
+
+
 
 class MeetingView(BrowserView):
     """ EEA Meeting index """
