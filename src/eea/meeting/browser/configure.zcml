@@ -56,7 +56,7 @@
   <browser:page
     for="eea.meeting.interfaces.IMeeting"
     name="ics_view"
-    class=".views.CustomCalendar"
+    class="plone.app.event.ical.exporter.EventsICal"
     permission="eea.meeting.view_meeting"
     layer="eea.meeting.interfaces.IMeetingLayer"
     />
