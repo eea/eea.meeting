@@ -6,7 +6,13 @@ function fnExcelReport() {
     tab_text = tab_text + '</x:ExcelWorksheets></x:ExcelWorkbook></xml></head><body>';
 
     tab_text = tab_text + "<table border='1px'>";
-    tab_text = tab_text + $('.display-email').html();
+
+    // remove sortdisplay spans from excel output in order to avoid strange characters
+    // from showing up within the excel export
+    var $display_email = $('.display-email');
+    var $sort_direction = $display_email.find('.sortdirection').detach();
+
+    tab_text = tab_text + $display_email.html();
     tab_text = tab_text + '</table></body></html>';
 
     var data_type = 'data:application/vnd.ms-excel';
@@ -22,8 +28,12 @@ function fnExcelReport() {
             navigator.msSaveBlob(blob, 'Email_archive.xls');
         }
     } else {
-        $('#email_download').attr('href', data_type + ', ' + encodeURIComponent(tab_text));
-        $('#email_download').attr('download', 'Email_archive.xls');
+        $('#email_download').attr({'href': data_type + ', ' + encodeURIComponent(tab_text),
+            'download': 'Email_archive.xls'});
     }
+    var $email_th = $display_email.find('.display-email-th');
+    $email_th.each(function (idx, el) {
+       $sort_direction.eq(idx).appendTo($(el));
+    });
 
 }
