@@ -1,20 +1,21 @@
 """ Browser controllers
 """
-from zope.component import getMultiAdapter
-from zope.component.hooks import getSite
-from Products.statusmessages.interfaces import IStatusMessage
+
 from Products.Five.browser import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
-from plone import api
-from plone.dexterity.utils import createContentInContainer
-from zope.contentprovider.interfaces import IContentProvider
-
+from Products.statusmessages.interfaces import IStatusMessage
 from eea.meeting import _
 from eea.meeting.content.meeting import create_subscribers
 from eea.meeting.content.subscribers import APPROVED_STATE
+from plone import api
+from plone.dexterity.browser.view import DefaultView
+from plone.dexterity.utils import createContentInContainer
+from zope.component import getMultiAdapter
+from zope.component.hooks import getSite
+from zope.contentprovider.interfaces import IContentProvider
 
 
-class MeetingView(BrowserView):
+class MeetingView(DefaultView):
     """ EEA Meeting index """
 
     index = ViewPageTemplateFile("pt/meeting_index.pt")
@@ -65,10 +66,10 @@ class MeetingView(BrowserView):
         """
         return [ctype for ctype in self._allowedPortalTypes()]
 
-    def __call__(self):
+    def update(self):
+        super(MeetingView, self).update()
         if not self.context.get('subscribers'):
             create_subscribers(self.context)
-        return self.index()
 
 
 class SubscribersView(BrowserView):
