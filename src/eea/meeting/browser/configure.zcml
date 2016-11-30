@@ -1,57 +1,58 @@
 <configure
-    xmlns="http://namespaces.zope.org/zope"
-    xmlns:browser="http://namespaces.zope.org/browser"
-    xmlns:plone="http://namespaces.plone.org/plone"
-    i18n_domain="eea.meeting">
+  xmlns="http://namespaces.zope.org/zope"
+  xmlns:browser="http://namespaces.zope.org/browser"
+  xmlns:plone="http://namespaces.plone.org/plone"
+  i18n_domain="eea.meeting">
 
   <!-- Publish static files -->
   <browser:resourceDirectory
-      name="eea.meeting"
-      directory="static"
-      />
+    name="eea.meeting"
+    directory="static"
+    />
 
   <browser:page
-      for="eea.meeting.interfaces.IMeeting"
-      name="view"
-      class=".views.MeetingView"
-      layer="eea.meeting.interfaces.IMeetingLayer"
-      permission="eea.meeting.view_meeting"
-      />
+    for="eea.meeting.interfaces.IMeeting"
+    name="view"
+    class=".views.MeetingView"
+    layer="eea.meeting.interfaces.IMeetingLayer"
+    template="pt/meeting_index.pt"
+    permission="eea.meeting.view_meeting"
+    />
 
   <browser:page
-      for="eea.meeting.interfaces.ISubscribers"
-      name="view"
-      permission="eea.meeting.view_subscribers"
-      class=".views.SubscribersView"
-      template="pt/subscribers_index.pt"
-      layer="eea.meeting.interfaces.IMeetingLayer"
-      />
+    for="eea.meeting.interfaces.ISubscribers"
+    name="view"
+    permission="eea.meeting.view_subscribers"
+    class=".views.SubscribersView"
+    template="pt/subscribers_index.pt"
+    layer="eea.meeting.interfaces.IMeetingLayer"
+    />
 
   <browser:page
-      name="register"
-      class="eea.meeting.browser.views.Register"
-      for="eea.meeting.interfaces.IMeeting"
-      permission="eea.meeting.register"
-      layer="eea.meeting.interfaces.IMeetingLayer"
-      />
+    name="register"
+    class="eea.meeting.browser.views.Register"
+    for="eea.meeting.interfaces.IMeeting"
+    permission="eea.meeting.register"
+    layer="eea.meeting.interfaces.IMeetingLayer"
+    />
 
   <browser:page
-      name="register_user"
-      class="eea.meeting.browser.views.RegisterUser"
-      for="eea.meeting.interfaces.IMeeting"
-      permission="eea.meeting.register_user"
-      template="pt/register_user.pt"
-      layer="eea.meeting.interfaces.IMeetingLayer"
-      />
+    name="register_user"
+    class="eea.meeting.browser.views.RegisterUser"
+    for="eea.meeting.interfaces.IMeeting"
+    permission="eea.meeting.register_user"
+    template="pt/register_user.pt"
+    layer="eea.meeting.interfaces.IMeetingLayer"
+    />
 
   <browser:page
-      name="view"
-      for="eea.meeting.interfaces.IEmails"
-      template="pt/email_listing_view.pt"
-      class=".views.ViewSentEmails"
-      permission="eea.meeting.view_email"
-      layer="eea.meeting.interfaces.IMeetingLayer"
-      />
+    name="view"
+    for="eea.meeting.interfaces.IEmails"
+    template="pt/email_listing_view.pt"
+    class=".views.ViewSentEmails"
+    permission="eea.meeting.view_email"
+    layer="eea.meeting.interfaces.IMeetingLayer"
+    />
 
   <browser:page
     for="eea.meeting.interfaces.IMeeting"

@@ -2,7 +2,6 @@
 """
 
 from Products.Five.browser import BrowserView
-from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from Products.statusmessages.interfaces import IStatusMessage
 from eea.meeting import _
 from eea.meeting.content.meeting import create_subscribers
@@ -17,8 +16,6 @@ from zope.contentprovider.interfaces import IContentProvider
 
 class MeetingView(DefaultView):
     """ EEA Meeting index """
-
-    index = ViewPageTemplateFile("pt/meeting_index.pt")
 
     def formatted_date(self, occ):
         provider = getMultiAdapter(
