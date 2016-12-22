@@ -45,6 +45,11 @@
                         title="View on map" itemprop="location" tal:content="location">Location</a>
                     </td>
                 </tr>
+                <tr tal:define="host context/hosting_organisation | nothing"
+                    tal:condition="python:host">
+                    <th i18n:translate="hosting_organisation">Hosting organisation</th>
+                    <td tal:content="host">ONU</td>
+                </tr>
                 <tr tal:define="mail context/contact_email;
                                 name context/contact_name"
                     tal:condition="python:name or email">

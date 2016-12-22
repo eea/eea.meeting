@@ -80,6 +80,12 @@ class IMeeting(Interface):
         required=True,
     )
 
+    hosting_organisation = schema.TextLine(
+        title=_(u"Hosting organisation"),
+        required=True,
+        default=None,
+    )
+
     contact_name = schema.TextLine(
         title=_(u"Contact person"),
         required=True,

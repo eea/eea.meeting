@@ -76,6 +76,7 @@ class SubscribersView(BrowserView):
 class Register(BrowserView):
     """ Register current user
     """
+
     def __call__(self):
         subscribers = self.context.get('subscribers')
         if not subscribers:
