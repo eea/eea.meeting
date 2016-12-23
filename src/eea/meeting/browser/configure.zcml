@@ -62,4 +62,42 @@
     layer="eea.meeting.interfaces.IMeetingLayer"
     />
 
+  <browser:page
+    for="eea.meeting.interfaces.IMeeting"
+    name="edit"
+    class=".views.MeetingEditView"
+    permission="cmf.ModifyPortalContent"
+    />
+
+  <adapter
+    provides="plone.z3cform.fieldsets.interfaces.IFormExtender"
+    for="eea.meeting.interfaces.IMeeting
+    zope.publisher.interfaces.browser.IDefaultBrowserLayer
+    .views.MeetingEditForm"
+    factory=".views.MeetingFormExtender"
+    />
+
+  <adapter
+    provides="plone.z3cform.fieldsets.interfaces.IFormExtender"
+    for="Products.CMFCore.interfaces.IFolderish
+    zope.publisher.interfaces.browser.IDefaultBrowserLayer
+    .views.MeetingAddForm"
+    factory=".views.MeetingFormExtender"
+    />
+
+  <adapter
+    for="Products.CMFCore.interfaces.IFolderish
+    eea.meeting.interfaces.IMeetingLayer
+    plone.dexterity.interfaces.IDexterityFTI"
+    provides="zope.publisher.interfaces.browser.IBrowserPage"
+    factory=".integration.AddView"
+    />
+
+  <class class=".integration.AddView">
+    <require
+      permission="cmf.AddPortalContent"
+      interface="zope.publisher.interfaces.browser.IBrowserPage"
+      />
+  </class>
+
 </configure>

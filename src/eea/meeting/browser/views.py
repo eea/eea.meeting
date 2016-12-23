@@ -7,11 +7,17 @@ from eea.meeting import _
 from eea.meeting.content.meeting import create_subscribers
 from eea.meeting.content.subscribers import APPROVED_STATE
 from plone import api
+from plone.dexterity.browser.add import DefaultAddForm
+from plone.dexterity.browser.edit import DefaultEditForm
 from plone.dexterity.browser.view import DefaultView
+from plone.dexterity.interfaces import IDexterityEditForm
 from plone.dexterity.utils import createContentInContainer
+from plone.z3cform import layout
+from plone.z3cform.fieldsets.extensible import FormExtender
 from zope.component import getMultiAdapter
 from zope.component.hooks import getSite
 from zope.contentprovider.interfaces import IContentProvider
+from zope.interface import classImplements
 
 
 class MeetingView(DefaultView):
@@ -67,6 +73,26 @@ class MeetingView(DefaultView):
         super(MeetingView, self).update()
         if not self.context.get('subscribers'):
             create_subscribers(self.context)
+
+
+class MeetingFormExtender(FormExtender):
+    def update(self):
+        self.move('IGeolocatable.geolocation', after='location')
+        self.form.fields['IGeolocatable.geolocation'].field.title = \
+            u'Event location on map'
+
+
+class MeetingEditForm(DefaultEditForm):
+    """ Edit form for case studies
+    """
+
+MeetingEditView = layout.wrap_form(MeetingEditForm)
+classImplements(MeetingEditView, IDexterityEditForm)
+
+
+class MeetingAddForm(DefaultAddForm):
+    """ Add Form for case studies
+    """
 
 
 class SubscribersView(BrowserView):
