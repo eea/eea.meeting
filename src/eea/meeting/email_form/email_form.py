@@ -1,15 +1,16 @@
-from eea.meeting import _
-from plone.z3cform.layout import wrap_form
-from z3c.form import button, form, field
-from eea.meeting.events.rules import SendEmailAddEvent
-from zope.event import notify
-from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile as FiveViewPageTemplateFile
+from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile as FPT
 from Products.statusmessages.interfaces import IStatusMessage
+from eea.meeting import _
+from eea.meeting.email_form.widgets import CustomCheckBoxFieldWidget
+from eea.meeting.events.rules import SendEmailAddEvent
 from eea.meeting.interfaces import IEmail, ISearchUser
 from plone import api
-from zope.container.interfaces import INameChooser
+from plone.z3cform.layout import wrap_form
+from z3c.form import button, form, field
 from z3c.form.browser.checkbox import CheckBoxFieldWidget
-from widgets import CustomCheckBoxFieldWidget
+from zope.container.interfaces import INameChooser
+from zope.event import notify
+
 
 class SearchUser(form.Form):
 
@@ -19,7 +20,7 @@ class SearchUser(form.Form):
     fields['results'].widgetFactory = CustomCheckBoxFieldWidget
 
     prefix = 'search_user'
-    template = FiveViewPageTemplateFile('search_user.pt')
+    template = FPT('search_user.pt')
 
     _parent_form = None
 
@@ -38,7 +39,8 @@ class SearchUser(form.Form):
     def handle_addCC(self, action):
         data, errors = self.extractData()
 
-        self._parent_form.widgets['cc'].value += '\n'+"\n".join(data['results'])
+        self._parent_form.widgets['cc'].value += \
+            '\n'+"\n".join(data['results'])
 
         del self.widgets['results'].items
         self.widgets['results'].value = ''
@@ -57,13 +59,12 @@ class SendEmail(form.Form):
 
     prefix = 'send_email'
 
-    template = FiveViewPageTemplateFile('main_form.pt')
+    template = FPT('main_form.pt')
 
     def update(self):
         super(SendEmail, self).update()
         self.search_user = SearchUser(self.context, self.request, self)
         self.search_user.update()
-
 
     @button.buttonAndHandler(_('Send Email'), name='send_email')
     def handleSave(self, action):
@@ -98,6 +99,7 @@ class SendEmail(form.Form):
 
         msg = _(u"Email successfully sent")
         IStatusMessage(self.request).addStatusMessage(msg, type='info')
-        self.request.response.redirect(self.context.getParentNode().absolute_url())
+        self.request.response.redirect(
+            self.context.getParentNode().absolute_url())
 
-SendEmailView = wrap_form(SendEmail, index=FiveViewPageTemplateFile("send_email.pt"))
+SendEmailView = wrap_form(SendEmail, index=FPT("send_email.pt"))

@@ -128,7 +128,8 @@ class RegisterUser(BrowserView):
             return []
 
         site = getSite()
-        cpanel = getMultiAdapter((site, self.request), name=u"usergroup-userprefs")
+        cpanel = getMultiAdapter((site, self.request),
+                                 name=u"usergroup-userprefs")
         return cpanel.doSearch(self.searchString)
 
     def _register(self, users):
@@ -153,7 +154,6 @@ class RegisterUser(BrowserView):
                 "Users registered to this meeting", type="info")
         return self.request.response.redirect(
             self.context.absolute_url() + '/register_user')
-
 
     def __call__(self, *args, **kwargs):
         if self.request.method.lower() != 'post':

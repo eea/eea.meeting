@@ -1,8 +1,8 @@
-from zope.interface import implementer
+from eea.meeting.content.subscriber import SUBSCRIBER_META_TYPE
+from eea.meeting.interfaces import ISubscribers
 from plone import api
 from plone.dexterity.content import Container
-from eea.meeting.interfaces import ISubscribers
-from eea.meeting.content.subscriber import SUBSCRIBER_META_TYPE
+from zope.interface import implementer
 
 SUBSCRIBERS_META_TYPE = 'EEA Meeting Subscribers'
 APPROVED_STATE = 'approved'
