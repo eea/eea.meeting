@@ -1,20 +1,18 @@
 # -*- coding: utf-8 -*-
 """Module where all interfaces, events and exceptions live."""
 
+from Products.CMFDefault.exceptions import EmailAddressInvalid
+from Products.CMFDefault.utils import checkEmailAddress
 from eea.meeting import _
+from plone.app.textfield import RichText
+from plone.autoform import directives
+from plone.schema import Email
+from z3c.form.browser.text import TextFieldWidget
 from zope import schema
 from zope.interface import Interface
+from zope.interface import Invalid
 from zope.publisher.interfaces.browser import IDefaultBrowserLayer
 from zope.schema.vocabulary import SimpleVocabulary, SimpleTerm
-from Products.CMFDefault.utils import checkEmailAddress
-from Products.CMFDefault.exceptions import EmailAddressInvalid
-from plone.app.textfield import RichText
-
-from plone.schema import Email
-from plone.autoform import directives
-from z3c.form.browser.text import TextFieldWidget
-
-from zope.interface import Invalid
 import re
 
 
@@ -31,6 +29,7 @@ def validate_email(email):
     except EmailAddressInvalid:
         raise EmailAddressInvalid(email)
     return True
+
 
 def cc_constraint(value):
     data_lines = value.split('\r\n')
@@ -97,10 +96,10 @@ class IMeeting(Interface):
         constraint=validate_email
     )
 
-    location =  schema.TextLine(
+    location = schema.TextLine(
         title=_(
             u'label_event_location',
-            default=u'Location'
+            default=u'Event location'
         ),
         description=_(
             u'help_event_location',
@@ -142,7 +141,8 @@ class ISearchUser(Interface):
 
     results = schema.Set(
         required=False,
-        value_type=schema.Choice(vocabulary='eea.meeting.vocabularies.LDAPListingVocabulary')
+        value_type=schema.Choice(
+            vocabulary='eea.meeting.vocabularies.LDAPListingVocabulary')
     )
 
 
@@ -155,13 +155,14 @@ class IEmail(Interface):
 
     receiver = schema.Set(
         title=u'Recipients',
-        value_type=schema.Choice(vocabulary='eea.meeting.vocabularies.RecipientsVocabulary')
+        value_type=schema.Choice(
+            vocabulary='eea.meeting.vocabularies.RecipientsVocabulary')
     )
 
     cc = schema.Text(
         title=_(u"CC"),
         description=_(u'Add CC addresses one per line, no separator'),
-        constraint = cc_constraint,
+        constraint=cc_constraint,
         required=False,
     )
 
