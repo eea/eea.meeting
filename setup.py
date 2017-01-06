@@ -54,6 +54,8 @@ setup(
         'plone.app.vocabularies',
         'plone.app.registry',
         'Products.MemcachedManager',
+        'collective.geolocationbehavior',
+        'plone.formwidget.geolocation>=1.4,<2.0'
     ],
     extras_require={
         'test': [
