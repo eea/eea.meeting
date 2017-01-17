@@ -14,6 +14,7 @@
   <include package=".email_form" />
   <include package=".events" />
   <include package=".upgrades" />
+  <include package=".vocabularies" />
 
 
   <utility
@@ -54,13 +55,5 @@
       for="eea.meeting.interfaces.ISubscriber Products.CMFCore.interfaces.IActionSucceededEvent"
       handler=".content.subscriber.state_change"
       />
-
-  <utility
-      factory=".vocabularies.RecipientsVocabulary"
-      name="eea.meeting.vocabularies.RecipientsVocabulary"/>
-
-  <utility
-      factory=".vocabularies.LDAPListingVocabulary"
-      name="eea.meeting.vocabularies.LDAPListingVocabulary"/>
 
 </configure>
