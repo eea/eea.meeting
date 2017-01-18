@@ -33,6 +33,16 @@ class MeetingView(DefaultView):
     def get_auth_user_name(self):
         return api.user.get_current().getId()
 
+    def has_sent_emails(self):
+        """ Check if there are any sent mails in the archive.
+        """
+        return self.context.unrestrictedTraverse('emails').keys()
+
+    def has_subscribers(self):
+        """ Check if there are any subscribers.
+        """
+        return self.context.unrestrictedTraverse('subscribers').keys()
+
     @property
     def can_list_content(self):
         if not self.context.restrict_content_access:
@@ -108,11 +118,9 @@ class Register(BrowserView):
         if not subscribers:
             IStatusMessage(self.request).addStatusMessage(
                 "Can't find subscribers directory", type="error")
-            return
         if not self.context.can_register():
             IStatusMessage(self.request).addStatusMessage(
                 "Registration not allowed", type="error")
-            return
         else:
             current_user = api.user.get_current()
             uid = current_user.getId()
@@ -126,7 +134,7 @@ class Register(BrowserView):
 
             IStatusMessage(self.request).addStatusMessage(
                 "You have succesfully registered to this meeting", type="info")
-            return self.request.response.redirect(self.context.absolute_url())
+        return self.request.response.redirect(self.context.absolute_url())
 
 
 class RegisterUser(BrowserView):
@@ -203,15 +211,19 @@ class ViewSentEmails(BrowserView):
         portal_catalog = api.portal.get_tool('portal_catalog')
         current_path = "/".join(self.context.getPhysicalPath())
 
-        brains = portal_catalog(portal_type="eea.meeting.email",
-                                path=current_path)
+        brains = portal_catalog(
+            portal_type="eea.meeting.email",
+            sort_on='created',
+            sort_order='descending',
+            path=current_path
+        )
 
         for brain in brains:
             email = brain.getObject()
             results.append({
                 'sender': email.sender,
-                'receiver': email.receiver,
-                'cc': email.cc,
+                'receiver': ', '.join(email.receiver or []),
+                'cc': ', '.join(email.cc or []),
                 'subject': email.subject,
                 'body': email.body,
             })

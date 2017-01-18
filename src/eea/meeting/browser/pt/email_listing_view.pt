@@ -47,7 +47,7 @@
             <td class="display-email-td"
                 tal:content="email/subject">Email subject</td>
             <td class="display-email-td"
-                tal:content="structure email/body/raw">Email body</td>
+                tal:content="email/body">Email body</td>
         </tr>
       </tbody>
     </table>

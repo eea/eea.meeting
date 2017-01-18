@@ -1,0 +1,50 @@
+.event-information {
+  display: flex;
+  flex-flow: row wrap;
+  width: 100%;
+  justify-content: space-around;
+}
+
+.event-metadata {
+  max-width: 400px;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-around;
+}
+
+#content .eventDetails {
+  float: none;
+  margin: 0;
+  border: 0;
+  width: 100%;
+}
+#content .eventDetails table {
+  margin-bottom: 0;
+}
+
+.geolocation_wrapper {
+  width: 650px;
+}
+
+.event-menu {
+  text-align: center;
+}
+
+.event-menu-item {
+  display: inline-block;
+  text-align: center;
+  padding: 0.5em;
+}
+
+#content .event-menu-item a:link,
+#content .event-menu-item a:visited {
+  border-bottom: none;
+}
+
+.event-menu-item img {
+  width: 32px;
+}
+
+.event-menu-item span {
+  display: block;
+}

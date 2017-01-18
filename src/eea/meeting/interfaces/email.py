@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 
 from eea.meeting import _
-from plone.app.textfield import RichText
 from plone.autoform import directives
 from plone.schema import Email
 from z3c.form.browser.text import TextFieldWidget
@@ -23,13 +22,18 @@ class IEmail(Interface):
 
     receiver = schema.Set(
         title=u'Recipients',
+        missing_value=set(),
         value_type=schema.Choice(
-            vocabulary='eea.meeting.vocabularies.RecipientsVocabulary')
+            vocabulary='eea.meeting.vocabularies.RecipientsVocabulary',
+            required=True,
+        ),
+        required=True,
     )
 
-    cc = schema.Text(
+    cc = schema.List(
         title=_(u"CC"),
         description=_(u'Add CC addresses one per line, no separator'),
+        value_type=schema.TextLine(),
         constraint=cc_constraint,
         required=False,
     )
@@ -39,11 +43,9 @@ class IEmail(Interface):
         required=True,
     )
 
-    body = RichText(
+    body = schema.Text(
         title=_(u"Body"),
         required=True,
-        output_mime_type='text/plain',
-        allowed_mime_types=('text/html', 'text/structured', 'text/plain'),
     )
 
     directives.widget(

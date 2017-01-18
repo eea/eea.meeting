@@ -18,9 +18,7 @@ def validate_email(email):
 
 
 def cc_constraint(value):
-    data_lines = value.split('\r\n')
-
-    for idx, email in enumerate(data_lines):
+    for idx, email in enumerate(value):
         idx += 1
         if not re.match(r"[^@]+@[^@]+\.[^@]+", email):
             raise Invalid(_(u"Invalid email address on line %d" % idx))

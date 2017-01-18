@@ -6,7 +6,11 @@
   metal:use-macro="context/main_template/macros/master">
   <body>
 
-    <metal:fill fill-slot="column_two_slot"></metal:fill>
+    <metal:fill fill-slot="column_two_slot" />
+    <metal:styleslot fill-slot="style_slot">
+      <link rel="stylesheet" type="text/css" media="screen" href="++resource++eea.meeting/view.css" />
+    </metal:styleslot>
+
     <div metal:fill-slot="content-core">
 
       <div class="event clearfix" itemscope itemtype="http://data-vocabulary.org/Event">
@@ -21,131 +25,121 @@
 
         <!-- Event summary -->
 
-        <div class="eventDetails vcard">
-          <table class="vertical listing"
-            summary="Event details" i18n:attributes="summary summary_event_details;">
+        <div class="event-information">
 
-            <tbody>
+          <div class="event-metadata">
+            <div class="eventDetails vcard">
+            <table class="vertical listing"
+              summary="Event details" i18n:attributes="summary summary_event_details;">
 
-              <tr>
-                <th i18n:translate="event_when">When</th>
-                <td>
-                  <div tal:define="start_tzname context/timezone;
-                    start_utcdelta python:context.start.tzinfo.utcoffset(context.start);
-                    start_utcoffset python:(start_utcdelta.days*86400+start_utcdelta.seconds)*100/60/60;">
-                    <span tal:replace="structure python:view.formatted_date(context)" ></span>
-                  </div>
-                </td>
-              </tr>
+              <tbody>
 
-              <tr tal:define="location context/location" tal:condition="location">
-                <th i18n:translate="event_where">Where</th>
-                <td class="location"
-                  tal:define="countries_vocab python: context.event_countries_vocab(key_based=True)">
-                  <div class="meeting_countries">
-                    <tal:rep tal:repeat="c_code context/countries" tal:on-error="nothing">
-                      <span tal:content="python: countries_vocab[c_code]">Ukraine</span>
+                <tr>
+                  <th i18n:translate="event_when">When</th>
+                  <td>
+                    <div tal:define="start_tzname context/timezone;
+                      start_utcdelta python:context.start.tzinfo.utcoffset(context.start);
+                      start_utcoffset python:(start_utcdelta.days*86400+start_utcdelta.seconds)*100/60/60;">
+                      <span tal:replace="structure python:view.formatted_date(context)" ></span>
+                    </div>
+                  </td>
+                </tr>
+
+                <tr tal:define="location context/location" tal:condition="location">
+                  <th i18n:translate="event_where">Where</th>
+                  <td class="location">
+                    <a
+                      tal:content="location"
+                      tal:attributes="href string:http://maps.google.com?q=$location"
+                      title="View on map" itemprop="location" >Location</a>
+                  </td>
+                </tr>
+                <tr tal:define="mail context/contact_email;
+                  name context/contact_name"
+                  tal:condition="python:name or email">
+                  <th i18n:translate="contact_name">Contact Name</th>
+                  <td>
+                    <a class="email" tal:condition="mail" tal:attributes="href
+                      string:mailto:${mail}" tal:content="name" >name</a>
+                    <span tal:condition="not:mail" tal:content="name" ></span>
+                  </td>
+                </tr>
+                <tr tal:define="event_type context/meeting_type;"
+                  tal:condition="event_type">
+                  <th i18n:translate="type">Type</th>
+                  <td>
+                    <span itemprop="type" tal:content="event_type">Type</span>
+                  </td>
+                </tr>
+                <tr>
+                  <th i18n:translate="">Registration</th>
+                  <td tal:define="registered context/is_registered">
+                    <tal:notregister tal:condition="not:registered">
+                      <a href="#" tal:condition="context/can_register"
+                        tal:attributes="href string:${context/absolute_url}/register"
+                        title="Register">Register now</a>
+                      <span tal:condition="not:context/can_register">Closed</span>
+                    </tal:notregister>
+                    <tal:registered tal:condition="registered">
+                      <span>You are registered</span>
+                    </tal:registered>
+                  </td>
+                </tr>
+                <tr tal:define="host context/hosting_organisation | nothing"
+                     tal:condition="python:host">
+                     <th i18n:translate="hosting_organisation">Hosting organisation</th>
+                     <td tal:content="host">ONU</td>
+                 </tr>
+                <tr tal:condition="context/countries|nothing">
+                  <th>Countries</th>
+                  <td tal:define="countries_vocab python: context.event_countries_vocab(key_based=True)">
+                    <tal:rep tal:repeat="c_code context/countries">
+                      <span tal:content="python: countries_vocab[c_code]">Ukraine</span><span tal:condition="not:repeat/c_code/end">,</span>
                     </tal:rep>
-                  </div>
-                  <a
-                    tal:content="location"
-                    tal:attributes="href string:http://maps.google.com?q=$location"
-                    title="View on map" itemprop="location" >Location</a>
-                    <!-- tal:condition="python: location and not context.geolocation" -->
-                </td>
-              </tr>
-              <tr tal:define="mail context/contact_email;
-                name context/contact_name"
-                tal:condition="python:name or email">
-                <th i18n:translate="contact_name">Contact Name</th>
-                <td>
-                  <a class="email" tal:condition="mail" tal:attributes="href
-                    string:mailto:${mail}" tal:content="name" >name</a>
-                  <span tal:condition="not:mail" tal:content="name" ></span>
-                </td>
-              </tr>
-              <tr tal:define="event_type context/meeting_type;"
-                tal:condition="event_type">
-                <th i18n:translate="type">Type</th>
-                <td>
-                  <span itemprop="type" tal:content="event_type">Type</span>
-                </td>
-              </tr>
-              <tr>
-                <th i18n:translate="heading_add_to_calendar">Add event to calendar</th>
-                <td tal:define="here_url context/@@plone_context_state/object_url;
-                  portal context/@@plone_portal_state/portal;">
-                  <a href="#"
-                    tal:attributes="href string:$here_url/ics_view"
-                    title="Download this event in iCal format"
-                    i18n:attributes="title title_add_to_ical;">
-                    <img tal:replace="structure portal/icon_export_ical.png" src="" alt="" />
-                    <span i18n:translate="label_add_to_ical">iCal</span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+            <div class="event-icons">
+              <div class="event-menu">
+                <div class="event-menu-item" id="register" tal:condition="python:context.registrations_open()">
+                  <a href="./register">
+                    <img src="++resource++eea.meeting/img/register.png" />
+                    <span>Register</span>
                   </a>
-                </td>
-              </tr>
-              <tr>
-                <th i18n:translate="">Registration</th>
-                <td tal:define="registered context/is_registered">
-                  <tal:notregister tal:condition="not:registered">
-                    <a href="#" tal:condition="context/can_register"
-                      tal:attributes="href string:${context/absolute_url}/register"
-                      title="Register">Register now</a>
-                    <span tal:condition="not:context/can_register">Closed</span>
-                  </tal:notregister>
-                  <tal:registered tal:condition="registered">
-                    <span>You are registered</span>
-                  </tal:registered>
-                </td>
-              </tr>
-              <tr tal:define="host context/hosting_organisation | nothing"
-                   tal:condition="python:host">
-                   <th i18n:translate="hosting_organisation">Hosting organisation</th>
-                   <td tal:content="host">ONU</td>
-               </tr>
-            </tbody>
-          </table>
-      <div class="event-icons">
-        <div class="event-menu">
-        <div class="event-menu-item" id="register">
-          <a href="">
-            <img src="++theme++eni-seis-theme-latest/img/agenda2.png">
-          <span>register</span>
-          </a>
-        </div>
-        <div class="event-menu-item" id="ical">
-          <a href="">
-            <img src="++theme++eni-seis-theme-latest/img/calendar2.png">
-          <span>ical</span>
-          </a>
-        </div>
-        <div class="event-menu-item" id="participants">
-          <a href="">
-            <img src="++theme++eni-seis-theme-latest/img/participants2.png">
-          <span>participants</span>
-          </a>
-        </div>
-        <div class="event-menu-item" id="saved-emails">
-          <a href="">
-            <img src="++theme++eni-seis-theme-latest/img/email-saved2.png">
-          <span>saved emails</span>
-          </a>
-        </div>
-        <div class="event-menu-item" id="send-email">
-          <a href="">
-            <img src="++theme++eni-seis-theme-latest/img/email2.png">
-          <span>send email</span>
-          </a>
-        </div>
-        </div>
-      </div>
-        </div>
+                </div>
+                <div class="event-menu-item">
+                  <a href="./ics_view">
+                    <img src="++resource++eea.meeting/img/ical.png" />
+                    <span>ICal</span>
+                  </a>
+                </div>
+                <div class="event-menu-item">
+                  <a href="./subscribers">
+                    <img src="++resource++eea.meeting/img/participants.png" />
+                    <span>Participants</span>
+                  </a>
+                </div>
+                <div class="event-menu-item" tal:condition="python:view.has_sent_emails()">
+                  <a href="./emails">
+                    <img src="++resource++eea.meeting/img/mail-archive.png" />
+                    <span>Mail archive</span>
+                  </a>
+                </div>
+                <div class="event-menu-item" tal:condition="python:view.has_subscribers() and checkPermission('EEA Meting: Send Email', context)">
+                  <a href="./emails/email_sender">
+                    <img src="++resource++eea.meeting/img/send-email.png" />
+                    <span>Send email</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
 
-        <div
-          tal:condition="python: context.geolocation"
-          tal:replace="structure python: view.w.get('IGeolocatable.geolocation').render()"
-          >
+          <div tal:condition="python: context.geolocation" tal:replace="structure python: view.w.get('IGeolocatable.geolocation').render()"></div>
         </div>
+        <div class="clearfix"></div>
 
         <div id="parent-fieldname-text" tal:content="structure context/text/output"></div>
 

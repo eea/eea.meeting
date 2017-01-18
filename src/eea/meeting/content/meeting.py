@@ -46,8 +46,6 @@ class Meeting(Container):
                 datetime.now(pytz.UTC) < self.end and
                 self.subscribers.approved_count() < self.max_participants)
 
-        return True
-
     def get_subscribers(self):
         return self.subscribers.get_subscribers()
 

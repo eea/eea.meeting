@@ -65,6 +65,7 @@ class SendEmail(form.Form):
         super(SendEmail, self).update()
         self.search_user = SearchUser(self.context, self.request, self)
         self.search_user.update()
+        self.widgets['body'].rows = 10
 
     @button.buttonAndHandler(_('Send Email'), name='send_email')
     def handleSave(self, action):
@@ -82,17 +83,12 @@ class SendEmail(form.Form):
         obj = type_info._constructInstance(self.context, content_id)
 
         obj.title = data['subject']
-
         obj.sender = data['sender']
-
-        obj.receiver = "\r\n".join(data['receiver'])
-
-        data['receiver'] = obj.receiver
-
+        obj.receiver = data['receiver']
         obj.cc = data['cc']
-
         obj.subject = data['subject']
         obj.body = data['body']
+
         obj.reindexObject()
 
         notify(SendEmailAddEvent(self.context, data))

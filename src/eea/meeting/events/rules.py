@@ -3,10 +3,12 @@ from plone.app.contentrules.handlers import execute
 from interfaces import ISendEmailEvent
 from interfaces import ISendEmailAddEvent
 
+
 @implementer(ISendEmailEvent)
 class SendEmailEvent(object):
     def __init__(self, context, **kwargs):
         self.object = context
+
 
 @implementer(ISendEmailAddEvent)
 class SendEmailAddEvent(SendEmailEvent):
@@ -14,11 +16,11 @@ class SendEmailAddEvent(SendEmailEvent):
     """
 
     def __init__(self, context, data):
-        self.object = context
+        super(SendEmailAddEvent, self).__init__(context)
         sdm = getattr(context, 'session_data_manager', None)
         session = sdm.getSessionData(create=True) if sdm else None
 
-        data['body'] = data['body'].raw
+        data['body'] = data['body']
 
         session.update(data)
 

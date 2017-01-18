@@ -1,7 +1,10 @@
 from plone.stringinterp.adapters import BaseSubstitution
 from eea.meeting import _
 
+
 class SetEmailSubstitution(BaseSubstitution):
+
+    attribute = u''
 
     def __init__(self, context, **kwargs):
         super(SetEmailSubstitution, self).__init__(context, **kwargs)
@@ -24,7 +27,7 @@ class SetEmailSubstitution(BaseSubstitution):
     @property
     def receiver(self):
         """Email receiver"""
-        return self.session.get('receiver', '')
+        return ','.join(self.session.get('receiver', []) or [])
 
     @property
     def subject(self):
@@ -39,32 +42,37 @@ class SetEmailSubstitution(BaseSubstitution):
     @property
     def cc(self):
         """Email cc addresses"""
-        return self.session.get('cc', '')
+        return ','.join(self.session.get('cc', []) or [])
 
     def safe_call(self):
         """ Safe call
         """
         return getattr(self, self.attribute, u'')
 
+
 class SetEmailSender(SetEmailSubstitution):
     category = _(u'Email Send')
     description = _(u'Email sender address')
     attribute = u'sender'
+
 
 class SetEmailReceiver(SetEmailSubstitution):
     category = _(u'Email Send')
     description = _(u'Email receiver address')
     attribute = u'receiver'
 
+
 class SetEmailSubject(SetEmailSubstitution):
     category = _(u'Email Send')
     description = _(u'Email subject')
     attribute = u'subject'
 
+
 class SetEmailBody(SetEmailSubstitution):
     category = _(u'Email Send')
     description = _(u'Email body')
     attribute = u'body'
+
 
 class SetEmailCC(SetEmailSubstitution):
     category = _(u'Email Send')
