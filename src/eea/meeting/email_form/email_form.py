@@ -66,6 +66,13 @@ class SendEmail(form.Form):
         self.search_user = SearchUser(self.context, self.request, self)
         self.search_user.update()
         self.widgets['body'].rows = 10
+        if (not self.actions.executedActions and
+                not self.widgets['receiver'].items):
+            for widget in self.widgets.values():
+                widget.disabled = 'disabled'
+            self.actions['send_email'].disabled = 'disabled'
+            msg = 'There are no subscribed users. Cannot send email.'
+            IStatusMessage(self.request).addStatusMessage(msg, type='error')
 
     @button.buttonAndHandler(_('Send Email'), name='send_email')
     def handleSave(self, action):
@@ -97,5 +104,11 @@ class SendEmail(form.Form):
         IStatusMessage(self.request).addStatusMessage(msg, type='info')
         self.request.response.redirect(
             self.context.getParentNode().absolute_url())
+
+    @button.buttonAndHandler(_('Cancel'), name='cancel_send')
+    def cancel_send(self, action):
+        return self.request.response.redirect(
+            self.context.aq_parent.absolute_url()
+        )
 
 SendEmailView = wrap_form(SendEmail, index=FPT("send_email.pt"))

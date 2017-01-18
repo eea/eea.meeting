@@ -7,6 +7,7 @@
 
 <head>
     <metal:block fill-slot="style_slot">
+        <link rel="stylesheet" type="text/css" media="screen" href="++resource++eea.meeting/common.css" />
         <link rel="stylesheet" type="text/css"
             tal:define="navroot context/@@plone_portal_state/navigation_root_url"
             tal:attributes="href string:${navroot}/++resource++eea.meeting/email_view.css"
@@ -25,6 +26,9 @@
 
     <a href="#" id="email_download" onclick="javascript:fnExcelReport();">Export to Excel</a>
 
+    <a class="back-button" tal:attributes="href python:context.aq_parent.absolute_url()">Back to meeting page</a>
+    <div class="clearfix"></div>
+
     <table class="display-email listing" id="listing-table">
       <thead>
         <tr class="display-email-tr">
@@ -35,7 +39,8 @@
             <th class="display-email-th">Content</th>
         </tr>
       </thead>
-      <tbody>
+      <tbody tal:define="emails view/email_archive">
+        <tr><td colspan="5">No emails sent.</td></tr>
         <tr class="display-email-tr"
             tal:repeat="email view/email_archive">
             <td class="display-email-td"

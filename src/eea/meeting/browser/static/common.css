@@ -1,0 +1,9 @@
+.clearfix {
+  clear: both;
+}
+
+body #content .back-button {
+  float: right;
+  border: 1px solid #ddd;
+  padding: 0.5em;
+}

@@ -8,6 +8,7 @@
 
     <metal:fill fill-slot="column_two_slot" />
     <metal:styleslot fill-slot="style_slot">
+      <link rel="stylesheet" type="text/css" media="screen" href="++resource++eea.meeting/common.css" />
       <link rel="stylesheet" type="text/css" media="screen" href="++resource++eea.meeting/view.css" />
     </metal:styleslot>
 
@@ -68,7 +69,7 @@
                   tal:condition="event_type">
                   <th i18n:translate="type">Type</th>
                   <td>
-                    <span itemprop="type" tal:content="event_type">Type</span>
+                    <span itemprop="type" tal:content="structure python:view.w.get('meeting_type').render()">Type</span>
                   </td>
                 </tr>
                 <tr>
@@ -78,7 +79,7 @@
                       <a href="#" tal:condition="context/can_register"
                         tal:attributes="href string:${context/absolute_url}/register"
                         title="Register">Register now</a>
-                      <span tal:condition="not:context/can_register">Closed</span>
+                      <span tal:condition="not:context/can_register">Not available</span>
                     </tal:notregister>
                     <tal:registered tal:condition="registered">
                       <span>You are registered</span>
@@ -115,13 +116,13 @@
                     <span>ICal</span>
                   </a>
                 </div>
-                <div class="event-menu-item">
+                <div class="event-menu-item" tal:condition="python:view.has_subscribers() and checkPermission('EEA Meting: View subscribers', context)">
                   <a href="./subscribers">
                     <img src="++resource++eea.meeting/img/participants.png" />
                     <span>Participants</span>
                   </a>
                 </div>
-                <div class="event-menu-item" tal:condition="python:view.has_sent_emails()">
+                <div class="event-menu-item" tal:condition="python:view.has_sent_emails() and checkPermission('EEA Meting: View Emails', context)">
                   <a href="./emails">
                     <img src="++resource++eea.meeting/img/mail-archive.png" />
                     <span>Mail archive</span>

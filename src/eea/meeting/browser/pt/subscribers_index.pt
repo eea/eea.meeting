@@ -2,8 +2,15 @@
   metal:use-macro="here/main_template/macros/master"
   i18n:domain="eea">
   <body>
+
+    <metal:styleslot fill-slot="style_slot">
+      <link rel="stylesheet" type="text/css" media="screen" href="++resource++eea.meeting/common.css" />
+    </metal:styleslot>
+
     <div metal:fill-slot="content-core" class="meeting-items">
        <p>Users subscribed to this meeting</p>
+       <a class="back-button" tal:attributes="href python:context.aq_parent.absolute_url()">Back to meeting page</a>
+       <div class="clearfix"></div>
        <table class="listing">
         <thead>
           <tr>
@@ -12,8 +19,11 @@
             <th>State</th>
           </tr>
         <thead>
-        <tbody>
-          <tr tal:repeat="subscriber python:context.get_subscribers()">
+        <tbody tal:define="subscribers python:context.get_subscribers()">
+          <tr tal:condition="not:subscribers">
+            <td colspan="3">No subscribers.</td>
+          </tr>
+          <tr tal:repeat="subscriber subscribers">
             <td>
               <a tal:attributes="href subscriber/absolute_url" tal:content="string:${subscriber/title} (${subscriber/getId})" />
             </td>

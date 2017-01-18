@@ -6,7 +6,7 @@ from Products.statusmessages.interfaces import IStatusMessage
 from eea.meeting import _
 from eea.meeting.content.meeting import create_subscribers
 from eea.meeting.content.subscribers import APPROVED_STATE
-from plone import api
+import plone.api as api
 from plone.dexterity.browser.add import DefaultAddForm
 from plone.dexterity.browser.edit import DefaultEditForm
 from plone.dexterity.browser.view import DefaultView
@@ -107,6 +107,15 @@ class MeetingAddForm(DefaultAddForm):
 
 class SubscribersView(BrowserView):
     """ EEA Meeting Subscribers index """
+
+    def __call__(self, *args, **kwargs):
+        if not self.context.aq_parent.allow_register:
+            IStatusMessage(self.request).addStatusMessage(
+                "Users are not allowed to register to this meeting. "
+                "Please edit the meeting and enable the property "
+                "\"Allow users to register to the meeting\" if you want "
+                "this feature to be active.", type="info")
+        return super(SubscribersView, self).__call__(*args, **kwargs)
 
 
 class Register(BrowserView):
