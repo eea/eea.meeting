@@ -40,7 +40,9 @@
         </tr>
       </thead>
       <tbody tal:define="emails view/email_archive">
-        <tr><td colspan="5">No emails sent.</td></tr>
+        <tr tal:condition="not:emails">
+          <td colspan="5">No emails sent.</td>
+        </tr>
         <tr class="display-email-tr"
             tal:repeat="email view/email_archive">
             <td class="display-email-td"
