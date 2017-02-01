@@ -57,7 +57,7 @@
                 </tr>
                 <tr tal:define="mail context/contact_email;
                   name context/contact_name"
-                  tal:condition="python:name or email">
+                  tal:condition="python:name or mail">
                   <th i18n:translate="contact_name">Contact Name</th>
                   <td>
                     <a class="email" tal:condition="mail" tal:attributes="href
@@ -104,7 +104,8 @@
           </div>
             <div class="event-icons">
               <div class="event-menu">
-                <div class="event-menu-item" id="register" tal:condition="python:context.registrations_open()">
+                <div class="event-menu-item" id="register"
+                    tal:condition="python:context.registrations_open() and not context.is_registered()">
                   <a href="./register">
                     <img src="++resource++eea.meeting/img/register.png" />
                     <span>Register</span>

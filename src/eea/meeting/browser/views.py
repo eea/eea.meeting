@@ -130,6 +130,9 @@ class Register(BrowserView):
         if not self.context.can_register():
             IStatusMessage(self.request).addStatusMessage(
                 "Registration not allowed", type="error")
+        if self.context.is_registered():
+            IStatusMessage(self.request).addStatusMessage(
+                "User already registered", type="error")
         else:
             current_user = api.user.get_current()
             uid = current_user.getId()
