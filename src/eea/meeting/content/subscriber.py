@@ -16,6 +16,23 @@ class Subscriber(Item):
     def state(self):
         return api.content.get_state(self)
 
+    def get_details(self):
+        member = api.user.get(userid=self.userid)
+        first_name = member.getProperty('first_name', '')
+        last_name = member.getProperty('last_name', '')
+        telephone = member.getProperty('telephone', '')
+        institution = member.getProperty('institution', '')
+        from_country = member.getProperty('from_country', '')
+        from_city = member.getProperty('from_city', '')
+        return {
+            'first_name': first_name,
+            'last_name': last_name,
+            'telephone': telephone,
+            'institution': institution,
+            'from_country': from_country,
+            'from_city': from_city
+        }
+
 
 def state_change(obj, evt):
 

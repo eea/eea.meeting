@@ -15,7 +15,13 @@
         <thead>
           <tr>
             <th>User Name</th>
-            <th>E-mail</th>
+            <th>Name</th>
+            <th>Surname</th>
+            <th>Institution</th>
+            <th>From Country</th>
+            <th>From City</th>
+            <th>Email address</th>
+            <th>Phone number</th>
             <th>State</th>
           </tr>
         <thead>
@@ -23,15 +29,23 @@
           <tr tal:condition="not:subscribers">
             <td colspan="3">No subscribers.</td>
           </tr>
-          <tr tal:repeat="subscriber subscribers">
-            <td>
-              <a tal:attributes="href subscriber/absolute_url" tal:content="string:${subscriber/title} (${subscriber/getId})" />
-            </td>
-            <td tal:content="subscriber/email|string:" />
-            <td>
-              <span tal:content="subscriber/state" />
-            </td>
-          </tr>
+          <tal:subscribers tal:repeat="subscriber subscribers">
+            <tr tal:define="subscriber_details python:subscriber.get_details()">
+              <td>
+                <a tal:attributes="href subscriber/absolute_url" tal:content="string:${subscriber/title} (${subscriber/getId})" />
+              </td>
+              <td tal:content="python:subscriber_details.get('first_name', '')">First Name</td>
+              <td tal:content="python:subscriber_details.get('last_name', '')">Last Name</td>
+              <td tal:content="python:subscriber_details.get('institution', '')">Institution</td>
+              <td tal:content="python:subscriber_details.get('from_country', '')">From country</td>
+              <td tal:content="python:subscriber_details.get('from_city', '')">From city</td>
+              <td tal:content="subscriber/email|string:" />
+              <td tal:content="python:subscriber_details.get('telephone', '')">Telphone</td>
+              <td>
+                <span tal:content="subscriber/state" />
+              </td>
+            </tr>
+          </tal:subscribers>
         </tbody>
         <tfoot>
         </tfoot>
