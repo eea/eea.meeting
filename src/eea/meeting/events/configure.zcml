@@ -48,4 +48,32 @@
     name="email_cc"
     />
 
+    <adapter
+    for="*"
+    provides="plone.stringinterp.interfaces.IStringSubstitution"
+    factory=".adapters.SetEmailReceiverOnApproved"
+    name="subscriber_email"
+    />
+
+    <adapter
+    for="*"
+    provides="plone.stringinterp.interfaces.IStringSubstitution"
+    factory=".adapters.SetNameReceiverOnApproved"
+    name="subscriber_name"
+    />
+
+    <adapter
+    for="*"
+    provides="plone.stringinterp.interfaces.IStringSubstitution"
+    factory=".adapters.SetMeetingPlaceOnApproved"
+    name="meeting_place"
+    />
+
+    <adapter
+    for="*"
+    provides="plone.stringinterp.interfaces.IStringSubstitution"
+    factory=".adapters.SetMeetingTitleOnApproved"
+    name="meeting_title"
+    />
+
 </configure>

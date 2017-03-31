@@ -78,3 +78,68 @@ class SetEmailCC(SetEmailSubstitution):
     category = _(u'Email Send')
     description = _(u'Email CC addresses')
     attribute = u'cc'
+
+
+class SetEmailReceiverOnApproved(BaseSubstitution):
+    category = _(u'Approve Subscriber')
+    description = _(u'Subscriber Email')
+
+    def safe_call(self):
+        """ Safe call
+        """
+        try:
+            email = self.context.email
+        except Exception:
+            email = ''
+
+        return email
+
+
+class SetNameReceiverOnApproved(BaseSubstitution):
+    category = _(u'Approve Subscriber')
+    description = _(u'Subscriber Name')
+
+    def safe_call(self):
+        """ Safe call
+        """
+        try:
+            first_name = self.context.get_details().get('first_name', '')
+            last_name = self.context.get_details().get('last_name', '')
+            if first_name == "" and last_name == "":
+                name = self.context.id
+            else:
+                name = first_name + " " + last_name
+        except Exception:
+            name = 'user'
+
+        return name
+
+
+class SetMeetingPlaceOnApproved(BaseSubstitution):
+    category = _(u'Approve Subscriber')
+    description = _(u'Meeting place')
+
+    def safe_call(self):
+        """ Safe call
+        """
+        try:
+            location = self.context.aq_parent.aq_parent.location
+        except Exception:
+            location = ""
+
+        return location
+
+
+class SetMeetingTitleOnApproved(BaseSubstitution):
+    category = _(u'Approve Subscriber')
+    description = _(u'Meeting title')
+
+    def safe_call(self):
+        """ Safe call
+        """
+        try:
+            title = self.context.aq_parent.aq_parent.title
+        except Exception:
+            title = ""
+
+        return title
