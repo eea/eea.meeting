@@ -234,10 +234,19 @@ class ViewSentEmails(BrowserView):
             email = brain.getObject()
             results.append({
                 'sender': email.sender,
+                'user_name': '',
+                'name': '',
+                'surname': '',
+                'institution': '',
+                'from_country': '',
+                'from_city': '',
+                'phone_number': '',
+                'state': '',
                 'receiver': ', '.join(email.receiver or []),
                 'cc': ', '.join(email.cc or []),
                 'subject': email.subject,
                 'body': email.body,
+
             })
 
         return results

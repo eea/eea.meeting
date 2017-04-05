@@ -33,6 +33,14 @@
       <thead>
         <tr class="display-email-tr">
             <th class="display-email-th">Sender</th>
+            <th class="display-email-th">User Name</th>
+            <th class="display-email-th">Name</th>
+            <th class="display-email-th">Surname</th>
+            <th class="display-email-th">Institution</th>
+            <th class="display-email-th">From Country</th>
+            <th class="display-email-th">From City</th>
+            <th class="display-email-th">Phone Number</th>
+            <th class="display-email-th">State</th>
             <th class="display-email-th">Recipients</th>
             <th class="display-email-th">CC</th>
             <th class="display-email-th">Subject</th>
@@ -47,6 +55,22 @@
             tal:repeat="email view/email_archive">
             <td class="display-email-td"
                 tal:content="email/sender">Email sender</td>
+            <td class="display-email-td"
+                tal:content="email/user_name">User Name</td>
+            <td class="display-email-td"
+                tal:content="email/name">Name</td>
+            <td class="display-email-td"
+                tal:content="email/surname">Surname</td>
+            <td class="display-email-td"
+                tal:content="email/institution">Institution</td>
+            <td class="display-email-td"
+                tal:content="email/from_country">From Country</td>
+            <td class="display-email-td"
+                tal:content="email/from_city">From City</td>
+            <td class="display-email-td"
+                tal:content="email/phone_number">Phone Number</td>
+            <td class="display-email-td"
+                tal:content="email/state">State</td>
             <td class="display-email-td"
                 tal:content="email/receiver">Email receiver</td>
             <td class="display-email-td"
