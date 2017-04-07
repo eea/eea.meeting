@@ -12,7 +12,7 @@ meeting_types = SimpleVocabulary(
     [SimpleTerm(value=u'meeting', title=_(u'Meeting')),
      SimpleTerm(value=u'conference', title=_(u'Conference')),
      SimpleTerm(value=u'workshop', title=_(u'Workshop'))]
-    )
+)
 
 
 class IMeeting(Interface):
