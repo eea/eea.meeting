@@ -230,22 +230,48 @@ class ViewSentEmails(BrowserView):
             path=current_path
         )
 
+        subs_brains = portal_catalog(
+                portal_type="eea.meeting.subscriber",
+                        )
+
+        user_name = ''
+        name = ''
+        surname = ''
+        institution = ''
+        from_country = ''
+        from_city = ''
+        phone_number = ''
+        state = ''
+
         for brain in brains:
             email = brain.getObject()
+            for x in subs_brains:
+                subscriber = x.getObject()
+                subscriber_details = subscriber.get_details()
+                if email.sender == subscriber.email:
+                    user_name = subscriber.getId()
+                    name = subscriber_details.get('first_name','')
+                    surname = subscriber_details.get('last_name','')
+                    institution = subscriber_details.get('institution','')
+                    from_country = subscriber_details.get('from_country','')
+                    from_city = subscriber_details.get('from_city','')
+                    phone_number = subscriber_details.get('telephone','')
+                    state = subscriber.state()
+
             results.append({
                 'sender': email.sender,
-                'user_name': '',
-                'name': '',
-                'surname': '',
-                'institution': '',
-                'from_country': '',
-                'from_city': '',
-                'phone_number': '',
-                'state': '',
                 'receiver': ', '.join(email.receiver or []),
                 'cc': ', '.join(email.cc or []),
                 'subject': email.subject,
                 'body': email.body,
+                'user_name':user_name,
+                'name': name,
+                'surname': surname,
+                'institution': institution,
+                'from_country': from_country,
+                'from_city': from_city,
+                'phone_number': phone_number,
+                'state': state,
 
             })
 
