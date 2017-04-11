@@ -139,10 +139,23 @@ class Register(BrowserView):
             fullname = current_user.getProperty('fullname', uid)
             email = current_user.getProperty('email')
 
+            r_val = self.request.form.get(
+                "form.widgets.reimbursed", "true")
+            if r_val == 'true':
+                reimbursed = True
+            else:
+                reimbursed = False
+
+            try:
+                role = self.request.form.get("form.widgets.role")[0]
+            except Exception:
+                role = "other"
+
             createContentInContainer(subscribers, 'eea.meeting.subscriber',
                                      checkConstraints=False,
                                      title=fullname, id=uid, userid=uid,
-                                     email=email)
+                                     email=email, reimbursed=reimbursed,
+                                     role=role)
 
             IStatusMessage(self.request).addStatusMessage(
                 "You have succesfully registered to this meeting", type="info")
