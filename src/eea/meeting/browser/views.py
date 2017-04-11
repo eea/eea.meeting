@@ -242,6 +242,8 @@ class ViewSentEmails(BrowserView):
         from_city = ''
         phone_number = ''
         state = ''
+        reimbursed = ''
+        role = ''
 
         for brain in brains:
             email = brain.getObject()
@@ -257,13 +259,16 @@ class ViewSentEmails(BrowserView):
                     from_city = subscriber_details.get('from_city','')
                     phone_number = subscriber_details.get('telephone','')
                     state = subscriber.state()
+                    reimbursed = subscriber.reimbursed
+                    role = subscriber.role
+
 
             results.append({
                 'sender': email.sender,
-                'receiver': ', '.join(email.receiver or []),
-                'cc': ', '.join(email.cc or []),
-                'subject': email.subject,
-                'body': email.body,
+                # 'receiver': ', '.join(email.receiver or []),
+                # 'cc': ', '.join(email.cc or []),
+                # 'subject': email.subject,
+                # 'body': email.body,
                 'user_name':user_name,
                 'name': name,
                 'surname': surname,
@@ -272,7 +277,10 @@ class ViewSentEmails(BrowserView):
                 'from_city': from_city,
                 'phone_number': phone_number,
                 'state': state,
+                'reimbursed' : reimbursed,
+                'role' : role,
 
             })
 
         return results
+

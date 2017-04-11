@@ -23,6 +23,10 @@
             <th>Email address</th>
             <th>Phone number</th>
             <th>State</th>
+            <th>Reimbursed</th>
+            <th>Role</th>
+
+
           </tr>
         <thead>
         <tbody tal:define="subscribers python:context.get_subscribers()">
@@ -44,6 +48,9 @@
               <td>
                 <span tal:content="subscriber/state" />
               </td>
+            <td tal:content="subscriber/reimbursed|string:" />
+            <td tal:content="subscriber/role|string:" />
+
             </tr>
           </tal:subscribers>
         </tbody>

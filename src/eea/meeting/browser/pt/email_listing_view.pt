@@ -15,6 +15,9 @@
 
         <script tal:define="navroot context/@@plone_portal_state/navigation_root_url"
                 tal:attributes="src string:${navroot}/++resource++eea.meeting/excel.js"></script>
+
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     </metal:block>
 </head>
 
@@ -24,12 +27,13 @@
 
     <p>This page lists all emails sent to participants.</p>
 
-    <a href="#" id="email_download" onclick="javascript:fnExcelReport();">Export to Excel</a>
+    <button id="btnExport">Export to Excel</button>
 
     <a class="back-button" tal:attributes="href python:context.aq_parent.absolute_url()">Back to meeting page</a>
     <div class="clearfix"></div>
 
-    <table class="display-email listing" id="listing-table">
+    <div id="table_wrapper">
+        <table class="display-email listing" id="listing-table">
       <thead>
         <tr class="display-email-tr">
             <th class="display-email-th">Sender</th>
@@ -41,10 +45,12 @@
             <th class="display-email-th">From City</th>
             <th class="display-email-th">Phone Number</th>
             <th class="display-email-th">State</th>
-            <th class="display-email-th">Recipients</th>
-            <th class="display-email-th">CC</th>
-            <th class="display-email-th">Subject</th>
-            <th class="display-email-th">Content</th>
+            <th class="display-email-th">Reimbursed Participation</th>
+            <th class="display-email-th">Role</th>
+            <!--<th class="display-email-th">Recipients</th>-->
+            <!--<th class="display-email-th">CC</th>-->
+            <!--<th class="display-email-th">Subject</th>-->
+            <!--<th class="display-email-th">Content</th>-->
         </tr>
       </thead>
       <tbody tal:define="emails view/email_archive">
@@ -72,16 +78,22 @@
             <td class="display-email-td"
                 tal:content="email/state">State</td>
             <td class="display-email-td"
-                tal:content="email/receiver">Email receiver</td>
+                tal:content="email/reimbursed">Reimbursed Participation</td>
             <td class="display-email-td"
-                tal:content="email/cc">Email CC</td>
-            <td class="display-email-td"
-                tal:content="email/subject">Email subject</td>
-            <td class="display-email-td"
-                tal:content="email/body">Email body</td>
+                tal:content="email/role">Role</td>
+            <!--<td class="display-email-td"-->
+                <!--tal:content="email/receiver">Email receiver</td>-->
+            <!--<td class="display-email-td"-->
+                <!--tal:content="email/cc">Email CC</td>-->
+            <!--<td class="display-email-td"-->
+                <!--tal:content="email/subject">Email subject</td>-->
+            <!--<td class="display-email-td"-->
+                <!--tal:content="email/body">Email body</td>-->
         </tr>
       </tbody>
     </table>
+    </div>
+
   </metal:block>
 </body>
 </html>
