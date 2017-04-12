@@ -27,14 +27,14 @@
 
     <p>This page lists all emails sent to participants.</p>
 
-    <button id="btnExport">Export to Excel</button>
+    <a href="#" id="btnExport" onClick="javascript:fnExcelReport()">Export to Excel</a>
 
     <a class="back-button" tal:attributes="href python:context.aq_parent.absolute_url()">Back to meeting page</a>
     <div class="clearfix"></div>
 
     <div id="table_wrapper">
         <table class="display-email listing" id="listing-table">
-      <thead>
+      <thead id="headers">
         <tr class="display-email-tr">
             <th class="display-email-th">Sender</th>
             <th class="display-email-th">User Name</th>
