@@ -16,8 +16,9 @@
         <script tal:define="navroot context/@@plone_portal_state/navigation_root_url"
                 tal:attributes="src string:${navroot}/++resource++eea.meeting/excel.js"></script>
 
+        <script tal:define="navroot context/@@plone_portal_state/navigation_root_url"
+                tal:attributes="src string:${navroot}/++resource++eea.meeting/html_json.js"></script>
 
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     </metal:block>
 </head>
 
@@ -27,7 +28,7 @@
 
     <p>This page lists all emails sent to participants.</p>
 
-    <a href="#" id="btnExport" onClick="javascript:fnExcelReport()">Export to Excel</a>
+    <a href="#" id="btnExport" onclick="javascript:export_excel()">Export to Excel</a>
 
     <a class="back-button" tal:attributes="href python:context.aq_parent.absolute_url()">Back to meeting page</a>
     <div class="clearfix"></div>
