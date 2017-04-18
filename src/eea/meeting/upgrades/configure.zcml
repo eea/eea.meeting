@@ -22,5 +22,17 @@
 
   </genericsetup:upgradeSteps>
 
+  <genericsetup:upgradeSteps
+    source="1.1"
+    destination="1.2"
+    profile="eea.meeting:default">
+
+    <genericsetup:upgradeDepends
+      title="Import workflows."
+      description="Import workflows to update guard transitions."
+      import_steps="workflow"
+      />
+
+  </genericsetup:upgradeSteps>
 
 </configure>
