@@ -54,7 +54,6 @@
     layer="eea.meeting.interfaces.IMeetingLayer"
     />
 
-
   <browser:page
     for="eea.meeting.interfaces.IMeeting"
     name="ics_view"
