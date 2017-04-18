@@ -18,7 +18,6 @@
 
         <script tal:define="navroot context/@@plone_portal_state/navigation_root_url"
                 tal:attributes="src string:${navroot}/++resource++eea.meeting/html_json.js"></script>
-
     </metal:block>
 </head>
 
@@ -48,12 +47,9 @@
             <th class="display-email-th">State</th>
             <th class="display-email-th">Reimbursed Participation</th>
             <th class="display-email-th">Role</th>
-            <!--<th class="display-email-th">Recipients</th>-->
-            <!--<th class="display-email-th">CC</th>-->
-            <!--<th class="display-email-th">Subject</th>-->
-            <!--<th class="display-email-th">Content</th>-->
         </tr>
       </thead>
+
       <tbody tal:define="emails view/email_archive">
         <tr tal:condition="not:emails">
           <td colspan="5">No emails sent.</td>
@@ -82,14 +78,6 @@
                 tal:content="email/reimbursed">Reimbursed Participation</td>
             <td class="display-email-td"
                 tal:content="email/role">Role</td>
-            <!--<td class="display-email-td"-->
-                <!--tal:content="email/receiver">Email receiver</td>-->
-            <!--<td class="display-email-td"-->
-                <!--tal:content="email/cc">Email CC</td>-->
-            <!--<td class="display-email-td"-->
-                <!--tal:content="email/subject">Email subject</td>-->
-            <!--<td class="display-email-td"-->
-                <!--tal:content="email/body">Email body</td>-->
         </tr>
       </tbody>
     </table>
