@@ -4,6 +4,7 @@ from plone.dexterity.content import Item
 from eea.meeting.interfaces import ISubscriber
 from eea.meeting.constants import SUBSCRIBER_META_TYPE
 from eea.meeting.constants import ACTION_APPROVE, ACTION_REJECT
+import datetime
 import uuid
 
 
@@ -26,6 +27,21 @@ class Subscriber(Item):
             'from_country': member.getProperty('from_country', ''),
             'from_city': member.getProperty('from_city', '')
         }
+
+    def is_allowed_state_change(self):
+        """ Used as transition guard expression to prevent state change
+            for subscribers of ended meetings
+
+            /portal_workflow/meeting_subscriber_workflow/transitions/approve
+                /manage_properties
+            Guard expression:
+            python:here.is_allowed_state_change() is True
+        """
+        meeting_end_date = self.aq_parent.aq_parent.end.replace(tzinfo=None)
+        today = datetime.datetime.today()
+        is_meeting_ended = meeting_end_date < today
+        is_allowed_state_change = is_meeting_ended is not True
+        return is_allowed_state_change
 
 
 def state_change(obj, evt):
