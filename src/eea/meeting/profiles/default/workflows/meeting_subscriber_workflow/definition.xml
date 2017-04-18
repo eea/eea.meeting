@@ -96,6 +96,7 @@
   <action url="%(content_url)s/content_status_modify?workflow_action=approve" category="workflow" icon="">Approve</action>
   <guard>
    <guard-permission>EEA Meting: Approve subscribers</guard-permission>
+   <guard-expression>python:here.is_allowed_state_change() is True</guard-expression>
   </guard>
  </transition>
  <transition transition_id="reject" title="Reject subscriber" new_state="rejected" trigger="USER" before_script="" after_script="">
@@ -103,6 +104,7 @@
   <action url="%(content_url)s/content_status_modify?workflow_action=reject" category="workflow" icon="">Reject</action>
   <guard>
    <guard-permission>EEA Meting: Reject subscribers</guard-permission>
+   <guard-expression>python:here.is_allowed_state_change() is True</guard-expression>
   </guard>
  </transition>
  <worklist worklist_id="reviewer_queue" title="">
