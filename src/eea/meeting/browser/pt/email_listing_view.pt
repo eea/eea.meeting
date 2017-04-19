@@ -36,7 +36,7 @@
         <table class="display-email listing" id="listing-table">
       <thead id="headers">
         <tr class="display-email-tr">
-            <th class="display-email-th">Sender</th>
+            <th class="display-email-th">Receiver</th>
             <th class="display-email-th">User Name</th>
             <th class="display-email-th">Name</th>
             <th class="display-email-th">Surname</th>
@@ -57,7 +57,7 @@
         <tr class="display-email-tr"
             tal:repeat="email view/email_archive">
             <td class="display-email-td"
-                tal:content="email/sender">Email sender</td>
+                tal:content="email/receiver">Email receiver</td>
             <td class="display-email-td"
                 tal:content="email/user_name">User Name</td>
             <td class="display-email-td"

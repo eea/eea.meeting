@@ -258,11 +258,21 @@ class ViewSentEmails(BrowserView):
 
         for brain in brains:
             email = brain.getObject()
+
+            email_receiver = email.receiver
+            if isinstance(email_receiver, basestring) is True:
+                email_receiver = [email_receiver]
+
+            if isinstance(email_receiver, set):
+                email_receiver = list(email_receiver)
+
             for x in subs_brains:
                 subscriber = x.getObject()
                 subscriber_details = subscriber.get_details()
-                if email.sender == subscriber.email:
-                    user_name = subscriber.getId()
+                if email_receiver[0] == subscriber.email:
+                    user_name = subscriber.userid
+                    if user_name == '' or user_name is None:
+                        user_name = subscriber.getId()
                     name = subscriber_details.get('first_name', '')
                     surname = subscriber_details.get('last_name', '')
                     institution = subscriber_details.get('institution', '')
@@ -275,7 +285,7 @@ class ViewSentEmails(BrowserView):
 
             results.append({
                 'sender': email.sender,
-                # 'receiver': ', '.join(email.receiver or []),
+                'receiver': ', '.join(email_receiver or []),
                 # 'cc': ', '.join(email.cc or []),
                 # 'subject': email.subject,
                 # 'body': email.body,

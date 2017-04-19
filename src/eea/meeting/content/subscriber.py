@@ -101,7 +101,7 @@ def save_email_approved(context):
 
     data = {
         'subject': meeting_title,
-        'sender': context.id,
+        'sender': 'eni-seis2@eea.europa.eu',
         'receiver': subscriber_email,
         'cc': '',
         'body': email_body,
