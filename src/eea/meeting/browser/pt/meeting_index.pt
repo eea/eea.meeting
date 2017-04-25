@@ -115,7 +115,16 @@
                               </select>
 
                               <div class="form-group">
-                                <input class="btn event-register" type="submit" name="event-register" value="Register" />
+
+                                <input tal:condition="python: not context.portal_membership.isAnonymousUser()"
+                                        class="btn event-register" type="submit" name="event-register" value="Register" />
+
+                                <a tal:condition="python: context.portal_membership.isAnonymousUser()"
+                                   tal:attributes="href string:${context/absolute_url}/login?came_from=${context/absolute_url}"
+                                   class="btn event-register">
+                                  Login to register
+                                </a>
+                                
                               </div>
                             </div>
                           </form>
