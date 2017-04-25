@@ -49,6 +49,13 @@ class Meeting(Container):
     def get_subscribers(self):
         return self.subscribers.get_subscribers()
 
+    def get_subscriber_roles_dict(self):
+        vocab = self.portal_vocabularies.subscriber_roles
+        roles_dict = {}
+        for key in vocab.keys():
+            roles_dict[key] = vocab[key].title
+        return roles_dict
+
 
 def on_save(obj, evt):
     # This triggers also on the container creation, not only on save props!

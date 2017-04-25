@@ -55,7 +55,9 @@
           <td colspan="11">No emails sent.</td>
         </tr>
         <tr class="display-email-tr"
-            tal:repeat="email view/email_archive">
+            tal:repeat="email view/email_archive"
+            tal:define="roles_dict python:context.aq_parent.get_subscriber_roles_dict();
+                        reimbursed_dict python:{True:'yes', False:'no'};">
             <td class="display-email-td"
                 tal:content="email/receiver">Email receiver</td>
             <td class="display-email-td"
@@ -75,9 +77,10 @@
             <td class="display-email-td"
                 tal:content="email/state">State</td>
             <td class="display-email-td"
-                tal:content="email/reimbursed">Reimbursed Participation</td>
+                tal:content="python:reimbursed_dict.get(email['reimbursed'])">Reimbursed Participation</td>
             <td class="display-email-td"
-                tal:content="email/role">Role</td>
+                tal:content="python:roles_dict.get(email['role'])">Role
+            </td>
         </tr>
       </tbody>
     </table>
