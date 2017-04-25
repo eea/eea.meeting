@@ -182,12 +182,6 @@
                     <span>Mail archive</span>
                   </a>
                 </div>
-                <div class="event-menu-item" tal:condition="python:view.has_subscribers() and checkPermission('EEA Meting: Send Email', context)">
-                  <a href="./emails/email_sender">
-                    <img src="++resource++eea.meeting/img/send-email.png" />
-                    <span>Send email</span>
-                  </a>
-                </div>
               </div>
             </div>
           </div>

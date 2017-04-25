@@ -34,6 +34,13 @@ class Subscribers(Container):
     def state(self):
         return api.content.get_state(self)
 
+    def get_subscriber_roles_dict(self):
+        vocab = self.portal_vocabularies.subscriber_roles
+        roles_dict = {}
+        for key in vocab.keys():
+            roles_dict[key] = vocab[key].title
+        return roles_dict
+
 
 def on_add(obj, evt):
     pass

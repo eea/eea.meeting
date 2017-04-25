@@ -32,7 +32,9 @@
             <td colspan="3">No subscribers.</td>
           </tr>
           <tal:subscribers tal:repeat="subscriber subscribers">
-            <tr tal:define="subscriber_details python:subscriber.get_details()">
+            <tr tal:define="subscriber_details python:subscriber.get_details();
+                            reimbursed_dict python:{True:'yes', False:'no'};
+                            roles_dict python:context.get_subscriber_roles_dict()">
               <td>
                 <a tal:attributes="href subscriber/absolute_url" tal:content="string:${subscriber/title} (${subscriber/getId})" />
               </td>
@@ -42,12 +44,12 @@
               <td tal:content="python:subscriber_details.get('from_country', '')">From country</td>
               <td tal:content="python:subscriber_details.get('from_city', '')">From city</td>
               <td tal:content="subscriber/email|string:" />
-              <td tal:content="python:subscriber_details.get('telephone', '')">Telphone</td>
+              <td tal:content="python:subscriber_details.get('telephone', '')">Telephone</td>
               <td>
                 <span tal:content="subscriber/state" />
               </td>
-              <td tal:content="subscriber/reimbursed|string:" />
-              <td tal:content="subscriber/role|string:" />
+              <td tal:content="python:reimbursed_dict.get(subscriber.reimbursed)" />
+              <td tal:content="python:roles_dict.get(subscriber.role)" />
             </tr>
           </tal:subscribers>
         </tbody>
