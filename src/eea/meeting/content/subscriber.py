@@ -41,7 +41,7 @@ class Subscriber(Item):
         """
         meeting_end_date = self.aq_parent.aq_parent.end.replace(tzinfo=None)
         today = datetime.datetime.today()
-        is_meeting_ended = (meeting_end_date - today).days < 0
+        is_meeting_ended = (meeting_end_date - today).days < -1
         is_allowed_state_change = is_meeting_ended is not True
         return is_allowed_state_change
 
