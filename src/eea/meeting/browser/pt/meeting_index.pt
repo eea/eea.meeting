@@ -78,7 +78,8 @@
                     <tal:notregister tal:condition="not:registered">
                       <tal:canregister tal:condition="context/can_register">
 
-                          <form class="form-horizontal" tal:attributes="action string:${context/absolute_url}/register" method="GET">
+                          <form class="form-horizontal" tal:attributes="action string:${context/absolute_url}/register" method="GET"
+                                tal:condition="python:not context.portal_membership.isAnonymousUser()">
                             <div class="form-group">
                               <label for="form-widgets-reimbursed" class="control-label">
                                   Reimbursed participation
@@ -116,18 +117,16 @@
 
                               <div class="form-group">
 
-                                <input tal:condition="python: not context.portal_membership.isAnonymousUser()"
-                                        class="btn event-register" type="submit" name="event-register" value="Register" />
-
-                                <a tal:condition="python: context.portal_membership.isAnonymousUser()"
-                                   tal:attributes="href string:${context/absolute_url}/login?came_from=${context/absolute_url}"
-                                   class="btn event-register">
-                                  Login to register
-                                </a>
-                                
+                                <input class="btn event-register" type="submit" name="event-register" value="Register" />
                               </div>
                             </div>
                           </form>
+
+                          <a tal:condition="python:context.portal_membership.isAnonymousUser()"
+                             tal:attributes="href string:${context/absolute_url}/login?came_from=${context/absolute_url}"
+                             class="btn event-register">
+                            Login to register
+                          </a>
 
                       </tal:canregister>
 
