@@ -20,13 +20,12 @@ from zope.contentprovider.interfaces import IContentProvider
 from zope.interface import classImplements
 
 
-def add_subscriber(subscribers, fullname, uid, email, reimbursed, role):
+def add_subscriber(subscribers, **kwargs):
     return createContentInContainer(
-        subscribers, 'eea.meeting.subscriber',
+        subscribers,
+        'eea.meeting.subscriber',
         checkConstraints=False,
-        title=fullname, id=uid, userid=uid,
-        email=email, reimbursed=reimbursed,
-        role=role
+        **kwargs
     )
 
 
@@ -156,7 +155,16 @@ class Register(BrowserView):
         except Exception:
             role = "other"
 
-        add_subscriber(subscribers, fullname, uid, email, reimbursed, role)
+        props = dict(
+            title=fullname,
+            id=uid,
+            userid=uid,
+            email=email,
+            reimbursed=reimbursed,
+            role=role,
+        )
+
+        add_subscriber(subscribers, **props)
 
         IStatusMessage(self.request).addStatusMessage(
             "You have succesfully registered to this meeting", type="info")

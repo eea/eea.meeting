@@ -28,10 +28,21 @@ class ISubscriber(Interface):
         required=True
     )
 
+    directives.widget(visa=RadioFieldWidget)
+    visa = schema.Bool(
+        title=_(u"I need visa support letter"),
+        required=True
+    )
+
     role = schema.Choice(
         title=_(u"Role"),
         vocabulary="subscriber_roles",
         required=True,
+    )
+
+    role_other = schema.TextLine(
+        title=_(u"Role (other)"),
+        required=False,
     )
 
 
