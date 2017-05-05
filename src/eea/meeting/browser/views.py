@@ -20,6 +20,16 @@ from zope.contentprovider.interfaces import IContentProvider
 from zope.interface import classImplements
 
 
+def add_subscriber(subscribers, fullname, uid, email, reimbursed, role):
+    return createContentInContainer(
+        subscribers, 'eea.meeting.subscriber',
+        checkConstraints=False,
+        title=fullname, id=uid, userid=uid,
+        email=email, reimbursed=reimbursed,
+        role=role
+    )
+
+
 class MeetingView(DefaultView):
     """ EEA Meeting index """
 
@@ -124,42 +134,42 @@ class Register(BrowserView):
 
     def __call__(self):
         subscribers = self.context.get('subscribers')
-        if not subscribers:
-            IStatusMessage(self.request).addStatusMessage(
-                "Can't find subscribers directory", type="error")
-        if not self.context.can_register():
-            IStatusMessage(self.request).addStatusMessage(
-                "Registration not allowed", type="error")
-        if self.context.is_registered():
-            IStatusMessage(self.request).addStatusMessage(
-                "User already registered", type="error")
-        else:
-            current_user = api.user.get_current()
-            uid = current_user.getId()
-            fullname = current_user.getProperty('fullname', uid)
-            email = current_user.getProperty('email')
 
-            r_val = self.request.form.get(
-                "form.widgets.reimbursed", "true")
-            if r_val == 'true':
-                reimbursed = True
-            else:
-                reimbursed = False
-
-            try:
-                role = self.request.form.get("form.widgets.role")[0]
-            except Exception:
-                role = "other"
-
-            createContentInContainer(subscribers, 'eea.meeting.subscriber',
-                                     checkConstraints=False,
-                                     title=fullname, id=uid, userid=uid,
-                                     email=email, reimbursed=reimbursed,
-                                     role=role)
-
+        try:
+            self.validate(subscribers)
+        except Exception as e:
             IStatusMessage(self.request).addStatusMessage(
-                "You have succesfully registered to this meeting", type="info")
+                e.message, type="error")
+            return self.request.response.redirect(self.context.absolute_url())
+
+
+        current_user = api.user.get_current()
+        uid = current_user.getId()
+        fullname = current_user.getProperty('fullname', uid)
+        email = current_user.getProperty('email')
+
+        r_val = self.request.form.get("form.widgets.reimbursed", "true")
+        reimbursed = True if r_val == 'true' else False
+
+        try:
+            role = self.request.form.get("form.widgets.role")[0]
+        except Exception:
+            role = "other"
+
+        add_subscriber(subscribers, fullname, uid, email, reimbursed, role)
+
+        IStatusMessage(self.request).addStatusMessage(
+            "You have succesfully registered to this meeting", type="info")
+
         return self.request.response.redirect(self.context.absolute_url())
+
+    def validate(self, subscribers):
+        if not subscribers:
+            raise Exception("Can't find subscribers directory")
+        if not self.context.can_register():
+            raise Exception("Registration not allowed")
+        if self.context.is_registered():
+            raise Exception("User already registered")
 
 
 class RegisterUser(BrowserView):

@@ -123,7 +123,7 @@
                           </form>
 
                           <a tal:condition="python:context.portal_membership.isAnonymousUser()"
-                             tal:attributes="href string:${context/absolute_url}/login?came_from=${context/absolute_url}"
+                             tal:attributes="href string:${context/absolute_url}/register"
                              class="btn event-register">
                             Login to register
                           </a>
