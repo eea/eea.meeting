@@ -2,6 +2,7 @@ from zope.interface import implementer
 from plone.app.contentrules.handlers import execute
 from interfaces import ISendEmailEvent
 from interfaces import ISendEmailAddEvent
+from interfaces import ISendNewSubscriberEmailEvent
 
 
 @implementer(ISendEmailEvent)
@@ -23,6 +24,12 @@ class SendEmailAddEvent(SendEmailEvent):
         data['body'] = data['body']
 
         session.update(data)
+
+
+@implementer(ISendNewSubscriberEmailEvent)
+class SendNewSubscriberEmailEvent(SendEmailEvent):
+    """ Notify when a new user subscribed.
+    """
 
 
 def execute_event(event):

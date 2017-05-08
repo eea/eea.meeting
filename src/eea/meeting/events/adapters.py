@@ -80,6 +80,21 @@ class SetEmailCC(SetEmailSubstitution):
     attribute = u'cc'
 
 
+class SetMeetingContactEmail(BaseSubstitution):
+    category = _(u'Notify meeting contact person')
+    description = _(u'Meeting contact email')
+
+    def safe_call(self):
+        """ Safe call
+        """
+        try:
+            email = self.context.contact_email
+        except Exception:
+            email = ''
+
+        return email
+
+
 class SetEmailReceiverOnApproved(BaseSubstitution):
     category = _(u'Approve Subscriber')
     description = _(u'Subscriber Email')
