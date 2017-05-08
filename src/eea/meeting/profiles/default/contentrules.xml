@@ -51,6 +51,52 @@
    </action>
   </actions>
  </rule>
+ <rule name="rule-2" title="eea.meeting: new subscriber" cascading="False"
+    description="" enabled="True"
+    event="eea.meeting.events.interfaces.ISendNewSubscriberEmailEvent"
+    stop-after="False">
+  <conditions>
+   <condition type="plone.conditions.TalesExpression">
+    <property name="tales_expression">python:not here.auto_approve</property>
+   </condition>
+  </conditions>
+  <actions>
+   <action type="plone.actions.Mail">
+    <property name="source"/>
+    <property
+       name="message">You have registered to the meeting ${absolute_url}. The meeting administrator will review your registration and you will be notified about the result by email.
+
+     --
+     The EEA Meeting team</property>
+    <property name="subject">Meeting registration</property>
+    <property name="recipients">${user_email}</property>
+    <property name="exclude_actor">False</property>
+   </action>
+  </actions>
+ </rule>
+ <rule name="rule-3" title="eea.meeting: new subscriber - to contact"
+    cascading="False" description="Notify meeting contact person."
+    enabled="True"
+    event="eea.meeting.events.interfaces.ISendNewSubscriberEmailEvent"
+    stop-after="False">
+  <conditions/>
+  <actions>
+   <action type="plone.actions.Mail">
+    <property name="source"/>
+    <property
+       name="message">A new participant has registered to the meeting ${absolute_url}
+
+     --register
+     The EEA Meeting team</property>
+    <property
+       name="subject">New participant registered to a meeting</property>
+    <property name="recipients">${meeting_contact_email}</property>
+    <property name="exclude_actor">False</property>
+   </action>
+  </actions>
+ </rule>
  <assignment name="email_sender" bubbles="True" enabled="True" location=""/>
  <assignment name="rule-1" bubbles="True" enabled="True" location=""/>
+ <assignment name="rule-2" bubbles="True" enabled="True" location=""/>
+ <assignment name="rule-3" bubbles="True" enabled="True" location=""/>
 </contentrules>
