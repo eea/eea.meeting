@@ -77,61 +77,11 @@
                   <td tal:define="registered context/is_registered">
                     <tal:notregister tal:condition="not:registered">
                       <tal:canregister tal:condition="context/can_register">
-
-                          <form class="form-horizontal" tal:attributes="action string:${context/absolute_url}/register" method="GET"
-                                tal:condition="python:not context.portal_membership.isAnonymousUser()">
-                            <div class="form-group">
-                              <label for="form-widgets-reimbursed" class="control-label">
-                                  Reimbursed participation
-                              </label>
-
-                              <span class="option">
-                                <label for="form-widgets-reimbursed-0">
-                                  <input id="form-widgets-reimbursed" name="form.widgets.reimbursed" class="radio-widget required bool-field"
-                                         value="true" type="radio">
-                                      <span class="label">yes</span>
-                                </label>
-                              </span>
-
-                              <span class="option">
-                                <label for="form-widgets-reimbursed-1">
-                                  <input id="form-widgets-reimbursed-1" name="form.widgets.reimbursed" class="radio-widget required bool-field"
-                                         value="false" checked="checked" type="radio">
-                                  <span class="label">no</span>
-                                </label>
-                              </span>
-                            </div>
-
-                            <div class="form-group">
-                              <label for="form-widgets-role"  class="control-label">
-                                Role
-                              </label>
-                              <select id="form-widgets-role" name="form.widgets.role:list" class="select-widget required choice-field" size="1"
-                                      tal:define="options python:context.restrictedTraverse('get_subscriber_roles')">
-                                <tal:options tal:repeat="option options">
-                                  <option tal:attributes="value python:option[0]">
-                                    <span tal:replace="python:option[1]">ENI-SEIS II EAST NFP</span>
-                                  </option>
-                                </tal:options>
-                              </select>
-
-                              <div class="form-group">
-
-                                <input class="btn event-register" type="submit" name="event-register" value="Register" />
-                              </div>
-                            </div>
-                          </form>
-
-                          <a tal:condition="python:context.portal_membership.isAnonymousUser()"
-                             tal:attributes="href string:${context/absolute_url}/register"
-                             class="btn event-register">
-                            Login to register
+                          <a tal:attributes="href string:${context/absolute_url}/register" class="btn event-register">
+                            Register to this meeting
                           </a>
-
                       </tal:canregister>
-
                       <span tal:condition="not:context/can_register">Not available</span>
-
                     </tal:notregister>
                     <tal:registered tal:condition="registered">
                       <span>You are registered</span>
