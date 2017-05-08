@@ -35,4 +35,17 @@
 
   </genericsetup:upgradeSteps>
 
+  <genericsetup:upgradeSteps
+    source="1.2"
+    destination="1.3"
+    profile="eea.meeting:default">
+
+    <genericsetup:upgradeDepends
+        title="Content rules for new event."
+        description="[refs #83535] New subscriber event. Import content rules."
+        import_steps="contentrules"
+        />
+
+  </genericsetup:upgradeSteps>
+
 </configure>
