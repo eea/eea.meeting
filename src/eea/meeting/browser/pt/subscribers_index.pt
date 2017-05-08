@@ -24,6 +24,7 @@
             <th>Phone number</th>
             <th>State</th>
             <th>Reimbursed</th>
+            <th>Visa</th>
             <th>Role</th>
           </tr>
         <thead>
@@ -33,7 +34,6 @@
           </tr>
           <tal:subscribers tal:repeat="subscriber subscribers">
             <tr tal:define="subscriber_details python:subscriber.get_details();
-                            reimbursed_dict python:{True:'yes', False:'no'};
                             roles_dict python:context.aq_parent.get_subscriber_roles_dict()">
               <td>
                 <a tal:attributes="href subscriber/absolute_url" tal:content="string:${subscriber/title} (${subscriber/getId})" />
@@ -48,8 +48,9 @@
               <td>
                 <span tal:content="subscriber/state" />
               </td>
-              <td tal:content="python:reimbursed_dict.get(subscriber.reimbursed)" />
-              <td tal:content="python:roles_dict.get(subscriber.role)" />
+              <td tal:content="python:subscriber.reimbursed and 'Yes' or 'No'" />
+              <td tal:content="python:subscriber.visa and 'Yes' or 'No'" />
+              <td tal:content="python:subscriber.role_other if subscriber.role == 'other' else roles_dict.get(subscriber.role)" />
             </tr>
           </tal:subscribers>
         </tbody>

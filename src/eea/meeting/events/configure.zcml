@@ -8,10 +8,28 @@
    name="Send email after form submission"
    />
 
+  <interface
+   interface="eea.meeting.events.interfaces.ISendNewSubscriberEmailEvent"
+   type="plone.contentrules.rule.interfaces.IRuleEventType"
+   name="Send email for new subscriber."
+   />
+
    <subscriber
    for="eea.meeting.events.interfaces.ISendEmailAddEvent"
    handler="eea.meeting.events.rules.execute_event"
    />
+
+   <subscriber
+   for="eea.meeting.events.interfaces.ISendNewSubscriberEmailEvent"
+   handler="eea.meeting.events.rules.execute_event"
+   />
+
+   <adapter
+    for="*"
+    provides="plone.stringinterp.interfaces.IStringSubstitution"
+    factory=".adapters.SetMeetingContactEmail"
+    name="meeting_contact_email"
+    />
 
    <adapter
     for="*"
