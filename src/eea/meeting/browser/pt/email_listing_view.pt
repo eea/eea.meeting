@@ -27,7 +27,7 @@
 
     <p>This page lists all emails sent to participants.</p>
 
-    <a href="#" id="btnExport" onclick="javascript:export_excel()">Export to Excel</a>
+    <a href="#" id="btnExport" onclick="javascript:export_excel('#listing-table', 'Email Archive')">Export to Excel</a>
 
     <a class="back-button" tal:attributes="href python:context.aq_parent.absolute_url()">Back to meeting page</a>
     <div class="clearfix"></div>

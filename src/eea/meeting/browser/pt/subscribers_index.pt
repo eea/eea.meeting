@@ -5,6 +5,10 @@
 
     <metal:javascriptslot fill-slot="javascript_head_slot">
       <script type="text/javascript"
+        tal:attributes="src string:${portal_url}/++resource++eea.meeting/excel.js"></script>
+      <script type="text/javascript"
+        tal:attributes="src string:${portal_url}/++resource++eea.meeting/html_json.js"></script>
+      <script type="text/javascript"
         tal:attributes="src string:${portal_url}/++resource++eea.meeting/third-party/Vanilla-DataTables/vanilla-dataTables.min.js"></script>
       <script type="text/javascript"
         tal:attributes="src string:${portal_url}/++resource++eea.meeting/subscribers.js"></script>
@@ -71,6 +75,7 @@
         <button name="button.approve" type="submit">Approve selected</button>
         <button name="button.reject" type="submit">Reject selected</button>
         <a href="./++add++eea.meeting.subscriber">Add new</a>
+        <a href="#" onclick="export_excel('#subscribers', 'Meeting participants');return false">Export to Excel</a>
         <script>subscribers.setup('#subscribers')</script>
       </form>
     </div>

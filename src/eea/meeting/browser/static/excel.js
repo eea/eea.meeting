@@ -1,7 +1,7 @@
-function export_excel()
+function export_excel(selector, title)
 {
-  var table = $("#listing-table").tableToJSON();
-  JSONToCSVConvertor(table, "Email Archive", true);
+  var table = $(selector).tableToJSON();
+  JSONToCSVConvertor(table, title, true);
 }
 
 
