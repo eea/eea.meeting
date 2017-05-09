@@ -71,11 +71,11 @@
           <tfoot>
           </tfoot>
         </table>
-        <button name="button.delete" type="submit">Delete selected</button>
-        <button name="button.approve" type="submit">Approve selected</button>
-        <button name="button.reject" type="submit">Reject selected</button>
-        <a href="./++add++eea.meeting.subscriber">Add new</a>
-        <a href="#" onclick="export_excel('#subscribers', 'Meeting participants');return false">Export to Excel</a>
+        <button class="btn btn-default" name="button.delete" type="submit">Delete selected</button>
+        <button class="btn btn-default" name="button.approve" type="submit">Approve selected</button>
+        <button class="btn btn-default" name="button.reject" type="submit">Reject selected</button>
+        <a class="btn btn-default" href="./++add++eea.meeting.subscriber">Add new</a>
+        <a class="btn btn-default" href="#" onclick="export_excel('#subscribers', 'Meeting participants');return false">Export to Excel</a>
         <script>subscribers.setup('#subscribers')</script>
       </form>
     </div>
