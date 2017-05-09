@@ -6,6 +6,8 @@ from zope.interface import Invalid
 from Products.CMFDefault.exceptions import EmailAddressInvalid
 from Products.CMFDefault.utils import checkEmailAddress
 
+import plone.api as api
+
 from eea.meeting import _
 
 
@@ -15,6 +17,14 @@ def validate_email(email):
     except EmailAddressInvalid:
         raise EmailAddressInvalid(email)
     return True
+
+
+def validate_userid(userid):
+    user = api.user.get(userid=userid)
+    if user:
+        return True
+
+    raise Invalid(_(u'User does not exist!'))
 
 
 def cc_constraint(value):
