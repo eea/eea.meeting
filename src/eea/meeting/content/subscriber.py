@@ -24,7 +24,10 @@ class Subscriber(Item):
         return {
             'first_name': member.getProperty('first_name', ''),
             'last_name': member.getProperty('last_name', ''),
+            'fullname': member.getProperty('fullname', ''),
             'telephone': member.getProperty('telephone', ''),
+            'telephone': member.getProperty('telephone', ''),
+            'phone_numbers': ', '.join(member.getProperty('phone_numbers', [])),
             'institution': member.getProperty('institution', ''),
             'from_country': member.getProperty('from_country', ''),
             'from_city': member.getProperty('from_city', '')

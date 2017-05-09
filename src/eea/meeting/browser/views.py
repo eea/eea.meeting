@@ -1,6 +1,7 @@
 """ Browser controllers
 """
 
+from functools import partial
 from Products.Five.browser import BrowserView
 from Products.statusmessages.interfaces import IStatusMessage
 from eea.meeting import _
@@ -125,6 +126,43 @@ class SubscribersView(BrowserView):
                 "\"Allow users to register to the meeting\" if you want "
                 "this feature to be active.", type="info")
         return super(SubscribersView, self).__call__(*args, **kwargs)
+
+
+class SubscribersApi(BrowserView):
+    """ Manage subscribers.
+    """
+
+    def __call__(self):
+        if self.request.method == 'POST':
+            return self.on_post()
+
+    def on_post(self):
+        subscribers = tuple(
+            self.context.get(s)
+            for s in self.request.get('subscribers', [])
+        )
+
+        if 'button.delete' in self.request:
+            self.delete(subscribers)
+        elif 'button.approve' in self.request:
+            self.approve(subscribers)
+        elif 'button.reject' in self.request:
+            self.reject(subscribers)
+
+        return self.request.response.redirect(self.context.absolute_url())
+
+    def _change_state(self, state, subscribers):
+        action = partial(api.content.transition, to_state=state)
+        map(action, subscribers)
+
+    def delete(self, subscribers):
+        self.context.manage_delObjects([s.getId() for s in subscribers])
+
+    def approve(self, subscribers):
+        self._change_state('approved', subscribers)
+
+    def reject(self, subscribers):
+        self._change_state('rejected', subscribers)
 
 
 class Register(BrowserView):

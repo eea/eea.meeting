@@ -29,6 +29,14 @@
     />
 
   <browser:page
+    for="eea.meeting.interfaces.ISubscribers"
+    name="api"
+    permission="cmf.ModifyPortalContent"
+    class=".views.SubscribersApi"
+    layer="eea.meeting.interfaces.IMeetingLayer"
+    />
+
+  <browser:page
     name="register"
     class="eea.meeting.browser.views.Register"
     for="eea.meeting.interfaces.IMeeting"

@@ -3,7 +3,16 @@
   i18n:domain="eea">
   <body>
 
+    <metal:javascriptslot fill-slot="javascript_head_slot">
+      <script type="text/javascript"
+        tal:attributes="src string:${portal_url}/++resource++eea.meeting/third-party/Vanilla-DataTables/vanilla-dataTables.min.js"></script>
+      <script type="text/javascript"
+        tal:attributes="src string:${portal_url}/++resource++eea.meeting/subscribers.js"></script>
+    </metal:javascriptslot>
+
     <metal:styleslot fill-slot="style_slot">
+      <link rel="stylesheet" type="text/css"
+        tal:attributes="href string:${portal_url}/++resource++eea.meeting/third-party/Vanilla-DataTables/vanilla-dataTables.min.css" />
       <link rel="stylesheet" type="text/css" media="screen" href="++resource++eea.meeting/common.css" />
     </metal:styleslot>
 
@@ -11,52 +20,59 @@
        <p>Users subscribed to this meeting</p>
        <a class="back-button" tal:attributes="href python:context.aq_parent.absolute_url()">Back to meeting page</a>
        <div class="clearfix"></div>
-       <table class="listing">
-        <thead>
-          <tr>
-            <th>User Name</th>
-            <th>Name</th>
-            <th>Surname</th>
-            <th>Institution</th>
-            <th>From Country</th>
-            <th>From City</th>
-            <th>Email address</th>
-            <th>Phone number</th>
-            <th>State</th>
-            <th>Reimbursed</th>
-            <th>Visa</th>
-            <th>Role</th>
-          </tr>
-        <thead>
-        <tbody tal:define="subscribers python:context.get_subscribers()">
-          <tr tal:condition="not:subscribers">
-            <td colspan="3">No subscribers.</td>
-          </tr>
-          <tal:subscribers tal:repeat="subscriber subscribers">
-            <tr tal:define="subscriber_details python:subscriber.get_details();
-                            roles_dict python:context.aq_parent.get_subscriber_roles_dict()">
-              <td>
-                <a tal:attributes="href subscriber/absolute_url" tal:content="string:${subscriber/title} (${subscriber/getId})" />
-              </td>
-              <td tal:content="python:subscriber_details.get('first_name', '')">First Name</td>
-              <td tal:content="python:subscriber_details.get('last_name', '')">Last Name</td>
-              <td tal:content="python:subscriber_details.get('institution', '')">Institution</td>
-              <td tal:content="python:subscriber_details.get('from_country', '')">From country</td>
-              <td tal:content="python:subscriber_details.get('from_city', '')">From city</td>
-              <td tal:content="subscriber/email|string:" />
-              <td tal:content="python:subscriber_details.get('telephone', '')">Telephone</td>
-              <td>
-                <span tal:content="subscriber/state" />
-              </td>
-              <td tal:content="python:subscriber.reimbursed and 'Yes' or 'No'" />
-              <td tal:content="python:subscriber.visa and 'Yes' or 'No'" />
-              <td tal:content="python:subscriber.role_other if subscriber.role == 'other' else roles_dict.get(subscriber.role)" />
+       <form action="./api" method="POST">
+         <table id="subscribers" class="table table-hover">
+          <thead>
+            <tr>
+              <th><input type="checkbox" data-role="select-all" /></th>
+              <th>User Name</th>
+              <th>Name</th>
+              <th>Institution</th>
+              <th>Country</th>
+              <th>Email address</th>
+              <th>Phone</th>
+              <th>State</th>
+              <th>Reimbursed</th>
+              <th>Visa</th>
+              <th>Role</th>
             </tr>
-          </tal:subscribers>
-        </tbody>
-        <tfoot>
-        </tfoot>
-      </table>
+          <thead>
+          <tbody tal:define="subscribers python:context.get_subscribers()">
+            <tr tal:condition="not:subscribers">
+              <td colspan="3">No subscribers.</td>
+            </tr>
+            <tal:subscribers tal:repeat="subscriber subscribers">
+              <tr tal:define="subscriber_details python:subscriber.get_details();
+                              roles_dict python:context.aq_parent.get_subscriber_roles_dict()">
+                <td>
+                  <input type="checkbox" data-role="select-subscriber" name="subscribers:list" tal:attributes="value subscriber/getId" />
+                </td>
+                <td>
+                  <a tal:attributes="href subscriber/absolute_url" tal:content="string:${subscriber/title} (${subscriber/getId})" />
+                </td>
+                <td tal:content="python:subscriber_details.get('fullname', '')">Name</td>
+                <td tal:content="python:subscriber_details.get('institution', '')">Institution</td>
+                <td tal:content="python:subscriber_details.get('from_country', '')">From country</td>
+                <td tal:content="subscriber/email|string:" />
+                <td tal:content="python:subscriber_details.get('phone_numbers', '')">Telephone</td>
+                <td>
+                  <span tal:content="subscriber/state" />
+                </td>
+                <td tal:content="python:subscriber.reimbursed and 'Yes' or 'No'" />
+                <td tal:content="python:subscriber.visa and 'Yes' or 'No'" />
+                <td tal:content="python:subscriber.role_other if subscriber.role == 'other' else roles_dict.get(subscriber.role)" />
+              </tr>
+            </tal:subscribers>
+          </tbody>
+          <tfoot>
+          </tfoot>
+        </table>
+        <button name="button.delete" type="submit">Delete selected</button>
+        <button name="button.approve" type="submit">Approve selected</button>
+        <button name="button.reject" type="submit">Reject selected</button>
+        <a href="./++add++eea.meeting.subscriber">Add new</a>
+        <script>subscribers.setup('#subscribers')</script>
+      </form>
     </div>
   </body>
 </html>
