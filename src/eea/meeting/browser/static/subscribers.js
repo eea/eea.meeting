@@ -15,7 +15,7 @@
     // Don't sort first column.
     var checkbox_sorter = table.table.querySelector('.dataTable-sorter');
     checkbox_sorter.parentNode.appendChild(checkbox_sorter.firstChild);
-    checkbox_sorter.remove();
+    checkbox_sorter.parentNode.removeChild(checkbox_sorter);
   }
 
   function setup_checkboxes() {
@@ -31,14 +31,6 @@
         chk.checked = chk_all.checked;
       });
     });
-
-    [].slice.call(document.querySelectorAll('#subscribers tbody tr'))
-      .forEach(function(tr){
-        var chk_tr = tr.querySelector('[data-role="select-subscriber"]');
-        tr.addEventListener('click', function(evt){
-          chk_tr.checked = !chk_tr.checked;
-        });
-      });
 
   }
 

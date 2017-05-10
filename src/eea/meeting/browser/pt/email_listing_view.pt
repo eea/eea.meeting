@@ -13,11 +13,11 @@
             tal:attributes="href string:${navroot}/++resource++eea.meeting/email_view.css"
             />
 
-        <script tal:define="navroot context/@@plone_portal_state/navigation_root_url"
-                tal:attributes="src string:${navroot}/++resource++eea.meeting/excel.js"></script>
-
+        <script type="text/javascript" tal:attributes="src string:${portal_url}/++resource++eea.meeting/third-party/FileSaver/FileSaver.min.js"></script>
         <script tal:define="navroot context/@@plone_portal_state/navigation_root_url"
                 tal:attributes="src string:${navroot}/++resource++eea.meeting/html_json.js"></script>
+        <script tal:define="navroot context/@@plone_portal_state/navigation_root_url"
+                tal:attributes="src string:${navroot}/++resource++eea.meeting/excel.js"></script>
     </metal:block>
 </head>
 

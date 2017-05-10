@@ -5,9 +5,11 @@
 
     <metal:javascriptslot fill-slot="javascript_head_slot">
       <script type="text/javascript"
-        tal:attributes="src string:${portal_url}/++resource++eea.meeting/excel.js"></script>
+        tal:attributes="src string:${portal_url}/++resource++eea.meeting/third-party/FileSaver/FileSaver.min.js"></script>
       <script type="text/javascript"
         tal:attributes="src string:${portal_url}/++resource++eea.meeting/html_json.js"></script>
+      <script type="text/javascript"
+        tal:attributes="src string:${portal_url}/++resource++eea.meeting/excel.js"></script>
       <script type="text/javascript"
         tal:attributes="src string:${portal_url}/++resource++eea.meeting/third-party/Vanilla-DataTables/vanilla-dataTables.min.js"></script>
       <script type="text/javascript"
@@ -21,7 +23,7 @@
     </metal:styleslot>
 
     <div metal:fill-slot="content-core" class="meeting-items">
-       <p>Users subscribed to this meeting</p>
+       <p>Users registered to participate in this meeting</p>
        <a class="back-button" tal:attributes="href python:context.aq_parent.absolute_url()">Back to meeting page</a>
        <div class="clearfix"></div>
        <form action="./api" method="POST">
@@ -75,7 +77,7 @@
         <button class="btn btn-default" name="button.approve" type="submit">Approve selected</button>
         <button class="btn btn-default" name="button.reject" type="submit">Reject selected</button>
         <a class="btn btn-default" href="./++add++eea.meeting.subscriber">Add new</a>
-        <a class="btn btn-default" href="#" onclick="export_excel('#subscribers', 'Meeting participants');return false">Export to Excel</a>
+        <a class="btn btn-default" href="#" onclick="export_excel('#subscribers', 'Meeting participants', {ignoreColumns: [0]});return false">Export to Excel</a>
         <script>subscribers.setup('#subscribers')</script>
       </form>
     </div>

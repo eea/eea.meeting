@@ -1,6 +1,6 @@
-function export_excel(selector, title)
+function export_excel(selector, title, json_opts)
 {
-  var table = $(selector).tableToJSON();
+  var table = $(selector).tableToJSON(json_opts);
   JSONToCSVConvertor(table, title, true);
 }
 
@@ -50,17 +50,9 @@ function JSONToCSVConvertor(JSONData, ReportTitle, ShowLabel) {
     //remove the blank-spaces from the title and replace it with an underscore
     fileName += ReportTitle.replace(/ /g,"_");
 
-    //Initialize file format
-    var uri = 'data:text/csv;charset=utf-8,' + escape(CSV);
+    var blob = new Blob([CSV], {
+      type: 'text/csv;charset=utf-8'
+    });
 
-    var link = document.createElement("a");
-    link.href = uri;
-
-    link.style = "visibility:hidden";
-    link.download = fileName + ".csv";
-
-    //remove the temporary anchor after clicking it
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+    saveAs(blob, fileName + ".csv");
 }
