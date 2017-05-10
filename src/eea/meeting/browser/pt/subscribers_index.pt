@@ -22,7 +22,7 @@
       <link rel="stylesheet" type="text/css" media="screen" href="++resource++eea.meeting/common.css" />
     </metal:styleslot>
 
-    <div metal:fill-slot="content-core" class="meeting-items">
+    <div metal:fill-slot="content-core" class="meeting-items" tal:define="can_edit python:view.can_edit()">
        <p>Users registered to participate in this meeting</p>
        <a class="back-button" tal:attributes="href python:context.aq_parent.absolute_url()">Back to meeting page</a>
        <div class="clearfix"></div>
@@ -30,7 +30,7 @@
          <table id="subscribers" class="table table-hover">
           <thead>
             <tr>
-              <th><input type="checkbox" data-role="select-all" /></th>
+              <th tal:condition="can_edit"><input type="checkbox" data-role="select-all" /></th>
               <th>User Name</th>
               <th>Name</th>
               <th>Institution</th>
@@ -50,7 +50,7 @@
             <tal:subscribers tal:repeat="subscriber subscribers">
               <tr tal:define="subscriber_details python:subscriber.get_details();
                               roles_dict python:context.aq_parent.get_subscriber_roles_dict()">
-                <td>
+                <td tal:condition="can_edit">
                   <input type="checkbox" data-role="select-subscriber" name="subscribers:list" tal:attributes="value subscriber/getId" />
                 </td>
                 <td>
@@ -73,11 +73,13 @@
           <tfoot>
           </tfoot>
         </table>
-        <button class="btn btn-default" name="button.delete" type="submit">Delete selected</button>
-        <button class="btn btn-default" name="button.approve" type="submit">Approve selected</button>
-        <button class="btn btn-default" name="button.reject" type="submit">Reject selected</button>
-        <a class="btn btn-default" href="./++add++eea.meeting.subscriber">Add new</a>
-        <a class="btn btn-default" href="#" onclick="export_excel('#subscribers', 'Meeting participants', {ignoreColumns: [0]});return false">Export to Excel</a>
+        <tal:can_edit condition="can_edit">
+          <button class="btn btn-default" name="button.delete" type="submit">Delete selected</button>
+          <button class="btn btn-default" name="button.approve" type="submit">Approve selected</button>
+          <button class="btn btn-default" name="button.reject" type="submit">Reject selected</button>
+          <a class="btn btn-default" href="./++add++eea.meeting.subscriber">Add new</a>
+          <a class="btn btn-default" href="#" onclick="export_excel('#subscribers', 'Meeting participants', {ignoreColumns: [0]});return false">Export to Excel</a>
+        </tal:can_edit>
         <script>subscribers.setup('#subscribers')</script>
       </form>
     </div>

@@ -34,6 +34,13 @@
    <adapter
     for="*"
     provides="plone.stringinterp.interfaces.IStringSubstitution"
+    factory=".adapters.SetMeetingURL"
+    name="meeting_url"
+    />
+
+   <adapter
+    for="*"
+    provides="plone.stringinterp.interfaces.IStringSubstitution"
     factory=".adapters.SetEmailSender"
     name="email_sender"
     />

@@ -21,16 +21,18 @@
   function setup_checkboxes() {
     var chk_all = document.querySelector('[data-role="select-all"]');
 
-    chk_all.addEventListener('change', function(evt){
-      var checkboxes = [].slice.call(
-        document.querySelectorAll(
-          '[data-role="select-subscriber"]'
-        )
-      ).filter(isVisible);
-      checkboxes.forEach(function(chk){
-        chk.checked = chk_all.checked;
+    if (chk_all) {
+      chk_all.addEventListener('change', function(evt){
+        var checkboxes = [].slice.call(
+          document.querySelectorAll(
+            '[data-role="select-subscriber"]'
+          )
+        ).filter(isVisible);
+        checkboxes.forEach(function(chk){
+          chk.checked = chk_all.checked;
+        });
       });
-    });
+    }
 
   }
 

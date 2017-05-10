@@ -1,5 +1,6 @@
 from plone.stringinterp.adapters import BaseSubstitution
 from eea.meeting import _
+from eea.meeting.interfaces import IMeeting
 
 
 class SetEmailSubstitution(BaseSubstitution):
@@ -81,7 +82,7 @@ class SetEmailCC(SetEmailSubstitution):
 
 
 class SetMeetingContactEmail(BaseSubstitution):
-    category = _(u'Notify meeting contact person')
+    category = _(u'eea.meeting')
     description = _(u'Meeting contact email')
 
     def safe_call(self):
@@ -93,6 +94,23 @@ class SetMeetingContactEmail(BaseSubstitution):
             email = ''
 
         return email
+
+
+class SetMeetingURL(BaseSubstitution):
+    category = _(u'eea.meeting')
+    description = _(u'Finds the closest meeting and returns it\'s URL.')
+
+    def safe_call(self):
+        """ Safe call
+        """
+        def find_meeting(context):
+            return (
+                IMeeting.providedBy(context) and context
+                or find_meeting(context.aq_parent)
+            )
+
+        meeting = find_meeting(self.context)
+        return meeting.absolute_url() if meeting else ''
 
 
 class SetEmailReceiverOnApproved(BaseSubstitution):
@@ -118,12 +136,7 @@ class SetNameReceiverOnApproved(BaseSubstitution):
         """ Safe call
         """
         try:
-            first_name = self.context.get_details().get('first_name', '')
-            last_name = self.context.get_details().get('last_name', '')
-            if first_name == "" and last_name == "":
-                name = self.context.id
-            else:
-                name = first_name + " " + last_name
+            return self.context.get_details().get('fullname', 'user')
         except Exception:
             name = 'user'
 

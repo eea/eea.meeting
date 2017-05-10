@@ -127,6 +127,13 @@ class SubscribersView(BrowserView):
                 "this feature to be active.", type="info")
         return super(SubscribersView, self).__call__(*args, **kwargs)
 
+    def can_edit(self):
+        return api.user.has_permission(
+            'Modify portal content',
+            obj=self.context
+        )
+
+
 
 class SubscribersApi(BrowserView):
     """ Manage subscribers.
