@@ -1,6 +1,8 @@
 <configure
     xmlns="http://namespaces.zope.org/zope"
-    i18n_domain="eea.meeting">
+    i18n_domain="eea.meeting"
+    xmlns:plone="http://namespaces.plone.org/plone"
+    xmlns:browser="http://namespaces.zope.org/browser" >
 
   <interface
    interface="eea.meeting.events.interfaces.ISendEmailAddEvent"
@@ -100,5 +102,35 @@
     factory=".adapters.SetMeetingTitleOnApproved"
     name="meeting_title"
     />
+
+    <!--Custom email trigger-->
+
+    <adapter factory=".mail.CustomMailActionExecutor" />
+
+    <browser:page
+       for="plone.app.contentrules.browser.interfaces.IRuleActionAdding"
+       name="eea.meeting.events.CustomMail"
+       class="plone.app.contentrules.actions.mail.MailAddForm"
+       permission="plone.app.contentrules.ManageContentRules"
+       />
+
+     <browser:page
+       for="eea.meeting.events.mail.ICustomMailAction"
+       name="edit"
+       class="plone.app.contentrules.actions.mail.MailEditForm"
+       permission="plone.app.contentrules.ManageContentRules"
+       />
+
+    <plone:ruleAction
+        name="eea.meeting.events.CustomMail"
+        title="Add to email archive"
+        description="Send an email on the triggering object and save it to the archive"
+        for="*"
+        event="*"
+        addview="eea.meeting.events.CustomMail"
+        editview="edit"
+        schema=".mail.ICustomMailAction"
+        factory=".mail.CustomMailAction"
+        />
 
 </configure>
