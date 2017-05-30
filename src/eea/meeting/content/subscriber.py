@@ -26,7 +26,6 @@ class Subscriber(Item):
             'last_name': member.getProperty('last_name', ''),
             'fullname': member.getProperty('fullname', ''),
             'telephone': member.getProperty('telephone', ''),
-            'telephone': member.getProperty('telephone', ''),
             'phone_numbers': ', '.join(member.getProperty('phone_numbers', [])),
             'institution': member.getProperty('institution', ''),
             'from_country': member.getProperty('from_country', ''),

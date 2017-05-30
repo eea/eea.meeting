@@ -32,7 +32,7 @@
             <tr>
               <th tal:condition="can_edit"><input type="checkbox" data-role="select-all" /></th>
               <th>User Name</th>
-              <th>Name</th>
+              <th>Full Name</th>
               <th>Institution</th>
               <th>Country</th>
               <th>City</th>
@@ -57,7 +57,7 @@
                 <td>
                   <a tal:attributes="href subscriber/absolute_url" tal:content="string:${subscriber/title} (${subscriber/getId})" />
                 </td>
-                <td tal:content="python:subscriber_details.get('fullname', '')">Name</td>
+                <td tal:content="python:subscriber_details.get('fullname', '')">Full Name</td>
                 <td tal:content="python:subscriber_details.get('institution', '')">Institution</td>
                 <td tal:content="python:subscriber_details.get('from_country', '')">From country</td>
                 <td tal:content="python:subscriber_details.get('from_city', '')">From city</td>
