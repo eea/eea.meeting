@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<object>
+  <layout>
+  <tablestyles>
+   <element value="Fancy listing|listing"/>
+   <element value="Invisible grid|invisible"/>
+   <element value="Subdued grid|plain"/>
+   <element value="Bootstrap table|table"/>
+   <element value="Data table|datatable"/>
+   <element value="Classic table|classictable"/>
+  </tablestyles>
+  <content_css value=""/>
+  <editor_height value="400"/>
+  <editor_width value="100%"/>
+  <contextmenu value="True"/>
+  <resizing value="True"/>
+  <autoresize value="False"/>
+ </layout>
+</object>
