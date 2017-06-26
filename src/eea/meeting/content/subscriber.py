@@ -3,6 +3,7 @@ from zope.container.interfaces import INameChooser
 from zope.interface import implementer
 from plone import api
 from plone.dexterity.content import Item
+from Products.CMFPlone.utils import safe_unicode
 from eea.meeting.interfaces import ISubscriber
 from eea.meeting.constants import SUBSCRIBER_META_TYPE
 from eea.meeting.constants import ACTION_APPROVE, ACTION_REJECT
@@ -70,7 +71,7 @@ def save_email_approved(context):
         subscriber_name = 'user'
 
     subscriber_email = context.email
-    email_body = """
+    email_body = u"""
         Dear {subscriber_name},
         \n\n
         Thank you for your registration to the {meeting_title}.
@@ -96,9 +97,9 @@ def save_email_approved(context):
         L’équipe de projet ENI-SEIS II
 
         """.format(
-        subscriber_name=subscriber_name,
-        meeting_title=meeting_title,
-        meeting_place=meeting_place
+        subscriber_name=safe_unicode(subscriber_name),
+        meeting_title=safe_unicode(meeting_title),
+        meeting_place=safe_unicode(meeting_place),
     )
 
     data = {
