@@ -57,7 +57,7 @@ def save_email_approved(context):
 
     meeting = context.aq_parent.aq_parent
     meeting_title = meeting.title
-    meeting_place = meeting.location
+    meeting_place = meeting.location.encode('utf-8')
 
     try:
         first_name = context.get_details().get('first_name', '')
