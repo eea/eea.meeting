@@ -32,21 +32,23 @@
   </conditions>
   <actions>
    <action type="eea.meeting.events.CustomMail">
-    <property name="source">eni-seis2@eea.europa.eu</property>
+    <property name="source"/>
     <property name="message">Dear ${subscriber_name},
-     Thank you for your registration to the ${meeting_title}.
+     Thank you for your registration to the ${meeting_title} (${meeting_url}).
      We invite you to carefully look at the meeting documents folder in order to start arranging your travel to ${meeting_place}.
      Looking forward to a fruitful meeting, do not hesitate to contact us if needed at eni-seis2@eea.europa.eu
-     Best regards
+
+     Best regards,
      ENI-SEIS II Project Team
 
      Cher ${subscriber_name},
-     Merci pour votre inscription à ${meeting_title}.
+     Merci pour votre inscription à ${meeting_title} (${meeting_url}).
      Nous vous invitons à prendre connaissance des documents de la réunion dans le dossier document afin de commencer à organiser votre voyage à ${meeting_place}.
      Dans l'attente d'une réunion fructueuse, si vous avez des questions n'hésitez pas à nous contacter à l'adresse suivante eni-seis2@eea.europa.eu
-     Meilleures salutations
+
+     Meilleures salutations,
      L’équipe de projet ENI-SEIS II</property>
-    <property name="subject">${meeting_title}</property>
+    <property name="subject">You are registered for ${meeting_title}</property>
     <property name="recipients">${subscriber_email}</property>
     <property name="exclude_actor">False</property>
    </action>
@@ -66,10 +68,11 @@
    <action type="eea.meeting.events.CustomMail">
     <property name="source"/>
     <property
-       name="message">You have registered to the meeting ${absolute_url}. The meeting administrator will review your registration and you will be notified about the result by email.
+       name="message">You have registered to the meeting ${meeting_title} (${absolute_url}). The meeting administrator will review your registration and you will be notified about the result by email.
 
-     --
-     The EEA Meeting team</property>
+       Best regards,
+       ENI-SEIS II Project Team
+    </property>
     <property name="subject">Meeting registration</property>
     <property name="recipients">${user_email}</property>
     <property name="exclude_actor">False</property>
@@ -87,10 +90,10 @@
    <action type="eea.meeting.events.CustomMail">
     <property name="source"/>
     <property
-       name="message">A new participant has registered to the meeting ${absolute_url}
+       name="message">A new participant has registered to the meeting ${absolute_url}. You can review the participants at ${absolute_url}/subscribers
 
-     --register
-     The EEA Meeting team</property>
+Best regards,
+ENI-SEIS II Project Team</property>
     <property
        name="subject">New participant registered to a meeting</property>
     <property name="recipients">${meeting_contact_email}</property>
