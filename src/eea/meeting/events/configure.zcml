@@ -123,7 +123,7 @@
 
     <plone:ruleAction
         name="eea.meeting.events.CustomMail"
-        title="Add to email archive"
+        title="Send email and add to archive"
         description="Send an email on the triggering object and save it to the archive"
         for="*"
         event="*"
