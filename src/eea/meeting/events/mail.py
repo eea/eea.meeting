@@ -1,9 +1,14 @@
+# -*- coding: utf-8 -*-
 import logging
 
 from plone.contentrules.rule.interfaces import IRuleElementData, IExecutable
 from zope.component import adapts
 from zope.interface import Interface, implements
+from plone.stringinterp.interfaces import IStringInterpolator
 from plone.app.contentrules.actions.mail import IMailAction, MailAction, MailActionExecutor
+from zope.container.interfaces import INameChooser
+
+from plone import api
 
 logger = logging.getLogger("plone.contentrules")
 
@@ -24,6 +29,54 @@ class CustomMailActionExecutor(MailActionExecutor):
     # implements(IExecutable)
     adapts(Interface, ICustomMailAction, Interface)
 
+    def save_email_approved(self):
+        types = api.portal.get_tool('portal_types')
+        type_info = types.getTypeInfo('eea.meeting.email')
+        emails_folder = self.event.object.aq_parent.aq_parent['emails']
+
+        name_chooser = INameChooser(emails_folder)
+
+        meeting = self.event.object.aq_parent.aq_parent
+        meeting_title = meeting.title
+        meeting_place = meeting.location.encode('utf-8')
+
+        try:
+            first_name = self.event.object.get_details().get('first_name', '')
+            last_name = self.event.object.get_details().get('last_name', '')
+            if first_name == "" and last_name == "":
+                subscriber_name = self.context.id
+            else:
+                subscriber_name = first_name + " " + last_name
+        except Exception:
+            subscriber_name = 'user'
+
+        interpolator = IStringInterpolator(self.event.object)
+
+        subscriber_email = self.event.object.email
+        email_body = interpolator(self.element.message).strip()
+        source = interpolator(self.element.source).strip()
+
+        data = {
+            'subject': meeting_title,
+            'sender': source,
+            'receiver': subscriber_email,
+            'cc': '',
+            'body': email_body,
+        }
+
+        content_id = name_chooser.chooseName(data['subject'], emails_folder)
+
+        obj = type_info._constructInstance(emails_folder, content_id)
+
+        obj.title = data['subject']
+        obj.sender = data['sender']
+        obj.receiver = data['receiver']
+        obj.cc = data['cc']
+        obj.subject = data['subject']
+        obj.body = data['body']
+
+        obj.reindexObject()
+
     def __init__(self, context, element, event):
         self.context = context
         self.element = element
@@ -31,4 +84,5 @@ class CustomMailActionExecutor(MailActionExecutor):
 
     def __call__(self):
         super(CustomMailActionExecutor, self).__call__()
+        self.save_email_approved()
 
