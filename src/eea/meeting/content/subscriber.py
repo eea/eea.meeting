@@ -61,6 +61,7 @@ def state_change(obj, evt):
                 subscribers.approved_count() < meeting.max_participants):
             api.content.transition(obj=subscribers, transition='to_open')
 
+
 def on_add(obj, evt):
 
     obj.uid = uuid.uuid4()

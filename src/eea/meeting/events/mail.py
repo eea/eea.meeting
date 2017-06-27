@@ -26,7 +26,6 @@ class CustomMailAction(MailAction):
 class CustomMailActionExecutor(MailActionExecutor):
     """The executor for this action.
     """
-    # implements(IExecutable)
     adapts(Interface, ICustomMailAction, Interface)
 
     def save_email_approved(self):
@@ -37,18 +36,6 @@ class CustomMailActionExecutor(MailActionExecutor):
         name_chooser = INameChooser(emails_folder)
 
         meeting = self.event.object.aq_parent.aq_parent
-        meeting_title = meeting.title
-        meeting_place = meeting.location.encode('utf-8')
-
-        try:
-            first_name = self.event.object.get_details().get('first_name', '')
-            last_name = self.event.object.get_details().get('last_name', '')
-            if first_name == "" and last_name == "":
-                subscriber_name = self.context.id
-            else:
-                subscriber_name = first_name + " " + last_name
-        except Exception:
-            subscriber_name = 'user'
 
         interpolator = IStringInterpolator(self.event.object)
 
@@ -57,7 +44,7 @@ class CustomMailActionExecutor(MailActionExecutor):
         source = interpolator(self.element.source).strip()
 
         data = {
-            'subject': meeting_title,
+            'subject': meeting.title,
             'sender': source,
             'receiver': subscriber_email,
             'cc': '',
