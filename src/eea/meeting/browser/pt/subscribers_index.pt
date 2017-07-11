@@ -34,8 +34,10 @@
               <th>User Name</th>
               <th>Full Name</th>
               <th>Institution</th>
+              <th>Position</th>
               <th>Country</th>
               <th>City</th>
+              <th>Address</th>
               <th>Email address</th>
               <th>Phone</th>
               <th>State</th>
@@ -59,8 +61,10 @@
                 </td>
                 <td tal:content="python:subscriber_details.get('fullname', '')">Full Name</td>
                 <td tal:content="python:subscriber_details.get('institution', '')">Institution</td>
+                <td tal:content="python:subscriber_details.get('position', '')">Position</td>
                 <td tal:content="python:subscriber_details.get('from_country', '')">From country</td>
                 <td tal:content="python:subscriber_details.get('from_city', '')">From city</td>
+                <td tal:content="python:subscriber_details.get('address', '')">Address</td>
                 <td tal:content="subscriber/email|string:" />
                 <td tal:content="python:subscriber_details.get('phone_numbers', '')">Telephone</td>
                 <td>

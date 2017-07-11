@@ -30,7 +30,9 @@ class Subscriber(Item):
             'phone_numbers': ', '.join(member.getProperty('phone_numbers', [])),
             'institution': member.getProperty('institution', ''),
             'from_country': member.getProperty('from_country', ''),
-            'from_city': member.getProperty('from_city', '')
+            'from_city': member.getProperty('from_city', ''),
+            'position': member.getProperty('position', ''),
+            'address': member.getProperty('address', '')
         }
 
     def is_allowed_state_change(self):

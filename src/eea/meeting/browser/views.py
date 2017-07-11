@@ -30,6 +30,7 @@ def add_subscriber(subscribers, **kwargs):
     )
 
 
+
 class MeetingView(DefaultView):
     """ EEA Meeting index """
 
