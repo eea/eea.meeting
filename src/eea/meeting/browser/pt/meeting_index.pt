@@ -72,6 +72,13 @@
                     <span itemprop="type" tal:content="structure python:view.w.get('meeting_type').render()">Type</span>
                   </td>
                 </tr>
+                <tr tal:define="event_level context/meeting_level;"
+                  tal:condition="event_level">
+                  <th i18n:translate="type">Level</th>
+                  <td>
+                    <span itemprop="level" tal:content="structure python:view.w.get('meeting_level').render()">Level</span>
+                  </td>
+                </tr>
                 <tr>
                   <th i18n:translate="">Registration</th>
                   <td tal:define="registered context/is_registered">
