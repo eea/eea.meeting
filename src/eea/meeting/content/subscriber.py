@@ -22,6 +22,8 @@ class Subscriber(Item):
 
     def get_details(self):
         member = api.user.get(userid=self.userid)
+        if not member:
+            return {}
         return {
             'first_name': member.getProperty('first_name', ''),
             'last_name': member.getProperty('last_name', ''),
