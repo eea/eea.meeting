@@ -51,8 +51,8 @@ function JSONToCSVConvertor(JSONData, ReportTitle, ShowLabel) {
     fileName += ReportTitle.replace(/ /g,"_");
 
     var blob = new Blob([CSV], {
-      type: 'text/csv;charset=utf-8'
+      type: 'application/vnd.ms-excel;charset=charset=utf-8'
     });
 
-    saveAs(blob, fileName + ".csv");
+    saveAs(blob, fileName + ".xlsx");
 }
