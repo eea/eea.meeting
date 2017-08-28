@@ -31,19 +31,11 @@
           <thead>
             <tr>
               <th tal:condition="can_edit"><input type="checkbox" data-role="select-all" /></th>
-              <th>User Name</th>
-              <th>Full Name</th>
-              <th>Institution</th>
-              <th>Position</th>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Organisation</th>
               <th>Country</th>
               <th>City</th>
-              <th>Address</th>
-              <th>Email address</th>
-              <th>Phone</th>
-              <th>State</th>
-              <th>Reimbursed</th>
-              <th>Visa</th>
-              <th>Role</th>
             </tr>
           <thead>
           <tbody tal:define="subscribers python:context.get_subscribers()">
@@ -56,23 +48,11 @@
                 <td tal:condition="can_edit">
                   <input type="checkbox" data-role="select-subscriber" name="subscribers:list" tal:attributes="value subscriber/getId" />
                 </td>
-                <td>
-                  <a tal:attributes="href subscriber/absolute_url" tal:content="string:${subscriber/title} (${subscriber/getId})" />
-                </td>
-                <td tal:content="python:subscriber_details.get('fullname', '')">Full Name</td>
-                <td tal:content="python:subscriber_details.get('institution', '')">Institution</td>
-                <td tal:content="python:subscriber_details.get('position', '')">Position</td>
+                <td tal:content="python:subscriber_details.get('fullname', '')">Name</td>
+                <td tal:content="subscriber/email|string:" />
+                <td tal:content="python:subscriber_details.get('institution', '')">Organisation</td>
                 <td tal:content="python:subscriber_details.get('from_country', '')">From country</td>
                 <td tal:content="python:subscriber_details.get('from_city', '')">From city</td>
-                <td tal:content="python:subscriber_details.get('address', '')">Address</td>
-                <td tal:content="subscriber/email|string:" />
-                <td tal:content="python:subscriber_details.get('phone_numbers', '')">Telephone</td>
-                <td>
-                  <span tal:content="subscriber/state" />
-                </td>
-                <td tal:content="python:subscriber.reimbursed and 'Yes' or 'No'" />
-                <td tal:content="python:subscriber.visa and 'Yes' or 'No'" />
-                <td tal:content="python:subscriber.role_other if subscriber.role == 'other' else roles_dict.get(subscriber.role)" />
               </tr>
             </tal:subscribers>
           </tbody>
