@@ -9,6 +9,16 @@ function JSONToCSVConvertor(JSONData, ReportTitle, ShowLabel) {
     //If JSONData is not an object then JSON.parse will parse the JSON string in an Object
     var arrData = typeof JSONData != 'object' ? JSON.parse(JSONData) : JSONData;
 
+    for(i in arrData)
+    {   delete arrData[i]['Address'];
+        delete arrData[i]['Phone'];
+        delete arrData[i]['Reimbursed'];
+        delete arrData[i]['State'];
+        delete arrData[i]['User Name'];
+        delete arrData[i]['Visa'];
+        delete arrData[i]['Role'];
+    }
+
     var CSV = '';
 
     if (ShowLabel) {
