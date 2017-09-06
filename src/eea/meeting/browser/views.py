@@ -30,7 +30,6 @@ def add_subscriber(subscribers, **kwargs):
     )
 
 
-
 class MeetingView(DefaultView):
     """ EEA Meeting index """
 
@@ -107,6 +106,7 @@ class MeetingEditForm(DefaultEditForm):
     """ Edit form for case studies
     """
 
+
 MeetingEditView = layout.wrap_form(MeetingEditForm)
 classImplements(MeetingEditView, IDexterityEditForm)
 
@@ -133,7 +133,6 @@ class SubscribersView(BrowserView):
             'Modify portal content',
             obj=self.context
         )
-
 
 
 class SubscribersApi(BrowserView):
@@ -186,7 +185,6 @@ class Register(BrowserView):
             IStatusMessage(self.request).addStatusMessage(
                 e.message, type="error")
             return self.request.response.redirect(self.context.absolute_url())
-
 
         current_user = api.user.get_current()
         uid = current_user.getId()

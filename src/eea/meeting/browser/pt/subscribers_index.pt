@@ -53,7 +53,7 @@
               <tr tal:define="subscriber_details python:subscriber.get_details();
                               roles_dict python:context.aq_parent.get_subscriber_roles_dict()">
                 <td tal:condition="can_edit">
-                  <input type="checkbox" data-role="select-subscriber" name="subscribers:list"/>
+                  <input type="checkbox" data-role="select-subscriber" name="subscribers:list" tal:attributes="value subscriber/getId"/>
                 </td>
                 <td tal:content="subscriber/getId" >User Name</td>
                 <td tal:content="python:subscriber_details.get('fullname', '')">Name</td>
