@@ -165,8 +165,21 @@ class SetMeetingTitleOnApproved(BaseSubstitution):
     def safe_call(self):
         """ Safe call
         """
+        if self.context.portal_type == 'eea.meeting.subscriber':
+            """ This is the case for approving a subscriber:
+                - Thank you for your registration
+            """
+            meeting = self.context.aq_parent.aq_parent
+
+        elif self.context.portal_type == 'eea.meeting':
+            """ This is the case for new subscriber registered:
+                - A new participant has registered to the meeting
+                - You have registered to the meeting
+            """
+            meeting = self.context
+
         try:
-            title = self.context.aq_parent.aq_parent.title
+            title = meeting.title
         except Exception:
             title = ""
 
