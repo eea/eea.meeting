@@ -14,6 +14,8 @@
         tal:attributes="src string:${portal_url}/++resource++eea.meeting/third-party/Vanilla-DataTables/vanilla-dataTables.min.js"></script>
       <script type="text/javascript"
         tal:attributes="src string:${portal_url}/++resource++eea.meeting/subscribers.js"></script>
+      <script src="https://cdn.jsdelivr.net/alasql/0.3/alasql.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.7.12/xlsx.core.min.js"></script>
     </metal:javascriptslot>
 
     <metal:styleslot fill-slot="style_slot">
@@ -80,7 +82,7 @@
           <button class="btn btn-default" name="button.approve" type="submit">Approve selected</button>
           <button class="btn btn-default" name="button.reject" type="submit">Reject selected</button>
           <a class="btn btn-default" href="./++add++eea.meeting.subscriber">Add new</a>
-          <a class="btn btn-default" href="#" onclick="export_excel('#subscribers', 'Meeting participants', {ignoreColumns: [0]});return false">Export to Excel</a>
+          <a class="btn btn-default" href="#" onclick="saveFile('#subscribers', 'Meeting participants', {ignoreColumns: [0]});return false">Export to Excel</a>
         </tal:can_edit>
         <script>subscribers.setup('#subscribers')</script>
       </form>
