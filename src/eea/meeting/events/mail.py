@@ -55,7 +55,11 @@ class CustomMailActionExecutor(MailActionExecutor):
         name_chooser = INameChooser(emails_folder)
         interpolator = IStringInterpolator(self.event.object)
         email_body = interpolator(self.element.message).strip()
-        source = interpolator(self.element.source).strip()
+
+        try:
+            source = interpolator(self.element.source).strip()
+        except Exception:
+            source = ''
 
         data = {
             'subject': meeting.title,
