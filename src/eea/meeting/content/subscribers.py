@@ -1,13 +1,11 @@
 from functools import partial
 from operator import attrgetter
 from operator import eq
-from eea.meeting.content.subscriber import SUBSCRIBER_META_TYPE
 from eea.meeting.interfaces import ISubscribers
 import plone.api as api
 from plone.dexterity.content import Container
 from zope.interface import implementer
 
-SUBSCRIBERS_META_TYPE = 'EEA Meeting Subscribers'
 APPROVED_STATE = 'approved'
 NEW_STATE = 'new'
 REJECTED_STATE = 'rejected'
@@ -16,8 +14,6 @@ REJECTED_STATE = 'rejected'
 @implementer(ISubscribers)
 class Subscribers(Container):
     """ EEA Meeting Subscribers container"""
-
-    meta_type = SUBSCRIBERS_META_TYPE
 
     def get_meeting(self):
         return self.aq_parent
@@ -32,7 +28,8 @@ class Subscribers(Container):
         return map(attrgetter('userid'), self.get_subscribers())
 
     def get_subscribers(self):
-        return self.objectValues(SUBSCRIBER_META_TYPE)
+        return [x for x in self.objectValues() if x.portal_type ==
+                "eea.meeting.subscriber"]
 
     def state(self):
         return api.content.get_state(self)

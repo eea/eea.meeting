@@ -8,14 +8,9 @@ from plone.dexterity.utils import createContentInContainer
 from eea.meeting.interfaces import IMeeting
 
 
-MEETING_META_TYPE = 'EEA Meeting'
-
-
 @implementer(IMeeting)
 class Meeting(Container):
     """ EEA Meeting content type"""
-
-    meta_type = MEETING_META_TYPE
 
     def is_anonymous(self):
         return api.user.is_anonymous()

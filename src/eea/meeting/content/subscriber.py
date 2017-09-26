@@ -1,11 +1,8 @@
 # -*- coding: utf-8 -*-
-from zope.container.interfaces import INameChooser
 from zope.interface import implementer
 from plone import api
 from plone.dexterity.content import Item
-from Products.CMFPlone.utils import safe_unicode
 from eea.meeting.interfaces import ISubscriber
-from eea.meeting.constants import SUBSCRIBER_META_TYPE
 from eea.meeting.constants import ACTION_APPROVE, ACTION_REJECT
 import datetime
 import uuid
@@ -14,8 +11,6 @@ import uuid
 @implementer(ISubscriber)
 class Subscriber(Item):
     """ EEA Meeting Subscriber content type"""
-
-    meta_type = SUBSCRIBER_META_TYPE
 
     def state(self):
         return api.content.get_state(self)
@@ -29,7 +24,8 @@ class Subscriber(Item):
             'last_name': member.getProperty('last_name', ''),
             'fullname': member.getProperty('fullname', ''),
             'telephone': member.getProperty('telephone', ''),
-            'phone_numbers': ', '.join(member.getProperty('phone_numbers', [])),
+            'phone_numbers': ', '.join(
+                member.getProperty('phone_numbers', [])),
             'institution': member.getProperty('institution', ''),
             'from_country': member.getProperty('from_country', ''),
             'from_city': member.getProperty('from_city', ''),
@@ -51,6 +47,7 @@ class Subscriber(Item):
         is_meeting_ended = (meeting_end_date - today).days < -1
         is_allowed_state_change = is_meeting_ended is not True
         return is_allowed_state_change
+
 
 def state_change(obj, evt):
 
