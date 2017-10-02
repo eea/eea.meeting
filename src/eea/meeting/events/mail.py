@@ -38,7 +38,6 @@ class CustomMailActionExecutor(MailActionExecutor):
                 - Thank you for your registration
             """
             meeting = self.event.object.aq_parent.aq_parent
-            subscriber_email = self.event.object.email
 
         elif self.event.object.portal_type == 'eea.meeting':
             """ This is the case for new subscriber registered:
@@ -46,7 +45,6 @@ class CustomMailActionExecutor(MailActionExecutor):
                 - You have registered to the meeting
             """
             meeting = self.event.object
-            subscriber_email = api.user.get_current().getProperty('email')
 
         types = api.portal.get_tool('portal_types')
         type_info = types.getTypeInfo('eea.meeting.email')
@@ -55,6 +53,7 @@ class CustomMailActionExecutor(MailActionExecutor):
         name_chooser = INameChooser(emails_folder)
         interpolator = IStringInterpolator(self.event.object)
         email_body = interpolator(self.element.message).strip()
+        recipients = interpolator(self.element.recipients).strip()
 
         try:
             source = interpolator(self.element.source).strip()
@@ -64,7 +63,7 @@ class CustomMailActionExecutor(MailActionExecutor):
         data = {
             'subject': meeting.title,
             'sender': source,
-            'receiver': subscriber_email,
+            'receiver': recipients,
             'cc': '',
             'body': email_body,
         }
