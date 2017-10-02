@@ -54,11 +54,7 @@ class CustomMailActionExecutor(MailActionExecutor):
         interpolator = IStringInterpolator(self.event.object)
         email_body = interpolator(self.element.message).strip()
         recipients = interpolator(self.element.recipients).strip()
-
-        try:
-            source = interpolator(self.element.source).strip()
-        except Exception:
-            source = ''
+        source = self.context.email_from_address
 
         data = {
             'subject': meeting.title,
