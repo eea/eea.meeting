@@ -290,6 +290,11 @@ class RegisterUser(BrowserView):
         return self._register(users)
 
 
+class ViewEmail(BrowserView):
+    """ Email view in mail archive
+    """
+
+
 class ViewSentEmails(BrowserView):
     """Sent Emails Archive"""
 

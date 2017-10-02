@@ -63,6 +63,15 @@
     />
 
   <browser:page
+    name="view"
+    for="eea.meeting.interfaces.IEmail"
+    template="pt/email_view.pt"
+    class=".views.ViewEmail"
+    permission="eea.meeting.view_email"
+    layer="eea.meeting.interfaces.IMeetingLayer"
+    />
+
+  <browser:page
     for="eea.meeting.interfaces.IMeeting"
     name="ics_view"
     class="plone.app.event.ical.exporter.EventsICal"

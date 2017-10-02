@@ -1,0 +1,57 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      i18n:domain="eea.meeting"
+      metal:use-macro="context/main_template/macros/master">
+
+<body>
+  <metal:block fill-slot="content-core">
+    <div class="field" id="sender">
+      <label for="sender" class="horizontal">
+        From:
+      </label>
+
+      <div tal:content="context/sender">eni-seis2@eea.europa.eu</div>
+    </div>
+
+    <div class="field" id="receiver">
+      <label for="receiver" class="horizontal">
+        Recipients:
+      </label>
+
+      <div tal:content="python:', '.join(context.receiver)">
+        somename@email.com
+      </div>
+    </div>
+
+    <div class="field" id="cc">
+      <label for="cc" class="horizontal">
+        CC:
+      </label>
+
+      <div tal:content="python:', '.join(context.cc)">
+        somename@email.com
+      </div>
+    </div>
+
+    <div class="field" id="subject">
+      <label for="subject" class="horizontal">
+        Subject:
+      </label>
+
+      <div tal:content="context/subject">Subject</div>
+    </div>
+
+    <div class="field" id="body">
+      <label for="body" class="horizontal">
+        Body:
+      </label>
+
+      <div tal:content="context/body">Body</div>
+    </div>
+
+
+  </metal:block>
+</body>
+</html>
