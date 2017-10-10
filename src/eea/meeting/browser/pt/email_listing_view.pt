@@ -63,11 +63,15 @@
         </tbody>
       </table>
 
-      <button id="btnExport" class="btn btn-default" name="button.export"
-        onclick="saveFile('#listing-table', 'Email Archive', {ignoreColumns: []});return false">
+      <a href="" id="btnExport" class="btn btn-default edit-text"
+         onclick="saveFile('#listing-table', 'Email Archive', {ignoreColumns: []});return false">
           Export to Excel
-      </button>
+      </a>
 
+      <a class="btn btn-default edit-text"
+        href="" tal:attributes="href string:${context/absolute_url}/folder_contents">
+          Manage emails
+      </a>
     </div>
   </metal:block>
 </body>
