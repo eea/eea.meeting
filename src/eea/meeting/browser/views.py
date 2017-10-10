@@ -310,19 +310,6 @@ class ViewSentEmails(BrowserView):
             path=current_path
         )
 
-        subs_brains = portal_catalog(portal_type="eea.meeting.subscriber",)
-
-        user_name = ''
-        name = ''
-        surname = ''
-        institution = ''
-        from_country = ''
-        from_city = ''
-        phone_number = ''
-        state = ''
-        reimbursed = ''
-        role = ''
-
         for brain in brains:
             email = brain.getObject()
 
@@ -333,39 +320,13 @@ class ViewSentEmails(BrowserView):
             if isinstance(email_receiver, set):
                 email_receiver = list(email_receiver)
 
-            for x in subs_brains:
-                subscriber = x.getObject()
-                subscriber_details = subscriber.get_details()
-                if email_receiver[0] == subscriber.email:
-                    user_name = subscriber.userid
-                    if user_name == '' or user_name is None:
-                        user_name = subscriber.getId()
-                    name = subscriber_details.get('first_name', '')
-                    surname = subscriber_details.get('last_name', '')
-                    institution = subscriber_details.get('institution', '')
-                    from_country = subscriber_details.get('from_country', '')
-                    from_city = subscriber_details.get('from_city', '')
-                    phone_number = subscriber_details.get('telephone', '')
-                    state = subscriber.state()
-                    reimbursed = subscriber.reimbursed
-                    role = subscriber.role
-
             results.append({
                 'sender': email.sender,
                 'receiver': ', '.join(email_receiver or []),
-                # 'cc': ', '.join(email.cc or []),
-                # 'subject': email.subject,
-                # 'body': email.body,
-                'user_name': user_name,
-                'name': name,
-                'surname': surname,
-                'institution': institution,
-                'from_country': from_country,
-                'from_city': from_city,
-                'phone_number': phone_number,
-                'state': state,
-                'reimbursed': reimbursed,
-                'role': role,
+                'cc': ', '.join(email.cc or []),
+                'subject': email.subject,
+                'body': email.body,
+                'ModificationDate': email.ModificationDate,
             })
 
         return results

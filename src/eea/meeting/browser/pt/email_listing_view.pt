@@ -29,52 +29,46 @@
 
     <p>This page lists all emails sent to participants.</p>
 
-    <a href="#" id="btnExport" onclick="saveFile('#listing-table', 'Email Archive', {ignoreColumns: [0]});return false">Export to Excel</a>
-
     <a class="back-button" tal:attributes="href python:context.aq_parent.absolute_url()">Back to meeting page</a>
     <div class="clearfix"></div>
 
     <div id="table_wrapper">
-        <table class="table table-hover" id="listing-table">
-      <thead id="headers">
-        <tr class="display-email-tr">
-            <th>Receiver</th>
-            <th>User Name</th>
-            <th>Name</th>
-            <th>Surname</th>
-            <th>Institution</th>
-            <th>From Country</th>
-            <th>From City</th>
-            <th>Phone Number</th>
-            <th>State</th>
-            <th>Reimbursed Participation</th>
-            <th>Role</th>
-        </tr>
-      </thead>
+      <table class="table table-hover" id="listing-table">
+        <thead id="headers">
+          <tr class="display-email-tr">
+            <th>From</th>
+            <th>Recipients</th>
+            <th>CC</th>
+            <th>Subject</th>
+            <th>Modified</th>
+          </tr>
+        </thead>
 
-      <tbody tal:define="emails view/email_archive">
-        <tr tal:condition="not:emails">
-          <td colspan="11">No emails sent.</td>
-        </tr>
-        <tr tal:repeat="email view/email_archive"
-            tal:define="roles_dict python:context.aq_parent.get_subscriber_roles_dict();
-                        reimbursed_dict python:{True:'yes', False:'no'};">
-            <td tal:content="email/receiver">Email receiver</td>
-            <td tal:content="email/user_name">User Name</td>
-            <td tal:content="email/name">Name</td>
-            <td tal:content="email/surname">Surname</td>
-            <td tal:content="email/institution">Institution</td>
-            <td tal:content="email/from_country">From Country</td>
-            <td tal:content="email/from_city">From City</td>
-            <td tal:content="email/phone_number">Phone Number</td>
-            <td tal:content="email/state">State</td>
-            <td tal:content="python:reimbursed_dict.get(email['reimbursed'])">Reimbursed Participation</td>
-            <td tal:content="python:roles_dict.get(email['role'])">Role</td>
-        </tr>
-      </tbody>
-    </table>
+        <tbody tal:define="emails view/email_archive">
+          <tr tal:condition="not:emails">
+            <td colspan="5">No emails sent.</td>
+          </tr>
+          <tr tal:repeat="email view/email_archive">
+            <td tal:content="email/sender">From</td>
+            <td tal:content="email/receiver">Recipients</td>
+            <td tal:content="email/cc">CC</td>
+            <td>
+              <span tal:content="email/subject"
+                    tal:attributes="title email/body">
+                Subject
+              </span>
+            </td>
+            <td tal:content="email/ModificationDate">Modification date</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <button id="btnExport" class="btn btn-default" name="button.export"
+        onclick="saveFile('#listing-table', 'Email Archive', {ignoreColumns: [0]});return false">
+          Export to Excel
+      </button>
+
     </div>
-
   </metal:block>
 </body>
 </html>
