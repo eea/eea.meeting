@@ -1,5 +1,5 @@
 window.saveFile = function saveFile (selector, title, json_opts) {
-    var table = $(selector).tableToJSON({ignoreColumns: [0]});
+    var table = $(selector).tableToJSON(json_opts);
 
 
     if(selector == '#subscribers'){

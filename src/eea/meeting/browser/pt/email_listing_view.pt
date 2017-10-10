@@ -64,7 +64,7 @@
       </table>
 
       <button id="btnExport" class="btn btn-default" name="button.export"
-        onclick="saveFile('#listing-table', 'Email Archive', {ignoreColumns: [0]});return false">
+        onclick="saveFile('#listing-table', 'Email Archive', {ignoreColumns: []});return false">
           Export to Excel
       </button>
 
