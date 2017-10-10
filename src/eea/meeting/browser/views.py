@@ -1,6 +1,7 @@
 """ Browser controllers
 """
 
+from DateTime import DateTime
 from functools import partial
 from Products.Five.browser import BrowserView
 from Products.statusmessages.interfaces import IStatusMessage
@@ -326,7 +327,8 @@ class ViewSentEmails(BrowserView):
                 'cc': ', '.join(email.cc or []),
                 'subject': email.subject,
                 'body': email.body,
-                'ModificationDate': email.ModificationDate,
+                'ModificationDate': self.context.toLocalizedTime(
+                    DateTime(email.ModificationDate())),
             })
 
         return results
