@@ -57,7 +57,11 @@
                 <td tal:condition="can_edit">
                   <input type="checkbox" data-role="select-subscriber" name="subscribers:list" tal:attributes="value subscriber/getId"/>
                 </td>
-                <td tal:content="subscriber/getId" >User Name</td>
+                <td>
+                  <a href="" tal:attributes="href python:subscriber_details.get('view_url', '')">
+                    <span tal:replace="subscriber/getId" >User Name</span>
+                  </a>
+                </td>
                 <td tal:content="python:subscriber_details.get('fullname', '')">Name</td>
                 <td tal:content="subscriber/email|string:" />
                 <td tal:content="python:subscriber_details.get('institution', '')">Organisation</td>
