@@ -58,7 +58,7 @@
                   <input type="checkbox" data-role="select-subscriber" name="subscribers:list" tal:attributes="value subscriber/getId"/>
                 </td>
                 <td>
-                  <a href="" tal:attributes="href python:subscriber_details.get('view_url', '')">
+                  <a href="" tal:attributes="href python:subscriber_details.get('edit_url', '')">
                     <span tal:replace="subscriber/getId" >User Name</span>
                   </a>
                 </td>

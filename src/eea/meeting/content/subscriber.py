@@ -18,7 +18,7 @@ class Subscriber(Item):
     def get_details(self):
         member = api.user.get(userid=self.userid)
         if not member:
-            return {'view_url': self.absolute_url()}
+            return {'edit_url': "{0}/edit".format(self.absolute_url())}
         return {
             'first_name': member.getProperty('first_name', ''),
             'last_name': member.getProperty('last_name', ''),
@@ -31,7 +31,7 @@ class Subscriber(Item):
             'from_city': member.getProperty('from_city', ''),
             'position': member.getProperty('position', ''),
             'address': member.getProperty('address', ''),
-            'view_url': self.absolute_url()
+            'edit_url': "{0}/edit".format(self.absolute_url())
         }
 
     def is_allowed_state_change(self):
