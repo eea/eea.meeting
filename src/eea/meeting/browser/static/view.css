@@ -12,6 +12,11 @@
   justify-content: space-around;
 }
 
+.event-information.webminar .event-metadata {
+  width: 100%;
+  max-width: initial;
+}
+
 #content .eventDetails {
   float: none;
   margin: 0;
