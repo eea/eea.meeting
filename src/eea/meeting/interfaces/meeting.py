@@ -11,7 +11,8 @@ from eea.meeting.interfaces.util import validate_email
 meeting_types = SimpleVocabulary(
     [SimpleTerm(value=u'meeting', title=_(u'Meeting')),
      SimpleTerm(value=u'conference', title=_(u'Conference')),
-     SimpleTerm(value=u'workshop', title=_(u'Workshop'))]
+     SimpleTerm(value=u'workshop', title=_(u'Workshop')),
+     SimpleTerm(value=u'webminar', title=_(u'Webminar'))]
 )
 
 meeting_levels = SimpleVocabulary(
