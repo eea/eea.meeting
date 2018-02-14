@@ -87,6 +87,6 @@ class IMeeting(Interface):
             u'help_event_location',
             default=u'Location of the event.'
         ),
-        required=True,
+        required=False,
         default=None
     )
