@@ -63,5 +63,16 @@
 
   </genericsetup:upgradeSteps>
 
+  <genericsetup:upgradeSteps
+    source="1.4"
+    destination="1.5"
+    profile="eea.meeting:default">
 
+    <genericsetup:upgradeDepends
+        title="Import jsregistry."
+        description="[refs #92256] Import jsregistry: meeting_edit.js."
+        import_steps="jsregistry"
+        />
+
+  </genericsetup:upgradeSteps>
 </configure>
