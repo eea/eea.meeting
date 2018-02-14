@@ -46,7 +46,8 @@
                   </td>
                 </tr>
 
-                <tr tal:define="location context/location" tal:condition="location">
+                <tr tal:define="location context/location"
+                    tal:condition="python:context.location and (context.is_webminar() is not True)">
                   <th i18n:translate="event_where">Where</th>
                   <td class="location">
                     <a

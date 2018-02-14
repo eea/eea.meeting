@@ -36,6 +36,9 @@ class Meeting(Container):
         sm = getSecurityManager()
         return sm.checkPermission("EEA Meting: Admin Meeting", self)
 
+    def is_webminar(self):
+        return self.meeting_type == u'webminar'
+
     def registrations_open(self):
         return (self.allow_register and
                 datetime.now(pytz.UTC) < self.end and
