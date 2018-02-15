@@ -3,9 +3,11 @@ $(document).ready(function() {
   var $location_field = $("#formfield-form-widgets-location");
   var $geolocation_field = $("#formfield-form-widgets-IGeolocatable-geolocation");
   var WEBMINAR = 'webminar';  // a meeting type value
+  var default_event_location = '';
 
   function webminar_mode() {
     // Hide Event Location and Event location on map fields
+    $location_field.find('input').val("");  // We need location field empty.
     $location_field.hide();
     $geolocation_field.hide();
   }
@@ -13,6 +15,7 @@ $(document).ready(function() {
   function non_webminar_mode() {
     // Show Event Location and Event location on map fields
     $location_field.show();
+    $location_field.find('input').val(default_event_location);  // Autofill
     $geolocation_field.show();
 
     // Fix design: look like a required field (the custom validator solves behaviour)
@@ -23,6 +26,7 @@ $(document).ready(function() {
 
   if($(body).hasClass("portaltype-eea-meeting") && $(body).hasClass("template-edit")) {
     var $meeting_type = $("#form-widgets-meeting_type");
+    default_event_location = $location_field.find('input').val();
 
     if($meeting_type.val() == WEBMINAR) {
       webminar_mode();
