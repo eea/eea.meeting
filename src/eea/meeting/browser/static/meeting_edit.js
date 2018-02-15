@@ -42,7 +42,7 @@ $(document).ready(function() {
       }
     });
 
-    // Keep lastest value of Event location as default
+    // Keep latest value of Event location as default
     var $location_field_input = $location_field.find('input');
     $location_field_input.on('focusout', function() {
       default_event_location = $location_field_input.val();
