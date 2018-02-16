@@ -24,7 +24,8 @@ $(document).ready(function() {
     }
   }
 
-  if($(body).hasClass("portaltype-eea-meeting") && $(body).hasClass("template-edit")) {
+  if(($(body).hasClass("portaltype-eea-meeting") && $(body).hasClass("template-edit")) ||
+     ($(body).hasClass("portaltype-folder") && $(body).hasClass("template-eea-meeting"))) {
     var $meeting_type = $("#form-widgets-meeting_type");
     default_event_location = $location_field.find('input').val();
 
