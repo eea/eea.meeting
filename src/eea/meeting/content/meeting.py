@@ -48,7 +48,13 @@ class Meeting(Container):
         return self.subscribers.get_subscribers()
 
     def get_subscriber_roles_dict(self):
-        vocab = self.portal_vocabularies.subscriber_roles
+        try:
+            # defined in eni.seis.content
+            vocab = self.portal_vocabularies.subscriber_roles
+        except AttributeError:
+            # ignore this feature if vocab is not defined
+            return {}
+
         roles_dict = {}
         for key in vocab.keys():
             roles_dict[key] = vocab[key].title
