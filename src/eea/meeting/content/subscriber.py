@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
-from zope.interface import implementer
-from plone import api
-from plone.dexterity.content import Item
-from eea.meeting.interfaces import ISubscriber
 from eea.meeting.constants import ACTION_APPROVE, ACTION_REJECT
+from eea.meeting.interfaces import ISubscriber
+from plone import api
+from plone.api.exc import MissingParameterError
+from plone.dexterity.content import Item
+from zope.interface import implementer
 import datetime
 import uuid
 
@@ -16,9 +17,14 @@ class Subscriber(Item):
         return api.content.get_state(self)
 
     def get_details(self):
-        member = api.user.get(userid=self.userid)
+        try:
+            member = api.user.get(userid=self.userid)
+        except MissingParameterError:
+            member = None
+
         if not member:
             return {'edit_url': "{0}/edit".format(self.absolute_url())}
+
         return {
             'first_name': member.getProperty('first_name', ''),
             'last_name': member.getProperty('last_name', ''),
