@@ -329,6 +329,7 @@ class ViewSentEmails(BrowserView):
                 'body': email.body,
                 'ModificationDate': self.context.toLocalizedTime(
                     DateTime(email.ModificationDate())),
+                'absolute_url': email.absolute_url()
             })
 
         return results

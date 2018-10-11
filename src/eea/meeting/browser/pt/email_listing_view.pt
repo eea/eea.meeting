@@ -53,10 +53,12 @@
             <td tal:content="email/receiver">Recipients</td>
             <td tal:content="email/cc">CC</td>
             <td>
-              <span tal:content="email/subject"
-                    tal:attributes="title email/body">
-                Subject
+              <a href="" tal:attributes="href email/absolute_url">
+                <span tal:content="email/subject"
+                      tal:attributes="title email/body">
+                  Subject
               </span>
+              </a>
             </td>
             <td tal:content="email/ModificationDate">Modification date</td>
           </tr>
