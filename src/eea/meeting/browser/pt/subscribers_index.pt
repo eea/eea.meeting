@@ -29,58 +29,60 @@
        <a class="back-button" tal:attributes="href python:context.aq_parent.absolute_url()">Back to meeting page</a>
        <div class="clearfix"></div>
        <form action="./api" method="POST">
-         <table id="subscribers" class="table table-hover">
-          <thead>
-            <tr>
-              <th tal:condition="can_edit"><input type="checkbox" data-role="select-all" /></th>
-              <th>User Name</th>
-              <th>Name</th>
-              <th>Email</th>
-              <th>Organisation</th>
-              <th>Country</th>
-              <th>City</th>
-              <th>Address</th>
-              <th>Phone</th>
-              <th>State</th>
-              <th>Reimbursed</th>
-              <th>Visa</th>
-              <th>Role</th>
-            </tr>
-          <thead>
-          <tbody tal:define="subscribers python:context.get_subscribers()">
-            <tr tal:condition="not:subscribers">
-              <td colspan="3">No subscribers.</td>
-            </tr>
-            <tal:subscribers tal:repeat="subscriber subscribers">
-              <tr tal:define="subscriber_details python:subscriber.get_details();
-                              roles_dict python:context.aq_parent.get_subscriber_roles_dict()">
-                <td tal:condition="can_edit">
-                  <input type="checkbox" data-role="select-subscriber" name="subscribers:list" tal:attributes="value subscriber/getId"/>
-                </td>
-                <td>
-                  <a href="" tal:attributes="href python:subscriber_details.get('edit_url', '')">
-                    <span tal:replace="subscriber/getId" >User Name</span>
-                  </a>
-                </td>
-                <td tal:content="python:subscriber_details.get('fullname', '')">Name</td>
-                <td tal:content="subscriber/email|string:" />
-                <td tal:content="python:subscriber_details.get('institution', '')">Organisation</td>
-                <td tal:content="python:subscriber_details.get('from_country', '')">From country</td>
-                <td tal:content="python:subscriber_details.get('from_city', '')">From city</td>
-                <td tal:content="python:subscriber_details.get('address', '')">Address</td>
-                <td tal:content="python:subscriber_details.get('phone_numbers', '')">Telephone</td>
-                <td>
-                  <span tal:content="subscriber/state" />
-                </td>
-                <td tal:content="python:subscriber.reimbursed and 'Yes' or 'No'" />
-                <td tal:content="python:subscriber.visa and 'Yes' or 'No'" />
-                <td tal:content="python:subscriber.role_other if subscriber.role == 'other' else roles_dict.get(subscriber.role)" />
+         <div class="table-responsive">
+           <table id="subscribers" class="table table-hover">
+            <thead>
+              <tr>
+                <th tal:condition="can_edit"><input type="checkbox" data-role="select-all" /></th>
+                <th>User Name</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Organisation</th>
+                <th>Country</th>
+                <th>City</th>
+                <th>Address</th>
+                <th>Phone</th>
+                <th>State</th>
+                <th>Reimbursed</th>
+                <th>Visa</th>
+                <th>Role</th>
               </tr>
-            </tal:subscribers>
-          </tbody>
-          <tfoot>
-          </tfoot>
-        </table>
+            <thead>
+            <tbody tal:define="subscribers python:context.get_subscribers()">
+              <tr tal:condition="not:subscribers">
+                <td colspan="3">No subscribers.</td>
+              </tr>
+              <tal:subscribers tal:repeat="subscriber subscribers">
+                <tr tal:define="subscriber_details python:subscriber.get_details();
+                                roles_dict python:context.aq_parent.get_subscriber_roles_dict()">
+                  <td tal:condition="can_edit">
+                    <input type="checkbox" data-role="select-subscriber" name="subscribers:list" tal:attributes="value subscriber/getId"/>
+                  </td>
+                  <td>
+                    <a href="" tal:attributes="href python:subscriber_details.get('edit_url', '')">
+                      <span tal:replace="subscriber/getId" >User Name</span>
+                    </a>
+                  </td>
+                  <td tal:content="python:subscriber_details.get('fullname', '')">Name</td>
+                  <td tal:content="subscriber/email|string:" />
+                  <td tal:content="python:subscriber_details.get('institution', '')">Organisation</td>
+                  <td tal:content="python:subscriber_details.get('from_country', '')">From country</td>
+                  <td tal:content="python:subscriber_details.get('from_city', '')">From city</td>
+                  <td tal:content="python:subscriber_details.get('address', '')">Address</td>
+                  <td tal:content="python:subscriber_details.get('phone_numbers', '')">Telephone</td>
+                  <td>
+                    <span tal:content="subscriber/state" />
+                  </td>
+                  <td tal:content="python:subscriber.reimbursed and 'Yes' or 'No'" />
+                  <td tal:content="python:subscriber.visa and 'Yes' or 'No'" />
+                  <td tal:content="python:subscriber.role_other if subscriber.role == 'other' else roles_dict.get(subscriber.role)" />
+                </tr>
+              </tal:subscribers>
+            </tbody>
+            <tfoot>
+            </tfoot>
+          </table>
+        </div>
         <tal:can_edit condition="can_edit">
           <button class="btn btn-default" name="button.delete" type="submit">Delete selected</button>
           <button class="btn btn-default" name="button.approve" type="submit">Approve selected</button>
