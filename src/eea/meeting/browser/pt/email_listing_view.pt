@@ -41,6 +41,7 @@
             <th>CC</th>
             <th>Subject</th>
             <th>Modified</th>
+            <th>Type</th>
           </tr>
         </thead>
 
@@ -61,6 +62,7 @@
               </a>
             </td>
             <td tal:content="email/ModificationDate">Modification date</td>
+            <td tal:content="email/email_type">Email type</td>
           </tr>
         </tbody>
       </table>

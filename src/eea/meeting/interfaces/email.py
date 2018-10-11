@@ -48,6 +48,11 @@ class IEmail(Interface):
         required=True,
     )
 
+    email_type = schema.TextLine(
+        title=_(u"Email type"),
+        required=False,
+    )
+
     directives.widget(
         'sender',
         TextFieldWidget,

@@ -33,11 +33,14 @@ class CustomMailActionExecutor(MailActionExecutor):
     adapts(Interface, ICustomMailAction, Interface)
 
     def save_email(self):
+        email_type = "N/A"
+
         if self.event.object.portal_type == 'eea.meeting.subscriber':
             """ This is the case for approving a subscriber:
                 - Thank you for your registration
             """
             meeting = self.event.object.aq_parent.aq_parent
+            email_type = u"Approval"
 
         elif self.event.object.portal_type == 'eea.meeting':
             """ This is the case for new subscriber registered:
@@ -45,6 +48,7 @@ class CustomMailActionExecutor(MailActionExecutor):
                 - You have registered to the meeting
             """
             meeting = self.event.object
+            email_type = u"Registration"
 
         types = api.portal.get_tool('portal_types')
         type_info = types.getTypeInfo('eea.meeting.email')
@@ -62,6 +66,7 @@ class CustomMailActionExecutor(MailActionExecutor):
             'receiver': recipients,
             'cc': '',
             'body': email_body,
+            'email_type': email_type,
         }
 
         content_id = name_chooser.chooseName(data['subject'], emails_folder)
@@ -73,6 +78,7 @@ class CustomMailActionExecutor(MailActionExecutor):
         obj.cc = data['cc']
         obj.subject = data['subject']
         obj.body = data['body']
+        obj.email_type = data['email_type']
 
         obj.reindexObject()
 
