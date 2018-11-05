@@ -16,6 +16,11 @@ class Meeting(Container):
         return api.user.is_anonymous()
 
     def is_registered(self, uid=None):
+        """ Check if user requested the registration
+
+            Use subscriber_status() to see user's curent state:
+            approved, new or rejected
+        """
         if not uid:
             uid = api.user.get_current().getId()
         return uid in self.subscribers.subscriber_ids()
