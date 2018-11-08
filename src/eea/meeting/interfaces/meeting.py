@@ -47,6 +47,18 @@ class IMeeting(Interface):
         required=True,
     )
 
+    allow_register_start = schema.Datetime(
+        title=_(u"From"),
+        description=_(u"Allow registration starting with this datetime."),
+        required=False,
+    )
+
+    allow_register_end = schema.Datetime(
+        title=_(u"To"),
+        description=_(u"Allow registration until this datetime."),
+        required=False,
+    )
+
     restrict_content_access = schema.Bool(
         title=_(u"Hide meeting content list for not registered users"),
         required=True
