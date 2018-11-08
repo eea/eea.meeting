@@ -75,4 +75,18 @@
         />
 
   </genericsetup:upgradeSteps>
+
+  <genericsetup:upgradeSteps
+    source="1.5"
+    destination="1.5.1"
+    profile="eea.meeting:default">
+
+
+    <genericsetup:upgradeDepends
+        title="Content rules for rejected registration."
+        description="[refs #99957] For some reason adding action 'Send email and add to archive' is not possible in site setup content rules."
+        import_steps="contentrules"
+        />
+
+  </genericsetup:upgradeSteps>
 </configure>
