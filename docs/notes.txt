@@ -1,0 +1,55 @@
+Content rules texts:
+====================
+(To be used as backup for ENI if needed. To be used as examples for other projects.)
+
+ENI SEIS EAST - Send email after approving participant
+Dear ${subscriber_name},
+     Thank you for your registration to the ${meeting_title} (${meeting_url}).
+     We invite you to carefully look at the meeting documents folder in order to start arranging your travel to ${meeting_place}.
+     Looking forward to a fruitful meeting, do not hesitate to contact us if needed at eni-seis2@eea.europa.eu
+
+     Best regards,
+     ENI-SEIS II Project Team
+
+ENI SEIS EAST - eea.meeting: new subscriber
+You have registered to the meeting ${meeting_title} (${absolute_url}). The meeting administrator will review your registration and you will be notified about the result by email.
+
+       Best regards,
+       ENI-SEIS II Project Team
+
+ENI SEIS EAST - eea.meeting: new subscriber - to contact
+A new participant has registered to the meeting ${absolute_url}. You can review the participants at ${absolute_url}/subscribers
+
+Best regards,
+ENI-SEIS II Project Team
+
+ENI SEIS SOUTH - Send email after approving participant
+
+Dear ${subscriber_name},
+     Thank you for your registration to the ${meeting_title} (${meeting_url}).
+     We invite you to carefully look at the meeting documents folder in order to start arranging your travel to ${meeting_place}.
+     Looking forward to a fruitful meeting, do not hesitate to contact us if needed at eni-seis2@eea.europa.eu
+
+     Best regards,
+     ENI-SEIS II Project Team
+
+     Cher ${subscriber_name},
+     Merci pour votre inscription à ${meeting_title} (${meeting_url}).
+     Nous vous invitons à prendre connaissance des documents de la réunion dans le dossier document afin de commencer à organiser votre voyage à ${meeting_place}.
+     Dans l'attente d'une réunion fructueuse, si vous avez des questions n'hésitez pas à nous contacter à l'adresse suivante eni-seis2@eea.europa.eu
+
+     Meilleures salutations,
+     L’équipe de projet ENI-SEIS II
+
+ENI SEIS SOUTH - eea.meeting: new subscriber
+
+You have registered to the meeting ${meeting_title} (${absolute_url}). The meeting administrator will review your registration and you will be notified about the result by email.
+
+       Best regards,
+       ENI-SEIS II Project Team
+
+ENI SEIS SOUTH - eea.meeting: new subscriber - to contact
+A new participant has registered to the meeting ${absolute_url}. You can review the participants at ${absolute_url}/subscribers
+
+Best regards,
+ENI-SEIS II Project Team
