@@ -126,7 +126,7 @@ ENI-SEIS II Project Team</property>
 
      Best regards,
      ENI-SEIS II Project Team</property>
-    <property name="subject">You are registered for ${meeting_title}</property>
+    <property name="subject">Registration rejected for ${meeting_title}</property>
     <property name="recipients">${subscriber_email}</property>
     <property name="exclude_actor">False</property>
    </action>
