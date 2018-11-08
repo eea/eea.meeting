@@ -5,6 +5,19 @@ $(document).ready(function() {
   var WEBMINAR = 'webminar';  // a meeting type value
   var default_event_location = '';
 
+  var $allow_register_start_field = $("#formfield-form-widgets-allow_register_start");
+  var $allow_register_end_field = $("#formfield-form-widgets-allow_register_end");
+
+  function allow_register_mode() {
+    $allow_register_start_field.show();
+    $allow_register_end_field.show();
+  }
+
+  function non_allow_register_mode() {
+    $allow_register_start_field.hide();
+    $allow_register_end_field.hide();
+  }
+
   function webminar_mode() {
     // Hide Event Location and Event location on map fields
     $location_field.find('input').val("");  // We need location field empty.
@@ -47,6 +60,22 @@ $(document).ready(function() {
     var $location_field_input = $location_field.find('input');
     $location_field_input.on('focusout', function() {
       default_event_location = $location_field_input.val();
+    });
+
+    // Show From and To only if Allow registration is checked
+    var $allow_register = $("input#form-widgets-allow_register-0");
+    if($allow_register.prop("checked")) {
+      allow_register_mode();
+    } else {
+      non_allow_register_mode();
+    }
+
+    $allow_register.on("change", function() {
+      if($(this).prop("checked")) {
+        allow_register_mode();
+      } else {
+        non_allow_register_mode();
+      }
     });
   }
 });
