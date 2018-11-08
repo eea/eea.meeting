@@ -45,6 +45,24 @@ class Meeting(Container):
         return self.meeting_type == u'webminar'
 
     def registrations_open(self):
+        """ Registrations are open if (ALL are TRUE):
+                * users are allowed to register
+                * current time is < end of meeting
+                * the numbers of approved participants is < max participants
+
+                (If constraint is set)
+                * current time is not < start time for allowed registration
+                * current time is not > end time for allowed registration
+        """
+        if self.allow_register:
+            if self.allow_register_start is not None:
+                if datetime.now() < self.allow_register_start:
+                    return False
+
+            if self.allow_register_end is not None:
+                if datetime.now() > self.allow_register_end:
+                    return False
+
         return (self.allow_register and
                 datetime.now(pytz.UTC) < self.end and
                 self.subscribers.approved_count() < self.max_participants)
