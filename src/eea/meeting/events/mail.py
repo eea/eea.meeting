@@ -40,7 +40,11 @@ class CustomMailActionExecutor(MailActionExecutor):
                 - Thank you for your registration
             """
             meeting = self.event.object.aq_parent.aq_parent
-            email_type = u"Approval"
+            state = self.event.object.subscriber_status()
+            if state == "approved":
+                email_type = u"Approval"
+            elif state == "rejected":
+                email_type = u"Rejection"
 
         elif self.event.object.portal_type == 'eea.meeting':
             """ This is the case for new subscriber registered:
