@@ -5,4 +5,5 @@
   <object name="eea.meeting.subscriber" meta_type="Dexterity FTI"/>
   <object name="eea.meeting.email" meta_type="Dexterity FTI"/>
   <object name="eea.meeting.emails" meta_type="Dexterity FTI"/>
+  <object name="eea.meeting.workspace" meta_type="Dexterity FTI"/>
 </object>
