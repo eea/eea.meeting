@@ -89,4 +89,18 @@
         />
 
   </genericsetup:upgradeSteps>
+
+  <genericsetup:upgradeSteps
+    source="1.5.1"
+    destination="1.5.2"
+    profile="eea.meeting:default">
+
+    <genericsetup:upgradeDepends
+        title="Update typeinfo"
+        description="[refs #99955] Add eea.meeting.workspace dexterity content type."
+        import_steps="typeinfo"
+        />
+
+  </genericsetup:upgradeSteps>
+
 </configure>
