@@ -29,9 +29,6 @@
  <property name="behaviors">
   <element value="plone.app.dexterity.behaviors.metadata.IBasic"/>
   <element value="plone.app.content.interfaces.INameFromTitle"/>
-  <element value="plone.app.event.dx.behaviors.IEventBasic"/>
-  <element value="eea.meeting.behaviors.behaviors.IMeetingConstrainTypes"/>
-  <element value="collective.geolocationbehavior.geolocation.IGeolocatable"/>
  </property>
  <property name="schema">eea.meeting.interfaces.IMeetingWorkspace</property>
  <property name="model_source"></property>

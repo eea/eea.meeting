@@ -19,6 +19,7 @@
   <element value="File"/>
   <element value="eea.meeting.subscribers"/>
   <element value="eea.meeting.emails"/>
+  <element value="eea.meeting.workspace"/>
  </property>
  <property name="allow_discussion">False</property>
  <property name="default_view">view</property>
