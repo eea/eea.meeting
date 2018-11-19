@@ -25,7 +25,7 @@
  </property>
  <property name="default_view_fallback">False</property>
  <property name="add_permission">eea.meeting.admin_meeting</property>
- <property name="klass">eea.meeting.content.meeting.MeetingWorkspace</property>
+ <property name="klass">eea.meeting.content.workspace.MeetingWorkspace</property>
  <property name="behaviors">
   <element value="plone.app.dexterity.behaviors.metadata.IBasic"/>
   <element value="plone.app.content.interfaces.INameFromTitle"/>
