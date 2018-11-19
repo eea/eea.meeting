@@ -1,13 +1,13 @@
 <?xml version="1.0"?>
-<object name="eea.meeting" meta_type="Dexterity FTI" i18n:domain="eea.meeting"
+<object name="eea.meeting.workspace" meta_type="Dexterity FTI" i18n:domain="eea.meeting"
    xmlns:i18n="http://xml.zope.org/namespaces/i18n">
- <property name="title" i18n:translate="">EEA Meeting</property>
+ <property name="title" i18n:translate="">EEA Meeting Workspace</property>
  <property name="description"
-    i18n:translate="">EEA Meeting management tool</property>
+    i18n:translate="">EEA Meeting Workspace</property>
  <property name="icon_expr"></property>
- <property name="factory">EEA Meeting</property>
+ <property name="factory">EEA Meeting Workspace</property>
  <property
-    name="add_view_expr">string:${folder_url}/++add++eea.meeting</property>
+    name="add_view_expr">string:${folder_url}/++add++eea.meeting.workspace</property>
  <property name="link_target"></property>
  <property name="immediate_view">view</property>
  <property name="global_allow">True</property>
@@ -17,8 +17,6 @@
   <element value="Link"/>
   <element value="Image"/>
   <element value="File"/>
-  <element value="eea.meeting.subscribers"/>
-  <element value="eea.meeting.emails"/>
  </property>
  <property name="allow_discussion">False</property>
  <property name="default_view">view</property>
@@ -27,7 +25,7 @@
  </property>
  <property name="default_view_fallback">False</property>
  <property name="add_permission">eea.meeting.admin_meeting</property>
- <property name="klass">eea.meeting.content.meeting.Meeting</property>
+ <property name="klass">eea.meeting.content.meeting.MeetingWorkspace</property>
  <property name="behaviors">
   <element value="plone.app.dexterity.behaviors.metadata.IBasic"/>
   <element value="plone.app.content.interfaces.INameFromTitle"/>
@@ -35,7 +33,7 @@
   <element value="eea.meeting.behaviors.behaviors.IMeetingConstrainTypes"/>
   <element value="collective.geolocationbehavior.geolocation.IGeolocatable"/>
  </property>
- <property name="schema">eea.meeting.interfaces.IMeeting</property>
+ <property name="schema">eea.meeting.interfaces.IMeetingWorkspace</property>
  <property name="model_source"></property>
  <property name="model_file"></property>
  <property name="schema_policy">dexterity</property>
@@ -52,34 +50,5 @@
     description="" icon_expr="" link_target=""
     url_expr="string:${object_url}/edit" visible="True">
   <permission value="Modify portal content"/>
- </action>
- <action title="Subscribers" action_id="subscribers" category="object"
-    condition_expr="" description="" icon_expr="" link_target=""
-    url_expr="string:${object_url}/subscribers" visible="True">
-  <permission value="EEA Meting: View subscribers"/>
- </action>
- <action title="Register" action_id="register" category="object_buttons"
-    condition_expr="python:not context.is_registered()"
-    description="" icon_expr="" link_target=""
-    url_expr="string:${object_url}/register" visible="True">
-  <permission value="EEA Meting: Register"/>
- </action>
- <action title="Register users" action_id="register_user"
-    category="object_buttons"
-    condition_expr="python:context.can_register()"
-    description="" icon_expr="" link_target=""
-    url_expr="string:${object_url}/register_user"
-    visible="True">
-  <permission value="EEA Meting: Register User"/>
- </action>
- <action title="Send email" action_id="send_email" category="object_buttons"
-    condition_expr="" description="" icon_expr="" link_target=""
-    url_expr="string:${object_url}/emails/email_sender" visible="True">
-  <permission value="EEA Meting: Send Email"/>
- </action>
- <action title="Mail archive" action_id="mail_archive" category="object"
-    condition_expr="" description="" icon_expr="" link_target=""
-    url_expr="string:${object_url}/emails" visible="True">
-  <permission value="EEA Meting: View Emails"/>
  </action>
 </object>
