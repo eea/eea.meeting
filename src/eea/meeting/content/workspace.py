@@ -1,4 +1,5 @@
 from eea.meeting.interfaces import IMeetingWorkspace
+from plone import api
 from plone.dexterity.content import Container
 from zope.globalrequest import getRequest
 from zope.interface import implementer
@@ -20,5 +21,12 @@ class MeetingWorkspace(Container):
             if x.portal_type == 'eea.meeting.workspace'
             ][0]
         meeting = workspace.aq_parent
+
+        subscribers = meeting.get_subscribers()
+
+        approved_subscribers_ids = [
+            subscriber.userid for subscriber in subscribers
+            if subscriber.state == "approved"
+        ]
         import pdb; pdb.set_trace()
         return {}
