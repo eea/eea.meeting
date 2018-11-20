@@ -1,3 +1,4 @@
+from AccessControl import Unauthorized
 from eea.meeting.interfaces import IMeetingWorkspace
 from plone import api
 from plone.dexterity.content import Container
@@ -8,6 +9,10 @@ from zope.interface import implementer
 @implementer(IMeetingWorkspace)
 class MeetingWorkspace(Container):
     """ EEA Meeting Workspace content type"""
+
+    def block_access(self, workspace):
+        raise Unauthorized(workspace)
+
     @property
     def __ac_local_roles__(self):
         """ Manage custom roles for specific cases
@@ -40,6 +45,8 @@ class MeetingWorkspace(Container):
             else:
                 is_workspace_member = False
                 print "NO MEMBER: TODO block access."
+                self.block_access(workspace)
         else:
             print "ANONYMOUS: TODO block access."
+            self.block_access(workspace)
         return {}
