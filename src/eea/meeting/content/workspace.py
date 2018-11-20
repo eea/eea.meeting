@@ -26,7 +26,20 @@ class MeetingWorkspace(Container):
 
         approved_subscribers_ids = [
             subscriber.userid for subscriber in subscribers
-            if subscriber.state == "approved"
+            if subscriber.state() == "approved"
         ]
-        import pdb; pdb.set_trace()
+
+        is_anonymous = api.user.is_anonymous()
+        if not is_anonymous:
+            current_user = api.user.get_current()
+
+            if current_user.id in approved_subscribers_ids:
+                is_workspace_member = True
+                print "MEMBER: TODO allow access."
+
+            else:
+                is_workspace_member = False
+                print "NO MEMBER: TODO block access."
+        else:
+            print "ANONYMOUS: TODO block access."
         return {}
