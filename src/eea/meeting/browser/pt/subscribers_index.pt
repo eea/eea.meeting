@@ -28,7 +28,8 @@
        <p>Users registered to participate in this meeting</p>
        <a class="back-button" tal:attributes="href python:context.aq_parent.absolute_url()">Back to meeting page</a>
        <div class="clearfix"></div>
-       <form action="./api" method="POST">
+       <form action="./api" method="POST"
+             tal:define="meeting python:context.aq_parent">
          <div class="table-responsive">
            <table id="subscribers" class="table table-hover">
             <thead>
@@ -85,9 +86,8 @@
         </div>
         <tal:can_edit condition="can_edit">
           <button class="btn btn-default" name="button.delete" type="submit">Delete selected</button>
-          <button class="btn btn-default" name="button.approve" type="submit">Approve selected</button>
-          <button class="btn btn-default" name="button.reject" type="submit">Reject selected</button>
-          <a class="btn btn-default" href="./++add++eea.meeting.subscriber">Add new</a>
+          <button tal:condition="python:meeting.is_ended() is False" class="btn btn-default" name="button.approve" type="submit">Approve selected</button>
+          <button tal:condition="python:meeting.is_ended() is False" class="btn btn-default" name="button.reject" type="submit">Reject selected</button>
           <a class="btn btn-default" href="#" onclick="saveFile('#subscribers', 'Meeting participants', {ignoreColumns: [0]});return false">Export to Excel</a>
         </tal:can_edit>
         <script>subscribers.setup('#subscribers')</script>
