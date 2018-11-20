@@ -24,6 +24,8 @@ class MeetingWorkspace(Container):
         """ Manage custom roles for specific cases
             This container and its child items should be accessed only by
             meeting members (subscribers)
+
+            TODO: The access to files is not blocked. Fix it.
         """
         # This code runs for this container and also for all its child items
         request = getRequest()
