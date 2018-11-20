@@ -13,6 +13,12 @@ class MeetingWorkspace(Container):
     def block_access(self, workspace):
         raise Unauthorized(workspace)
 
+    def can_edit(self, meeting):
+        return api.user.has_permission(
+            'Modify portal content',
+            obj=meeting
+        )
+
     @property
     def __ac_local_roles__(self):
         """ Manage custom roles for specific cases
@@ -38,15 +44,14 @@ class MeetingWorkspace(Container):
         if not is_anonymous:
             current_user = api.user.get_current()
 
-            if current_user.id in approved_subscribers_ids:
-                is_workspace_member = True
-                print "MEMBER: TODO allow access."
-
+            if (current_user.id in approved_subscribers_ids) or self.can_edit(
+                    meeting):
+                # is_workspace_member = True
+                pass  # Use default behavior: public items are public etc.
             else:
-                is_workspace_member = False
-                print "NO MEMBER: TODO block access."
+                # is_workspace_member = False
                 self.block_access(workspace)
         else:
-            print "ANONYMOUS: TODO block access."
+            # Workspace is not for anonymous users.
             self.block_access(workspace)
         return {}
