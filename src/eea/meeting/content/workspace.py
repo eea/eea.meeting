@@ -24,8 +24,6 @@ class MeetingWorkspace(Container):
         """ Manage custom roles for specific cases
             This container and its child items should be accessed only by
             meeting members (subscribers)
-
-            TODO: The access to files is not blocked. Fix it.
         """
         # This code runs for this container and also for all its child items
         request = getRequest()
@@ -53,12 +51,9 @@ class MeetingWorkspace(Container):
 
             if (current_user.id in approved_subscribers_ids) or self.can_edit(
                     meeting):
-                # is_workspace_member = True
                 pass  # Use default behavior: public items are public etc.
             else:
-                # is_workspace_member = False
                 self.block_access(workspace)
         else:
-            # Workspace is not for anonymous users.
             self.block_access(workspace)
         return {}
