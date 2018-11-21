@@ -52,4 +52,8 @@
       title="EEA Meting: Send Email"
       />
 
+  <permission
+      id="eea.meeting.view_meeting_workspace"
+      title="EEA Meeting: View Meeting Workspace"
+      />
 </configure>

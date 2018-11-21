@@ -48,5 +48,11 @@
       <role name="Owner"/>
       <role name="Site Administrator"/>
     </permission>
+    <permission name="EEA Meeting: View Meeting Workspace" acquire="True">
+      <role name="Authenticated"/>
+      <role name="Manager"/>
+      <role name="Owner"/>
+      <role name="Site Administrator"/>
+    </permission>
   </permissions>
 </rolemap>

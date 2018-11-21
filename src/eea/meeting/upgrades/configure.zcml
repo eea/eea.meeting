@@ -103,4 +103,16 @@
 
   </genericsetup:upgradeSteps>
 
+  <genericsetup:upgradeSteps
+    source="1.5.2"
+    destination="1.5.3"
+    profile="eea.meeting:default">
+
+    <genericsetup:upgradeDepends
+        title="Update typeinfo and import rolemap"
+        description="[refs #99955] eea.meeting.workspace view permission."
+        import_steps="typeinfo rolemap"
+        />
+
+  </genericsetup:upgradeSteps>
 </configure>
