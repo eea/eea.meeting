@@ -36,7 +36,7 @@ Changelog
   [GhitaB #92249]
 
 - Improve: View url on subscribers in table.
-  [refs #88609]
+  [GhitaB #88609]
 
 TODO: continue with:
 https://github.com/eea/eea.meeting/commits/master?after=8a252a717c8a1e3158fb00ac86268f8a8984a9d9+34
