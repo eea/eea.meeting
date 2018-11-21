@@ -29,10 +29,15 @@ class MeetingWorkspace(Container):
         """
         # This code runs for this container and also for all its child items
         request = getRequest()
-        workspace = [
+        workspaces = [
             x for x in request.PARENTS[:-1]
             if x.portal_type == 'eea.meeting.workspace'
-            ][0]
+            ]
+        if len(workspaces) > 0:
+            workspace = workspaces[0]
+        else:
+            return {}
+
         meeting = workspace.aq_parent
 
         subscribers = meeting.get_subscribers()
