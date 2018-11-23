@@ -42,6 +42,20 @@ TODO: continue with:
 https://github.com/eea/eea.meeting/commits/master?after=8a252a717c8a1e3158fb00ac86268f8a8984a9d9+34
 Commits on Oct 10, 2017
 
+- Improve: subscribers view - add new fields.
+  [GhitaB #82545]
+
+- Fix: Display condition for register icon. Check the user is not already
+  registered in registration method.
+  [valipod]
+
+- Improve: Adding missing condition for "No emails sent" msg.
+= Improve: Back buttons and messages.
+- Fix: View and email fixes.
+- Improve: Restructuring interfaces and vocabularies.
+- Improve: Adding dependency to geolocationbehavior.
+  [david-batranu]
+
 - Improve: Move meeting_index code from eni.seis.content override.
 - Improve: Meeting view - single column layout.
   [GhitaB]
