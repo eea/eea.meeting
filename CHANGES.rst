@@ -42,5 +42,28 @@ TODO: continue with:
 https://github.com/eea/eea.meeting/commits/master?after=8a252a717c8a1e3158fb00ac86268f8a8984a9d9+34
 Commits on Oct 10, 2017
 
-- Initial release.
+- Improve: Move meeting_index code from eni.seis.content override.
+- Improve: Meeting view - single column layout.
+  [GhitaB]
+
+- Improve: forms, add hosting_organisation field.
+  [tiberiuichim #71641]
+
+- Fix: Meeting index template.
+  [tiberiuichim]
+
+- Fix: export of column names within email export excel
+  [ichim-david ]
+
+- Improve: meeting view, register user, add option: Restrict user access to
+  meeting content.
+  [melish]
+
+- Feature: content rules to send emails. Mail archive, Excel export.
+  New content content types: eea.meeting.email, eea.meeting.emails. Custom
+  workflow for emails. User search.
+  [irina-botez]
+
+- Initial release. Content types, views, permissions, templates, basic
+  functionality.
   [valipod]
