@@ -28,8 +28,13 @@ class Meeting(Container):
     def subscriber_status(self, uid=None):
         if not uid:
             uid = api.user.get_current().getId()
+
         if self.is_registered(uid):
-            return api.content.get_state(getattr(self.subscribers, uid))
+            subs = [x for x in self.get_subscribers() if x.userid == uid]
+            if len(subs) > 0:
+                return api.content.get_state(subs[0])
+            else:
+                return None
 
     def can_register(self):
         open = self.registrations_open()
