@@ -2,6 +2,10 @@ Changelog
 =========
 
 
+1.1.dev0 (unreleased)
+---------------------
+
+
 1.0 (2018-12-01)
 ----------------
 - Feature: Workspace (a custom container to be added to meeting when you have
@@ -141,7 +145,7 @@ Changelog
   [valipod]
 
 - Improve: Adding missing condition for "No emails sent" msg.
-= Improve: Back buttons and messages.
+- Improve: Back buttons and messages.
 - Fix: View and email fixes.
 - Improve: Restructuring interfaces and vocabularies.
 - Improve: Adding dependency to geolocationbehavior.
