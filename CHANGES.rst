@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-1.0 (unreleased)
+1.0 (2018-12-01)
 ----------------
 - Feature: Workspace (a custom container to be added to meeting when you have
   items to be accessed only by meeting approved subscribers.)
@@ -109,7 +109,29 @@ Changelog
   meeting, after login will be redirected back to the meeting page.
   [irina-botez]
 
-  ... WIP ...
+- Improve: Show vocabulary values instead of keys for subscriber role in
+  subscribers. Use no, yes values for reimbused field. Remove Send email
+  button (the emails are sent automatically now). Fix values in Email archive
+  table. Save email notification in Emails archive on approving participants.
+  Fix emails table when no emails. Import workflows to update guard
+  transitions. Transition guard expression for subscriber (based on meeting
+  ending date).
+  [GhitaB #83535]
+
+- Improve: code cleanup. Fix Microsoft Excel warning, update Excel export
+  function. Add new fields to excel export.
+  [irina-botez]
+
+- Improve: Register form in meeting index. Save values for reimbursed and role.
+  Use subscriber_roles vocabulary.  Add fields reimbursed and role for
+  eea.meeting.subscriber.
+  [GhitaB #83535]
+
+- Improve: Add suplimentary fields to email archive
+  [irina-botez]
+
+- Improve: Add vars used for content rule (subscriber -> approved).
+  [GhitaB #83535]
 
 - Improve: subscribers view - add new fields.
   [GhitaB #82545]
