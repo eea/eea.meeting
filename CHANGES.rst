@@ -79,6 +79,27 @@ Changelog
 - Improve: Add City field to subscriber listing.
   [irina-botez]
 
+- Feature: Added custom content rule action. Emails will be added to email
+  archive after content rule is triggered.
+  [irina-botez]
+
+- Improve: subscribers + new StringSub: Display buttons and checkboxes on
+  subscribers form only if the user has edit rights. Add meeting_url
+  StringSubstitution. Fix subscriber name StringSubstitution.
+- Fix: CSV download and checkboxes.
+- Improve: buttons style.
+- Improve: XLS Export for Subscribers
+- Improve: Validate user id when adding subscriber.
+- Improve: Subscribers listing by adding add/approve/deny/delete/sort/filter/
+  pagination.
+- Feature: content rule for new event, custom event for new subscribers.
+- Fix: Remove reg. form on index. Instead go to ./register. The page is
+  created in eni.seis.content. This package should implement a generic one!
+- Feature: add approval email template.
+- Feature: Support for new fields for subscribers. Support custom registration
+  views.
+  [david-batranu #83535]
+
   ... WIP ...
 
 - Improve: subscribers view - add new fields.
