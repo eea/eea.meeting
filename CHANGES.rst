@@ -100,6 +100,15 @@ Changelog
   views.
   [david-batranu #83535]
 
+- Fix: Hide all register form if login required in meeting index.
+- Fix: reimbursed and role values in emails table.
+- Fix: Make possible approving subscribers in the end date of a meeting.
+  [GhitaB #83535]
+
+- Fix: login redirect issue. Now when an anonymous wants to register for a
+  meeting, after login will be redirected back to the meeting page.
+  [irina-botez]
+
   ... WIP ...
 
 - Improve: subscribers view - add new fields.
