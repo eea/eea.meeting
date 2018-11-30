@@ -38,9 +38,48 @@ Changelog
 - Improve: View url on subscribers in table.
   [GhitaB #88609]
 
-TODO: continue with:
-https://github.com/eea/eea.meeting/commits/master?after=8a252a717c8a1e3158fb00ac86268f8a8984a9d9+34
-Commits on Oct 10, 2017
+- Improve: table of emails in mails archive. Custom email view. Fix sender and
+  recipients.
+  [GhitaB #88594]
+
+- Fix: error on approve participant.
+  [GhitaB #88167]
+
+- Improve: email archive export function.
+  [irina-botez]
+
+- Fix: email notification / archive to work for both cases (register, approve).
+  [GhitaB #88096]
+
+- Improve: export email archive as .xlsx.
+  [irina-botez]
+
+- Fix: Return the actual user id instead of the Subscriber object id, which
+  can get url normalized.
+  [david-batranu #87630]
+
+- Improve: Add meeting_level (similar with event_level) - display it in
+  meeting view.
+  [GhitaB #86208]
+
+- Improve: Add new register fields to subscriber listing Position, Address.
+  [irina-botez]
+
+- Improve: content rules for sending emails and save them to archive.
+  Code cleanup.
+  [irina-botez]
+
+- Fix: unicode error in subscriber.
+  [david-batranu]
+
+- Fix: UnicodeEncodeError in save_email_approved.
+  [GhitaB]
+
+- Improve: Add 2 new table classes for TinyMCE editor.
+- Improve: Add City field to subscriber listing.
+  [irina-botez]
+
+  ... WIP ...
 
 - Improve: subscribers view - add new fields.
   [GhitaB #82545]
