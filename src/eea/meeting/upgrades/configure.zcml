@@ -115,4 +115,17 @@
         />
 
   </genericsetup:upgradeSteps>
+
+  <genericsetup:upgradeSteps
+    source="1.5.3"
+    destination="1.5.4"
+    profile="eea.meeting:default">
+
+    <genericsetup:upgradeDepends
+        title="Update typeinfo to include Document as addable to Workspace."
+        description="[refs #97529] eea.meeting.workspace - add Document as addable content type inside Workspace."
+        import_steps="typeinfo"
+        />
+
+  </genericsetup:upgradeSteps>
 </configure>
