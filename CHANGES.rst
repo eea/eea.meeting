@@ -4,7 +4,8 @@ Changelog
 
 1.1.dev0 (unreleased)
 ---------------------
-
+- Fix: add Document (Page) as addable content type to workspace.
+  [GhitaB #97529]
 
 1.0 (2018-12-01)
 ----------------
