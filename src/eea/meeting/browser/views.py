@@ -338,13 +338,16 @@ class ViewSentEmails(BrowserView):
 
 class WorkspaceAccessView(DefaultView):
     """ /@@current_user_has_access
-        used in at_download.py override to fix file access.
     """
 
     def __call__(self, *args, **kwargs):
         YES_FLAG = "has_access"
         NO_FLAG = "has_not_access"
-        meeting = self.aq_parent.aq_parent  # meeting/workspace/@@current...
+        workspace = self.aq_parent
+        meeting = workspace.aq_parent  # meeting/workspace/@@current...
+
+        if workspace.can_edit(meeting):
+            return YES_FLAG
 
         subscribers = meeting.get_subscribers()
 

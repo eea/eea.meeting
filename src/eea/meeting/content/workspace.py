@@ -33,27 +33,11 @@ class MeetingWorkspace(Container):
             ]
         if len(workspaces) > 0:
             workspace = workspaces[0]
+            has_access = workspace.restrictedTraverse(
+                "current_user_has_access")()
+            if has_access != "has_access":
+                self.block_access(workspace)
+            else:
+                return {}
         else:
             return {}
-
-        meeting = workspace.aq_parent
-
-        subscribers = meeting.get_subscribers()
-
-        approved_subscribers_ids = [
-            subscriber.userid for subscriber in subscribers
-            if subscriber.state() == "approved"
-        ]
-
-        is_anonymous = api.user.is_anonymous()
-        if not is_anonymous:
-            current_user = api.user.get_current()
-
-            if (current_user.id in approved_subscribers_ids) or self.can_edit(
-                    meeting):
-                pass  # Use default behavior: public items are public etc.
-            else:
-                self.block_access(workspace)
-        else:
-            self.block_access(workspace)
-        return {}
