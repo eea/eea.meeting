@@ -356,7 +356,7 @@ class WorkspaceAccessView(DefaultView):
         is_anonymous = api.user.is_anonymous()
         if not is_anonymous:
             current_user = api.user.get_current()
-            has_access = current_user in approved_subscribers_ids
+            has_access = current_user.id in approved_subscribers_ids
             if has_access is True:
                 has_access = YES_FLAG
             else:
