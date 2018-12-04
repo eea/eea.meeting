@@ -76,6 +76,7 @@ class MeetingView(DefaultView):
         allowed = [ctype.title for ctype in self.context.allowedContentTypes()]
         if not allowed:
             allowed = ['Folder', 'File', 'Image', 'Link']
+        allowed.append("eea.meeting.workspace")  # Instead of EEA Meeting W...
 
         for ctype in allowed:
             if 'Subscribers' in ctype:
