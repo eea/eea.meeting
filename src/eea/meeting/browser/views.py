@@ -334,3 +334,34 @@ class ViewSentEmails(BrowserView):
             })
 
         return results
+
+
+class WorkspaceAccessView(DefaultView):
+    """ /@@current_user_has_access
+        used in at_download.py override to fix file access.
+    """
+
+    def __call__(self, *args, **kwargs):
+        YES_FLAG = "has_access"
+        NO_FLAG = "has_not_access"
+        meeting = self.aq_parent.aq_parent  # meeting/workspace/@@current...
+
+        subscribers = meeting.get_subscribers()
+
+        approved_subscribers_ids = [
+            subscriber.userid for subscriber in subscribers
+            if subscriber.state() == "approved"
+        ]
+
+        is_anonymous = api.user.is_anonymous()
+        if not is_anonymous:
+            current_user = api.user.get_current()
+            has_access = current_user in approved_subscribers_ids
+            if has_access is True:
+                has_access = YES_FLAG
+            else:
+                has_access = NO_FLAG
+        else:
+            has_access = NO_FLAG
+
+        return has_access

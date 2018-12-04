@@ -20,6 +20,14 @@
     />
 
   <browser:page
+    for="eea.meeting.interfaces.IMeetingWorkspace"
+    name="current_user_has_access"
+    class=".views.WorkspaceAccessView"
+    layer="eea.meeting.interfaces.IMeetingLayer"
+    permission="eea.meeting.view_meeting"
+    />
+
+  <browser:page
     for="eea.meeting.interfaces.ISubscribers"
     name="view"
     permission="eea.meeting.view_subscribers"

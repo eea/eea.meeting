@@ -19,26 +19,6 @@ class MeetingWorkspace(Container):
             obj=meeting
         )
 
-    # TODO WIP
-    # def current_user_has_access(self):
-    #     """ Used in at_download.py override to fix file access.
-    #     """
-    #     meeting = self.aq_parent
-    #
-    #     subscribers = meeting.get_subscribers()
-    #
-    #     approved_subscribers_ids = [
-    #         subscriber.userid for subscriber in subscribers
-    #         if subscriber.state() == "approved"
-    #     ]
-    #
-    #     is_anonymous = api.user.is_anonymous()
-    #     if not is_anonymous:
-    #         current_user = api.user.get_current()
-    #         return current_user in approved_subscribers_ids
-    #     else:
-    #         return False
-
     @property
     def __ac_local_roles__(self):
         """ Manage custom roles for specific cases
