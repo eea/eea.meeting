@@ -2,8 +2,11 @@ Changelog
 =========
 
 
-1.1 (2018-12-05)
+1.2.dev0 (unreleased)
 ---------------------
+
+1.1 (2018-12-05)
+----------------
 - Fix: add Document (Page) as addable content type to workspace.
 - Fix: workspace folders to be listed in files listing of meeting view.
 - Improve: items access rules by adding the view @@current_user_has_access.
