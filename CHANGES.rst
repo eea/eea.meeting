@@ -4,6 +4,8 @@ Changelog
 
 1.2.dev0 (unreleased)
 ---------------------
+- Improve: add get meeting contents method in meeting view.
+  [GhitaB #97529]
 
 1.1 (2018-12-05)
 ----------------
