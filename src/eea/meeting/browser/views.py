@@ -65,10 +65,9 @@ class MeetingView(DefaultView):
                 - return the meeting contents as default
 
             Case 2: it has a folder named "Public":
-                - return only items added in "Public" (with no custom access
-                  restrictions) and items added in workspace(s) if any (with
-                  custom access restrictions: only approved subscribers and
-                  admins can access them)
+                - return only "Public" folder (with no custom access) and
+                  workspace item(s) if any (with custom access restrictions:
+                  only approved subscribers and admins can access them)
         """
         meeting = self.context
         try:
@@ -78,7 +77,10 @@ class MeetingView(DefaultView):
 
         if public_items is not None:
             if public_items.portal_type == "Folder":
-                pass
+                content_filter = {
+                    'portal_type': self.allowedPortalTypes_workspace_case
+                }
+                return self.context.getFolderContents(content_filter)
         else:
             return self.get_meeting_contents()
 
@@ -113,11 +115,30 @@ class MeetingView(DefaultView):
                 continue
             yield ctype
 
+    def _allowedPortalTypes_workspace_case(self):
+        """ Filter allowed ctypes in case a "Public" folder is used and
+            workspace(s).
+        """
+        allowed = ['Folder', 'eea.meeting.workspace']
+
+        for ctype in allowed:
+            if 'Subscribers' in ctype:
+                continue
+            if 'Emails' in ctype:
+                continue
+            yield ctype
+
     @property
     def allowedPortalTypes(self):
         """ Get allowed children portal_types
         """
         return [ctype for ctype in self._allowedPortalTypes()]
+
+    @property
+    def allowedPortalTypes_workspace_case(self):
+        """ Get allowed children portal_types in workspace case
+        """
+        return [ctype for ctype in self._allowedPortalTypes_workspace_case()]
 
     def update(self):
         super(MeetingView, self).update()
