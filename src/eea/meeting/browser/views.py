@@ -54,6 +54,12 @@ class MeetingView(DefaultView):
         """
         return self.context.unrestrictedTraverse('subscribers').keys()
 
+    def get_meeting_contents(self):
+        """ Return meeting meeting contents
+        """
+        content_filter = {'portal_type': self.allowedPortalTypes}
+        return self.context.getFolderContents(content_filter)
+
     @property
     def can_list_content(self):
         if not self.context.restrict_content_access:
