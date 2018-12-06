@@ -5,6 +5,8 @@ Changelog
 1.2.dev0 (unreleased)
 ---------------------
 - Improve: add get meeting contents method in meeting view.
+- Feature: add get meeting contents by case (to include public vs workspace
+  related items).
   [GhitaB #97529]
 
 1.1 (2018-12-05)
