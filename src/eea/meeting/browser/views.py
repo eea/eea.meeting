@@ -55,10 +55,32 @@ class MeetingView(DefaultView):
         return self.context.unrestrictedTraverse('subscribers').keys()
 
     def get_meeting_contents(self):
-        """ Return meeting meeting contents
+        """ Return meeting related contents
         """
         content_filter = {'portal_type': self.allowedPortalTypes}
         return self.context.getFolderContents(content_filter)
+
+    def get_meeting_contents_by_case(self):
+        """ Case 1: it has not a folder named "Public"
+                - return the meeting contents as default
+
+            Case 2: it has a folder named "Public":
+                - return only items added in "Public" (with no custom access
+                  restrictions) and items added in workspace(s) if any (with
+                  custom access restrictions: only approved subscribers and
+                  admins can access them)
+        """
+        meeting = self.context
+        try:
+            public_items = meeting['public']
+        except KeyError:
+            public_items = None
+
+        if public_items is not None:
+            if public_items.portal_type == "Folder":
+                pass
+        else:
+            return self.get_meeting_contents()
 
     @property
     def can_list_content(self):
