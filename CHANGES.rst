@@ -4,6 +4,9 @@ Changelog
 
 1.2.dev0 (unreleased)
 ---------------------
+- Improve: add request_data_deletion field in subscriber schema.
+  [GhitaB #96598]
+
 - Improve: add get meeting contents method in meeting view.
 - Feature: add get meeting contents by case (to include public vs workspace
   related items).
