@@ -47,6 +47,12 @@ class ISubscriber(Interface):
         required=False,
     )
 
+    request_data_deletion = schema.Bool(
+        title=_(u"Request data deletion"),
+        description=_(u"Please delete my personal information after the event "
+                      "has ended, at latest 4 weeks after.")
+    )
+
 
 class ISubscribers(Interface):
     """ Meeting subscribers """
