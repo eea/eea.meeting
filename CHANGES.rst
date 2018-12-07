@@ -2,6 +2,9 @@ Changelog
 =========
 
 
+1.3.dev0 (unreleased)
+---------------------
+
 1.2 (2018-12-07)
 ----------------
 - Improve: add request_data_deletion field in subscriber schema.
