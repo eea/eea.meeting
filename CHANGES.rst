@@ -29,7 +29,7 @@ Changelog
 - Fix: show approve / reject subscribers btns only if the meeting is not ended.
   [GhitaB #99955]
 
-- Feature: Possibility to define a time period for meeting regitration.
+- Feature: Possibility to define a time period for meeting registration.
   (From and To fields to be used when Allow registration is checked.)
   [GhitaB #99956]
 
