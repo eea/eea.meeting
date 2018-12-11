@@ -5,6 +5,7 @@ Changelog
 1.3.dev0 (unreleased)
 ---------------------
 - Improve: create public folder and workspace on meeting item created.
+- Improve: items listing in meeting view.
   [GhitaB #97529]
 
 1.2 (2018-12-07)
