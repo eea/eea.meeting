@@ -61,7 +61,7 @@ class MeetingView(DefaultView):
         return self.context.getFolderContents(content_filter)
 
     def get_meeting_contents_by_case(self):
-        """ Case 1: it has not a folder named "Public"
+        """ Case 1 (fallback): it has not a folder named "Public"
                 - return the meeting contents as default
 
             Case 2: it has a folder named "Public":
@@ -70,17 +70,22 @@ class MeetingView(DefaultView):
                   only approved subscribers and admins can access them)
         """
         meeting = self.context
+
         try:
             public_items = meeting['public']
+            private_items = meeting['workspace']
         except KeyError:
-            public_items = None
+            return self.get_meeting_contents()
 
-        if public_items is not None:
-            if public_items.portal_type == "Folder":
-                content_filter = {
-                    'portal_type': self.allowedPortalTypes_workspace_case
-                }
-                return self.context.getFolderContents(content_filter)
+        if public_items.portal_type == "Folder" and \
+                private_items.portal_type == "eea.meeting.workspace":
+
+            content_filter = {
+                'portal_type': self.allowedPortalTypes
+            }
+
+            return public_items.getFolderContents(content_filter) + \
+                private_items.getFolderContents(content_filter)
         else:
             return self.get_meeting_contents()
 
@@ -115,30 +120,11 @@ class MeetingView(DefaultView):
                 continue
             yield ctype
 
-    def _allowedPortalTypes_workspace_case(self):
-        """ Filter allowed ctypes in case a "Public" folder is used and
-            workspace(s).
-        """
-        allowed = ['Folder', 'eea.meeting.workspace']
-
-        for ctype in allowed:
-            if 'Subscribers' in ctype:
-                continue
-            if 'Emails' in ctype:
-                continue
-            yield ctype
-
     @property
     def allowedPortalTypes(self):
         """ Get allowed children portal_types
         """
         return [ctype for ctype in self._allowedPortalTypes()]
-
-    @property
-    def allowedPortalTypes_workspace_case(self):
-        """ Get allowed children portal_types in workspace case
-        """
-        return [ctype for ctype in self._allowedPortalTypes_workspace_case()]
 
     def update(self):
         super(MeetingView, self).update()
