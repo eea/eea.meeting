@@ -143,6 +143,10 @@ def on_add(obj, evt):
 
     create_emails(obj)
 
+    create_folder_for_public_items(obj)
+
+    create_folder_for_private_items(obj)
+
 
 def create_subscribers(container):
     createContentInContainer(container, 'eea.meeting.subscribers',
@@ -152,3 +156,15 @@ def create_subscribers(container):
 def create_emails(container):
     createContentInContainer(container, 'eea.meeting.emails',
                              title='Emails', id='emails')
+
+
+def create_folder_for_public_items(container):
+    obj = api.content.create(
+        type='Folder', title='Public', container=container)
+    api.content.transition(obj=obj, transition='publish')
+
+
+def create_folder_for_private_items(container):
+    obj = api.content.create(
+        type='eea.meeting.workspace', title='Workspace', container=container)
+    api.content.transition(obj=obj, transition='publish')
