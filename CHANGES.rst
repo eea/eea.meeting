@@ -4,7 +4,9 @@ Changelog
 1.2.2.dev0 (unreleased)
 -----------------------
 - Fix: typo webminar -> webinar.
+- Fix: Hide private items in meeting view if no access rights.
   [GhitaB #97529]
+
 
 1.2.1 (2018-12-11)
 ------------------
