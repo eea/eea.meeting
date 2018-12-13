@@ -2,7 +2,7 @@ $(document).ready(function() {
   var body = $('body');
   var $location_field = $("#formfield-form-widgets-location");
   var $geolocation_field = $("#formfield-form-widgets-IGeolocatable-geolocation");
-  var WEBMINAR = 'webminar';  // a meeting type value
+  var WEBMINAR = 'webinar';  // a meeting type value
   var default_event_location = '';
 
   var $allow_register_start_field = $("#formfield-form-widgets-allow_register_start");
@@ -18,14 +18,14 @@ $(document).ready(function() {
     $allow_register_end_field.hide();
   }
 
-  function webminar_mode() {
+  function webinar_mode() {
     // Hide Event Location and Event location on map fields
     $location_field.find('input').val("");  // We need location field empty.
     $location_field.hide();
     $geolocation_field.hide();
   }
 
-  function non_webminar_mode() {
+  function non_webinar_mode() {
     // Show Event Location and Event location on map fields
     $location_field.show();
     $location_field.find('input').val(default_event_location);  // Autofill
@@ -43,16 +43,16 @@ $(document).ready(function() {
     default_event_location = $location_field.find('input').val();
 
     if($meeting_type.val() == WEBMINAR) {
-      webminar_mode();
+      webinar_mode();
     } else {
-      non_webminar_mode();
+      non_webinar_mode();
     }
 
     $meeting_type.on('change', function() {
       if(this.value == WEBMINAR) {
-        webminar_mode();
+        webinar_mode();
       } else {
-        non_webminar_mode();
+        non_webinar_mode();
       }
     });
 

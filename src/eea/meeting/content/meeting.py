@@ -46,8 +46,9 @@ class Meeting(Container):
         sm = getSecurityManager()
         return sm.checkPermission("EEA Meting: Admin Meeting", self)
 
-    def is_webminar(self):
-        return self.meeting_type == u'webminar'
+    def is_webinar(self):
+        return self.meeting_type in [u'webinar', u'webminar']  # typo included
+        # TODO: migrate old webinars to fix meeting_type; update this method
 
     def is_ended(self):
         if datetime.now(pytz.UTC) < self.end:

@@ -26,7 +26,7 @@
 
         <!-- Event summary -->
 
-        <div tal:attributes="class python:'event-information webminar' if context.is_webminar() else 'event-information'">
+        <div tal:attributes="class python:'event-information webinar' if context.is_webinar() else 'event-information'">
 
           <div class="event-metadata">
             <div class="eventDetails vcard">
@@ -47,7 +47,7 @@
                 </tr>
 
                 <tr tal:define="location context/location"
-                    tal:condition="python:context.location and (context.is_webminar() is not True)">
+                    tal:condition="python:context.location and (context.is_webinar() is not True)">
                   <th i18n:translate="event_where">Where</th>
                   <td class="location">
                     <a
@@ -143,7 +143,7 @@
             </div>
           </div>
 
-          <div tal:condition="python:context.geolocation and (context.is_webminar() is not True)"
+          <div tal:condition="python:context.geolocation and (context.is_webinar() is not True)"
                tal:replace="structure python: view.w.get('IGeolocatable.geolocation').render()"></div>
         </div>
         <div class="clearfix"></div>
