@@ -60,7 +60,8 @@ class IMeeting(Interface):
     )
 
     restrict_content_access = schema.Bool(
-        title=_(u"Hide meeting content list for not registered users"),
+        title=_(u"Hide the content of Additional materials table for not "
+                "registered users"),
         required=True
     )
 
