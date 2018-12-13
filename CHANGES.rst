@@ -3,6 +3,8 @@ Changelog
 
 1.2.2.dev0 (unreleased)
 -----------------------
+- Fix: typo webminar -> webinar.
+  [GhitaB #97529]
 
 1.2.1 (2018-12-11)
 ------------------
@@ -54,7 +56,7 @@ Changelog
 - Fix: wrong start and end dates (using the self.timezone).
   [GhitaB #92650]
 
-- Feature: webminar (get rid of map in meeting view, simplify edit form).
+- Feature: webinar (get rid of map in meeting view, simplify edit form).
   [GhitaB #92256]
 
 - Improve: editing participants - edit link in subscribers table.
