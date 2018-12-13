@@ -68,6 +68,8 @@ class MeetingView(DefaultView):
                 - return only "Public" folder (with no custom access) and
                   workspace item(s) if any (with custom access restrictions:
                   only approved subscribers and admins can access them)
+
+                  (also show private items only if the current user has access)
         """
         meeting = self.context
 
@@ -84,8 +86,12 @@ class MeetingView(DefaultView):
                 'portal_type': self.allowedPortalTypes
             }
 
-            return public_items.getFolderContents(content_filter) + \
-                private_items.getFolderContents(content_filter)
+            if private_items.unrestrictedTraverse(
+                    'current_user_has_access')() == 'has_access':
+                return public_items.getFolderContents(content_filter) + \
+                    private_items.getFolderContents(content_filter)
+            else:
+                return public_items.getFolderContents(content_filter)
         else:
             return self.get_meeting_contents()
 
