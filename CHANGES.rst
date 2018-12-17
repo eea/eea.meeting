@@ -1,6 +1,9 @@
 Changelog
 =========
 
+1.2.3.dev0 (unreleased)
+-----------------------
+
 1.2.2 (2018-12-17)
 ------------------
 - Improve: Update text for hide additional materials.
