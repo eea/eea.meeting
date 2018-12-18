@@ -3,6 +3,8 @@ Changelog
 
 1.2.3.dev0 (unreleased)
 -----------------------
+- Fix: typo webminar -> webinar. Old items: solved. Clean code.
+  [GhitaB #97529]
 
 1.2.2 (2018-12-17)
 ------------------
