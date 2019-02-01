@@ -1,6 +1,9 @@
 Changelog
 =========
 
+1.2.4.dev0 (unreleased)
+-----------------------
+
 1.2.3 (2019-02-01)
 ------------------
 - Improve: in case of webinar, disable E-pass field in meeting edit form.
