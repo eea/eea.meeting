@@ -1,8 +1,8 @@
 Changelog
 =========
 
-1.2.3.dev0 (unreleased)
------------------------
+1.2.3 (2019-02-01)
+------------------
 - Improve: in case of webinar, disable E-pass field in meeting edit form.
   [GhitaB #97529]
 - Fix: typo webminar -> webinar. Old items: solved. Clean code.
