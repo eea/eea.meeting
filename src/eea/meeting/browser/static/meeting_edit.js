@@ -7,6 +7,7 @@ $(document).ready(function() {
 
   var $allow_register_start_field = $("#formfield-form-widgets-allow_register_start");
   var $allow_register_end_field = $("#formfield-form-widgets-allow_register_end");
+  var $epass_required_field = $("#form-widgets-need_e_pass input");
 
   function allow_register_mode() {
     $allow_register_start_field.show();
@@ -23,6 +24,8 @@ $(document).ready(function() {
     $location_field.find('input').val("");  // We need location field empty.
     $location_field.hide();
     $geolocation_field.hide();
+    $epass_required_field.attr("checked", false);
+    $epass_required_field.attr("disabled", true);
   }
 
   function non_webinar_mode() {
@@ -30,6 +33,7 @@ $(document).ready(function() {
     $location_field.show();
     $location_field.find('input').val(default_event_location);  // Autofill
     $geolocation_field.show();
+    $epass_required_field.attr("disabled", false);
 
     // Fix design: look like a required field (the custom validator solves behaviour)
     if($("label[for=form-widgets-location] span.required").length < 1) {
