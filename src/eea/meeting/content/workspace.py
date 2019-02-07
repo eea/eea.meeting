@@ -1,4 +1,3 @@
-from AccessControl import Unauthorized
 from eea.meeting.interfaces import IMeetingWorkspace
 from plone import api
 from plone.dexterity.content import Container
@@ -11,7 +10,8 @@ class MeetingWorkspace(Container):
     """ EEA Meeting Workspace content type"""
 
     def block_access(self, workspace):
-        raise Unauthorized(workspace)
+        return workspace.REQUEST.response.redirect(
+                workspace.aq_parent.absolute_url())
 
     def can_edit(self, meeting):
         return api.user.has_permission(
