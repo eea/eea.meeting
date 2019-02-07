@@ -1,3 +1,4 @@
+from Products.statusmessages.interfaces import IStatusMessage
 from eea.meeting.interfaces import IMeetingWorkspace
 from plone import api
 from plone.dexterity.content import Container
@@ -10,6 +11,11 @@ class MeetingWorkspace(Container):
     """ EEA Meeting Workspace content type"""
 
     def block_access(self, workspace):
+        messages = IStatusMessage(workspace.REQUEST)
+        messages.add(
+            u"The content you tried to access is available only for \
+            approved participants. Please log in.",
+            type=u"info")
         return workspace.REQUEST.response.redirect(
                 workspace.aq_parent.absolute_url())
 
