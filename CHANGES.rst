@@ -3,6 +3,9 @@ Changelog
 
 1.2.4.dev0 (unreleased)
 -----------------------
+- Fix: Prevent errors & sentry logs - redirect to meeting view and show an
+  info message in case of unauthorised access of restricted content.
+  [GhitaB #101957]
 
 1.2.3 (2019-02-01)
 ------------------
