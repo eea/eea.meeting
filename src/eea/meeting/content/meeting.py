@@ -1,11 +1,12 @@
-from datetime import datetime
-import pytz
-from zope.interface import implementer
 from AccessControl import getSecurityManager
+from datetime import datetime
+from eea.meeting.interfaces import IMeeting
 from plone import api
 from plone.dexterity.content import Container
 from plone.dexterity.utils import createContentInContainer
-from eea.meeting.interfaces import IMeeting
+from zope.interface import implementer
+import pytz
+import transaction
 
 
 @implementer(IMeeting)
@@ -168,3 +169,9 @@ def create_folder_for_private_items(container):
     obj = api.content.create(
         type='eea.meeting.workspace', title='Workspace', container=container)
     api.content.transition(obj=obj, transition='publish')
+
+    # Cut View permission for Anonymous user.
+    # This will block direct access to files for anonymous users in workspace
+    # context.
+    obj.manage_permission('View', roles=['Authenticated', 'Manager', 'Owner'])
+    transaction.commit()
