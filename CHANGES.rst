@@ -1,8 +1,8 @@
 Changelog
 =========
 
-1.2.4.dev0 (unreleased)
------------------------
+1.2.4 (2019-02-13)
+------------------
 - Fix: Cut View permission for Anonymous users in Workspace context.
   [GhitaB #101957]
 - Fix: Prevent errors & sentry logs - redirect to meeting view and show an
