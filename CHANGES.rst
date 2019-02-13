@@ -1,6 +1,9 @@
 Changelog
 =========
 
+1.2.5.dev0 (unreleased)
+-----------------------
+
 1.2.4 (2019-02-13)
 ------------------
 - Fix: Cut View permission for Anonymous users in Workspace context.
