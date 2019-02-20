@@ -3,6 +3,8 @@ Changelog
 
 1.2.6.dev0 (unreleased)
 -----------------------
+- Improve: add meeting_contact_name string substitution, available in emails.
+  [GhitaB #102958]
 
 1.2.5 (2019-02-20)
 ------------------
@@ -30,7 +32,6 @@ Changelog
 - Fix: typo webminar -> webinar.
 - Fix: Hide private items in meeting view if no access rights.
   [GhitaB #97529]
-
 
 1.2.1 (2018-12-11)
 ------------------
