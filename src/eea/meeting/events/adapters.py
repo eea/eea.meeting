@@ -96,6 +96,21 @@ class SetMeetingContactEmail(BaseSubstitution):
         return email
 
 
+class SetMeetingContactName(BaseSubstitution):
+    category = _(u'eea.meeting')
+    description = _(u'Meeting contact name')
+
+    def safe_call(self):
+        """ Safe call
+        """
+        try:
+            name = self.context.contact_name
+        except Exception:
+            name = ''
+
+        return name
+
+
 class SetMeetingURL(BaseSubstitution):
     category = _(u'eea.meeting')
     description = _(u'Finds the closest meeting and returns it\'s URL.')
