@@ -106,6 +106,13 @@
     <adapter
     for="*"
     provides="plone.stringinterp.interfaces.IStringSubstitution"
+    factory=".adapters.SetMeetingWhenOnApproved"
+    name="meeting_when"
+    />
+
+    <adapter
+    for="*"
+    provides="plone.stringinterp.interfaces.IStringSubstitution"
     factory=".adapters.SetMeetingTitleOnApproved"
     name="meeting_title"
     />

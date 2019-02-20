@@ -173,6 +173,21 @@ class SetMeetingPlaceOnApproved(BaseSubstitution):
         return location
 
 
+class SetMeetingWhenOnApproved(BaseSubstitution):
+    category = _(u'Approve Subscriber')
+    description = _(u'Meeting when')
+
+    def safe_call(self):
+        """ Safe call
+        """
+        try:
+            start = self.context.aq_parent.aq_parent.start
+        except Exception:
+            start = ""
+
+        return start
+
+
 class SetMeetingTitleOnApproved(BaseSubstitution):
     category = _(u'Approve Subscriber')
     description = _(u'Meeting title')
