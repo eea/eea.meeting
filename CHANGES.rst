@@ -1,8 +1,10 @@
 Changelog
 =========
 
-1.2.5.dev0 (unreleased)
------------------------
+1.2.5 (2019-02-20)
+------------------
+- Improve: Add min and max values for From and To fields in meeting edit form.
+  [GhitaB #97529]
 
 1.2.4 (2019-02-13)
 ------------------
