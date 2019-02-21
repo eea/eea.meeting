@@ -158,6 +158,21 @@ class SetNameReceiverOnApproved(BaseSubstitution):
         return name
 
 
+class SetUserIDReceiverOnApproved(BaseSubstitution):
+    category = _(u'Approve Subscriber')
+    description = _(u'Subscriber UserID')
+
+    def safe_call(self):
+        """ Safe call
+        """
+        try:
+            return self.context.userid
+        except Exception:
+            userid = ''
+
+        return userid
+
+
 class SetMeetingPlaceOnApproved(BaseSubstitution):
     category = _(u'Approve Subscriber')
     description = _(u'Meeting place')
@@ -181,11 +196,11 @@ class SetMeetingWhenOnApproved(BaseSubstitution):
         """ Safe call
         """
         try:
-            start = self.context.aq_parent.aq_parent.human_readable_date
+            date = self.context.aq_parent.aq_parent.human_readable_date
         except Exception:
-            start = ""
+            date = ""
 
-        return start
+        return date
 
 
 class SetMeetingTitleOnApproved(BaseSubstitution):

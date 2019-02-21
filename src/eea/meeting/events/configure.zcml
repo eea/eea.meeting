@@ -99,6 +99,13 @@
     <adapter
     for="*"
     provides="plone.stringinterp.interfaces.IStringSubstitution"
+    factory=".adapters.SetUserIDReceiverOnApproved"
+    name="subscriber_userid"
+    />
+
+    <adapter
+    for="*"
+    provides="plone.stringinterp.interfaces.IStringSubstitution"
     factory=".adapters.SetMeetingPlaceOnApproved"
     name="meeting_place"
     />
