@@ -188,6 +188,23 @@ class SetMeetingPlaceOnApproved(BaseSubstitution):
         return location
 
 
+class SetMeetingPlaceOnRegister(BaseSubstitution):
+    category = _(u'Register Subscriber')
+    description = _(u'Meeting place (register)')
+
+    def safe_call(self):
+        """ Safe call
+        """
+        try:
+            location = self.context.location
+        except Exception:
+            location = ""
+
+        if location is None:  # webinar case
+            location = ""
+        return location
+
+
 class SetMeetingWhenOnApproved(BaseSubstitution):
     category = _(u'Approve Subscriber')
     description = _(u'Meeting when')
@@ -197,6 +214,21 @@ class SetMeetingWhenOnApproved(BaseSubstitution):
         """
         try:
             date = self.context.aq_parent.aq_parent.human_readable_date
+        except Exception:
+            date = ""
+
+        return date
+
+
+class SetMeetingWhenOnRegister(BaseSubstitution):
+    category = _(u'Register Subscriber')
+    description = _(u'Meeting when (register)')
+
+    def safe_call(self):
+        """ Safe call
+        """
+        try:
+            date = self.context.human_readable_date
         except Exception:
             date = ""
 
