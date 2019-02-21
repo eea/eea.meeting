@@ -3,9 +3,10 @@ Changelog
 
 1.2.6.dev0 (unreleased)
 -----------------------
-- Improve: add meeting_contact_name string substitution, available in emails.
+- Improve: Add meeting_contact_name string substitution, available in emails.
 - Improve: Add meeting_when string substitution on approve participant.
 - Improve: Add subscriber_userid string substitution on approve participant.
+- Improve: Add When and Where string substitutions on register participant.
   [GhitaB #102958]
 
 1.2.5 (2019-02-20)
