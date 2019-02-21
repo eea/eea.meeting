@@ -1,6 +1,9 @@
 Changelog
 =========
 
+1.2.7.dev0 (unreleased)
+-----------------------
+
 1.2.6 (2019-02-21)
 ------------------
 - Improve: Add meeting_contact_name string substitution, available in emails.
