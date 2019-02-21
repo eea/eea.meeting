@@ -181,7 +181,7 @@ class SetMeetingWhenOnApproved(BaseSubstitution):
         """ Safe call
         """
         try:
-            start = self.context.aq_parent.aq_parent.start
+            start = self.context.aq_parent.aq_parent.human_readable_date
         except Exception:
             start = ""
 
