@@ -3,6 +3,8 @@ Changelog
 
 1.2.7.dev0 (unreleased)
 -----------------------
+- Improve: Add a new human readable date format, to be used in events_listing.
+  [GhitaB #103043]
 
 1.2.6 (2019-02-21)
 ------------------
