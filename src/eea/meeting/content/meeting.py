@@ -126,6 +126,33 @@ class Meeting(Container):
 
         return "%s %s - %s %s" % (start_day, start_month, end_day, end_month)
 
+    @property
+    def human_readable_date2(self):
+        """ Return start date - end date in format:
+            ["Oct 08, 2019", "Oct 09, 2019"]
+
+            used in events_listing as:
+            Oct 08, 2019 to
+            Oct 09, 2019
+        """
+        timezone = pytz.timezone(self.timezone)
+        start_date = self.start.astimezone(timezone)
+        end_date = self.end.astimezone(timezone)
+
+        first_line = """{0} {1}, {2}""".format(
+            start_date.strftime("%B")[:3],
+            start_date.strftime("%d"),
+            start_date.strftime("%Y")
+        )
+
+        second_line = """{0} {1}, {2}""".format(
+            end_date.strftime("%B")[:3],
+            end_date.strftime("%d"),
+            end_date.strftime("%Y")
+        )
+
+        return [first_line, second_line]
+
 
 def on_save(obj, evt):
     # This triggers also on the container creation, not only on save props!
