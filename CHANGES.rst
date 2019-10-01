@@ -3,6 +3,9 @@ Changelog
 
 1.2.8.dev0 (unreleased)
 -----------------------
+- Improve: add more options for entries per page in subscribers datatable.
+  Solves exporting as a single xls in case of many participants registered.
+  [GhitaB #109799]
 
 1.2.7 (2019-02-25)
 ------------------
