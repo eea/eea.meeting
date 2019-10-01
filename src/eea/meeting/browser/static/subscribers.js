@@ -9,7 +9,7 @@
     var table = new DataTable(
       document.querySelector(selector), {
         perPage: 25,
-        perPageSelect: [25, 50]
+        perPageSelect: [25, 50, 100, 500]
     });
 
     // Don't sort first column.
