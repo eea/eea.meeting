@@ -1,6 +1,12 @@
 Changelog
 =========
 
+1.2.9 (unreleased)
+------------------
+- Feature: Add option to allow registration when number of participants is
+  reached.
+  [GhitaB #110772]
+
 1.2.8 (2019-10-03)
 ------------------
 - Improve: add more options for entries per page in subscribers datatable.
