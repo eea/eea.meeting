@@ -59,7 +59,8 @@ class Meeting(Container):
         """ Registrations are open if (ALL are TRUE):
                 * users are allowed to register
                 * current time is < end of meeting
-                * the numbers of approved participants is < max participants
+                * (the number of approved participants is < max participants)
+                  or (meeting still accepts registration when max is reached)
 
                 (If constraint is set)
                 * current time is not < start time for allowed registration
@@ -76,7 +77,11 @@ class Meeting(Container):
 
         return (self.allow_register and
                 (not self.is_ended()) and
-                self.subscribers.approved_count() < self.max_participants)
+                (
+                    (self.subscribers.approved_count() < self.max_participants)
+                    or (self.allow_register_above_max is True)
+                )
+                )
 
     def get_subscribers(self):
         return self.subscribers.get_subscribers()

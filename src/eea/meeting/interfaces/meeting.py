@@ -47,6 +47,12 @@ class IMeeting(Interface):
         required=True,
     )
 
+    allow_register_above_max = schema.Bool(
+        title=_(u"Continue to allow registration when maximum number of"
+                " participants is reached"),
+        required=True,
+    )
+
     allow_register_start = schema.Datetime(
         title=_(u"From"),
         description=_(u"Allow registration starting with this datetime."),
