@@ -1,7 +1,7 @@
 Changelog
 =========
 
-1.2.9 (unreleased)
+1.2.9 (2019-11-06)
 ------------------
 - Feature: Add option to allow registration when number of participants is
   reached.
