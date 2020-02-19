@@ -3,6 +3,8 @@ Changelog
 
 1.3.0 (unreleased)
 ------------------
+- Feature: Add is_featured option for meeting item.
+  [GhitaB #114456]
 
 1.2.9 (2019-11-06)
 ------------------
