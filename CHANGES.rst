@@ -1,7 +1,7 @@
 Changelog
 =========
 
-1.3.1 (unreleased)
+1.3.1 (2020-04-13)
 ------------------
 - Feature: Add secondary featured option for meeting item.
   [GhitaB #116290]
