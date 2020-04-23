@@ -1,7 +1,7 @@
 Changelog
 =========
 
-1.3.2 (unreleased)
+1.3.2 (2020-04-23)
 ------------------
 - Fix: Remove featured options. (Tags to be used.)
   [GhitaB #116290]
