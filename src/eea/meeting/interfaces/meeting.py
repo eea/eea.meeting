@@ -42,16 +42,6 @@ class IMeeting(Interface):
         required=True,
     )
 
-    is_featured = schema.Bool(
-        title=_(u"Featured event - saved in your special list"),
-        required=True,
-    )
-
-    is_featured2 = schema.Bool(
-        title=_(u"Featured event - saved in your special secondary list"),
-        required=True,
-    )
-
     allow_register = schema.Bool(
         title=_(u"Allow users to register to the meeting"),
         required=True,
