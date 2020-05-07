@@ -104,7 +104,7 @@
                 <tr tal:condition="context/countries|nothing">
                   <th>Countries</th>
                   <td tal:define="countries_vocab python: context.event_countries_vocab(key_based=True)">
-                    <tal:rep tal:repeat="c_code context/countries">
+                    <tal:rep tal:repeat="c_code python:sorted(context.countries)">
                       <span tal:content="python: countries_vocab[c_code]">Ukraine</span><span tal:condition="not:repeat/c_code/end">,</span>
                     </tal:rep>
                   </td>
