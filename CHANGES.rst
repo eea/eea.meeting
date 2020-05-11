@@ -1,6 +1,9 @@
 Changelog
 =========
 
+1.3.4 (unreleased)
+------------------
+
 1.3.3 (2020-05-11)
 ------------------
 - Fix: wrong order of countries in meeting view.
