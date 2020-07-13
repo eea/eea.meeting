@@ -3,6 +3,8 @@ Changelog
 
 1.3.4 (unreleased)
 ------------------
+- Fix: Show location as 'Webinar' in email notifications in case of webinars.
+  [GhitaB #119569]
 
 1.3.3 (2020-05-11)
 ------------------
