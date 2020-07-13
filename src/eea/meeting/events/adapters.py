@@ -185,6 +185,8 @@ class SetMeetingPlaceOnApproved(BaseSubstitution):
         except Exception:
             location = ""
 
+        if location is None:  # webinar case
+            location = "Webinar"
         return location
 
 
@@ -201,7 +203,7 @@ class SetMeetingPlaceOnRegister(BaseSubstitution):
             location = ""
 
         if location is None:  # webinar case
-            location = ""
+            location = "Webinar"
         return location
 
 
