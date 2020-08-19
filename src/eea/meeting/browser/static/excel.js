@@ -17,4 +17,4 @@ window.saveFile = function saveFile (selector, title, json_opts) {
     var opts = [{sheetid:'Sheet 1',header:true}];
     var res = alasql('SELECT * INTO XLSX("Export_'+title+'.xls",?) FROM ?',
                      [opts,[table]]);
-}
+};
