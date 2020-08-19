@@ -79,7 +79,7 @@ class Meeting(Container):
                 (not self.is_ended()) and
                 (
                     (self.subscribers.approved_count() < self.max_participants)
-                    or (self.allow_register_above_max is True)
+                     or (self.allow_register_above_max is True)
                 )
                 )
 

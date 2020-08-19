@@ -1,5 +1,6 @@
 from zope.component.interfaces import IObjectEvent
 
+
 class ISendEmailEvent(IObjectEvent):
     """ Base Event interface for sending email after form submission
     """
