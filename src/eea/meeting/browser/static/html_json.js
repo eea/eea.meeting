@@ -39,12 +39,12 @@
                     h = "boolean" == typeof f ? f : "string" == typeof f ? !0 : !1,
                     i = "string" == typeof f == !0 ? f : "rowId";
                 return h && "undefined" == typeof a(c).attr("id") && e.push(i), a(c).children("td,th").each(function(a, b) {
-                    e.push(g(a, b, d))
-                }), e
+                    e.push(g(a, b, d));
+                }), e;
             },
             i = function(a) {
                 var c = a.find("tr:first").first();
-                return d(b.headings) ? b.headings : h(c, !0)
+                return d(b.headings) ? b.headings : h(c, !0);
             },
             j = function(c, h) {
                 var i, j, k, l, m, n, o, p = [],
@@ -65,22 +65,22 @@
                                     if (o.filter("[rowspan]").length)
                                         for (l = parseInt(o.attr("rowspan"), 10), j = 0; l > j; j++) p[c + j][q + i] = m;
                                     else p[c][q + i] = m;
-                            m = p[c][q] || g(q, o), d(m) && (p[c][q] = m), q++
-                        }))
+                            m = p[c][q] || g(q, o), d(m) && (p[c][q] = m), q++;
+                        }));
                     }
                 }), a.each(p, function(c, g) {
                     if (d(g)) {
                         var i = d(b.onlyColumns) || b.ignoreColumns.length ? a.grep(g, function(a, b) {
-                                return !e(b)
+                                return !e(b);
                             }) : g,
                             j = d(b.headings) ? h : a.grep(h, function(a, b) {
-                                return !e(b)
+                                return !e(b);
                             });
-                        m = f(j, i), r[r.length] = m
+                        m = f(j, i), r[r.length] = m;
                     }
-                }), r
+                }), r;
             },
             k = i(this);
-        return j(this, k)
-    }
+        return j(this, k);
+    };
 }(jQuery);
