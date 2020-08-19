@@ -38,7 +38,7 @@
                 var e = [],
                     f = b.includeRowId,
                     h = "boolean" == typeof f ? f : "string" == typeof f ? !0 : !1,
-                    i = "string" == typeof f == !0 ? f : "rowId";
+                    i = "string" == typeof f == !0 ? f : "rowId";  // jshint ignore:line
                 return h && "undefined" == typeof a(c).attr("id") && e.push(i), a(c).children("td,th").each(function(a, b) {
                     e.push(g(a, b, d));
                 }), e;
