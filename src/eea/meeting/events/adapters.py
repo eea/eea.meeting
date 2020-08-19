@@ -119,9 +119,8 @@ class SetMeetingURL(BaseSubstitution):
         """ Safe call
         """
         def find_meeting(context):
-            return (IMeeting.providedBy(context) and context
-                    or find_meeting(context.aq_parent)
-            )
+            return (IMeeting.providedBy(context) and context or
+                    find_meeting(context.aq_parent))
 
         meeting = find_meeting(self.context)
         return meeting.absolute_url() if meeting else ''
