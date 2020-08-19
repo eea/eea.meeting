@@ -15,23 +15,23 @@
         };
         b = a.extend(c, b);
         var d = function(a) {
-                return void 0 !== a && null !== a
+                return void 0 !== a && null !== a;
             },
             e = function(c) {
-                return d(b.onlyColumns) ? -1 === a.inArray(c, b.onlyColumns) : -1 !== a.inArray(c, b.ignoreColumns)
+                return d(b.onlyColumns) ? -1 === a.inArray(c, b.onlyColumns) : -1 !== a.inArray(c, b.ignoreColumns);
             },
             f = function(b, c) {
                 var e = {},
                     f = 0;
                 return a.each(c, function(a, c) {
-                    f < b.length && d(c) && (e[b[f]] = c, f++)
-                }), e
+                    f < b.length && d(c) && (e[b[f]] = c, f++);
+                }), e;
             },
             g = function(c, d, e) {
                 var f = a(d),
                     g = b.textExtractor,
                     h = f.attr(b.textDataOverride);
-                return null === g || e ? a.trim(h || (b.allowHTML ? f.html() : d.textContent || f.text()) || "") : a.isFunction(g) ? a.trim(h || g(c, f)) : "object" == typeof g && a.isFunction(g[c]) ? a.trim(h || g[c](c, f)) : a.trim(h || (b.allowHTML ? f.html() : d.textContent || f.text()) || "")
+                return null === g || e ? a.trim(h || (b.allowHTML ? f.html() : d.textContent || f.text()) || "") : a.isFunction(g) ? a.trim(h || g(c, f)) : "object" == typeof g && a.isFunction(g[c]) ? a.trim(h || g[c](c, f)) : a.trim(h || (b.allowHTML ? f.html() : d.textContent || f.text()) || "");
             },
             h = function(c, d) {
                 var e = [],
