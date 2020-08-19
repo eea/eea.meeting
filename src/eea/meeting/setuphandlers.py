@@ -8,6 +8,7 @@ from zope.interface import implementer
 
 logger = logging.getLogger('eea.meeting')
 
+
 @implementer(INonInstallable)
 class HiddenProfiles(object):
 
@@ -41,6 +42,7 @@ def post_install(context):
             # Set cache for ldap-plugin
             ldap_plugin = site['acl_users']['ldap-plugin']
             ldap_plugin.ZCacheable_setManagerId(manager_id='MEMCache')
+
 
 def uninstall(context):
     """Uninstall script"""
