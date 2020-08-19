@@ -1,3 +1,4 @@
+/*jshint sub:true*/
 window.saveFile = function saveFile (selector, title, json_opts) {
     var table = $(selector).tableToJSON(json_opts);
 
