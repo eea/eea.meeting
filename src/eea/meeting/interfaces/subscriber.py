@@ -1,3 +1,4 @@
+""" Subscriber """
 # -*- coding: utf-8 -*-
 
 from zope import schema
