@@ -1,11 +1,11 @@
 """ Setuphandlers """
 # -*- coding: utf-8 -*-
+import logging
 from Products.CMFPlone.interfaces import INonInstallable
 from plone.app.controlpanel.security import ISecuritySchema
 from zope.component import queryAdapter
 from zope.component.hooks import getSite
 from zope.interface import implementer
-import logging
 
 logger = logging.getLogger('eea.meeting')
 

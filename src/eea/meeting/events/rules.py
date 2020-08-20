@@ -1,12 +1,14 @@
+""" Rules """
 from zope.interface import implementer
 from plone.app.contentrules.handlers import execute
-from interfaces import ISendEmailEvent
-from interfaces import ISendEmailAddEvent
-from interfaces import ISendNewSubscriberEmailEvent
+from eea.meeting.events.interfaces import ISendEmailEvent
+from eea.meeting.events.interfaces import ISendEmailAddEvent
+from eea.meeting.events.interfaces import ISendNewSubscriberEmailEvent
 
 
 @implementer(ISendEmailEvent)
 class SendEmailEvent(object):
+    """ Send Email Event """
     def __init__(self, context, **kwargs):
         self.object = context
 
