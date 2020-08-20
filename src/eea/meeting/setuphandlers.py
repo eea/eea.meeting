@@ -1,16 +1,18 @@
+""" Setuphandlers """
 # -*- coding: utf-8 -*-
-import logging
+from Products.CMFPlone.interfaces import INonInstallable
+from plone.app.controlpanel.security import ISecuritySchema
 from zope.component import queryAdapter
 from zope.component.hooks import getSite
-from plone.app.controlpanel.security import ISecuritySchema
-from Products.CMFPlone.interfaces import INonInstallable
 from zope.interface import implementer
+import logging
 
 logger = logging.getLogger('eea.meeting')
 
 
 @implementer(INonInstallable)
 class HiddenProfiles(object):
+    """ Hidden Profiles """
 
     def getNonInstallableProfiles(self):
         """Hide uninstall profile from site-creation and quickinstaller"""
@@ -32,6 +34,7 @@ def post_install(context):
         try:
             oid = site.manage_addProduct[
                 'MemcachedManager'].manage_addMemcachedManager('MEMCache')
+            oid = oid
         except Exception, err:
             logger.exception(err)
         else:
