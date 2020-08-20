@@ -1,14 +1,15 @@
+""" Test robot """
 # -*- coding: utf-8 -*-
+import os
+import robotsuite
+import unittest
 from eea.meeting.testing import EEA_MEETING_ACCEPTANCE_TESTING  # noqa
 from plone.app.testing import ROBOT_TEST_LEVEL
 from plone.testing import layered
 
-import os
-import robotsuite
-import unittest
-
 
 def test_suite():
+    """ Tests """
     suite = unittest.TestSuite()
     current_dir = os.path.abspath(os.path.dirname(__file__))
     robot_dir = os.path.join(current_dir, 'robot')

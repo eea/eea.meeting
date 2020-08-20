@@ -1,9 +1,8 @@
 # -*- coding: utf-8 -*-
 """Setup tests for this package."""
+import unittest
 from eea.meeting.testing import EEA_MEETING_INTEGRATION_TESTING  # noqa
 from plone import api
-
-import unittest
 
 
 class TestSetup(unittest.TestCase):
@@ -30,6 +29,7 @@ class TestSetup(unittest.TestCase):
 
 
 class TestUninstall(unittest.TestCase):
+    """ Test Uninstall """
 
     layer = EEA_MEETING_INTEGRATION_TESTING
 
