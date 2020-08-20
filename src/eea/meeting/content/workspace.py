@@ -1,3 +1,4 @@
+""" Workspace """
 from Products.statusmessages.interfaces import IStatusMessage
 from eea.meeting.interfaces import IMeetingWorkspace
 from plone import api
@@ -11,6 +12,8 @@ class MeetingWorkspace(Container):
     """ EEA Meeting Workspace content type"""
 
     def block_access(self, workspace):
+        """ Block access and redirect
+        """
         messages = IStatusMessage(workspace.REQUEST)
         messages.add(
             u"The content you tried to access is available only for \
@@ -20,6 +23,7 @@ class MeetingWorkspace(Container):
                 workspace.aq_parent.absolute_url())
 
     def can_edit(self, meeting):
+        """ Check permission """
         return api.user.has_permission(
             'Modify portal content',
             obj=meeting
@@ -37,7 +41,7 @@ class MeetingWorkspace(Container):
             x for x in request.PARENTS[:-1]
             if x.portal_type == 'eea.meeting.workspace'
             ]
-        if len(workspaces) > 0:
+        if workspaces:
             workspace = workspaces[0]
             has_access = workspace.restrictedTraverse(
                 "current_user_has_access")()
