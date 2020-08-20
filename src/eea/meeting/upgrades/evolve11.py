@@ -1,3 +1,4 @@
+""" Evolve email """
 from plone.app.textfield.value import IRichTextValue
 import plone.api as api
 
@@ -5,6 +6,7 @@ from eea.meeting.upgrades import LOGGER
 
 
 def run(context):
+    """ evolve email field """
     catalog = api.portal.get_tool('portal_catalog')
     brains = catalog(portal_type="eea.meeting.email")
 
