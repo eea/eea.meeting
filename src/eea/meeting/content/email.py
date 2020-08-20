@@ -1,3 +1,4 @@
+""" Email """
 from zope.interface import implementer
 from eea.meeting.interfaces import IEmail
 from plone.dexterity.content import Container
