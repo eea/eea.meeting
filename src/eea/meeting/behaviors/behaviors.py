@@ -1,3 +1,4 @@
+""" Behaviors """
 from plone import api
 from plone.app.dexterity.behaviors.constrains import ConstrainTypesBehavior
 from Products.CMFPlone.interfaces.constrains import ISelectableConstrainTypes
@@ -9,6 +10,7 @@ ENABLED = 1  # allow types from locallyAllowedTypes only
 
 
 class MeetingConstrainTypes(ConstrainTypesBehavior):
+    """ Meeting Constrain Types """
 
     def allowedContentTypes(self, context=None):
         """
@@ -63,6 +65,7 @@ class MeetingConstrainTypes(ConstrainTypesBehavior):
         return allowed
 
     def getDefaultAddableTypes(self, context=None):
+        """ Get default addable types """
         portal = api.portal.getSite()
         subscribers = portal.portal_types.get('eea.meeting.subscribers')
         emails = portal.portal_types.get('eea.meeting.emails')
@@ -82,11 +85,11 @@ class MeetingConstrainTypes(ConstrainTypesBehavior):
 
 
 class IMeetingConstrainTypes(ISelectableConstrainTypes):
-
-    """ """
+    """ Meeting Constrain Types """
 
 
 class SubscribersConstrainTypes(ConstrainTypesBehavior):
+    """ Subscribers Constrain Types """
 
     def allowedContentTypes(self, context=None):
         """
@@ -130,11 +133,12 @@ class SubscribersConstrainTypes(ConstrainTypesBehavior):
         if ISubscribers.providedBy(context) and subscriber in allowed:
             if not (IMeeting.providedBy(context.aq_parent) and
                     context.aq_parent.can_register()):
-                        allowed.remove(subscriber)
+                allowed.remove(subscriber)
 
         return allowed
 
     def getDefaultAddableTypes(self, context=None):
+        """ Get default addable types """
         portal = api.portal.getSite()
         subscribers = portal.portal_types.get('eea.meeting.subscribers')
         if context is None:
@@ -148,5 +152,4 @@ class SubscribersConstrainTypes(ConstrainTypesBehavior):
 
 
 class ISubscribersConstrainTypes(ISelectableConstrainTypes):
-
-    """ """
+    """ Subscribers Constrain Types """

@@ -1,8 +1,8 @@
 """ Test robot """
 # -*- coding: utf-8 -*-
 import os
-import robotsuite
 import unittest
+import robotsuite
 from eea.meeting.testing import EEA_MEETING_ACCEPTANCE_TESTING  # noqa
 from plone.app.testing import ROBOT_TEST_LEVEL
 from plone.testing import layered
