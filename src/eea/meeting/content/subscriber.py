@@ -1,12 +1,13 @@
+""" Subscriber """
 # -*- coding: utf-8 -*-
+import datetime
+import uuid
 from eea.meeting.constants import ACTION_APPROVE, ACTION_REJECT
 from eea.meeting.interfaces import ISubscriber
 from plone import api
 from plone.api.exc import MissingParameterError
 from plone.dexterity.content import Item
 from zope.interface import implementer
-import datetime
-import uuid
 
 
 @implementer(ISubscriber)
@@ -14,9 +15,11 @@ class Subscriber(Item):
     """ EEA Meeting Subscriber content type"""
 
     def state(self):
+        """ Subscriber's state """
         return api.content.get_state(self)
 
     def get_details(self):
+        """ Details for subscriber """
         try:
             member = api.user.get(userid=self.userid)
         except MissingParameterError:
@@ -57,6 +60,7 @@ class Subscriber(Item):
 
 
 def state_change(obj, evt):
+    """ state change """
 
     subscribers = obj.aq_parent
     meeting = subscribers.get_meeting()
@@ -71,6 +75,7 @@ def state_change(obj, evt):
 
 
 def on_add(obj, evt):
+    """ on add """
 
     obj.uid = uuid.uuid4()
     meeting = obj.aq_parent.aq_parent
@@ -79,6 +84,7 @@ def on_add(obj, evt):
 
 
 def on_delete(obj, evt):
+    """ on delete """
     subscribers = obj.aq_parent
     meeting = subscribers.get_meeting()
     subscribers_state = api.content.get_state(subscribers)
