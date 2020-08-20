@@ -1,7 +1,7 @@
 """ Meeting """
+from datetime import datetime
 import pytz
 import transaction
-from datetime import datetime
 from eea.meeting.interfaces import IMeeting
 from plone import api
 from plone.dexterity.content import Container
