@@ -1,12 +1,13 @@
-from AccessControl import getSecurityManager
+""" Meeting """
+import pytz
+import transaction
 from datetime import datetime
 from eea.meeting.interfaces import IMeeting
 from plone import api
 from plone.dexterity.content import Container
 from plone.dexterity.utils import createContentInContainer
 from zope.interface import implementer
-import pytz
-import transaction
+from AccessControl import getSecurityManager
 
 
 @implementer(IMeeting)
@@ -14,6 +15,7 @@ class Meeting(Container):
     """ EEA Meeting content type"""
 
     def is_anonymous(self):
+        """ Check user """
         return api.user.is_anonymous()
 
     def is_registered(self, uid=None):
@@ -27,30 +29,35 @@ class Meeting(Container):
         return uid in self.subscribers.subscriber_ids()
 
     def subscriber_status(self, uid=None):
+        """ Return subscriber's status """
         if not uid:
             uid = api.user.get_current().getId()
 
         if self.is_registered(uid):
             subs = [x for x in self.get_subscribers() if x.userid == uid]
-            if len(subs) > 0:
+            if subs:
                 return api.content.get_state(subs[0])
-            else:
-                return None
+
+            return None
 
     def can_register(self):
-        open = self.registrations_open()
-        if not open:
+        """ Can register? """
+        is_open = self.registrations_open()
+        if not is_open:
             return False
         return True
 
     def is_admin(self):
+        """ Is meeting admin? """
         sm = getSecurityManager()
         return sm.checkPermission("EEA Meting: Admin Meeting", self)
 
     def is_webinar(self):
+        """ Is webinar? """
         return self.meeting_type == 'webinar'
 
     def is_ended(self):
+        """ Is meeting ended? """
         if datetime.now(pytz.UTC) < self.end:
             return False
         return True
@@ -81,9 +88,11 @@ class Meeting(Container):
                  (self.allow_register_above_max is True)))
 
     def get_subscribers(self):
+        """ Return subscribers """
         return self.subscribers.get_subscribers()
 
     def get_subscriber_roles_dict(self):
+        """ Subscriber roles """
         try:
             # defined in eni.seis.content
             vocab = self.portal_vocabularies.subscriber_roles
@@ -157,18 +166,20 @@ class Meeting(Container):
 
 
 def on_save(obj, evt):
+    """ on save """
     # This triggers also on the container creation, not only on save props!
     subscribers = getattr(obj, 'subscribers', None)
     if subscribers:
         if subscribers.registrations_open():
-                if api.content.get_state(subscribers) == 'closed':
-                    api.content.transition(obj=subscribers,
-                                           transition='to_open')
+            if api.content.get_state(subscribers) == 'closed':
+                api.content.transition(obj=subscribers,
+                                       transition='to_open')
         elif api.content.get_state(subscribers) == 'open':
             api.content.transition(obj=subscribers, transition='close')
 
 
 def on_add(obj, evt):
+    """ on add """
     create_subscribers(obj)
 
     create_emails(obj)
@@ -179,22 +190,26 @@ def on_add(obj, evt):
 
 
 def create_subscribers(container):
+    """ create subscribers """
     createContentInContainer(container, 'eea.meeting.subscribers',
                              title='Subscribers', id='subscribers')
 
 
 def create_emails(container):
+    """ create emails """
     createContentInContainer(container, 'eea.meeting.emails',
                              title='Emails', id='emails')
 
 
 def create_folder_for_public_items(container):
+    """ Create Public folder """
     obj = api.content.create(
         type='Folder', title='Public', container=container)
     api.content.transition(obj=obj, transition='publish')
 
 
 def create_folder_for_private_items(container):
+    """ Create Workspace """
     obj = api.content.create(
         type='eea.meeting.workspace', title='Workspace', container=container)
     api.content.transition(obj=obj, transition='publish')
