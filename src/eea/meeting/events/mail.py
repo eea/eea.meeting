@@ -1,44 +1,46 @@
+""" Mail """
 # -*- coding: utf-8 -*-
 import logging
 
-from plone.contentrules.rule.interfaces import IRuleElementData
-from zope.component import adapts
-from zope.interface import Interface, implements
-from plone.stringinterp.interfaces import IStringInterpolator
-from plone.app.contentrules.actions.mail import IMailAction
-from plone.app.contentrules.actions.mail import MailActionExecutor
-from plone.app.contentrules.actions.mail import MailAction
-from zope.container.interfaces import INameChooser
-
 from plone import api
+from plone.app.contentrules.actions.mail import IMailAction
+from plone.app.contentrules.actions.mail import MailAction
+from plone.app.contentrules.actions.mail import MailActionExecutor
+from plone.contentrules.rule.interfaces import IRuleElementData
+from plone.stringinterp.interfaces import IStringInterpolator
+from zope.component import adapts
+from zope.container.interfaces import INameChooser
+from zope.interface import Interface, implements
 
 logger = logging.getLogger("plone.contentrules")
 
 
 class ICustomMailAction(IMailAction):
-    """Definition of the configuration available for a mail action
+    """ Definition of the configuration available for a mail action
     """
 
 
 class CustomMailAction(MailAction):
-
+    """ Custom Mail
+    """
     implements(ICustomMailAction, IRuleElementData)
 
     element = 'eea.meeting.events.CustomMail'
 
 
 class CustomMailActionExecutor(MailActionExecutor):
-    """The executor for this action.
+    """ The executor for this action.
     """
     adapts(Interface, ICustomMailAction, Interface)
 
     def save_email(self):
+        """ Save email
+        """
         email_type = "N/A"
 
         if self.event.object.portal_type == 'eea.meeting.subscriber':
-            """ This is the case for approving a subscriber:
-                - Thank you for your registration
-            """
+            # This is the case for approving a subscriber:
+            #    - Thank you for your registration
             meeting = self.event.object.aq_parent.aq_parent
             state = self.event.object.subscriber_status()
             if state == "approved":
@@ -47,10 +49,9 @@ class CustomMailActionExecutor(MailActionExecutor):
                 email_type = u"Rejection"
 
         elif self.event.object.portal_type == 'eea.meeting':
-            """ This is the case for new subscriber registered:
-                - A new participant has registered to the meeting
-                - You have registered to the meeting
-            """
+            # This is the case for new subscriber registered:
+            #   - A new participant has registered to the meeting
+            #   - You have registered to the meeting
             meeting = self.event.object
             email_type = u"Registration"
 
