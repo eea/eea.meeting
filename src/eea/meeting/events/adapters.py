@@ -1,9 +1,12 @@
+""" Adapters """
 from plone.stringinterp.adapters import BaseSubstitution
 from eea.meeting import _
 from eea.meeting.interfaces import IMeeting
 
 
 class SetEmailSubstitution(BaseSubstitution):
+    """ Substitution
+    """
 
     attribute = u''
 
@@ -52,36 +55,48 @@ class SetEmailSubstitution(BaseSubstitution):
 
 
 class SetEmailSender(SetEmailSubstitution):
+    """ Sender
+    """
     category = _(u'Email Send')
     description = _(u'Email sender address')
     attribute = u'sender'
 
 
 class SetEmailReceiver(SetEmailSubstitution):
+    """ Receiver
+    """
     category = _(u'Email Send')
     description = _(u'Email receiver address')
     attribute = u'receiver'
 
 
 class SetEmailSubject(SetEmailSubstitution):
+    """ Subject
+    """
     category = _(u'Email Send')
     description = _(u'Email subject')
     attribute = u'subject'
 
 
 class SetEmailBody(SetEmailSubstitution):
+    """ Body
+    """
     category = _(u'Email Send')
     description = _(u'Email body')
     attribute = u'body'
 
 
 class SetEmailCC(SetEmailSubstitution):
+    """ CC
+    """
     category = _(u'Email Send')
     description = _(u'Email CC addresses')
     attribute = u'cc'
 
 
 class SetMeetingContactEmail(BaseSubstitution):
+    """ Contact Email
+    """
     category = _(u'eea.meeting')
     description = _(u'Meeting contact email')
 
@@ -97,6 +112,8 @@ class SetMeetingContactEmail(BaseSubstitution):
 
 
 class SetMeetingContactName(BaseSubstitution):
+    """ Contact Name
+    """
     category = _(u'eea.meeting')
     description = _(u'Meeting contact name')
 
@@ -112,6 +129,8 @@ class SetMeetingContactName(BaseSubstitution):
 
 
 class SetMeetingURL(BaseSubstitution):
+    """ Meeting URL
+    """
     category = _(u'eea.meeting')
     description = _(u'Finds the closest meeting and returns it\'s URL.')
 
@@ -119,6 +138,7 @@ class SetMeetingURL(BaseSubstitution):
         """ Safe call
         """
         def find_meeting(context):
+            """ return related meeting """
             return (IMeeting.providedBy(context) and context or
                     find_meeting(context.aq_parent))
 
@@ -127,6 +147,8 @@ class SetMeetingURL(BaseSubstitution):
 
 
 class SetEmailReceiverOnApproved(BaseSubstitution):
+    """ Email Receiver
+    """
     category = _(u'Approve Subscriber')
     description = _(u'Subscriber Email')
 
@@ -142,6 +164,8 @@ class SetEmailReceiverOnApproved(BaseSubstitution):
 
 
 class SetNameReceiverOnApproved(BaseSubstitution):
+    """ Name Receiver
+    """
     category = _(u'Approve Subscriber')
     description = _(u'Subscriber Name')
 
@@ -157,6 +181,8 @@ class SetNameReceiverOnApproved(BaseSubstitution):
 
 
 class SetUserIDReceiverOnApproved(BaseSubstitution):
+    """ User ID
+    """
     category = _(u'Approve Subscriber')
     description = _(u'Subscriber UserID')
 
@@ -172,6 +198,8 @@ class SetUserIDReceiverOnApproved(BaseSubstitution):
 
 
 class SetMeetingPlaceOnApproved(BaseSubstitution):
+    """ Meeting place
+    """
     category = _(u'Approve Subscriber')
     description = _(u'Meeting place')
 
@@ -189,6 +217,8 @@ class SetMeetingPlaceOnApproved(BaseSubstitution):
 
 
 class SetMeetingPlaceOnRegister(BaseSubstitution):
+    """ Meeting place
+    """
     category = _(u'Register Subscriber')
     description = _(u'Meeting place (register)')
 
@@ -206,6 +236,8 @@ class SetMeetingPlaceOnRegister(BaseSubstitution):
 
 
 class SetMeetingWhenOnApproved(BaseSubstitution):
+    """ Meeting when
+    """
     category = _(u'Approve Subscriber')
     description = _(u'Meeting when')
 
@@ -221,6 +253,8 @@ class SetMeetingWhenOnApproved(BaseSubstitution):
 
 
 class SetMeetingWhenOnRegister(BaseSubstitution):
+    """ Meeting when
+    """
     category = _(u'Register Subscriber')
     description = _(u'Meeting when (register)')
 
@@ -236,6 +270,8 @@ class SetMeetingWhenOnRegister(BaseSubstitution):
 
 
 class SetMeetingTitleOnApproved(BaseSubstitution):
+    """ Meeting title
+    """
     category = _(u'Approve Subscriber')
     description = _(u'Meeting title')
 
