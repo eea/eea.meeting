@@ -15,11 +15,11 @@ from plone.dexterity.interfaces import IDexterityEditForm
 from plone.dexterity.utils import createContentInContainer
 from plone.z3cform import layout
 from plone.z3cform.fieldsets.extensible import FormExtender
+import plone.api as api
 from zope.component import getMultiAdapter
 from zope.component.hooks import getSite
 from zope.contentprovider.interfaces import IContentProvider
 from zope.interface import classImplements
-import plone.api as api
 
 
 def add_subscriber(subscribers, **kwargs):
