@@ -23,6 +23,7 @@ from zope.interface import classImplements
 
 
 def add_subscriber(subscribers, **kwargs):
+    """ Add subscriber """
     return createContentInContainer(
         subscribers,
         'eea.meeting.subscriber',
@@ -35,6 +36,7 @@ class MeetingView(DefaultView):
     """ EEA Meeting index """
 
     def formatted_date(self, occ):
+        """ formatted date """
         provider = getMultiAdapter(
             (self.context, self.request, self),
             IContentProvider, name='formatted_date'
@@ -42,6 +44,7 @@ class MeetingView(DefaultView):
         return provider(occ)
 
     def get_auth_user_name(self):
+        """ Authenticated username """
         return api.user.get_current().getId()
 
     def has_sent_emails(self):
@@ -97,6 +100,7 @@ class MeetingView(DefaultView):
 
     @property
     def can_list_content(self):
+        """ check permission """
         if not self.context.restrict_content_access:
             return True
 
@@ -133,13 +137,16 @@ class MeetingView(DefaultView):
         return [ctype for ctype in self._allowedPortalTypes()]
 
     def update(self):
+        """ update """
         super(MeetingView, self).update()
         if not self.context.get('subscribers'):
             create_subscribers(self.context)
 
 
 class MeetingFormExtender(FormExtender):
+    """ Meeting Form Extender """
     def update(self):
+        """ update """
         self.move('IGeolocatable.geolocation', after='location')
         self.form.fields['IGeolocatable.geolocation'].field.title = \
             u'Event location on map'
@@ -172,6 +179,7 @@ class SubscribersView(BrowserView):
         return super(SubscribersView, self).__call__(*args, **kwargs)
 
     def can_edit(self):
+        """ check permission """
         return api.user.has_permission(
             'Modify portal content',
             obj=self.context
@@ -187,6 +195,7 @@ class SubscribersApi(BrowserView):
             return self.on_post()
 
     def on_post(self):
+        """ on post """
         subscribers = tuple(
             self.context.get(s)
             for s in self.request.get('subscribers', [])
@@ -202,16 +211,20 @@ class SubscribersApi(BrowserView):
         return self.request.response.redirect(self.context.absolute_url())
 
     def _change_state(self, state, subscribers):
+        """ change state """
         action = partial(api.content.transition, to_state=state)
         map(action, subscribers)
 
     def delete(self, subscribers):
+        """ delete """
         self.context.manage_delObjects([s.getId() for s in subscribers])
 
     def approve(self, subscribers):
+        """ approve """
         self._change_state('approved', subscribers)
 
     def reject(self, subscribers):
+        """ reject """
         self._change_state('rejected', subscribers)
 
 
@@ -259,6 +272,7 @@ class Register(BrowserView):
         return self.request.response.redirect(self.context.absolute_url())
 
     def validate(self, subscribers):
+        """ validate """
         if not subscribers:
             raise Exception("Can't find subscribers directory")
         if not self.context.can_register():
@@ -342,6 +356,7 @@ class ViewSentEmails(BrowserView):
     """Sent Emails Archive"""
 
     def email_archive(self):
+        """ email archive """
         results = []
         portal_catalog = api.portal.get_tool('portal_catalog')
         current_path = "/".join(self.context.getPhysicalPath())
