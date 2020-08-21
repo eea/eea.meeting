@@ -1,4 +1,6 @@
+""" Meeting """
 # -*- coding: utf-8 -*-
+import datetime
 from eea.meeting import _
 from eea.meeting.interfaces.util import validate_email
 from plone.app.textfield import RichText
@@ -6,7 +8,6 @@ from zope import schema
 from zope.interface import Interface
 from zope.interface import invariant, Invalid
 from zope.schema.vocabulary import SimpleVocabulary, SimpleTerm
-import datetime
 
 
 meeting_types = SimpleVocabulary(
@@ -117,6 +118,7 @@ class IMeeting(Interface):
 
     @invariant
     def validate_location_required(data):
+        """ validate location required """
         if data.meeting_type != 'webinar' and data.location is None:
             raise Invalid(_(
                 u"Event location input is missing." +

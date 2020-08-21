@@ -13,6 +13,7 @@ import plone.api as api
 
 @implementer(IVocabularyFactory)
 class RecipientsVocabulary(object):
+    """ Recipients """
 
     def __call__(self, context):
         portal_catalog = api.portal.get_tool('portal_catalog')
