@@ -1,7 +1,6 @@
 """ Browser controllers
 """
 
-import plone.api as api
 from functools import partial
 from DateTime import DateTime
 from Products.Five.browser import BrowserView
@@ -20,6 +19,7 @@ from zope.component import getMultiAdapter
 from zope.component.hooks import getSite
 from zope.contentprovider.interfaces import IContentProvider
 from zope.interface import classImplements
+import plone.api as api
 
 
 def add_subscriber(subscribers, **kwargs):
