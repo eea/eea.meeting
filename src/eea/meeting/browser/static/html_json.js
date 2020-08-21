@@ -1,4 +1,5 @@
 /* jshint expr: true */
+/* jslint:disable */
 //tableToJSON function
 ! function(a) {
     "use strict";

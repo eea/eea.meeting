@@ -1,4 +1,5 @@
 /* globals DataTable */
+/* jslint:disable */
 
 (function(){
   function isVisible(e) {
