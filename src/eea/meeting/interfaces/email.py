@@ -1,3 +1,4 @@
+""" Email """
 # -*- coding: utf-8 -*-
 
 from eea.meeting import _
