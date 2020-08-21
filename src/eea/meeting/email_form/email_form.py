@@ -1,3 +1,4 @@
+""" Email form """
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile as FPT
 from Products.statusmessages.interfaces import IStatusMessage
 from eea.meeting import _
@@ -13,6 +14,7 @@ from zope.event import notify
 
 
 class SearchUser(form.Form):
+    """ Search User """
 
     fields = field.Fields(ISearchUser)
     ignoreContext = True
@@ -30,13 +32,16 @@ class SearchUser(form.Form):
 
     @button.buttonAndHandler(_('Search'), name='search_user')
     def handleSave(self, action):
+        """ Save """
         data, errors = self.extractData()
 
+        data = data
         if errors:
             return False
 
     @button.buttonAndHandler(_('Add'), name='addCC')
     def handle_addCC(self, action):
+        """ Add CC """
         data, errors = self.extractData()
 
         self._parent_form.widgets['cc'].value += \
@@ -50,6 +55,7 @@ class SearchUser(form.Form):
 
 
 class SendEmail(form.Form):
+    """ Send Email """
     fields = field.Fields(IEmail)
     ignoreContext = True
 
@@ -62,6 +68,7 @@ class SendEmail(form.Form):
     template = FPT('main_form.pt')
 
     def update(self):
+        """ update """
         super(SendEmail, self).update()
         self.search_user = SearchUser(self.context, self.request, self)
         self.search_user.update()
@@ -76,6 +83,7 @@ class SendEmail(form.Form):
 
     @button.buttonAndHandler(_('Send Email'), name='send_email')
     def handleSave(self, action):
+        """ Save """
         data, errors = self.extractData()
 
         if errors:
@@ -107,6 +115,7 @@ class SendEmail(form.Form):
 
     @button.buttonAndHandler(_('Cancel'), name='cancel_send')
     def cancel_send(self, action):
+        """ Cancel send """
         return self.request.response.redirect(
             self.context.aq_parent.absolute_url()
         )
