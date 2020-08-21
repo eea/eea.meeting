@@ -1,3 +1,4 @@
+""" Interfaces """
 from zope.component.interfaces import IObjectEvent
 
 
