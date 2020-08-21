@@ -1,3 +1,4 @@
+""" Widgets """
 from z3c.form import interfaces, util
 from z3c.form.browser import widget
 from z3c.form.widget import FieldWidget, SequenceWidget
@@ -8,11 +9,13 @@ import zope.schema.interfaces
 @zope.component.adapter(zope.schema.interfaces.IField, interfaces.IFormLayer)
 @zope.interface.implementer(interfaces.IFieldWidget)
 def CustomCheckBoxFieldWidget(field, request):
+    """ Custom field """
     return FieldWidget(field, CustomCheckBoxWidget(request))
 
 
 @zope.interface.implementer(interfaces.ISequenceWidget)
 class CustomSequenceWidget(SequenceWidget):
+    """Custom widget """
 
     def extract(self, default=interfaces.NO_VALUE):
         """See z3c.form.interfaces.IWidget."""
@@ -32,6 +35,7 @@ class CustomCheckBoxWidget(widget.HTMLInputWidget, CustomSequenceWidget):
     items = ()
 
     def isChecked(self, term):
+        """ Check value """
         return term.token in self.value
 
     def update(self):
@@ -44,14 +48,14 @@ class CustomCheckBoxWidget(widget.HTMLInputWidget, CustomSequenceWidget):
         self.items = []
         for count, term in enumerate(self.terms):
             checked = self.isChecked(term)
-            id = '%s-%i' % (self.id, count)
+            self_id = '%s-%i' % (self.id, count)
             if zope.schema.interfaces.ITitledTokenizedTerm.providedBy(term):
                 label = translate(term.title, context=self.request,
                                   default=term.title)
             else:
                 label = util.toUnicode(term.value)
             self.items.append({
-                'id': id,
+                'id': self_id,
                 'name': self.name + ':list',
                 'value': term.token,
                 'label': label,
@@ -59,6 +63,7 @@ class CustomCheckBoxWidget(widget.HTMLInputWidget, CustomSequenceWidget):
             })
 
     def json_data(self):
+        """ json data """
         data = super(CustomCheckBoxWidget, self).json_data()
         data['options'] = self.items
         data['type'] = 'check'
