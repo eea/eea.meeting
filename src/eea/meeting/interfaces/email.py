@@ -2,12 +2,12 @@
 # -*- coding: utf-8 -*-
 
 from eea.meeting import _
+from eea.meeting.interfaces.util import cc_constraint
 from plone.autoform import directives
 from plone.schema import Email
 from z3c.form.browser.text import TextFieldWidget
 from zope import schema
 from zope.interface import Interface
-from eea.meeting.interfaces.util import cc_constraint
 
 
 class IEmails(Interface):
