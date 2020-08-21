@@ -1,3 +1,4 @@
+""" Integration """
 from Acquisition import aq_inner
 from plone.dexterity.browser.add import DefaultAddView
 
