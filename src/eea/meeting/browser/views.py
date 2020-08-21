@@ -1,14 +1,14 @@
 """ Browser controllers
 """
 
-from DateTime import DateTime
+import plone.api as api
 from functools import partial
+from DateTime import DateTime
 from Products.Five.browser import BrowserView
 from Products.statusmessages.interfaces import IStatusMessage
 from eea.meeting import _
 from eea.meeting.content.meeting import create_subscribers
 from eea.meeting.content.subscribers import APPROVED_STATE
-import plone.api as api
 from plone.dexterity.browser.add import DefaultAddForm
 from plone.dexterity.browser.edit import DefaultEditForm
 from plone.dexterity.browser.view import DefaultView
@@ -93,10 +93,9 @@ class MeetingView(DefaultView):
                     'current_user_has_access')() == 'has_access':
                 return public_items.getFolderContents(content_filter) + \
                     private_items.getFolderContents(content_filter)
-            else:
-                return public_items.getFolderContents(content_filter)
-        else:
-            return self.get_meeting_contents()
+
+            return public_items.getFolderContents(content_filter)
+        return self.get_meeting_contents()
 
     @property
     def can_list_content(self):
