@@ -1,3 +1,4 @@
+""" Testing """
 # -*- coding: utf-8 -*-
 from plone.app.robotframework.testing import REMOTE_LIBRARY_BUNDLE_FIXTURE
 from plone.app.testing import applyProfile
@@ -11,16 +12,19 @@ import eea.meeting
 
 
 class MeetingLayer(PloneSandboxLayer):
+    """ Meeting Layer """
 
     defaultBases = (PLONE_FIXTURE,)
 
     def setUpZope(self, app, configurationContext):
+        """ Setup """
         # Load any other ZCML that is required for your tests.
         # The z3c.autoinclude feature is disabled in the Plone fixture base
         # layer.
         self.loadZCML(package=eea.meeting)
 
     def setUpPloneSite(self, portal):
+        """ Setup site """
         applyProfile(portal, 'eea.meeting:default')
 
 

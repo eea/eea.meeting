@@ -10,6 +10,7 @@ from zope.schema.vocabulary import SimpleVocabulary, SimpleTerm
 
 
 def search_user(searchstring):
+    """ search user """
 
     results = {}
     users = []
@@ -39,6 +40,7 @@ def search_user(searchstring):
 
 @implementer(IVocabularyFactory)
 class LDAPListingVocabulary(object):
+    """ LDAP Listing """
 
     def __call__(self, context, **kwargs):
 
