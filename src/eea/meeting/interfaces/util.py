@@ -1,3 +1,4 @@
+""" Util """
 # -*- coding: utf-8 -*-
 
 import re
@@ -12,6 +13,7 @@ from eea.meeting import _
 
 
 def validate_email(email):
+    """ validate email """
     try:
         checkEmailAddress(email)
     except EmailAddressInvalid:
@@ -20,6 +22,7 @@ def validate_email(email):
 
 
 def validate_userid(userid):
+    """ validate userid """
     user = api.user.get(userid=userid)
     if user:
         return True
@@ -28,6 +31,7 @@ def validate_userid(userid):
 
 
 def cc_constraint(value):
+    """ cc constraint """
     for idx, email in enumerate(value):
         idx += 1
         if not re.match(r"[^@]+@[^@]+\.[^@]+", email):
