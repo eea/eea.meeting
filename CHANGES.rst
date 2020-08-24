@@ -3,6 +3,8 @@ Changelog
 
 1.3.5 (unreleased)
 ------------------
+- Improve: add Jenkins, improve code.
+  [GhitaB #116841]
 
 1.3.4 (2020-07-13)
 ------------------
