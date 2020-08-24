@@ -1,10 +1,10 @@
 Changelog
 =========
 
-1.3.5 (unreleased)
+1.3.5 (2020-08-24)
 ------------------
 - Improve: add Jenkins, improve code.
-  [GhitaB #116841]
+  [valentinab25, GhitaB #116841]
 
 1.3.4 (2020-07-13)
 ------------------
