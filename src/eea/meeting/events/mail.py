@@ -8,9 +8,13 @@ from plone.app.contentrules.actions.mail import MailAction
 from plone.app.contentrules.actions.mail import MailActionExecutor
 from plone.contentrules.rule.interfaces import IRuleElementData
 from plone.stringinterp.interfaces import IStringInterpolator
-from zope.component import adapts
+from zope.component import adapter
 from zope.container.interfaces import INameChooser
-from zope.interface import Interface, implements
+from zope.interface import Interface, implementer
+
+from plone.registry.interfaces import IRegistry
+from Products.CMFPlone.interfaces.controlpanel import IMailSchema
+from zope.component import getUtility
 
 logger = logging.getLogger("plone.contentrules")
 
@@ -20,18 +24,18 @@ class ICustomMailAction(IMailAction):
     """
 
 
+@implementer(ICustomMailAction, IRuleElementData)
 class CustomMailAction(MailAction):
     """ Custom Mail
     """
-    implements(ICustomMailAction, IRuleElementData)
 
     element = 'eea.meeting.events.CustomMail'
 
 
+@adapter(Interface, ICustomMailAction, Interface)
 class CustomMailActionExecutor(MailActionExecutor):
     """ The executor for this action.
     """
-    adapts(Interface, ICustomMailAction, Interface)
 
     def save_email(self):
         """ Save email
@@ -63,7 +67,7 @@ class CustomMailActionExecutor(MailActionExecutor):
         interpolator = IStringInterpolator(self.event.object)
         email_body = interpolator(self.element.message).strip()
         recipients = interpolator(self.element.recipients).strip()
-        source = self.context.email_from_address
+        source = self.mail_settings.email_from_address
 
         data = {
             'subject': meeting.title,
@@ -91,6 +95,9 @@ class CustomMailActionExecutor(MailActionExecutor):
         self.context = context
         self.element = element
         self.event = event
+        registry = getUtility(IRegistry)
+        self.mail_settings = registry.forInterface(IMailSchema,
+                                                   prefix='plone')
 
     def __call__(self):
         super(CustomMailActionExecutor, self).__call__()

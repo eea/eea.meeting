@@ -38,8 +38,7 @@
                 <tr>
                   <th i18n:translate="event_when">When</th>
                   <td>
-                    <div tal:define="start_tzname context/timezone;
-                      start_utcdelta python:context.start.tzinfo.utcoffset(context.start);
+                    <div tal:define="start_utcdelta python:context.start.tzinfo.utcoffset(context.start);
                       start_utcoffset python:(start_utcdelta.days*86400+start_utcdelta.seconds)*100/60/60;">
                       <span tal:replace="structure python:view.formatted_date(context)" ></span>
                     </div>
@@ -116,30 +115,31 @@
               <div class="event-menu">
                 <div class="event-menu-item" id="register"
                     tal:condition="python:context.registrations_open() and not context.is_registered()">
-                  <a href="./register">
+                  <a href="./register" tal:attributes="href string:${context/absolute_url}/register" >
                     <img src="++resource++eea.meeting/img/register.png" />
                     <span>Register</span>
                   </a>
                 </div>
                 <div class="event-menu-item">
-                  <a href="./ics_view">
+                  <a href="./ics_view" tal:attributes="href string:${context/absolute_url}/ics_view" >
                     <img src="++resource++eea.meeting/img/ical.png" />
                     <span>ICal</span>
                   </a>
                 </div>
                 <div class="event-menu-item" tal:condition="python:view.has_subscribers() and checkPermission('EEA Meting: View subscribers', context)">
-                  <a href="./subscribers">
+                  <a href="./subscribers" tal:attributes="href string:${context/absolute_url}/subscribers" >
                     <img src="++resource++eea.meeting/img/participants.png" />
                     <span>Participants</span>
                   </a>
                 </div>
                 <div class="event-menu-item" tal:condition="python:view.has_sent_emails() and checkPermission('EEA Meting: View Emails', context)">
-                  <a href="./emails">
+                  <a href="./emails" tal:attributes="href string:${context/absolute_url}/emails" >
                     <img src="++resource++eea.meeting/img/mail-archive.png" />
                     <span>Mail archive</span>
                   </a>
                 </div>
               </div>
+   
             </div>
           </div>
 
@@ -150,7 +150,8 @@
 
         <div id="parent-fieldname-text" tal:content="structure context/text/output"></div>
 
-        <tal:listing tal:define="allowed view/can_list_content" tal:condition="allowed">
+        <!-- 
+          <tal:listing tal:define="allowed view/can_list_content" tal:condition="allowed">
           <div class="meeting-items" tal:define="
             contentFilter python:{'portal_type': view.allowedPortalTypes};
             folderContents python:context.getFolderContents(contentFilter);" tal:condition="folderContents">
@@ -159,6 +160,7 @@
             </metal:content>
           </div>
         </tal:listing>
+         -->
 
       </div>
     </div>

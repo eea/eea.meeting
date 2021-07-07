@@ -25,7 +25,7 @@ class Subscribers(Container):
         is_approved = partial(eq, APPROVED_STATE)
         sub_states = map(api.content.get_state, self.get_subscribers())
         approved = filter(is_approved, sub_states)
-        return len(approved)
+        return len(list(approved))
 
     def subscriber_ids(self):
         """ Return subscribers IDs. """

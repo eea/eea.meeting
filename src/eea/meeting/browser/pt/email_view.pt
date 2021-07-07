@@ -20,9 +20,7 @@
         Recipients:
       </label>
 
-      <div tal:content="python:', '.join(context.receiver) if
-        isinstance(context.receiver, basestring) is not True else
-        context.receiver">
+      <div tal:content="view/has_receiver">
         somename@email.com
       </div>
     </div>
@@ -32,8 +30,7 @@
         CC:
       </label>
 
-      <div tal:content="python:', '.join(context.cc) if
-        isinstance(context.receiver, basestring) is not True else context.cc">
+      <div tal:content="view/has_cc">
         somename@email.com
       </div>
     </div>

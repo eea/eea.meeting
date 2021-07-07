@@ -28,7 +28,7 @@
        <p>Users registered to participate in this meeting</p>
        <a class="back-button" tal:attributes="href python:context.aq_parent.absolute_url()">Back to meeting page</a>
        <div class="clearfix"></div>
-       <form action="./api" method="POST"
+       <form action="./api" tal:attributes="action string:${context/absolute_url}/api" method="POST"
              tal:define="meeting python:context.aq_parent">
          <div class="table-responsive">
            <table id="subscribers" class="table table-hover">
@@ -54,8 +54,7 @@
                 <td colspan="3">No subscribers.</td>
               </tr>
               <tal:subscribers tal:repeat="subscriber subscribers">
-                <tr tal:define="subscriber_details python:subscriber.get_details();
-                                roles_dict python:context.aq_parent.get_subscriber_roles_dict()">
+                <tr tal:define="subscriber_details python:subscriber.get_details();">
                   <td tal:condition="can_edit">
                     <input type="checkbox" data-role="select-subscriber" name="subscribers:list" tal:attributes="value subscriber/getId"/>
                   </td>
@@ -76,7 +75,7 @@
                   </td>
                   <td tal:content="python:subscriber.reimbursed and 'Yes' or 'No'" />
                   <td tal:content="python:subscriber.visa and 'Yes' or 'No'" />
-                  <td tal:content="python:subscriber.role_other if subscriber.role == 'other' else roles_dict.get(subscriber.role)" />
+                  <td tal:content="python:subscriber.role" />
                 </tr>
               </tal:subscribers>
             </tbody>

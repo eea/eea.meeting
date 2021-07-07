@@ -39,7 +39,7 @@ class ISubscriber(Interface):
 
     role = schema.Choice(
         title=_(u"Role"),
-        vocabulary="subscriber_roles",
+        vocabulary="eea.meeting.SubscriberRolesVocabulary",
         required=True,
     )
 

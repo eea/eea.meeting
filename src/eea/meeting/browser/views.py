@@ -20,7 +20,8 @@ from zope.component import getMultiAdapter
 from zope.component.hooks import getSite
 from zope.contentprovider.interfaces import IContentProvider
 from zope.interface import classImplements
-
+import six
+from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 
 def add_subscriber(subscribers, **kwargs):
     """ Add subscriber """
@@ -253,7 +254,7 @@ class Register(BrowserView):
             role = self.request.form.get("form.widgets.role")[0]
         except Exception:
             role = "other"
-
+        
         props = dict(
             title=fullname,
             id=uid,
@@ -350,6 +351,16 @@ class ViewEmail(BrowserView):
     """ Email view in mail archive
     """
 
+    def has_receiver(self):
+        if isinstance(self.context.receiver, six.text_type) is not True:
+            return ', '.join(self.context.receiver) 
+        return self.context.receiver
+    
+    def has_cc(self):
+        if isinstance(self.context.receiver, six.text_type) is not True:
+            return ', '.join(self.context.cc) 
+        return self.context.cc
+
 
 class ViewSentEmails(BrowserView):
     """Sent Emails Archive"""
@@ -371,7 +382,7 @@ class ViewSentEmails(BrowserView):
             email = brain.getObject()
 
             email_receiver = email.receiver
-            if isinstance(email_receiver, basestring) is True:
+            if isinstance(email_receiver, six.text_type) is True:
                 email_receiver = [email_receiver]
 
             if isinstance(email_receiver, set):

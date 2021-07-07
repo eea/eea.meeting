@@ -4,8 +4,8 @@
 import re
 from zope.interface import Invalid
 
-from Products.CMFDefault.exceptions import EmailAddressInvalid
-from Products.CMFDefault.utils import checkEmailAddress
+from Products.CMFPlone.RegistrationTool import EmailAddressInvalid
+from Products.CMFPlone.RegistrationTool import checkEmailAddress
 
 import plone.api as api
 

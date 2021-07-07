@@ -47,7 +47,8 @@ setup(
         'setuptools',
         'plone.app.dexterity',
         'plone.app.contenttypes',
-        'plone.app.ldap',
+        # 'plone.app.ldap',
+        'plone.app.controlpanel',
         'plone.schema',
         'plone.behavior',
         'plone.app.z3cform',
@@ -55,7 +56,7 @@ setup(
         'plone.app.registry',
         'Products.MemcachedManager',
         'collective.geolocationbehavior',
-        'plone.formwidget.geolocation>=1.4,<2.0'
+        'plone.formwidget.geolocation>=2.2.3',
     ],
     extras_require={
         'test': [

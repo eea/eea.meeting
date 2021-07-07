@@ -9,7 +9,6 @@ from plone.dexterity.utils import createContentInContainer
 from zope.interface import implementer
 from AccessControl import getSecurityManager
 
-
 @implementer(IMeeting)
 class Meeting(Container):
     """ EEA Meeting content type"""
@@ -91,19 +90,20 @@ class Meeting(Container):
         """ Return subscribers """
         return self.subscribers.get_subscribers()
 
-    def get_subscriber_roles_dict(self):
-        """ Subscriber roles """
-        try:
-            # defined in eni.seis.content
-            vocab = self.portal_vocabularies.subscriber_roles
-        except AttributeError:
-            # ignore this feature if vocab is not defined
-            return {}
+    # def get_subscriber_roles_dict(self):
+    #     """ Subscriber roles """
+    #     try:
+    #         # defined in eni.seis.content
+    #         # vocab = self.portal_vocabularies.subscriber_roles
+    #     except AttributeError:
+    #         # ignore this feature if vocab is not defined
+    #         return {}
+        
 
-        roles_dict = {}
-        for key in vocab.keys():
-            roles_dict[key] = vocab[key].title
-        return roles_dict
+    #     roles_dict = {}
+    #     for key in vocab.keys():
+    #         roles_dict[key] = vocab[key].title
+    #     return roles_dict
 
     @property
     def human_readable_date(self):

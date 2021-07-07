@@ -35,7 +35,7 @@ def post_install(context):
             oid = site.manage_addProduct[
                 'MemcachedManager'].manage_addMemcachedManager('MEMCache')
             oid = oid
-        except Exception, err:
+        except Exception as err:
             logger.exception(err)
         else:
             cache = site._getOb('MEMCache')
