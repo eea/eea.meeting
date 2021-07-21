@@ -1,0 +1,16 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:plone="http://namespaces.plone.org/plone"
+    i18n_domain="eea.meeting">
+
+  <plone:service
+      method="POST"
+      factory=".post.Register"
+      for="eea.meeting.interfaces.IMeeting"
+      permission="eea.meeting.register"
+      name="@register"
+      />
+
+    <adapter factory=".serializer.SerializerToJsonMeeting" />
+
+</configure>

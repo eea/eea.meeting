@@ -15,6 +15,7 @@
   <include package=".events" />
   <include package=".upgrades" />
   <include package=".vocabularies" />
+  <include package=".restapi" />
 
 
   <utility
