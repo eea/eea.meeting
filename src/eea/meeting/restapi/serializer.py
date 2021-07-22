@@ -17,12 +17,12 @@ class SerializerToJsonMeeting(SerializeToJson):
         emails = self.context.get("emails")
         sm = getSecurityManager()
         if sm.checkPermission("EEA Meting: View subscribers", subscribers):
-            result.update({"subscribers_link": True})
+            result.update({"subscribers_link": subscribers.absolute_url()})
         else:
-            result.update({"subscribers_link": False})
+            result.update({"subscribers_link": None})
 
         if sm.checkPermission("EEA Meting: View Emails", emails):
-            result.update({"emails_link": True})
+            result.update({"emails_link": emails.absolute_url()})
         else:
-            result.update({"emails_link": False})
+            result.update({"emails_link": None})
         return result
