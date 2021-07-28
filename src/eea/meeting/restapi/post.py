@@ -9,24 +9,15 @@ class Register(Service):
     """Register current user"""
 
     def __call__(self):
-        if not (self.context.can_register()):
-            self.request.response.setStatus(400)
-            result = {
-                "message": "Registration not available",
-            }
-            return result
         if "IDisableCSRFProtection" in dir(plone.protect.interfaces):
             alsoProvides(self.request, plone.protect.interfaces.IDisableCSRFProtection)
         subscribers = self.context.get("subscribers")
-        result = {
-            "message": "",
-        }
         try:
             self.validate(subscribers)
         except Exception as e:
             self.request.response.setStatus(400)
             result = {
-                "message": e.message,
+                "message": str(e),
             }
             return result
 
@@ -56,7 +47,7 @@ class Register(Service):
         except Exception as e:
             self.request.response.setStatus(400)
             result = {
-                "message": e.message,
+                "message": str(e),
             }
             return result
 
