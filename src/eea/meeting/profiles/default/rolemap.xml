@@ -54,5 +54,10 @@
       <role name="Owner"/>
       <role name="Site Administrator"/>
     </permission>
+    <permission name="EEA Meeting: Add AnonymousForm" acquire="True">
+      <role name="Manager"/>
+      <role name="Owner"/>
+      <role name="Site Administrator"/>
+    </permission>
   </permissions>
 </rolemap>

@@ -65,3 +65,5 @@ class Register(Service):
             raise Exception("Registration not allowed")
         if self.context.is_registered():
             raise Exception("User already registered")
+        if self.context.allow_anonymous_registration:
+            raise Exception("Fill in the registration form")

@@ -11,21 +11,26 @@ from zope.schema.vocabulary import SimpleVocabulary, SimpleTerm
 
 
 meeting_types = SimpleVocabulary(
-    [SimpleTerm(value=u'meeting', title=_(u'Meeting')),
-     SimpleTerm(value=u'conference', title=_(u'Conference')),
-     SimpleTerm(value=u'workshop', title=_(u'Workshop')),
-     SimpleTerm(value=u'webinar', title=_(u'Webinar'))]
+    [
+        SimpleTerm(value=u"meeting", title=_(u"Meeting")),
+        SimpleTerm(value=u"conference", title=_(u"Conference")),
+        SimpleTerm(value=u"workshop", title=_(u"Workshop")),
+        SimpleTerm(value=u"webinar", title=_(u"Webinar")),
+    ]
 )
 
 meeting_levels = SimpleVocabulary(
-    [SimpleTerm(value=u'national', title=_(u'National Level')),
-     SimpleTerm(value=u'regional', title=_(u'Regional Level')),
-     SimpleTerm(value=u'other', title=_(u'Other'))]
+    [
+        SimpleTerm(value=u"national", title=_(u"National Level")),
+        SimpleTerm(value=u"regional", title=_(u"Regional Level")),
+        SimpleTerm(value=u"other", title=_(u"Other")),
+    ]
 )
 
 
 class IMeeting(Interface):
-    """ Meeting """
+    """Meeting"""
+
     text = RichText(
         title=_(u"Body text"),
         required=True,
@@ -49,8 +54,10 @@ class IMeeting(Interface):
     )
 
     allow_register_above_max = schema.Bool(
-        title=_(u"Continue to allow registration when maximum number of"
-                " participants is reached"),
+        title=_(
+            u"Continue to allow registration when maximum number of"
+            " participants is reached"
+        ),
         required=True,
     )
 
@@ -59,7 +66,7 @@ class IMeeting(Interface):
         description=_(u"Allow registration starting with this datetime."),
         required=False,
         min=datetime.datetime(2018, 1, 1),
-        max=datetime.datetime(datetime.datetime.now().year + 10, 12, 31)
+        max=datetime.datetime(datetime.datetime.now().year + 10, 12, 31),
     )
 
     allow_register_end = schema.Datetime(
@@ -67,13 +74,15 @@ class IMeeting(Interface):
         description=_(u"Allow registration until this datetime."),
         required=False,
         min=datetime.datetime(2018, 1, 1),
-        max=datetime.datetime(datetime.datetime.now().year + 10, 12, 31)
+        max=datetime.datetime(datetime.datetime.now().year + 10, 12, 31),
     )
 
     restrict_content_access = schema.Bool(
-        title=_(u"Hide the content of Additional materials table for not "
-                "registered users"),
-        required=True
+        title=_(
+            u"Hide the content of Additional materials table for not "
+            "registered users"
+        ),
+        required=True,
     )
 
     auto_approve = schema.Bool(
@@ -98,29 +107,28 @@ class IMeeting(Interface):
     )
 
     contact_email = schema.TextLine(
-        title=_(u"Contact email"),
-        required=True,
-        constraint=validate_email
+        title=_(u"Contact email"), required=True, constraint=validate_email
     )
 
     location = schema.TextLine(
-        title=_(
-            u'label_event_location',
-            default=u'Event location'
-        ),
-        description=_(
-            u'help_event_location',
-            default=u'Location of the event.'
-        ),
+        title=_(u"label_event_location", default=u"Event location"),
+        description=_(u"help_event_location", default=u"Location of the event."),
         required=False,
-        default=None
+        default=None,
+    )
+
+    allow_anonymous_registration = schema.Bool(
+        title=_(u"allow_anonymous_registration"), default=False
     )
 
     @invariant
     def validate_location_required(data):
-        """ validate location required """
-        if data.meeting_type != 'webinar' and data.location is None:
-            raise Invalid(_(
-                u"Event location input is missing." +
-                " This field is not required only in " +
-                "'Meeting type: webinar' case."))
+        """validate location required"""
+        if data.meeting_type != "webinar" and data.location is None:
+            raise Invalid(
+                _(
+                    u"Event location input is missing."
+                    + " This field is not required only in "
+                    + "'Meeting type: webinar' case."
+                )
+            )

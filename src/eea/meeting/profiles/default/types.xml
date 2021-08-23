@@ -6,4 +6,5 @@
   <object name="eea.meeting.email" meta_type="Dexterity FTI"/>
   <object name="eea.meeting.emails" meta_type="Dexterity FTI"/>
   <object name="eea.meeting.workspace" meta_type="Dexterity FTI"/>
+  <object name="AnonymousForm" meta_type="Dexterity FTI"/>
 </object>

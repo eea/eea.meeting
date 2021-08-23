@@ -56,4 +56,9 @@
       id="eea.meeting.view_meeting_workspace"
       title="EEA Meeting: View Meeting Workspace"
       />
+
+  <permission
+      id="eea.meeting.AddAnonymousForm"
+      title="EEA Meeting: Add AnonymousForm"
+      />
 </configure>

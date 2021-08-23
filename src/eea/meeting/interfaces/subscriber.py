@@ -12,30 +12,21 @@ from plone.autoform import directives
 
 
 class ISubscriber(Interface):
-    """ Meeting subscriber """
+    """Meeting subscriber"""
+
     userid = schema.TextLine(
         title=_("User id"),
         required=True,
         constraint=validate_userid,
     )
 
-    email = schema.TextLine(
-        title=_(u"Email"),
-        required=True,
-        constraint=validate_email
-    )
+    email = schema.TextLine(title=_(u"Email"), required=True, constraint=validate_email)
 
     directives.widget(reimbursed=RadioFieldWidget)
-    reimbursed = schema.Bool(
-        title=_(u"Reimbursed participation"),
-        required=True
-    )
+    reimbursed = schema.Bool(title=_(u"Reimbursed participation"), required=True)
 
     directives.widget(visa=RadioFieldWidget)
-    visa = schema.Bool(
-        title=_(u"I need visa support letter"),
-        required=True
-    )
+    visa = schema.Bool(title=_(u"I need visa support letter"), required=True)
 
     role = schema.Choice(
         title=_(u"Role"),
@@ -50,10 +41,18 @@ class ISubscriber(Interface):
 
     request_data_deletion = schema.Bool(
         title=_(u"Request data deletion"),
-        description=_(u"Please delete my personal information after the event "
-                      "has ended, at latest 4 weeks after.")
+        description=_(
+            u"Please delete my personal information after the event "
+            "has ended, at latest 4 weeks after."
+        ),
+    )
+
+    anonymous_extra_data = schema.Text(
+        title=_(u"anonymous_extra_data"),
+        description=_(u"json for anonymous registration Volto form"),
+        required=False,
     )
 
 
 class ISubscribers(Interface):
-    """ Meeting subscribers """
+    """Meeting subscribers"""

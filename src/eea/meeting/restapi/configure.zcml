@@ -11,6 +11,14 @@
       name="@register"
       />
 
+  <plone:service
+      method="POST"
+      factory=".anonymouspost.Register"
+      for="eea.meeting.content.anonymousform.IAnonymousForm"
+      permission="zope2.View"
+      name="@form"
+      />
+
     <adapter factory=".serializer.SerializerToJsonMeeting" />
 
 </configure>

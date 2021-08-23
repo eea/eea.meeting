@@ -23,84 +23,81 @@ from zope.interface import classImplements
 import six
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 
+
 def add_subscriber(subscribers, **kwargs):
-    """ Add subscriber """
+    """Add subscriber"""
     return createContentInContainer(
-        subscribers,
-        'eea.meeting.subscriber',
-        checkConstraints=False,
-        **kwargs
+        subscribers, "eea.meeting.subscriber", checkConstraints=False, **kwargs
     )
 
 
 class MeetingView(DefaultView):
-    """ EEA Meeting index """
+    """EEA Meeting index"""
 
     def formatted_date(self, occ):
-        """ formatted date """
+        """formatted date"""
         provider = getMultiAdapter(
-            (self.context, self.request, self),
-            IContentProvider, name='formatted_date'
+            (self.context, self.request, self), IContentProvider, name="formatted_date"
         )
         return provider(occ)
 
     def get_auth_user_name(self):
-        """ Authenticated username """
+        """Authenticated username"""
         return api.user.get_current().getId()
 
     def has_sent_emails(self):
-        """ Check if there are any sent mails in the archive.
-        """
-        return self.context.unrestrictedTraverse('emails').keys()
+        """Check if there are any sent mails in the archive."""
+        return self.context.unrestrictedTraverse("emails").keys()
 
     def has_subscribers(self):
-        """ Check if there are any subscribers.
-        """
-        return self.context.unrestrictedTraverse('subscribers').keys()
+        """Check if there are any subscribers."""
+        return self.context.unrestrictedTraverse("subscribers").keys()
 
     def get_meeting_contents(self):
-        """ Return meeting related contents
-        """
-        content_filter = {'portal_type': self.allowedPortalTypes}
+        """Return meeting related contents"""
+        content_filter = {"portal_type": self.allowedPortalTypes}
         return self.context.getFolderContents(content_filter)
 
     def get_meeting_contents_by_case(self):
-        """ Case 1 (fallback): it has not a folder named "Public"
-                - return the meeting contents as default
+        """Case 1 (fallback): it has not a folder named "Public"
+            - return the meeting contents as default
 
-            Case 2: it has a folder named "Public":
-                - return only "Public" folder (with no custom access) and
-                  workspace item(s) if any (with custom access restrictions:
-                  only approved subscribers and admins can access them)
+        Case 2: it has a folder named "Public":
+            - return only "Public" folder (with no custom access) and
+              workspace item(s) if any (with custom access restrictions:
+              only approved subscribers and admins can access them)
 
-                  (also show private items only if the current user has access)
+              (also show private items only if the current user has access)
         """
         meeting = self.context
 
         try:
-            public_items = meeting['public']
-            private_items = meeting['workspace']
+            public_items = meeting["public"]
+            private_items = meeting["workspace"]
         except KeyError:
             return self.get_meeting_contents()
 
-        if public_items.portal_type == "Folder" and \
-                private_items.portal_type == "eea.meeting.workspace":
+        if (
+            public_items.portal_type == "Folder"
+            and private_items.portal_type == "eea.meeting.workspace"
+        ):
 
-            content_filter = {
-                'portal_type': self.allowedPortalTypes
-            }
+            content_filter = {"portal_type": self.allowedPortalTypes}
 
-            if private_items.unrestrictedTraverse(
-                    'current_user_has_access')() == 'has_access':
-                return public_items.getFolderContents(content_filter) + \
-                    private_items.getFolderContents(content_filter)
+            if (
+                private_items.unrestrictedTraverse("current_user_has_access")()
+                == "has_access"
+            ):
+                return public_items.getFolderContents(
+                    content_filter
+                ) + private_items.getFolderContents(content_filter)
 
             return public_items.getFolderContents(content_filter)
         return self.get_meeting_contents()
 
     @property
     def can_list_content(self):
-        """ check permission """
+        """check permission"""
         if not self.context.restrict_content_access:
             return True
 
@@ -116,45 +113,44 @@ class MeetingView(DefaultView):
         return False
 
     def _allowedPortalTypes(self):
-        """ Filter allowed ctypes
-        """
+        """Filter allowed ctypes"""
         allowed = [ctype.title for ctype in self.context.allowedContentTypes()]
         if not allowed:
-            allowed = ['Folder', 'File', 'Image', 'Link']
+            allowed = ["Folder", "File", "Image", "Link"]
         allowed.append("eea.meeting.workspace")  # Instead of EEA Meeting W...
 
         for ctype in allowed:
-            if 'Subscribers' in ctype:
+            if "Subscribers" in ctype:
                 continue
-            if 'Emails' in ctype:
+            if "Emails" in ctype:
                 continue
             yield ctype
 
     @property
     def allowedPortalTypes(self):
-        """ Get allowed children portal_types
-        """
+        """Get allowed children portal_types"""
         return [ctype for ctype in self._allowedPortalTypes()]
 
     def update(self):
-        """ update """
+        """update"""
         super(MeetingView, self).update()
-        if not self.context.get('subscribers'):
+        if not self.context.get("subscribers"):
             create_subscribers(self.context)
 
 
 class MeetingFormExtender(FormExtender):
-    """ Meeting Form Extender """
+    """Meeting Form Extender"""
+
     def update(self):
-        """ update """
-        self.move('IGeolocatable.geolocation', after='location')
-        self.form.fields['IGeolocatable.geolocation'].field.title = \
-            u'Event location on map'
+        """update"""
+        self.move("IGeolocatable.geolocation", after="location")
+        self.form.fields[
+            "IGeolocatable.geolocation"
+        ].field.title = u"Event location on map"
 
 
 class MeetingEditForm(DefaultEditForm):
-    """ Edit form for case studies
-    """
+    """Edit form for case studies"""
 
 
 MeetingEditView = layout.wrap_form(MeetingEditForm)
@@ -162,99 +158,93 @@ classImplements(MeetingEditView, IDexterityEditForm)
 
 
 class MeetingAddForm(DefaultAddForm):
-    """ Add Form for case studies
-    """
+    """Add Form for case studies"""
 
 
 class SubscribersView(BrowserView):
-    """ EEA Meeting Subscribers index """
+    """EEA Meeting Subscribers index"""
 
     def __call__(self, *args, **kwargs):
         if not self.context.aq_parent.allow_register:
             IStatusMessage(self.request).addStatusMessage(
                 "Users are not allowed to register to this meeting. "
                 "Please edit the meeting and enable the property "
-                "\"Allow users to register to the meeting\" if you want "
-                "this feature to be active.", type="info")
+                '"Allow users to register to the meeting" if you want '
+                "this feature to be active.",
+                type="info",
+            )
         return super(SubscribersView, self).__call__(*args, **kwargs)
 
     def can_edit(self):
-        """ check permission """
-        return api.user.has_permission(
-            'Modify portal content',
-            obj=self.context
-        )
+        """check permission"""
+        return api.user.has_permission("Modify portal content", obj=self.context)
 
 
 class SubscribersApi(BrowserView):
-    """ Manage subscribers.
-    """
+    """Manage subscribers."""
 
     def __call__(self):
-        if self.request.method == 'POST':
+        if self.request.method == "POST":
             return self.on_post()
 
     def on_post(self):
-        """ on post """
+        """on post"""
         subscribers = tuple(
-            self.context.get(s)
-            for s in self.request.get('subscribers', [])
+            self.context.get(s) for s in self.request.get("subscribers", [])
         )
 
-        if 'button.delete' in self.request:
+        if "button.delete" in self.request:
             self.delete(subscribers)
-        elif 'button.approve' in self.request:
+        elif "button.approve" in self.request:
             self.approve(subscribers)
-        elif 'button.reject' in self.request:
+        elif "button.reject" in self.request:
             self.reject(subscribers)
 
         return self.request.response.redirect(self.context.absolute_url())
 
     def _change_state(self, state, subscribers):
-        """ change state """
+        """change state"""
         action = partial(api.content.transition, to_state=state)
         map(action, subscribers)
 
     def delete(self, subscribers):
-        """ delete """
+        """delete"""
         self.context.manage_delObjects([s.getId() for s in subscribers])
 
     def approve(self, subscribers):
-        """ approve """
-        self._change_state('approved', subscribers)
+        """approve"""
+        self._change_state("approved", subscribers)
 
     def reject(self, subscribers):
-        """ reject """
-        self._change_state('rejected', subscribers)
+        """reject"""
+        self._change_state("rejected", subscribers)
 
 
 class Register(BrowserView):
-    """ Register current user
-    """
+    """Register current user"""
 
     def __call__(self):
-        subscribers = self.context.get('subscribers')
+        subscribers = self.context.get("subscribers")
 
         try:
             self.validate(subscribers)
         except Exception as e:
-            IStatusMessage(self.request).addStatusMessage(
-                e.message, type="error")
+            IStatusMessage(self.request).addStatusMessage(str(e), type="error")
             return self.request.response.redirect(self.context.absolute_url())
 
         current_user = api.user.get_current()
         uid = current_user.getId()
-        fullname = current_user.getProperty('fullname', uid)
-        email = current_user.getProperty('email')
+        fullname = current_user.getProperty("fullname", uid)
+        email = current_user.getProperty("email")
 
         r_val = self.request.form.get("form.widgets.reimbursed", "true")
-        reimbursed = True if r_val == 'true' else False
+        reimbursed = True if r_val == "true" else False
 
         try:
             role = self.request.form.get("form.widgets.role")[0]
         except Exception:
             role = "other"
-        
+
         props = dict(
             title=fullname,
             id=uid,
@@ -267,80 +257,85 @@ class Register(BrowserView):
         add_subscriber(subscribers, **props)
 
         IStatusMessage(self.request).addStatusMessage(
-            "You have succesfully registered to this meeting", type="info")
+            "You have succesfully registered to this meeting", type="info"
+        )
 
         return self.request.response.redirect(self.context.absolute_url())
 
     def validate(self, subscribers):
-        """ validate """
+        """validate"""
         if not subscribers:
             raise Exception("Can't find subscribers directory")
         if not self.context.can_register():
             raise Exception("Registration not allowed")
         if self.context.is_registered():
             raise Exception("User already registered")
+        if self.context.allow_anonymous_registration:
+            raise Exception("Fill in the registration form")
 
 
 class RegisterUser(BrowserView):
-    """ Register a user
-    """
+    """Register a user"""
+
     label = _(u"Register user")
 
     def __init__(self, context, request):
         super(RegisterUser, self).__init__(context, request)
-        self._searchString = ''
+        self._searchString = ""
 
     @property
     def searchString(self):
-        """ Search string
-        """
+        """Search string"""
         if not self._searchString:
-            self._searchString = self.request.get('searchstring', '')
+            self._searchString = self.request.get("searchstring", "")
         return self._searchString
 
     @property
     def users(self):
-        """ Users
-        """
+        """Users"""
         if not self.searchString:
             return []
 
         site = getSite()
-        cpanel = getMultiAdapter((site, self.request),
-                                 name=u"usergroup-userprefs")
+        cpanel = getMultiAdapter((site, self.request), name=u"usergroup-userprefs")
         return cpanel.doSearch(self.searchString)
 
     def _register(self, users):
-        """ Register users
-        """
-        subscribers = self.context.get('subscribers')
+        """Register users"""
+        subscribers = self.context.get("subscribers")
         emails = [sub.email for sub in subscribers.values()]
         for username in users:
             user = api.user.get(username)
-            fullname = user.getProperty('fullname', username)
-            email = user.getProperty('email')
+            fullname = user.getProperty("fullname", username)
+            email = user.getProperty("email")
             if email in emails:
                 continue
 
             createContentInContainer(
-                subscribers, 'eea.meeting.subscriber',
+                subscribers,
+                "eea.meeting.subscriber",
                 checkConstraints=False,
-                title=fullname, id=username, userid=username,
-                email=email)
+                title=fullname,
+                id=username,
+                userid=username,
+                email=email,
+            )
 
         IStatusMessage(self.request).addStatusMessage(
-            "Users registered to this meeting", type="info")
+            "Users registered to this meeting", type="info"
+        )
         return self.request.response.redirect(
-            self.context.absolute_url() + '/register_user')
+            self.context.absolute_url() + "/register_user"
+        )
 
     def __call__(self, *args, **kwargs):
-        if self.request.method.lower() != 'post':
+        if self.request.method.lower() != "post":
             return self.index()
 
-        if not self.request.get('form.button.register', None):
+        if not self.request.get("form.button.register", None):
             return self.index()
 
-        users = self.request.get('users', [])
+        users = self.request.get("users", [])
         if not users:
             return self.index()
 
@@ -348,17 +343,16 @@ class RegisterUser(BrowserView):
 
 
 class ViewEmail(BrowserView):
-    """ Email view in mail archive
-    """
+    """Email view in mail archive"""
 
     def has_receiver(self):
         if isinstance(self.context.receiver, six.text_type) is not True:
-            return ', '.join(self.context.receiver) 
+            return ", ".join(self.context.receiver)
         return self.context.receiver
-    
+
     def has_cc(self):
         if isinstance(self.context.receiver, six.text_type) is not True:
-            return ', '.join(self.context.cc) 
+            return ", ".join(self.context.cc)
         return self.context.cc
 
 
@@ -366,16 +360,16 @@ class ViewSentEmails(BrowserView):
     """Sent Emails Archive"""
 
     def email_archive(self):
-        """ email archive """
+        """email archive"""
         results = []
-        portal_catalog = api.portal.get_tool('portal_catalog')
+        portal_catalog = api.portal.get_tool("portal_catalog")
         current_path = "/".join(self.context.getPhysicalPath())
 
         brains = portal_catalog(
             portal_type="eea.meeting.email",
-            sort_on='created',
-            sort_order='descending',
-            path=current_path
+            sort_on="created",
+            sort_order="descending",
+            path=current_path,
         )
 
         for brain in brains:
@@ -388,24 +382,26 @@ class ViewSentEmails(BrowserView):
             if isinstance(email_receiver, set):
                 email_receiver = list(email_receiver)
 
-            results.append({
-                'sender': email.sender,
-                'receiver': ', '.join(email_receiver or []),
-                'cc': ', '.join(email.cc or []),
-                'subject': email.subject,
-                'body': email.body,
-                'ModificationDate': self.context.toLocalizedTime(
-                    DateTime(email.ModificationDate())),
-                'absolute_url': email.absolute_url(),
-                'email_type': email.email_type
-            })
+            results.append(
+                {
+                    "sender": email.sender,
+                    "receiver": ", ".join(email_receiver or []),
+                    "cc": ", ".join(email.cc or []),
+                    "subject": email.subject,
+                    "body": email.body,
+                    "ModificationDate": self.context.toLocalizedTime(
+                        DateTime(email.ModificationDate())
+                    ),
+                    "absolute_url": email.absolute_url(),
+                    "email_type": email.email_type,
+                }
+            )
 
         return results
 
 
 class WorkspaceAccessView(DefaultView):
-    """ /@@current_user_has_access
-    """
+    """/@@current_user_has_access"""
 
     def __call__(self, *args, **kwargs):
         YES_FLAG = "has_access"
@@ -419,7 +415,8 @@ class WorkspaceAccessView(DefaultView):
         subscribers = meeting.get_subscribers()
 
         approved_subscribers_ids = [
-            subscriber.userid for subscriber in subscribers
+            subscriber.userid
+            for subscriber in subscribers
             if subscriber.state() == "approved"
         ]
 
