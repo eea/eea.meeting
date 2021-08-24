@@ -12,12 +12,13 @@
       />
 
   <plone:service
-      method="POST"
-      factory=".anonymouspost.Register"
-      for="eea.meeting.content.anonymousform.IAnonymousForm"
-      permission="zope2.View"
-      name="@form"
-      />
+    method="POST"
+    name="@submit-form"
+    for="eea.meeting.content.anonymousform.IAnonymousForm"
+    factory=".anonymouspost.Register"
+    permission="zope2.View"
+    layer="eea.meeting.interfaces.IMeetingLayer"
+    />
 
     <adapter factory=".serializer.SerializerToJsonMeeting" />
 

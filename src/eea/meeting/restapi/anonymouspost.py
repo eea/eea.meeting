@@ -78,8 +78,15 @@ class Register(Service):
     def anonymous_registration_dict(self):
         try:
             data = self.get_body_data()
-            anonymous_fullname = data.get("fullname")
-            anonymous_email = data.get("email")
+            anonymous_fullname = ""
+            anonymous_email = ""
+            fields = data.get("data")
+            for field in fields:
+                if "customid" in field and field.get("customid") == "email":
+                    anonymous_email = field.get("value")
+                elif "customid" in field and field.get("customid") == "fullname":
+                    anonymous_fullname = field.get("value")
+
             uid = self.randomStringDigits()
             props = dict(
                 title=anonymous_fullname,
