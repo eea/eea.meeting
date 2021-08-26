@@ -8,10 +8,13 @@ from AccessControl import getSecurityManager
 import string, random
 from Acquisition import aq_parent
 import json
+from collective.volto.formsupport.restapi.services.submit_form.post import SubmitPost
 
 
-class Register(Service):
-    def __call__(self):
+class Register(SubmitPost):
+    def reply(self):
+        if self.context.portal_type != "AnonymousForm":
+            return super(Register, self).reply()
         if "IDisableCSRFProtection" in dir(plone.protect.interfaces):
             alsoProvides(self.request, plone.protect.interfaces.IDisableCSRFProtection)
         subscribers = aq_parent(self.context).get("subscribers")
@@ -82,9 +85,15 @@ class Register(Service):
             anonymous_email = ""
             fields = data.get("data")
             for field in fields:
-                if "customid" in field and field.get("customid") == "email":
+                if (
+                    "field_custom_id" in field
+                    and field.get("field_custom_id") == "email"
+                ):
                     anonymous_email = field.get("value")
-                elif "customid" in field and field.get("customid") == "fullname":
+                elif (
+                    "field_custom_id" in field
+                    and field.get("field_custom_id") == "fullname"
+                ):
                     anonymous_fullname = field.get("value")
 
             uid = self.randomStringDigits()

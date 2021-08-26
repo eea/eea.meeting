@@ -10,16 +10,6 @@
       permission="eea.meeting.register"
       name="@register"
       />
-
-  <plone:service
-    method="POST"
-    name="@submit-form"
-    for="eea.meeting.content.anonymousform.IAnonymousForm"
-    factory=".anonymouspost.Register"
-    permission="zope2.View"
-    layer="eea.meeting.interfaces.IMeetingLayer"
-    />
-
     <adapter factory=".serializer.SerializerToJsonMeeting" />
 
 </configure>
