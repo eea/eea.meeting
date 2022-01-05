@@ -3,6 +3,64 @@ import plone.api as api
 from eea.meeting.browser.views import add_subscriber
 import plone.protect.interfaces
 from zope.interface import alsoProvides
+from plone.restapi.deserializer import json_body
+import plone.api as api
+
+
+class SubscribersManipulation(Service):
+    def delete(self, subscribers):
+        """delete"""
+        self.context.manage_delObjects(subscribers)
+
+    def approve(self, subscribers):
+        """approve"""
+        self._change_state("approve", subscribers)
+
+    def reject(self, subscribers):
+        """reject"""
+        self._change_state("reject", subscribers)
+
+    def _change_state(self, state, subscribers):
+        """change state"""
+        for subscriber in subscribers:
+            elem = self.context.get(subscriber)
+            try:
+                api.content.transition(obj=elem, transition=state)
+            except:
+                pass
+
+    def reply(self):
+
+        if "IDisableCSRFProtection" in dir(plone.protect.interfaces):
+            alsoProvides(self.request, plone.protect.interfaces.IDisableCSRFProtection)
+        data = json_body(self.request)
+        manipulation_type = data.get("manipulation_type", None)
+        subscriberSelection = data.get("subscriberSelection", [])
+        return_dict = {}
+        if manipulation_type and subscriberSelection:
+            if manipulation_type == "delete":
+                self.delete(subscriberSelection)
+                return_dict = {"message": "Well deleted"}
+            elif manipulation_type == "approve":
+                self.approve(subscriberSelection)
+                return_dict = {"message": "Well approved"}
+            elif manipulation_type == "reject":
+                self.reject(subscriberSelection)
+                return_dict = {"message": "Well rejected"}
+        subscribers = api.content.find(portal_type="eea.meeting.subscriber")
+        objects = [subscriber.getObject() for subscriber in subscribers]
+        return_dict["items"] = [
+            {
+                "id": subscriber.id,
+                "user_name": subscriber.Title(),
+                "name": subscriber.Title(),
+                "email": subscriber.email,
+                "review_state": subscriber.state(),
+            }
+            for subscriber in objects
+        ]
+
+        return return_dict
 
 
 class Register(Service):

@@ -10,6 +10,43 @@
       permission="eea.meeting.register"
       name="@register"
       />
+
+  <plone:service
+      method="POST"
+      factory=".post.SubscribersManipulation"
+      for="eea.meeting.interfaces.ISubscribers"
+      permission="eea.meeting.admin_meeting"
+      name="@manipulation"
+      />
     <adapter factory=".serializer.SerializerToJsonMeeting" />
+
+  <plone:service
+      method="GET"
+      factory=".get.ContentGetSubscribers"
+      for="eea.meeting.interfaces.ISubscribers"
+      permission="zope2.View"
+      />
+
+  <plone:service
+      method="GET"
+      factory=".get.ContentGetSubscribers"
+      for="eea.meeting.interfaces.ISubscriber"
+      permission="zope2.View"
+      />
+
+  <plone:service
+      method="GET"
+      factory=".get.ContentGetEmails"
+      for="eea.meeting.interfaces.IEmails"
+      permission="zope2.View"
+      />
+
+  <plone:service
+      method="GET"
+      factory=".get.ContentGetEmails"
+      for="eea.meeting.interfaces.IEmail"
+      permission="zope2.View"
+      />
+
 
 </configure>

@@ -8,7 +8,9 @@ from AccessControl import getSecurityManager
 import string, random
 from Acquisition import aq_parent
 import json
-from collective.volto.formsupport.restapi.services.submit_form.post import SubmitPost
+from collective.volto.formsupport.restapi.services.submit_form.post import (
+    SubmitPost,
+)
 
 
 class Register(SubmitPost):
@@ -16,7 +18,9 @@ class Register(SubmitPost):
         if self.context.portal_type != "AnonymousForm":
             return super(Register, self).reply()
         if "IDisableCSRFProtection" in dir(plone.protect.interfaces):
-            alsoProvides(self.request, plone.protect.interfaces.IDisableCSRFProtection)
+            alsoProvides(
+                self.request, plone.protect.interfaces.IDisableCSRFProtection
+            )
         subscribers = aq_parent(self.context).get("subscribers")
         anonymous_registration_allowed = self.anonymous_registration_allowed()
         if not (anonymous_registration_allowed):
@@ -113,4 +117,6 @@ class Register(SubmitPost):
     def randomStringDigits(self, stringLength=8):
         """Generate a random string of letters and digits"""
         lettersAndDigits = string.ascii_letters + string.digits
-        return "".join(random.choice(lettersAndDigits) for i in range(stringLength))
+        return "".join(
+            random.choice(lettersAndDigits) for i in range(stringLength)
+        )

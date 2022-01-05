@@ -11,7 +11,6 @@ from AccessControl import getSecurityManager
 @adapter(IMeeting, Interface)
 class SerializerToJsonMeeting(SerializeToJson):
     def __call__(self, version=None, include_items=True):
-
         result = super(SerializerToJsonMeeting, self).__call__(version, include_items)
         subscribers = self.context.get("subscribers")
         emails = self.context.get("emails")
@@ -25,4 +24,15 @@ class SerializerToJsonMeeting(SerializeToJson):
             result.update({"emails_link": emails.absolute_url()})
         else:
             result.update({"emails_link": None})
+
+        if result["allow_anonymous_registration"]:
+            anonymousforms_list = self.context.getFolderContents(
+                {"portal_type": "AnonymousForm", "review_state": "published"}
+            )
+            if anonymousforms_list:
+                result["anonymous_registration_form_url"] = anonymousforms_list[
+                    0
+                ].getURL()
+
+        result["is_registered"] = self.context.is_registered()
         return result
