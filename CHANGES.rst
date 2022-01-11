@@ -1,7 +1,7 @@
 Changelog
 =========
 
-2.0a1+cs.3 (unreleased)
+2.0a1+cs.3 (2022-01-11)
 -----------------------
 
 - change default field config [Mikel Larreategi <mlarreategi@codesyntax.com>]
