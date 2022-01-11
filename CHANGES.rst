@@ -4,7 +4,12 @@ Changelog
 2.0a1+cs.3 (unreleased)
 -----------------------
 
-- Nothing changed yet.
+- change default field config [Mikel Larreategi <mlarreategi@codesyntax.com>]
+
+-  [Mikel Larreategi <mlarreategi@codesyntax.com>]
+
+- [ci skip] [Mikel Larreategi <mlarreategi@codesyntax.com>]
+
 
 
 2.0a1+cs.2 (2022-01-11)
