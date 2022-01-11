@@ -4,6 +4,16 @@ Changelog
 1.3.6 (unreleased)
 ------------------
 
+- Add an option to allow anonymous users to register to meetings
+  [libargutxi]
+
+- REST API endpoints
+  [libargutxi]
+
+- Update to Plone 5.2
+  [ionlizarazu]
+
+
 1.3.5 (2020-08-24)
 ------------------
 - Improve: add Jenkins, improve code.
