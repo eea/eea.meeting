@@ -1,8 +1,8 @@
 Changelog
 =========
 
-1.3.6 (unreleased)
-------------------
+2.0a1+cs.2 (2022-01-11)
+-----------------------
 
 - Add an option to allow anonymous users to register to meetings
   [libargutxi]
