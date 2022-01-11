@@ -43,8 +43,9 @@ def post_install(context):
             cache._p_changed = True
 
             # Set cache for ldap-plugin
-            ldap_plugin = site['acl_users']['ldap-plugin']
-            ldap_plugin.ZCacheable_setManagerId(manager_id='MEMCache')
+            ldap_plugin = site["acl_users"].get("ldap-plugin", None)
+            if ldap_plugin is not None:
+                ldap_plugin.ZCacheable_setManagerId(manager_id="MEMCache")
 
 
 def uninstall(context):
