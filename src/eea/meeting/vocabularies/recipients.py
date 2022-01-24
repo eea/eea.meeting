@@ -18,14 +18,18 @@ class RecipientsVocabulary(object):
     def __call__(self, context):
         portal_catalog = api.portal.get_tool('portal_catalog')
 
-        if IMeeting.providedBy(context.aq_parent):
-            # normally this vocabulary is called from the email_sender form
-            # in which the context is the 'emails' container. aq_parent should
-            # be the Meeting content.
-            query_path = context.aq_parent.getPhysicalPath()
+        if not IMeeting.providedBy(context.aq_parent):
+            if IMeeting.providedBy(context.aq_parent.aq_parent):
+                # normally this vocabulary is called from the email_sender form
+                # in which the context is the 'emails' container. aq_parent should
+                # be the Meeting content.
+                query_path = context.aq_parent.aq_parent.getPhysicalPath()
+            else:
+                # if aq_parent is not IMeeting, use the path of the current context
+                query_path = context.getPhysicalPath()
         else:
-            # if aq_parent is not IMeeting, use the path of the current context
-            query_path = context.getPhysicalPath()
+            query_path = context.aq_parent.getPhysicalPath()
+
 
         brains = portal_catalog(
             portal_type="eea.meeting.subscriber",
