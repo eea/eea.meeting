@@ -47,7 +47,8 @@ class SubscribersManipulation(Service):
             elif manipulation_type == "reject":
                 self.reject(subscriberSelection)
                 return_dict = {"message": "Well rejected"}
-        subscribers = api.content.find(portal_type="eea.meeting.subscriber")
+        subscribers = api.content.find(context=self.context, portal_type="eea.meeting.subscriber")
+        
         objects = [subscriber.getObject() for subscriber in subscribers]
         return_dict["items"] = [
             {
