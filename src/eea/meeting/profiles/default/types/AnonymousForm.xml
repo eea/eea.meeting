@@ -31,7 +31,7 @@
   <property name="klass">eea.meeting.content.anonymousform.AnonymousForm</property>
   <property name="model_file"></property>
   <property name="model_source"></property>
-  <property name="schema">eea.meeting.content.anonymousform.IAnonymousForm</property>
+  <property name="schema"></property>
 
   <!-- Enabled behaviors -->
   <property name="behaviors" purge="false">
