@@ -72,7 +72,7 @@ class CustomMailActionExecutor(MailActionExecutor):
         data = {
             'subject': meeting.title,
             'sender': source,
-            'receiver': recipients,
+            'receiver': {recipients},
             'cc': '',
             'body': email_body,
             'email_type': email_type,
