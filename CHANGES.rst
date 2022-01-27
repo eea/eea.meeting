@@ -1,8 +1,8 @@
 Changelog
 =========
 
-1.3.6 (unreleased)
-------------------
+2.0a1+cs.4 (2022-01-27)
+-----------------------
 
 - anonymous form extra information [ionlizarazu <ilizarazu@codesyntax.com>]
 
