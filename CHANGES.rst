@@ -4,7 +4,26 @@ Changelog
 1.3.6 (unreleased)
 ------------------
 
-1.3.5 (2020-08-24)
+- anonymous form extra information [ionlizarazu <ilizarazu@codesyntax.com>]
+
+- check if we have an email before creating a subscriber. If not, send the error [ionlizarazu <ilizarazu@codesyntax.com>]
+
+- check if we have received fullname and email in the post [ionlizarazu <ilizarazu@codesyntax.com>]
+
+- add schema [ionlizarazu <ilizarazu@codesyntax.com>]
+
+- test if we have a receiver before creating the email element [ionlizarazu <ilizarazu@codesyntax.com>]
+
+- add correctly the receiver at mail creation [ionlizarazu <ilizarazu@codesyntax.com>]
+
+- add grandparent condition to create correctly the vocabulary [ionlizarazu <ilizarazu@codesyntax.com>]
+
+- remove anonymousForm schema [ionlizarazu <ilizarazu@codesyntax.com>]
+
+- reorganize anonymous registration responses [ionlizarazu <ilizarazu@codesyntax.com>]
+
+- get current meeting subscribers after post [ionlizarazu <ilizarazu@codesyntax.com>]
+
 ------------------
 - Improve: add Jenkins, improve code.
   [valentinab25, GhitaB #116841]
