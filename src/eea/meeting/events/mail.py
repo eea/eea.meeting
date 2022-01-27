@@ -78,18 +78,19 @@ class CustomMailActionExecutor(MailActionExecutor):
             'email_type': email_type,
         }
 
-        content_id = name_chooser.chooseName(data['subject'], emails_folder)
-        obj = type_info._constructInstance(emails_folder, content_id)
+        if data['receiver']:
+            content_id = name_chooser.chooseName(data['subject'], emails_folder)
+            obj = type_info._constructInstance(emails_folder, content_id)
 
-        obj.title = data['subject']
-        obj.sender = data['sender']
-        obj.receiver = data['receiver']
-        obj.cc = data['cc']
-        obj.subject = data['subject']
-        obj.body = data['body']
-        obj.email_type = data['email_type']
+            obj.title = data['subject']
+            obj.sender = data['sender']
+            obj.receiver = data['receiver']
+            obj.cc = data['cc']
+            obj.subject = data['subject']
+            obj.body = data['body']
+            obj.email_type = data['email_type']
 
-        obj.reindexObject()
+            obj.reindexObject()
 
     def __init__(self, context, element, event):
         self.context = context
