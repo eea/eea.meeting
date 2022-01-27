@@ -93,24 +93,27 @@ class Register(SubmitPost):
                     "field_custom_id" in field
                     and field.get("field_custom_id") == "email"
                 ):
-                    anonymous_email = field.get("value")
+                    anonymous_email = field.get("value", None)
                 elif (
                     "field_custom_id" in field
                     and field.get("field_custom_id") == "fullname"
                 ):
-                    anonymous_fullname = field.get("value")
+                    anonymous_fullname = field.get("value", None)
 
             uid = self.randomStringDigits()
-            props = dict(
-                title=anonymous_fullname,
-                id=uid,
-                userid=uid,
-                email=anonymous_email,
-                reimbursed=False,
-                role="other",
-                anonymous_extra_data=json.dumps(data),
-            )
-            return props
+            if anonymous_email and anonymous_fullname:
+                props = dict(
+                    title=anonymous_fullname,
+                    id=uid,
+                    userid=uid,
+                    email=anonymous_email,
+                    reimbursed=False,
+                    role="other",
+                    anonymous_extra_data=json.dumps(data),
+                )
+                return props
+            else:
+                return {}
         except:
             return {}
 
