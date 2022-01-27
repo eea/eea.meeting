@@ -32,19 +32,43 @@ class SerializerToJsonMeeting(SerializeToJson):
                 {"portal_type": "AnonymousForm", "review_state": "published"}
             )
             if anonymousforms_list:
+                obj = anonymousforms_list[0].getObject()
+                field_custom_ids = []
+                blocks = obj.blocks
+                if blocks:
+                    for block_id in obj.blocks_layout["items"]:
+                        if blocks[block_id]['@type'] == 'form' and blocks[block_id].get('subblocks'):
+                            for field in blocks[block_id].get('subblocks'):
+                                if field.get('field_custom_id'):
+                                    field_custom_ids.append(field.get('field_custom_id'))
+            
                 result["anonymous_registration_form"] = {
                     "url": anonymousforms_list[0].getURL(),
+                    "email": 'email' in field_custom_ids,
+                    "fullname": 'fullname' in field_custom_ids,
                     "published": True,
                 }
+
             else:
                 anonymousforms_list = self.context.getFolderContents(
                     {"portal_type": "AnonymousForm", "review_state": "private"}
                 )
                 if anonymousforms_list:
+                    obj = anonymousforms_list[0].getObject()
+                    field_custom_ids = []
+                    blocks = obj.blocks
+                    if blocks:
+                        for block_id in obj.blocks_layout["items"]:
+                            if blocks[block_id]['@type'] == 'form' and blocks[block_id].get('subblocks'):
+                                for field in blocks[block_id].get('subblocks'):
+                                    if field.get('field_custom_id'):
+                                        field_custom_ids.append(field.get('field_custom_id'))
                     result["anonymous_registration_form"] = {
-                        "url": anonymousforms_list[0].getURL(),
-                        "published": False,
-                    }
+                    "url": anonymousforms_list[0].getURL(),
+                    "email": 'email' in field_custom_ids,
+                    "fullname": 'fullname' in field_custom_ids,
+                    "published": False,
+                }
 
         result["registrations_open"] = False
         if self.context.registrations_open():
