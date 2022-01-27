@@ -53,8 +53,7 @@ class SubscribersManipulation(Service):
         return_dict["items"] = [
             {
                 "id": subscriber.id,
-                "user_name": subscriber.Title(),
-                "name": subscriber.Title(),
+                "title": subscriber.Title(),
                 "email": subscriber.email,
                 "review_state": subscriber.state(),
             }
@@ -83,7 +82,7 @@ class Register(Service):
         current_user = api.user.get_current()
         uid = current_user.getId()
         fullname = current_user.getProperty("fullname", uid)
-        email = current_user.getProperty("email")
+        email = current_user.getProperty("email", None)
 
         r_val = self.request.form.get("form.widgets.reimbursed", "true")
         reimbursed = True if r_val == "true" else False
@@ -93,28 +92,38 @@ class Register(Service):
         except Exception:
             role = "other"
 
-        props = dict(
-            title=fullname,
-            id=uid,
-            userid=uid,
-            email=email,
-            reimbursed=reimbursed,
-            role=role,
-        )
-        try:
-            add_subscriber(subscribers, **props)
-        except Exception as e:
-            self.request.response.setStatus(400)
+        if email:
+            props = dict(
+                title=fullname,
+                id=uid,
+                userid=uid,
+                email=email,
+                reimbursed=reimbursed,
+                role=role,
+            )
+            try:
+                add_subscriber(subscribers, **props)
+            except Exception as e:
+                self.request.response.setStatus(400)
+                result = {
+                    "message": str(e),
+                }
+                return result
+
+            self.request.response.setStatus(201)
             result = {
-                "message": str(e),
+                "email": email,
+                "message": "You have succesfully registered to this meeting",
+            }
+            return result
+        else:
+            self.request.response.setStatus(201)
+            result = {
+                "message": "You have no email address in your profile",
             }
             return result
 
-        self.request.response.setStatus(201)
-        result = {
-            "message": "You have succesfully registered to this meeting",
-        }
-        return result
+        
 
     def validate(self, subscribers):
         """validate"""
