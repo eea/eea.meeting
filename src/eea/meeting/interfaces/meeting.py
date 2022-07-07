@@ -117,23 +117,25 @@ class IMeeting(Interface):
 
     location = schema.TextLine(
         title=_(u"label_event_location", default=u"Event location"),
-        description=_(u"help_event_location", default=u"Location of the event."),
-        required=False,
-        default=None,
+        description=_(
+            u"help_event_location", default=u"Location of the event."
+        ),
+        required=True,
+        default="",
     )
 
     allow_anonymous_registration = schema.Bool(
         title=_(u"allow_anonymous_registration"), default=False
     )
 
-    @invariant
-    def validate_location_required(data):
-        """validate location required"""
-        if data.meeting_type != "webinar" and data.location is None:
-            raise Invalid(
-                _(
-                    u"Event location input is missing."
-                    + " This field is not required only in "
-                    + "'Meeting type: webinar' case."
-                )
-            )
+    # @invariant
+    # def validate_location_required(data):
+    #     """validate location required"""
+    #     if data.meeting_type != "webinar" and data.location is None:
+    #         raise Invalid(
+    #             _(
+    #                 u"Event location input is missing."
+    #                 + " This field is not required only in "
+    #                 + "'Meeting type: webinar' case."
+    #             )
+    #         )
