@@ -1,7 +1,7 @@
 Changelog
 =========
 
-2.0a1+cs.5 (unreleased)
+2.0a1+cs.5 (2022-07-07)
 -----------------------
 
 - require location and remove invariant [Mikel Larreategi <mlarreategi@codesyntax.com>]
