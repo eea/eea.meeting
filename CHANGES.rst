@@ -4,7 +4,14 @@ Changelog
 2.0a1+cs.5 (unreleased)
 -----------------------
 
-- Nothing changed yet.
+- require location and remove invariant [Mikel Larreategi <mlarreategi@codesyntax.com>]
+
+- adjust required fields and default values [Mikel Larreategi <mlarreategi@codesyntax.com>]
+
+-  [Mikel Larreategi <mlarreategi@codesyntax.com>]
+
+- [ci skip] [Mikel Larreategi <mlarreategi@codesyntax.com>]
+
 
 
 2.0a1+cs.4 (2022-01-27)
