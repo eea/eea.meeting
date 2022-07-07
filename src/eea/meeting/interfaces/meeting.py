@@ -45,12 +45,13 @@ class IMeeting(Interface):
     meeting_level = schema.Choice(
         title=_(u"Meeting level"),
         vocabulary=meeting_levels,
-        required=True,
+        required=False,
     )
 
     allow_register = schema.Bool(
         title=_(u"Allow users to register to the meeting"),
-        required=True,
+        required=False,
+        default=False,
     )
 
     allow_register_above_max = schema.Bool(
@@ -58,7 +59,8 @@ class IMeeting(Interface):
             u"Continue to allow registration when maximum number of"
             " participants is reached"
         ),
-        required=True,
+        required=False,
+        default=False,
     )
 
     allow_register_start = schema.Datetime(
@@ -82,17 +84,20 @@ class IMeeting(Interface):
             u"Hide the content of Additional materials table for not "
             "registered users"
         ),
-        required=True,
+        required=False,
+        default=False,
     )
 
     auto_approve = schema.Bool(
         title=_(u"Automatically approve registrations"),
-        required=True,
+        required=False,
+        default=False,
     )
 
     max_participants = schema.Int(
         title=_(u"Maximum number of participants"),
-        required=True,
+        required=False,
+        default=0,
     )
 
     hosting_organisation = schema.TextLine(
