@@ -1,4 +1,4 @@
-from plone.restapi.serializer.dxcontent import SerializeToJson
+from plone.restapi.serializer.dxcontent import SerializeFolderToJson
 from zope.component import adapter
 from eea.meeting.interfaces import IMeeting
 from zope.interface import Interface
@@ -9,7 +9,7 @@ from AccessControl import getSecurityManager
 
 @implementer(ISerializeToJson)
 @adapter(IMeeting, Interface)
-class SerializerToJsonMeeting(SerializeToJson):
+class SerializerToJsonMeeting(SerializeFolderToJson):
     def __call__(self, version=None, include_items=True):
         result = super(SerializerToJsonMeeting, self).__call__(
             version, include_items
