@@ -1,7 +1,7 @@
 Changelog
 =========
 
-2.0a1+cs.6 (unreleased)
+2.0a1+cs.6 (2022-07-14)
 -----------------------
 
 - formatting [Mikel Larreategi <mlarreategi@codesyntax.com>]
