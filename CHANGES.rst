@@ -4,7 +4,14 @@ Changelog
 2.0a1+cs.6 (unreleased)
 -----------------------
 
-- Nothing changed yet.
+- formatting [Mikel Larreategi <mlarreategi@codesyntax.com>]
+
+- inhering from Serializer for Folderish [Mikel Larreategi <mlarreategi@codesyntax.com>]
+
+-  [Mikel Larreategi <mlarreategi@codesyntax.com>]
+
+- [ci skip] [Mikel Larreategi <mlarreategi@codesyntax.com>]
+
 
 
 2.0a1+cs.5 (2022-07-07)
