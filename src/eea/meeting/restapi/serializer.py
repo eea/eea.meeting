@@ -37,15 +37,19 @@ class SerializerToJsonMeeting(SerializeFolderToJson):
                 blocks = obj.blocks
                 if blocks:
                     for block_id in obj.blocks_layout["items"]:
-                        if blocks[block_id]['@type'] == 'form' and blocks[block_id].get('subblocks'):
-                            for field in blocks[block_id].get('subblocks'):
-                                if field.get('field_custom_id'):
-                                    field_custom_ids.append(field.get('field_custom_id'))
-            
+                        if blocks[block_id]["@type"] == "form" and blocks[
+                            block_id
+                        ].get("subblocks"):
+                            for field in blocks[block_id].get("subblocks"):
+                                if field.get("field_custom_id"):
+                                    field_custom_ids.append(
+                                        field.get("field_custom_id")
+                                    )
+
                 result["anonymous_registration_form"] = {
                     "url": anonymousforms_list[0].getURL(),
-                    "email": 'email' in field_custom_ids,
-                    "fullname": 'fullname' in field_custom_ids,
+                    "email": "email" in field_custom_ids,
+                    "fullname": "fullname" in field_custom_ids,
                     "published": True,
                 }
 
@@ -59,16 +63,20 @@ class SerializerToJsonMeeting(SerializeFolderToJson):
                     blocks = obj.blocks
                     if blocks:
                         for block_id in obj.blocks_layout["items"]:
-                            if blocks[block_id]['@type'] == 'form' and blocks[block_id].get('subblocks'):
-                                for field in blocks[block_id].get('subblocks'):
-                                    if field.get('field_custom_id'):
-                                        field_custom_ids.append(field.get('field_custom_id'))
+                            if blocks[block_id]["@type"] == "form" and blocks[
+                                block_id
+                            ].get("subblocks"):
+                                for field in blocks[block_id].get("subblocks"):
+                                    if field.get("field_custom_id"):
+                                        field_custom_ids.append(
+                                            field.get("field_custom_id")
+                                        )
                     result["anonymous_registration_form"] = {
-                    "url": anonymousforms_list[0].getURL(),
-                    "email": 'email' in field_custom_ids,
-                    "fullname": 'fullname' in field_custom_ids,
-                    "published": False,
-                }
+                        "url": anonymousforms_list[0].getURL(),
+                        "email": "email" in field_custom_ids,
+                        "fullname": "fullname" in field_custom_ids,
+                        "published": False,
+                    }
 
         result["registrations_open"] = False
         if self.context.registrations_open():
@@ -76,4 +84,5 @@ class SerializerToJsonMeeting(SerializeFolderToJson):
 
         result["is_registered"] = self.context.is_registered()
         result["is_folderish"] = True
+
         return result
