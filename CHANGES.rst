@@ -1,7 +1,7 @@
 Changelog
 =========
 
-2.0a1+cs.7 (unreleased)
+2.0a1+cs.7 (2022-07-19)
 -----------------------
 
 - Update changelog [Mikel Larreategi <mlarreategi@codesyntax.com>]
