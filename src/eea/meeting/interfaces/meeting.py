@@ -125,7 +125,11 @@ class IMeeting(Interface):
     )
 
     allow_anonymous_registration = schema.Bool(
-        title=_(u"allow_anonymous_registration"), default=False
+        title=_(
+            u"allow_anonymous_registration",
+            default=u"Allow registration for non-logged users",
+        ),
+        default=False,
     )
 
     # @invariant
