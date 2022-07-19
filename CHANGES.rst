@@ -4,7 +4,14 @@ Changelog
 2.0a1+cs.7 (unreleased)
 -----------------------
 
+- Update changelog [Mikel Larreategi <mlarreategi@codesyntax.com>]
+
 - improve default message [Mikel Larreategi <mlarreategi@codesyntax.com>]
+
+-  [Mikel Larreategi <mlarreategi@codesyntax.com>]
+
+- [ci skip] [Mikel Larreategi <mlarreategi@codesyntax.com>]
+
 
 -  [Mikel Larreategi <mlarreategi@codesyntax.com>]
 
