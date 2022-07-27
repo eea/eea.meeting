@@ -84,6 +84,7 @@ class Meeting(Container):
         return (self.allow_register and
                 (not self.is_ended()) and
                 ((self.subscribers.approved_count() < self.max_participants) or
+                 (self.max_participants == 0) or
                  (self.allow_register_above_max is True)))
 
     def get_subscribers(self):
@@ -98,7 +99,7 @@ class Meeting(Container):
     #     except AttributeError:
     #         # ignore this feature if vocab is not defined
     #         return {}
-        
+
 
     #     roles_dict = {}
     #     for key in vocab.keys():
