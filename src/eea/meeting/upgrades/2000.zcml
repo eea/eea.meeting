@@ -1,0 +1,25 @@
+<configure xmlns="http://namespaces.zope.org/zope"
+  xmlns:gs="http://namespaces.zope.org/genericsetup">
+
+  <gs:registerProfile name="2000"
+    title="Configuration for version 2000"
+    directory="2000"
+    description='Configuration for version 2000'
+    for="Products.CMFPlone.interfaces.IMigratingPloneSiteRoot"
+    provides="Products.GenericSetup.interfaces.EXTENSION" />
+
+  <gs:upgradeSteps source="*"
+    destination="2000"
+    profile="eea.meeting:default">
+
+    <gs:upgradeStep title="Configuration for version 2000"
+      description="New content-types"
+      handler=".v2000.upgrade" />
+
+    <gs:upgradeDepends title="Configuration for version 2000 (GS profile)"
+      description="New content-types"
+      import_profile="eea.meeting.upgrades:2000" />
+
+  </gs:upgradeSteps>
+
+</configure>
