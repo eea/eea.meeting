@@ -1,7 +1,7 @@
 Changelog
 =========
 
-2.0a1+cs.8 (unreleased)
+2.0a1+cs.8 (2022-07-27)
 -----------------------
 
 - Nothing changed yet.
