@@ -145,14 +145,14 @@
     <browser:page
        for="plone.app.contentrules.browser.interfaces.IRuleActionAdding"
        name="eea.meeting.events.CustomMail"
-       class="plone.app.contentrules.actions.mail.MailAddForm"
+       class="plone.app.contentrules.actions.mail.MailAddFormView"
        permission="plone.app.contentrules.ManageContentRules"
        />
 
      <browser:page
        for="eea.meeting.events.mail.ICustomMailAction"
        name="edit"
-       class="plone.app.contentrules.actions.mail.MailEditForm"
+       class="plone.app.contentrules.actions.mail.MailEditFormView"
        permission="plone.app.contentrules.ManageContentRules"
        />
 
