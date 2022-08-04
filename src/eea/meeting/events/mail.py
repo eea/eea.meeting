@@ -41,8 +41,8 @@ class CustomMailActionExecutor(MailActionExecutor):
         """ Save email
         """
         email_type = "N/A"
-
-        if self.event.object.portal_type == 'eea.meeting.subscriber':
+        meeting = None
+        if self.event.object.portal_type == "eea.meeting.subscriber":
             # This is the case for approving a subscriber:
             #    - Thank you for your registration
             meeting = self.event.object.aq_parent.aq_parent
@@ -59,9 +59,12 @@ class CustomMailActionExecutor(MailActionExecutor):
             meeting = self.event.object
             email_type = u"Registration"
 
-        types = api.portal.get_tool('portal_types')
-        type_info = types.getTypeInfo('eea.meeting.email')
-        emails_folder = meeting['emails']
+        if meeting is None:
+            return
+
+        types = api.portal.get_tool("portal_types")
+        type_info = types.getTypeInfo("eea.meeting.email")
+        emails_folder = meeting["emails"]
 
         name_chooser = INameChooser(emails_folder)
         interpolator = IStringInterpolator(self.event.object)
