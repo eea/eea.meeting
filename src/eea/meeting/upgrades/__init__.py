@@ -2,4 +2,4 @@
 """
 import logging
 
-LOGGER = logging.getLogger('eea.meeting.upgrades')
+LOGGER = logging.getLogger("eea.meeting.upgrades")

@@ -39,7 +39,9 @@ class MeetingView(DefaultView):
     def formatted_date(self, occ):
         """formatted date"""
         provider = getMultiAdapter(
-            (self.context, self.request, self), IContentProvider, name="formatted_date"
+            (self.context, self.request, self),
+            IContentProvider,
+            name="formatted_date",
         )
         return provider(occ)
 
@@ -148,7 +150,7 @@ class MeetingFormExtender(FormExtender):
         self.move("IGeolocatable.geolocation", after="location")
         self.form.fields[
             "IGeolocatable.geolocation"
-        ].field.title = u"Event location on map"
+        ].field.title = "Event location on map"
 
 
 class MeetingEditForm(DefaultEditForm):
@@ -279,7 +281,7 @@ class Register(BrowserView):
 class RegisterUser(BrowserView):
     """Register a user"""
 
-    label = _(u"Register user")
+    label = _("Register user")
 
     def __init__(self, context, request):
         super(RegisterUser, self).__init__(context, request)
@@ -299,7 +301,7 @@ class RegisterUser(BrowserView):
             return []
 
         site = getSite()
-        cpanel = getMultiAdapter((site, self.request), name=u"usergroup-userprefs")
+        cpanel = getMultiAdapter((site, self.request), name="usergroup-userprefs")
         return cpanel.doSearch(self.searchString)
 
     def _register(self, users):

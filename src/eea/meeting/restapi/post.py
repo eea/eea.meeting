@@ -47,8 +47,10 @@ class SubscribersManipulation(Service):
             elif manipulation_type == "reject":
                 self.reject(subscriberSelection)
                 return_dict = {"message": "Well rejected"}
-        subscribers = api.content.find(context=self.context, portal_type="eea.meeting.subscriber")
-        
+        subscribers = api.content.find(
+            context=self.context, portal_type="eea.meeting.subscriber"
+        )
+
         objects = [subscriber.getObject() for subscriber in subscribers]
         return_dict["items"] = [
             {
@@ -122,8 +124,6 @@ class Register(Service):
                 "message": "You have no email address in your profile",
             }
             return result
-
-        
 
     def validate(self, subscribers):
         """validate"""

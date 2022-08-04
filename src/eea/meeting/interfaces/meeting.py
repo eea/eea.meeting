@@ -12,18 +12,18 @@ from zope.schema.vocabulary import SimpleVocabulary, SimpleTerm
 
 meeting_types = SimpleVocabulary(
     [
-        SimpleTerm(value=u"meeting", title=_(u"Meeting")),
-        SimpleTerm(value=u"conference", title=_(u"Conference")),
-        SimpleTerm(value=u"workshop", title=_(u"Workshop")),
-        SimpleTerm(value=u"webinar", title=_(u"Webinar")),
+        SimpleTerm(value="meeting", title=_("Meeting")),
+        SimpleTerm(value="conference", title=_("Conference")),
+        SimpleTerm(value="workshop", title=_("Workshop")),
+        SimpleTerm(value="webinar", title=_("Webinar")),
     ]
 )
 
 meeting_levels = SimpleVocabulary(
     [
-        SimpleTerm(value=u"national", title=_(u"National Level")),
-        SimpleTerm(value=u"regional", title=_(u"Regional Level")),
-        SimpleTerm(value=u"other", title=_(u"Other")),
+        SimpleTerm(value="national", title=_("National Level")),
+        SimpleTerm(value="regional", title=_("Regional Level")),
+        SimpleTerm(value="other", title=_("Other")),
     ]
 )
 
@@ -32,31 +32,31 @@ class IMeeting(Interface):
     """Meeting"""
 
     text = RichText(
-        title=_(u"Body text"),
+        title=_("Body text"),
         required=True,
     )
 
     meeting_type = schema.Choice(
-        title=_(u"Meeting type"),
+        title=_("Meeting type"),
         vocabulary=meeting_types,
         required=True,
     )
 
     meeting_level = schema.Choice(
-        title=_(u"Meeting level"),
+        title=_("Meeting level"),
         vocabulary=meeting_levels,
         required=False,
     )
 
     allow_register = schema.Bool(
-        title=_(u"Allow users to register to the meeting"),
+        title=_("Allow users to register to the meeting"),
         required=False,
         default=False,
     )
 
     allow_register_above_max = schema.Bool(
         title=_(
-            u"Continue to allow registration when maximum number of"
+            "Continue to allow registration when maximum number of"
             " participants is reached"
         ),
         required=False,
@@ -64,16 +64,16 @@ class IMeeting(Interface):
     )
 
     allow_register_start = schema.Datetime(
-        title=_(u"From"),
-        description=_(u"Allow registration starting with this datetime."),
+        title=_("From"),
+        description=_("Allow registration starting with this datetime."),
         required=False,
         min=datetime.datetime(2018, 1, 1),
         max=datetime.datetime(datetime.datetime.now().year + 10, 12, 31),
     )
 
     allow_register_end = schema.Datetime(
-        title=_(u"To"),
-        description=_(u"Allow registration until this datetime."),
+        title=_("To"),
+        description=_("Allow registration until this datetime."),
         required=False,
         min=datetime.datetime(2018, 1, 1),
         max=datetime.datetime(datetime.datetime.now().year + 10, 12, 31),
@@ -81,53 +81,50 @@ class IMeeting(Interface):
 
     restrict_content_access = schema.Bool(
         title=_(
-            u"Hide the content of Additional materials table for not "
-            "registered users"
+            "Hide the content of Additional materials table for not " "registered users"
         ),
         required=False,
         default=False,
     )
 
     auto_approve = schema.Bool(
-        title=_(u"Automatically approve registrations"),
+        title=_("Automatically approve registrations"),
         required=False,
         default=False,
     )
 
     max_participants = schema.Int(
-        title=_(u"Maximum number of participants"),
+        title=_("Maximum number of participants"),
         required=False,
         default=0,
     )
 
     hosting_organisation = schema.TextLine(
-        title=_(u"Hosting organisation"),
+        title=_("Hosting organisation"),
         required=True,
         default=None,
     )
 
     contact_name = schema.TextLine(
-        title=_(u"Contact person"),
+        title=_("Contact person"),
         required=True,
     )
 
     contact_email = schema.TextLine(
-        title=_(u"Contact email"), required=True, constraint=validate_email
+        title=_("Contact email"), required=True, constraint=validate_email
     )
 
     location = schema.TextLine(
-        title=_(u"label_event_location", default=u"Event location"),
-        description=_(
-            u"help_event_location", default=u"Location of the event."
-        ),
+        title=_("label_event_location", default="Event location"),
+        description=_("help_event_location", default="Location of the event."),
         required=True,
         default="",
     )
 
     allow_anonymous_registration = schema.Bool(
         title=_(
-            u"allow_anonymous_registration",
-            default=u"Allow registration for non-logged users",
+            "allow_anonymous_registration",
+            default="Allow registration for non-logged users",
         ),
         default=False,
     )

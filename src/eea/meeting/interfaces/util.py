@@ -13,7 +13,7 @@ from eea.meeting import _
 
 
 def validate_email(email):
-    """ validate email """
+    """validate email"""
     try:
         checkEmailAddress(email)
     except EmailAddressInvalid:
@@ -22,19 +22,19 @@ def validate_email(email):
 
 
 def validate_userid(userid):
-    """ validate userid """
+    """validate userid"""
     user = api.user.get(userid=userid)
     if user:
         return True
 
-    raise Invalid(_(u'User does not exist!'))
+    raise Invalid(_("User does not exist!"))
 
 
 def cc_constraint(value):
-    """ cc constraint """
+    """cc constraint"""
     for idx, email in enumerate(value):
         idx += 1
         if not re.match(r"[^@]+@[^@]+\.[^@]+", email):
-            raise Invalid(_(u"Invalid email address on line %d" % idx))
+            raise Invalid(_("Invalid email address on line %d" % idx))
 
     return True

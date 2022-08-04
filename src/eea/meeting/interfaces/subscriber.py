@@ -20,36 +20,36 @@ class ISubscriber(Interface):
         constraint=validate_userid,
     )
 
-    email = schema.TextLine(title=_(u"Email"), required=True, constraint=validate_email)
+    email = schema.TextLine(title=_("Email"), required=True, constraint=validate_email)
 
     directives.widget(reimbursed=RadioFieldWidget)
-    reimbursed = schema.Bool(title=_(u"Reimbursed participation"), required=True)
+    reimbursed = schema.Bool(title=_("Reimbursed participation"), required=True)
 
     directives.widget(visa=RadioFieldWidget)
-    visa = schema.Bool(title=_(u"I need visa support letter"), required=True)
+    visa = schema.Bool(title=_("I need visa support letter"), required=True)
 
     role = schema.Choice(
-        title=_(u"Role"),
+        title=_("Role"),
         vocabulary="eea.meeting.SubscriberRolesVocabulary",
         required=True,
     )
 
     role_other = schema.TextLine(
-        title=_(u"Role (other)"),
+        title=_("Role (other)"),
         required=False,
     )
 
     request_data_deletion = schema.Bool(
-        title=_(u"Request data deletion"),
+        title=_("Request data deletion"),
         description=_(
-            u"Please delete my personal information after the event "
+            "Please delete my personal information after the event "
             "has ended, at latest 4 weeks after."
         ),
     )
 
     anonymous_extra_data = schema.Text(
-        title=_(u"anonymous_extra_data"),
-        description=_(u"json for anonymous registration Volto form"),
+        title=_("anonymous_extra_data"),
+        description=_("json for anonymous registration Volto form"),
         required=False,
     )
 

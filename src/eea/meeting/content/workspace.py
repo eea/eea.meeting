@@ -9,42 +9,36 @@ from zope.interface import implementer
 
 @implementer(IMeetingWorkspace)
 class MeetingWorkspace(Container):
-    """ EEA Meeting Workspace content type"""
+    """EEA Meeting Workspace content type"""
 
     def block_access(self, workspace):
-        """ Block access and redirect
-        """
+        """Block access and redirect"""
         messages = IStatusMessage(workspace.REQUEST)
         messages.add(
-            u"The content you tried to access is available only for \
+            "The content you tried to access is available only for \
             approved participants. Please log in.",
-            type=u"info")
-        return workspace.REQUEST.response.redirect(
-                workspace.aq_parent.absolute_url())
+            type="info",
+        )
+        return workspace.REQUEST.response.redirect(workspace.aq_parent.absolute_url())
 
     def can_edit(self, meeting):
-        """ Check permission """
-        return api.user.has_permission(
-            'Modify portal content',
-            obj=meeting
-        )
+        """Check permission"""
+        return api.user.has_permission("Modify portal content", obj=meeting)
 
     @property
     def __ac_local_roles__(self):
-        """ Manage custom roles for specific cases
-            This container and its child items should be accessed only by
-            meeting members (subscribers)
+        """Manage custom roles for specific cases
+        This container and its child items should be accessed only by
+        meeting members (subscribers)
         """
         # This code runs for this container and also for all its child items
         request = getRequest()
         workspaces = [
-            x for x in request.PARENTS[:-1]
-            if x.portal_type == 'eea.meeting.workspace'
-            ]
+            x for x in request.PARENTS[:-1] if x.portal_type == "eea.meeting.workspace"
+        ]
         if workspaces:
             workspace = workspaces[0]
-            has_access = workspace.restrictedTraverse(
-                "current_user_has_access")()
+            has_access = workspace.restrictedTraverse("current_user_has_access")()
             if has_access != "has_access":
                 self.block_access(workspace)
             else:

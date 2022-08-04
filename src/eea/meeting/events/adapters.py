@@ -5,10 +5,9 @@ from eea.meeting.interfaces import IMeeting
 
 
 class SetEmailSubstitution(BaseSubstitution):
-    """ Substitution
-    """
+    """Substitution"""
 
-    attribute = u''
+    attribute = ""
 
     def __init__(self, context, **kwargs):
         super(SetEmailSubstitution, self).__init__(context, **kwargs)
@@ -16,196 +15,191 @@ class SetEmailSubstitution(BaseSubstitution):
 
     @property
     def session(self):
-        """ User session
-        """
+        """User session"""
         if self._session is None:
-            sdm = getattr(self.context, 'session_data_manager', None)
+            sdm = getattr(self.context, "session_data_manager", None)
             self._session = sdm.getSessionData(create=False) if sdm else {}
         return self._session
 
     @property
     def sender(self):
         """Email sender"""
-        return self.session.get('sender', '')
+        return self.session.get("sender", "")
 
     @property
     def receiver(self):
         """Email receiver"""
-        return ','.join(self.session.get('receiver', []) or [])
+        return ",".join(self.session.get("receiver", []) or [])
 
     @property
     def subject(self):
         """Email subject"""
-        return self.session.get('subject', '')
+        return self.session.get("subject", "")
 
     @property
     def body(self):
         """Email body"""
-        return self.session.get('body', '')
+        return self.session.get("body", "")
 
     @property
     def cc(self):
         """Email cc addresses"""
-        return ','.join(self.session.get('cc', []) or [])
+        return ",".join(self.session.get("cc", []) or [])
 
     def safe_call(self):
-        """ Safe call
-        """
-        return getattr(self, self.attribute, u'')
+        """Safe call"""
+        return getattr(self, self.attribute, "")
 
 
 class SetEmailSender(SetEmailSubstitution):
-    """ Sender
-    """
-    category = _(u'Email Send')
-    description = _(u'Email sender address')
-    attribute = u'sender'
+    """Sender"""
+
+    category = _("Email Send")
+    description = _("Email sender address")
+    attribute = "sender"
 
 
 class SetEmailReceiver(SetEmailSubstitution):
-    """ Receiver
-    """
-    category = _(u'Email Send')
-    description = _(u'Email receiver address')
-    attribute = u'receiver'
+    """Receiver"""
+
+    category = _("Email Send")
+    description = _("Email receiver address")
+    attribute = "receiver"
 
 
 class SetEmailSubject(SetEmailSubstitution):
-    """ Subject
-    """
-    category = _(u'Email Send')
-    description = _(u'Email subject')
-    attribute = u'subject'
+    """Subject"""
+
+    category = _("Email Send")
+    description = _("Email subject")
+    attribute = "subject"
 
 
 class SetEmailBody(SetEmailSubstitution):
-    """ Body
-    """
-    category = _(u'Email Send')
-    description = _(u'Email body')
-    attribute = u'body'
+    """Body"""
+
+    category = _("Email Send")
+    description = _("Email body")
+    attribute = "body"
 
 
 class SetEmailCC(SetEmailSubstitution):
-    """ CC
-    """
-    category = _(u'Email Send')
-    description = _(u'Email CC addresses')
-    attribute = u'cc'
+    """CC"""
+
+    category = _("Email Send")
+    description = _("Email CC addresses")
+    attribute = "cc"
 
 
 class SetMeetingContactEmail(BaseSubstitution):
-    """ Contact Email
-    """
-    category = _(u'eea.meeting')
-    description = _(u'Meeting contact email')
+    """Contact Email"""
+
+    category = _("eea.meeting")
+    description = _("Meeting contact email")
 
     def safe_call(self):
-        """ Safe call
-        """
+        """Safe call"""
         try:
             email = self.context.contact_email
         except Exception:
-            email = ''
+            email = ""
 
         return email
 
 
 class SetMeetingContactName(BaseSubstitution):
-    """ Contact Name
-    """
-    category = _(u'eea.meeting')
-    description = _(u'Meeting contact name')
+    """Contact Name"""
+
+    category = _("eea.meeting")
+    description = _("Meeting contact name")
 
     def safe_call(self):
-        """ Safe call
-        """
+        """Safe call"""
         try:
             name = self.context.contact_name
         except Exception:
-            name = ''
+            name = ""
 
         return name
 
 
 class SetMeetingURL(BaseSubstitution):
-    """ Meeting URL
-    """
-    category = _(u'eea.meeting')
-    description = _(u'Finds the closest meeting and returns it\'s URL.')
+    """Meeting URL"""
+
+    category = _("eea.meeting")
+    description = _("Finds the closest meeting and returns it's URL.")
 
     def safe_call(self):
-        """ Safe call
-        """
+        """Safe call"""
+
         def find_meeting(context):
-            """ return related meeting """
-            return (context if IMeeting.providedBy(context) else
-                    find_meeting(context.aq_parent))
+            """return related meeting"""
+            return (
+                context
+                if IMeeting.providedBy(context)
+                else find_meeting(context.aq_parent)
+            )
 
         meeting = find_meeting(self.context)
-        return meeting.absolute_url() if meeting else ''
+        return meeting.absolute_url() if meeting else ""
 
 
 class SetEmailReceiverOnApproved(BaseSubstitution):
-    """ Email Receiver
-    """
-    category = _(u'Approve Subscriber')
-    description = _(u'Subscriber Email')
+    """Email Receiver"""
+
+    category = _("Approve Subscriber")
+    description = _("Subscriber Email")
 
     def safe_call(self):
-        """ Safe call
-        """
+        """Safe call"""
         try:
             email = self.context.email
         except Exception:
-            email = ''
+            email = ""
 
         return email
 
 
 class SetNameReceiverOnApproved(BaseSubstitution):
-    """ Name Receiver
-    """
-    category = _(u'Approve Subscriber')
-    description = _(u'Subscriber Name')
+    """Name Receiver"""
+
+    category = _("Approve Subscriber")
+    description = _("Subscriber Name")
 
     def safe_call(self):
-        """ Safe call
-        """
+        """Safe call"""
         try:
-            return self.context.get_details().get('fullname', 'user')
+            return self.context.get_details().get("fullname", "user")
         except Exception:
-            name = 'user'
+            name = "user"
 
         return name
 
 
 class SetUserIDReceiverOnApproved(BaseSubstitution):
-    """ User ID
-    """
-    category = _(u'Approve Subscriber')
-    description = _(u'Subscriber UserID')
+    """User ID"""
+
+    category = _("Approve Subscriber")
+    description = _("Subscriber UserID")
 
     def safe_call(self):
-        """ Safe call
-        """
+        """Safe call"""
         try:
             return self.context.userid
         except Exception:
-            userid = ''
+            userid = ""
 
         return userid
 
 
 class SetMeetingPlaceOnApproved(BaseSubstitution):
-    """ Meeting place
-    """
-    category = _(u'Approve Subscriber')
-    description = _(u'Meeting place')
+    """Meeting place"""
+
+    category = _("Approve Subscriber")
+    description = _("Meeting place")
 
     def safe_call(self):
-        """ Safe call
-        """
+        """Safe call"""
         try:
             location = self.context.aq_parent.aq_parent.location
         except Exception:
@@ -217,14 +211,13 @@ class SetMeetingPlaceOnApproved(BaseSubstitution):
 
 
 class SetMeetingPlaceOnRegister(BaseSubstitution):
-    """ Meeting place
-    """
-    category = _(u'Register Subscriber')
-    description = _(u'Meeting place (register)')
+    """Meeting place"""
+
+    category = _("Register Subscriber")
+    description = _("Meeting place (register)")
 
     def safe_call(self):
-        """ Safe call
-        """
+        """Safe call"""
         try:
             location = self.context.location
         except Exception:
@@ -236,14 +229,13 @@ class SetMeetingPlaceOnRegister(BaseSubstitution):
 
 
 class SetMeetingWhenOnApproved(BaseSubstitution):
-    """ Meeting when
-    """
-    category = _(u'Approve Subscriber')
-    description = _(u'Meeting when')
+    """Meeting when"""
+
+    category = _("Approve Subscriber")
+    description = _("Meeting when")
 
     def safe_call(self):
-        """ Safe call
-        """
+        """Safe call"""
         try:
             date = self.context.aq_parent.aq_parent.human_readable_date
         except Exception:
@@ -253,14 +245,13 @@ class SetMeetingWhenOnApproved(BaseSubstitution):
 
 
 class SetMeetingWhenOnRegister(BaseSubstitution):
-    """ Meeting when
-    """
-    category = _(u'Register Subscriber')
-    description = _(u'Meeting when (register)')
+    """Meeting when"""
+
+    category = _("Register Subscriber")
+    description = _("Meeting when (register)")
 
     def safe_call(self):
-        """ Safe call
-        """
+        """Safe call"""
         try:
             date = self.context.human_readable_date
         except Exception:
@@ -270,20 +261,19 @@ class SetMeetingWhenOnRegister(BaseSubstitution):
 
 
 class SetMeetingTitleOnApproved(BaseSubstitution):
-    """ Meeting title
-    """
-    category = _(u'Approve Subscriber')
-    description = _(u'Meeting title')
+    """Meeting title"""
+
+    category = _("Approve Subscriber")
+    description = _("Meeting title")
 
     def safe_call(self):
-        """ Safe call
-        """
-        if self.context.portal_type == 'eea.meeting.subscriber':
+        """Safe call"""
+        if self.context.portal_type == "eea.meeting.subscriber":
             # This is the case for approving a subscriber:
             #   - Thank you for your registration
             meeting = self.context.aq_parent.aq_parent
 
-        elif self.context.portal_type == 'eea.meeting':
+        elif self.context.portal_type == "eea.meeting":
             # This is the case for new subscriber registered:
             #   - A new participant has registered to the meeting
             #   - You have registered to the meeting

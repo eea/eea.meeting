@@ -13,10 +13,10 @@ import plone.api as api
 
 @implementer(IVocabularyFactory)
 class RecipientsVocabulary(object):
-    """ Recipients """
+    """Recipients"""
 
     def __call__(self, context):
-        portal_catalog = api.portal.get_tool('portal_catalog')
+        portal_catalog = api.portal.get_tool("portal_catalog")
 
         if not IMeeting.providedBy(context.aq_parent):
             if IMeeting.providedBy(context.aq_parent.aq_parent):
@@ -30,16 +30,14 @@ class RecipientsVocabulary(object):
         else:
             query_path = context.aq_parent.getPhysicalPath()
 
-
         brains = portal_catalog(
-            portal_type="eea.meeting.subscriber",
-            path='/'.join(query_path)
+            portal_type="eea.meeting.subscriber", path="/".join(query_path)
         )
 
         l = set()
         for brain in brains:
             subscriber = brain.getObject()
-            term_title = '{} ({})'.format(subscriber.title, subscriber.email)
+            term_title = "{} ({})".format(subscriber.title, subscriber.email)
             l.add((subscriber.email, term_title))
 
         return SimpleVocabulary([SimpleTerm(s[0], title=s[1]) for s in l])

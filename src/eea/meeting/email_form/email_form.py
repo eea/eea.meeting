@@ -14,15 +14,15 @@ from zope.event import notify
 
 
 class SearchUser(form.Form):
-    """ Search User """
+    """Search User"""
 
     fields = field.Fields(ISearchUser)
     ignoreContext = True
 
-    fields['results'].widgetFactory = CustomCheckBoxFieldWidget
+    fields["results"].widgetFactory = CustomCheckBoxFieldWidget
 
-    prefix = 'search_user'
-    template = FPT('search_user.pt')
+    prefix = "search_user"
+    template = FPT("search_user.pt")
 
     _parent_form = None
 
@@ -30,94 +30,91 @@ class SearchUser(form.Form):
         super(SearchUser, self).__init__(context, request)
         self._parent_form = parent_form
 
-    @button.buttonAndHandler(_('Search'), name='search_user')
+    @button.buttonAndHandler(_("Search"), name="search_user")
     def handleSave(self, action):
-        """ Save """
+        """Save"""
         data, errors = self.extractData()
 
         data = data
         if errors:
             return False
 
-    @button.buttonAndHandler(_('Add'), name='addCC')
+    @button.buttonAndHandler(_("Add"), name="addCC")
     def handle_addCC(self, action):
-        """ Add CC """
+        """Add CC"""
         data, errors = self.extractData()
 
-        self._parent_form.widgets['cc'].value += \
-            '\n'+"\n".join(data['results'])
+        self._parent_form.widgets["cc"].value += "\n" + "\n".join(data["results"])
 
-        del self.widgets['results'].items
-        self.widgets['results'].value = ''
+        del self.widgets["results"].items
+        self.widgets["results"].value = ""
 
         if errors:
             return False
 
 
 class SendEmail(form.Form):
-    """ Send Email """
+    """Send Email"""
+
     fields = field.Fields(IEmail)
     ignoreContext = True
 
-    label = _(u"Send email")
+    label = _("Send email")
 
-    fields['receiver'].widgetFactory = CheckBoxFieldWidget
+    fields["receiver"].widgetFactory = CheckBoxFieldWidget
 
-    prefix = 'send_email'
+    prefix = "send_email"
 
-    template = FPT('main_form.pt')
+    template = FPT("main_form.pt")
 
     def update(self):
-        """ update """
+        """update"""
         super(SendEmail, self).update()
         self.search_user = SearchUser(self.context, self.request, self)
         self.search_user.update()
-        self.widgets['body'].rows = 10
-        if (not self.actions.executedActions and
-                not self.widgets['receiver'].items):
+        self.widgets["body"].rows = 10
+        if not self.actions.executedActions and not self.widgets["receiver"].items:
             for widget in self.widgets.values():
-                widget.disabled = 'disabled'
-            self.actions['send_email'].disabled = 'disabled'
-            msg = 'There are no subscribed users. Cannot send email.'
-            IStatusMessage(self.request).addStatusMessage(msg, type='error')
+                widget.disabled = "disabled"
+            self.actions["send_email"].disabled = "disabled"
+            msg = "There are no subscribed users. Cannot send email."
+            IStatusMessage(self.request).addStatusMessage(msg, type="error")
 
-    @button.buttonAndHandler(_('Send Email'), name='send_email')
+    @button.buttonAndHandler(_("Send Email"), name="send_email")
     def handleSave(self, action):
-        """ Save """
+        """Save"""
         data, errors = self.extractData()
 
         if errors:
             return False
 
-        types = api.portal.get_tool('portal_types')
-        type_info = types.getTypeInfo('eea.meeting.email')
+        types = api.portal.get_tool("portal_types")
+        type_info = types.getTypeInfo("eea.meeting.email")
 
         name_chooser = INameChooser(self.context)
-        content_id = name_chooser.chooseName(data['subject'], self.context)
+        content_id = name_chooser.chooseName(data["subject"], self.context)
 
         obj = type_info._constructInstance(self.context, content_id)
 
-        obj.title = data['subject']
-        obj.sender = data['sender']
-        obj.receiver = data['receiver']
-        obj.cc = data['cc']
-        obj.subject = data['subject']
-        obj.body = data['body']
+        obj.title = data["subject"]
+        obj.sender = data["sender"]
+        obj.receiver = data["receiver"]
+        obj.cc = data["cc"]
+        obj.subject = data["subject"]
+        obj.body = data["body"]
 
         obj.reindexObject()
 
         notify(SendEmailAddEvent(self.context, data))
 
-        msg = _(u"Email successfully sent")
-        IStatusMessage(self.request).addStatusMessage(msg, type='info')
-        self.request.response.redirect(
-            self.context.getParentNode().absolute_url())
+        msg = _("Email successfully sent")
+        IStatusMessage(self.request).addStatusMessage(msg, type="info")
+        self.request.response.redirect(self.context.getParentNode().absolute_url())
 
-    @button.buttonAndHandler(_('Cancel'), name='cancel_send')
+    @button.buttonAndHandler(_("Cancel"), name="cancel_send")
     def cancel_send(self, action):
-        """ Cancel send """
-        return self.request.response.redirect(
-            self.context.aq_parent.absolute_url()
-        )
+        """Cancel send"""
+        return self.request.response.redirect(self.context.aq_parent.absolute_url())
+
 
 SendEmailView = wrap_form(SendEmail, index=FPT("send_email.pt"))

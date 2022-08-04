@@ -12,39 +12,38 @@ class TestSetup(unittest.TestCase):
 
     def setUp(self):
         """Custom shared utility setup for tests."""
-        self.portal = self.layer['portal']
-        self.installer = api.portal.get_tool('portal_quickinstaller')
+        self.portal = self.layer["portal"]
+        self.installer = api.portal.get_tool("portal_quickinstaller")
 
     def test_product_installed(self):
         """Test if eea.meeting is installed."""
-        self.assertTrue(self.installer.isProductInstalled(
-            'eea.meeting'))
+        self.assertTrue(self.installer.isProductInstalled("eea.meeting"))
 
     def test_browserlayer(self):
         """Test that IMeetingLayer is registered."""
-        from eea.meeting.interfaces import (
-            IMeetingLayer)
+        from eea.meeting.interfaces import IMeetingLayer
         from plone.browserlayer import utils
+
         self.assertIn(IMeetingLayer, utils.registered_layers())
 
 
 class TestUninstall(unittest.TestCase):
-    """ Test Uninstall """
+    """Test Uninstall"""
 
     layer = EEA_MEETING_INTEGRATION_TESTING
 
     def setUp(self):
-        self.portal = self.layer['portal']
-        self.installer = api.portal.get_tool('portal_quickinstaller')
-        self.installer.uninstallProducts(['eea.meeting'])
+        self.portal = self.layer["portal"]
+        self.installer = api.portal.get_tool("portal_quickinstaller")
+        self.installer.uninstallProducts(["eea.meeting"])
 
     def test_product_uninstalled(self):
         """Test if eea.meeting is cleanly uninstalled."""
-        self.assertFalse(self.installer.isProductInstalled(
-            'eea.meeting'))
+        self.assertFalse(self.installer.isProductInstalled("eea.meeting"))
 
     def test_browserlayer_removed(self):
         """Test that IMeetingLayer is removed."""
         from eea.meeting.interfaces import IMeetingLayer
         from plone.browserlayer import utils
+
         self.assertNotIn(IMeetingLayer, utils.registered_layers())

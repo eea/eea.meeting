@@ -7,17 +7,17 @@ from zope.component import queryAdapter
 from zope.component.hooks import getSite
 from zope.interface import implementer
 
-logger = logging.getLogger('eea.meeting')
+logger = logging.getLogger("eea.meeting")
 
 
 @implementer(INonInstallable)
 class HiddenProfiles(object):
-    """ Hidden Profiles """
+    """Hidden Profiles"""
 
     def getNonInstallableProfiles(self):
         """Hide uninstall profile from site-creation and quickinstaller"""
         return [
-            'eea.meeting:uninstall',
+            "eea.meeting:uninstall",
         ]
 
 
@@ -30,21 +30,22 @@ def post_install(context):
         security.enable_user_pwd_choice = True
 
     # Add memcached
-    if 'MEMCache' not in site.objectIds():
+    if "MEMCache" not in site.objectIds():
         try:
-            oid = site.manage_addProduct[
-                'MemcachedManager'].manage_addMemcachedManager('MEMCache')
+            oid = site.manage_addProduct["MemcachedManager"].manage_addMemcachedManager(
+                "MEMCache"
+            )
             oid = oid
         except Exception as err:
             logger.exception(err)
         else:
-            cache = site._getOb('MEMCache')
-            cache._settings['servers'] = ('memcached:11211',)
+            cache = site._getOb("MEMCache")
+            cache._settings["servers"] = ("memcached:11211",)
             cache._p_changed = True
 
             # Set cache for ldap-plugin
-            ldap_plugin = site['acl_users']['ldap-plugin']
-            ldap_plugin.ZCacheable_setManagerId(manager_id='MEMCache')
+            ldap_plugin = site["acl_users"]["ldap-plugin"]
+            ldap_plugin.ZCacheable_setManagerId(manager_id="MEMCache")
 
 
 def uninstall(context):

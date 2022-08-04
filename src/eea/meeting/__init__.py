@@ -3,4 +3,4 @@
 
 from zope.i18nmessageid import MessageFactory
 
-_ = MessageFactory('eea.meeting')
+_ = MessageFactory("eea.meeting")

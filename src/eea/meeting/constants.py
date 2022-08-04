@@ -1,3 +1,3 @@
 """ Constants """
-ACTION_APPROVE = 'approve'
-ACTION_REJECT = 'reject'
+ACTION_APPROVE = "approve"
+ACTION_REJECT = "reject"

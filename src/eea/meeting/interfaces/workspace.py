@@ -5,4 +5,4 @@ from zope.interface import Interface
 
 
 class IMeetingWorkspace(Interface):
-    """ Meeting Workspace """
+    """Meeting Workspace"""

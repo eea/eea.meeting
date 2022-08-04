@@ -11,9 +11,7 @@ from AccessControl import getSecurityManager
 @adapter(IMeeting, Interface)
 class SerializerToJsonMeeting(SerializeFolderToJson):
     def __call__(self, version=None, include_items=True):
-        result = super(SerializerToJsonMeeting, self).__call__(
-            version, include_items
-        )
+        result = super(SerializerToJsonMeeting, self).__call__(version, include_items)
         subscribers = self.context.get("subscribers")
         emails = self.context.get("emails")
         sm = getSecurityManager()
@@ -37,9 +35,9 @@ class SerializerToJsonMeeting(SerializeFolderToJson):
                 blocks = obj.blocks
                 if blocks:
                     for block_id in obj.blocks_layout["items"]:
-                        if blocks[block_id]["@type"] == "form" and blocks[
-                            block_id
-                        ].get("subblocks"):
+                        if blocks[block_id]["@type"] == "form" and blocks[block_id].get(
+                            "subblocks"
+                        ):
                             for field in blocks[block_id].get("subblocks"):
                                 if field.get("field_custom_id"):
                                     field_custom_ids.append(

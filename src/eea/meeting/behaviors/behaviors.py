@@ -10,7 +10,7 @@ ENABLED = 1  # allow types from locallyAllowedTypes only
 
 
 class MeetingConstrainTypes(ConstrainTypesBehavior):
-    """ Meeting Constrain Types """
+    """Meeting Constrain Types"""
 
     def allowedContentTypes(self, context=None):
         """
@@ -22,8 +22,8 @@ class MeetingConstrainTypes(ConstrainTypesBehavior):
         This method returns the FTI, NOT the FTI id, like most other methods.
         """
         portal = api.portal.getSite()
-        subscribers = portal.portal_types.get('eea.meeting.subscribers')
-        emails = portal.portal_types.get('eea.meeting.emails')
+        subscribers = portal.portal_types.get("eea.meeting.subscribers")
+        emails = portal.portal_types.get("eea.meeting.emails")
         if context is None:
             context = self.context
         mode = self.getConstrainTypesMode()
@@ -32,9 +32,12 @@ class MeetingConstrainTypes(ConstrainTypesBehavior):
         if mode == DISABLED:
             allowed = default_addable
         elif mode == ENABLED:
-            if hasattr(self.context, 'locally_allowed_types'):
-                allowed = [t for t in default_addable if t.getId() in
-                           self.context.locally_allowed_types]
+            if hasattr(self.context, "locally_allowed_types"):
+                allowed = [
+                    t
+                    for t in default_addable
+                    if t.getId() in self.context.locally_allowed_types
+                ]
             else:
                 allowed = default_addable
         elif mode == ACQUIRE:
@@ -44,52 +47,46 @@ class MeetingConstrainTypes(ConstrainTypesBehavior):
                 allowed = default_addable
             else:
                 return_tids = self._filterByDefaults(
-                    parent_constrain_adapter.getLocallyAllowedTypes(context))
-                allowed = [t for t in default_addable if
-                           t.getId() in return_tids]
+                    parent_constrain_adapter.getLocallyAllowedTypes(context)
+                )
+                allowed = [t for t in default_addable if t.getId() in return_tids]
         else:
-            raise Exception(
-                "Wrong constraint setting. %i is an invalid value",
-                mode)
+            raise Exception("Wrong constraint setting. %i is an invalid value", mode)
 
-        if (IMeeting.providedBy(context) and
-                context.get('subscribers')):
+        if IMeeting.providedBy(context) and context.get("subscribers"):
             if subscribers in allowed:
                 allowed.remove(subscribers)
 
-        if (IMeeting.providedBy(context) and
-                context.get('emails')):
+        if IMeeting.providedBy(context) and context.get("emails"):
             if emails in allowed:
                 allowed.remove(emails)
 
         return allowed
 
     def getDefaultAddableTypes(self, context=None):
-        """ Get default addable types """
+        """Get default addable types"""
         portal = api.portal.getSite()
-        subscribers = portal.portal_types.get('eea.meeting.subscribers')
-        emails = portal.portal_types.get('eea.meeting.emails')
+        subscribers = portal.portal_types.get("eea.meeting.subscribers")
+        emails = portal.portal_types.get("eea.meeting.emails")
         if context is None:
             context = self.context
         allowed = self._getAddableTypesFor(self.context, context)
-        if (IMeeting.providedBy(context) and
-                context.get('subscribers')):
+        if IMeeting.providedBy(context) and context.get("subscribers"):
             if subscribers in allowed:
                 allowed.remove(subscribers)
 
-        if (IMeeting.providedBy(context) and
-                context.get('emails')):
+        if IMeeting.providedBy(context) and context.get("emails"):
             if emails in allowed:
                 allowed.remove(emails)
         return allowed
 
 
 class IMeetingConstrainTypes(ISelectableConstrainTypes):
-    """ Meeting Constrain Types """
+    """Meeting Constrain Types"""
 
 
 class SubscribersConstrainTypes(ConstrainTypesBehavior):
-    """ Subscribers Constrain Types """
+    """Subscribers Constrain Types"""
 
     def allowedContentTypes(self, context=None):
         """
@@ -101,7 +98,7 @@ class SubscribersConstrainTypes(ConstrainTypesBehavior):
         This method returns the FTI, NOT the FTI id, like most other methods.
         """
         portal = api.portal.getSite()
-        subscriber = portal.portal_types.get('eea.meeting.subscriber')
+        subscriber = portal.portal_types.get("eea.meeting.subscriber")
         if context is None:
             context = self.context
         mode = self.getConstrainTypesMode()
@@ -110,9 +107,12 @@ class SubscribersConstrainTypes(ConstrainTypesBehavior):
         if mode == DISABLED:
             allowed = default_addable
         elif mode == ENABLED:
-            if hasattr(self.context, 'locally_allowed_types'):
-                allowed = [t for t in default_addable if t.getId() in
-                           self.context.locally_allowed_types]
+            if hasattr(self.context, "locally_allowed_types"):
+                allowed = [
+                    t
+                    for t in default_addable
+                    if t.getId() in self.context.locally_allowed_types
+                ]
             else:
                 allowed = default_addable
         elif mode == ACQUIRE:
@@ -122,34 +122,33 @@ class SubscribersConstrainTypes(ConstrainTypesBehavior):
                 allowed = default_addable
             else:
                 return_tids = self._filterByDefaults(
-                    parent_constrain_adapter.getLocallyAllowedTypes(context))
-                allowed = [t for t in default_addable if
-                           t.getId() in return_tids]
+                    parent_constrain_adapter.getLocallyAllowedTypes(context)
+                )
+                allowed = [t for t in default_addable if t.getId() in return_tids]
         else:
-            raise Exception(
-                "Wrong constraint setting. %i is an invalid value",
-                mode)
+            raise Exception("Wrong constraint setting. %i is an invalid value", mode)
 
         if ISubscribers.providedBy(context) and subscriber in allowed:
-            if not (IMeeting.providedBy(context.aq_parent) and
-                    context.aq_parent.can_register()):
+            if not (
+                IMeeting.providedBy(context.aq_parent)
+                and context.aq_parent.can_register()
+            ):
                 allowed.remove(subscriber)
 
         return allowed
 
     def getDefaultAddableTypes(self, context=None):
-        """ Get default addable types """
+        """Get default addable types"""
         portal = api.portal.getSite()
-        subscribers = portal.portal_types.get('eea.meeting.subscribers')
+        subscribers = portal.portal_types.get("eea.meeting.subscribers")
         if context is None:
             context = self.context
         allowed = self._getAddableTypesFor(self.context, context)
-        if (ISubscribers.providedBy(context) and
-                context.get('subscribers')):
+        if ISubscribers.providedBy(context) and context.get("subscribers"):
             if subscribers in allowed:
                 allowed.remove(subscribers)
         return allowed
 
 
 class ISubscribersConstrainTypes(ISelectableConstrainTypes):
-    """ Subscribers Constrain Types """
+    """Subscribers Constrain Types"""

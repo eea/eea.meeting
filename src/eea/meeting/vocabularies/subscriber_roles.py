@@ -33,7 +33,7 @@ class SubscriberRolesVocabulary(object):
         # Just an example list of content for our vocabulary,
         # this can be any static or dynamic data, a catalog result for example.
         items = [
-            VocabItem(u'other', _(u'Other')),
+            VocabItem("other", _("Other")),
         ]
 
         # Fix context if you are using the vocabulary in DataGridField.

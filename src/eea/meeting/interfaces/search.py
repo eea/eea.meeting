@@ -7,14 +7,16 @@ from zope.interface import Interface
 
 
 class ISearchUser(Interface):
-    """ Search user """
+    """Search user"""
+
     containing = schema.TextLine(
-        title=_(u"Add users to E-mail CC"),
+        title=_("Add users to E-mail CC"),
         required=True,
     )
 
     results = schema.Set(
         required=False,
         value_type=schema.Choice(
-            vocabulary='eea.meeting.vocabularies.LDAPListingVocabulary')
+            vocabulary="eea.meeting.vocabularies.LDAPListingVocabulary"
+        ),
     )

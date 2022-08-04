@@ -6,8 +6,8 @@ from eea.meeting.upgrades import LOGGER
 
 
 def run(context):
-    """ evolve email field """
-    catalog = api.portal.get_tool('portal_catalog')
+    """evolve email field"""
+    catalog = api.portal.get_tool("portal_catalog")
     brains = catalog(portal_type="eea.meeting.email")
 
     for brain in brains:

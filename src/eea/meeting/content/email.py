@@ -6,4 +6,4 @@ from plone.dexterity.content import Container
 
 @implementer(IEmail)
 class Email(Container):
-    """ EEA Meeting Email content type"""
+    """EEA Meeting Email content type"""

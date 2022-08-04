@@ -9,18 +9,19 @@ import zope.schema.interfaces
 @zope.component.adapter(zope.schema.interfaces.IField, interfaces.IFormLayer)
 @zope.interface.implementer(interfaces.IFieldWidget)
 def CustomCheckBoxFieldWidget(field, request):
-    """ Custom field """
+    """Custom field"""
     return FieldWidget(field, CustomCheckBoxWidget(request))
 
 
 @zope.interface.implementer(interfaces.ISequenceWidget)
 class CustomSequenceWidget(SequenceWidget):
-    """Custom widget """
+    """Custom widget"""
 
     def extract(self, default=interfaces.NO_VALUE):
         """See z3c.form.interfaces.IWidget."""
-        if ((self.name not in self.request) and (self.name + '-empty-marker' in
-                                                 self.request)):
+        if (self.name not in self.request) and (
+            self.name + "-empty-marker" in self.request
+        ):
             return []
 
         return self.request.get(self.name, default)
@@ -30,12 +31,12 @@ class CustomSequenceWidget(SequenceWidget):
 class CustomCheckBoxWidget(widget.HTMLInputWidget, CustomSequenceWidget):
     """Input type checkbox widget implementation."""
 
-    klass = u'checkbox-widget'
-    css = u'checkbox'
+    klass = "checkbox-widget"
+    css = "checkbox"
     items = ()
 
     def isChecked(self, term):
-        """ Check value """
+        """Check value"""
         return term.token in self.value
 
     def update(self):
@@ -48,23 +49,24 @@ class CustomCheckBoxWidget(widget.HTMLInputWidget, CustomSequenceWidget):
         self.items = []
         for count, term in enumerate(self.terms):
             checked = self.isChecked(term)
-            self_id = '%s-%i' % (self.id, count)
+            self_id = "%s-%i" % (self.id, count)
             if zope.schema.interfaces.ITitledTokenizedTerm.providedBy(term):
-                label = translate(term.title, context=self.request,
-                                  default=term.title)
+                label = translate(term.title, context=self.request, default=term.title)
             else:
                 label = util.toUnicode(term.value)
-            self.items.append({
-                'id': self_id,
-                'name': self.name + ':list',
-                'value': term.token,
-                'label': label,
-                'checked': checked
-            })
+            self.items.append(
+                {
+                    "id": self_id,
+                    "name": self.name + ":list",
+                    "value": term.token,
+                    "label": label,
+                    "checked": checked,
+                }
+            )
 
     def json_data(self):
-        """ json data """
+        """json data"""
         data = super(CustomCheckBoxWidget, self).json_data()
-        data['options'] = self.items
-        data['type'] = 'check'
+        data["options"] = self.items
+        data["type"] = "check"
         return data
