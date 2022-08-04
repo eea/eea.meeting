@@ -21,14 +21,16 @@ from zope.component.hooks import getSite
 from zope.contentprovider.interfaces import IContentProvider
 from zope.interface import classImplements
 import six
-from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
+from eea.meeting.events.rules import SendNewSubscriberEmailEvent
+from zope.event import notify
 
 
 def add_subscriber(subscribers, **kwargs):
     """Add subscriber"""
-    return createContentInContainer(
+    createContentInContainer(
         subscribers, "eea.meeting.subscriber", checkConstraints=False, **kwargs
     )
+    notify(SendNewSubscriberEmailEvent(subscribers.aq_parent, **kwargs))
 
 
 class MeetingView(DefaultView):
