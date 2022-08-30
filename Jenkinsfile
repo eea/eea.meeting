@@ -3,6 +3,7 @@ pipeline {
 
   environment {
         GIT_NAME = "eea.meeting"
+        GIT_HISTORYFILE = "CHANGES.rst" 
         SONARQUBE_TAGS = "land.copernicus.eu"
     }
   stages {
