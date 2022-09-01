@@ -1,3 +1,5 @@
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Feea%2Feea.meeting.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Feea%2Feea.meeting?ref=badge_shield)
+
 ==============================================================================
 eea.meeting
 ==============================================================================
@@ -31,3 +33,7 @@ License
 -------
 
 The project is licensed under the GPLv2.
+
+
+## License
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Feea%2Feea.meeting.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Feea%2Feea.meeting?ref=badge_large)
