@@ -4,7 +4,12 @@ Changelog
 2.0a1+cs.10 (unreleased)
 ------------------------
 
-- Nothing changed yet.
+- moved to our custom product clms.addon due to add more customizations [ionlizarazu <ilizarazu@codesyntax.com>]
+
+-  [Mikel Larreategi <mlarreategi@codesyntax.com>]
+
+- [ci skip] [Mikel Larreategi <mlarreategi@codesyntax.com>]
+
 
 
 2.0a1+cs.9 (2022-08-04)
