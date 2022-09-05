@@ -1,7 +1,7 @@
 Changelog
 =========
 
-2.0a1+cs.10 (unreleased)
+2.0a1+cs.10 (2022-09-05)
 ------------------------
 
 - moved to our custom product clms.addon due to add more customizations [ionlizarazu <ilizarazu@codesyntax.com>]
