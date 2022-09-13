@@ -4,7 +4,12 @@ Changelog
 2.0a1+cs.11 (unreleased)
 ------------------------
 
-- Nothing changed yet.
+- fix i18n translation domain [Mikel Larreategi <mlarreategi@codesyntax.com>]
+
+-  [Mikel Larreategi <mlarreategi@codesyntax.com>]
+
+- [ci skip] [Mikel Larreategi <mlarreategi@codesyntax.com>]
+
 
 
 2.0a1+cs.10 (2022-09-05)
