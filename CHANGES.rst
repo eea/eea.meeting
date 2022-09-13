@@ -1,7 +1,7 @@
 Changelog
 =========
 
-2.0a1+cs.11 (unreleased)
+2.0a1+cs.11 (2022-09-13)
 ------------------------
 
 - fix i18n translation domain [Mikel Larreategi <mlarreategi@codesyntax.com>]
