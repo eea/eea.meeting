@@ -1,7 +1,7 @@
 Changelog
 =========
 
-2.0a1+cs.12 (unreleased)
+2.0a1+cs.12 (2022-10-24)
 ------------------------
 
 - fill the session with the data [Mikel Larreategi <mlarreategi@codesyntax.com>]
