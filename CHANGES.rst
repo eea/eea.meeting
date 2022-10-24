@@ -4,7 +4,12 @@ Changelog
 2.0a1+cs.12 (unreleased)
 ------------------------
 
-- Nothing changed yet.
+- fill the session with the data [Mikel Larreategi <mlarreategi@codesyntax.com>]
+
+-  [Mikel Larreategi <mlarreategi@codesyntax.com>]
+
+- [ci skip] [Mikel Larreategi <mlarreategi@codesyntax.com>]
+
 
 
 2.0a1+cs.11 (2022-09-13)
