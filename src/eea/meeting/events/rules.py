@@ -32,6 +32,12 @@ class SendEmailAddEvent(SendEmailEvent):
 class SendNewSubscriberEmailEvent(SendEmailEvent):
     """Notify when a new user subscribed."""
 
+    def __init__(self, context, **data):
+        super(SendNewSubscriberEmailEvent, self).__init__(context)
+        sdm = getattr(context, "session_data_manager", None)
+        session = sdm.getSessionData(create=True) if sdm else None
+        session.update(data)
+
 
 def execute_event(event):
     """Execute custom rules"""
