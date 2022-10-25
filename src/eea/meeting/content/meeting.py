@@ -43,6 +43,14 @@ class Meeting(Container):
     def can_register(self):
         """Can register?"""
         is_open = self.registrations_open()
+        subscribers = self.get_subscribers()
+
+        if (
+            self.max_participants > 0
+            and not self.allow_register_above_max
+            and self.max_participants <= len(subscribers)
+        ):
+            return False
         if not is_open:
             return False
         return True
@@ -196,7 +204,10 @@ def on_add(obj, evt):
 def create_subscribers(container):
     """create subscribers"""
     createContentInContainer(
-        container, "eea.meeting.subscribers", title="Subscribers", id="subscribers"
+        container,
+        "eea.meeting.subscribers",
+        title="Subscribers",
+        id="subscribers",
     )
 
 
@@ -209,7 +220,9 @@ def create_emails(container):
 
 def create_folder_for_public_items(container):
     """Create Public folder"""
-    obj = api.content.create(type="Folder", title="Public", container=container)
+    obj = api.content.create(
+        type="Folder", title="Public", container=container
+    )
     api.content.transition(obj=obj, transition="publish")
 
 

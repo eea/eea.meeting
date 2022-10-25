@@ -81,6 +81,7 @@ class SerializerToJsonMeeting(SerializeFolderToJson):
             result["registrations_open"] = True
 
         result["is_registered"] = self.context.is_registered()
+        result["can_register"] = self.context.can_register()
         result["is_folderish"] = True
 
         return result
