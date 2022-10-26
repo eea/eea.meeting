@@ -1,7 +1,7 @@
 Changelog
 =========
 
-2.0a1+cs.13 (unreleased)
+2.0a1+cs.13 (2022-10-26)
 ------------------------
 
 - pin lower version [Mikel Larreategi <mlarreategi@codesyntax.com>]
