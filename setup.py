@@ -58,7 +58,7 @@ setup(
         "plone.app.registry",
         "Products.MemcachedManager",
         "collective.geolocationbehavior",
-        "plone.formwidget.geolocation>=2.2.3",
+        "plone.formwidget.geolocation<3",
         "collective.volto.formsupport",
     ],
     extras_require={
