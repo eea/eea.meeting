@@ -4,7 +4,12 @@ Changelog
 2.0a1+cs.13 (unreleased)
 ------------------------
 
-- Nothing changed yet.
+- pin lower version [Mikel Larreategi <mlarreategi@codesyntax.com>]
+
+-  [Mikel Larreategi <mlarreategi@codesyntax.com>]
+
+- [ci skip] [Mikel Larreategi <mlarreategi@codesyntax.com>]
+
 
 
 2.0a1+cs.12 (2022-10-24)
