@@ -1,7 +1,7 @@
 Changelog
 =========
 
-2.0a1+cs.14 (unreleased)
+2.0a1+cs.14 (2022-10-26)
 ------------------------
 
 -  [Mikel Larreategi <mlarreategi@codesyntax.com>]
