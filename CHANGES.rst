@@ -4,7 +4,22 @@ Changelog
 2.0a1+cs.14 (unreleased)
 ------------------------
 
-- Nothing changed yet.
+-  [Mikel Larreategi <mlarreategi@codesyntax.com>]
+
+- [ci skip] [Mikel Larreategi <mlarreategi@codesyntax.com>]
+
+- Preparing release 2.0a1+cs.13 [Mikel Larreategi <mlarreategi@codesyntax.com>]
+
+-  [Mikel Larreategi <mlarreategi@codesyntax.com>]
+
+- [ci skip] [Mikel Larreategi <mlarreategi@codesyntax.com>]
+
+- Update changelog [Mikel Larreategi <mlarreategi@codesyntax.com>]
+
+- pin lower version [Mikel Larreategi <mlarreategi@codesyntax.com>]
+
+- add conditions to the can_register function [ionlizarazu <ilizarazu@codesyntax.com>]
+
 
 
 2.0a1+cs.13 (2022-10-26)
