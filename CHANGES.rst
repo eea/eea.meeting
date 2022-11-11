@@ -1,7 +1,7 @@
 Changelog
 =========
 
-2.0a1+cs.15 (unreleased)
+2.0a1+cs.15 (2022-11-11)
 ------------------------
 
 - fix: check for max_participants being None [Mikel Larreategi <mlarreategi@codesyntax.com>]
