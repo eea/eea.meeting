@@ -68,13 +68,19 @@ def state_change(obj, evt):
         if (
             evt.action == ACTION_APPROVE
             and subscribers_state != "full"
-            and subscribers.approved_count() >= meeting.max_participants
+            and (
+                meeting.max_participants is not None
+                and subscribers.approved_count() >= meeting.max_participants
+            )
         ):
             api.content.transition(obj=subscribers, transition="to_full")
         elif (
             evt.action == ACTION_REJECT
             and subscribers_state == "full"
-            and subscribers.approved_count() < meeting.max_participants
+            and (
+                meeting.max_participants is not None
+                and subscribers.approved_count() < meeting.max_participants
+            )
         ):
             api.content.transition(obj=subscribers, transition="to_open")
 

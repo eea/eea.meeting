@@ -46,7 +46,8 @@ class Meeting(Container):
         subscribers = self.get_subscribers()
 
         if (
-            self.max_participants > 0
+            self.max_participants
+            and self.max_participants > 0
             and not self.allow_register_above_max
             and self.max_participants <= len(subscribers)
         ):
@@ -220,9 +221,7 @@ def create_emails(container):
 
 def create_folder_for_public_items(container):
     """Create Public folder"""
-    obj = api.content.create(
-        type="Folder", title="Public", container=container
-    )
+    obj = api.content.create(type="Folder", title="Public", container=container)
     api.content.transition(obj=obj, transition="publish")
 
 
