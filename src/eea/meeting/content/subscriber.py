@@ -64,6 +64,7 @@ def state_change(obj, evt):
     subscribers = obj.aq_parent
     meeting = subscribers.get_meeting()
     subscribers_state = api.content.get_state(subscribers)
+
     if hasattr(evt, "action"):
         if (
             evt.action == ACTION_APPROVE
@@ -102,6 +103,10 @@ def on_delete(obj, evt):
     if (
         subscribers_state == "full"
         and meeting.allow_register
-        and subscribers.approved_count() < meeting.max_participants
+        and (
+            meeting.max_participants
+            and subscribers.approved_count() < meeting.max_participants
+            or meeting.max_participants is None
+        )
     ):
         api.content.transition(obj=subscribers, transition="to_open")

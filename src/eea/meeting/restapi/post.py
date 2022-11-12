@@ -1,33 +1,46 @@
-from plone.restapi.services import Service
-import plone.api as api
-from eea.meeting.browser.views import add_subscriber
+# -*- coding: utf-8 -*-
 import plone.protect.interfaces
-from zope.interface import alsoProvides
+from eea.meeting.browser.views import add_subscriber
+from plone import api
 from plone.restapi.deserializer import json_body
-import plone.api as api
+from plone.restapi.services import Service
+from zope.interface import alsoProvides
+
+SUBSCRIBER_NOT_DELETED = 1
+SUBSCRIBER_NOT_APPROVED = 2
+SUBSCRIBER_NOT_REJECTED = 3
 
 
 class SubscribersManipulation(Service):
     def delete(self, subscribers):
         """delete"""
-        self.context.manage_delObjects(subscribers)
+        try:
+            self.context.manage_delObjects(subscribers)
+            return None
+        except Exception as e:
+            return SUBSCRIBER_NOT_DELETED
 
     def approve(self, subscribers):
         """approve"""
-        self._change_state("approve", subscribers)
+        try:
+            self._change_state("approve", subscribers)
+            return None
+        except Exception as e:
+            return SUBSCRIBER_NOT_APPROVED
 
     def reject(self, subscribers):
         """reject"""
-        self._change_state("reject", subscribers)
+        try:
+            self._change_state("reject", subscribers)
+            return None
+        except Exception as e:
+            return SUBSCRIBER_NOT_REJECTED
 
     def _change_state(self, state, subscribers):
         """change state"""
         for subscriber in subscribers:
             elem = self.context.get(subscriber)
-            try:
-                api.content.transition(obj=elem, transition=state)
-            except:
-                pass
+            api.content.transition(obj=elem, transition=state)
 
     def reply(self):
 
@@ -37,16 +50,22 @@ class SubscribersManipulation(Service):
         manipulation_type = data.get("manipulation_type", None)
         subscriberSelection = data.get("subscriberSelection", [])
         return_dict = {}
+        error = None
         if manipulation_type and subscriberSelection:
             if manipulation_type == "delete":
-                self.delete(subscriberSelection)
-                return_dict = {"message": "Well deleted"}
+                error = self.delete(subscriberSelection)
+                return_dict = {"message": "Correctly deleted"}
             elif manipulation_type == "approve":
-                self.approve(subscriberSelection)
-                return_dict = {"message": "Well approved"}
+                error = self.approve(subscriberSelection)
+                return_dict = {"message": "Correctly approved"}
             elif manipulation_type == "reject":
-                self.reject(subscriberSelection)
-                return_dict = {"message": "Well rejected"}
+                error = self.reject(subscriberSelection)
+                return_dict = {"message": "Correctly rejected"}
+
+        if error is not None:
+            self.request.response.setStatus(500)
+            return {"error": {"message": "There was an error handling your request"}}
+
         subscribers = api.content.find(
             context=self.context, portal_type="eea.meeting.subscriber"
         )
