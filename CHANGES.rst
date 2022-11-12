@@ -1,7 +1,7 @@
 Changelog
 =========
 
-2.0a1+cs.16 (unreleased)
+2.0a1+cs.16 (2022-11-12)
 ------------------------
 
 - fix: changes to control max_participants being None [Mikel Larreategi <mlarreategi@codesyntax.com>]
