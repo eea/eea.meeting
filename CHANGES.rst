@@ -4,7 +4,12 @@ Changelog
 2.0a1+cs.16 (unreleased)
 ------------------------
 
-- Nothing changed yet.
+- fix: changes to control max_participants being None [Mikel Larreategi <mlarreategi@codesyntax.com>]
+
+-  [Mikel Larreategi <mlarreategi@codesyntax.com>]
+
+- [ci skip] [Mikel Larreategi <mlarreategi@codesyntax.com>]
+
 
 
 2.0a1+cs.15 (2022-11-11)
