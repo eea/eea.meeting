@@ -4,7 +4,12 @@ Changelog
 2.0a1+cs.17 (unreleased)
 ------------------------
 
-- Nothing changed yet.
+- upgrades for Plone 6 [Mikel Larreategi <mlarreategi@codesyntax.com>]
+
+-  [Mikel Larreategi <mlarreategi@codesyntax.com>]
+
+- [ci skip] [Mikel Larreategi <mlarreategi@codesyntax.com>]
+
 
 
 2.0a1+cs.16 (2022-11-12)
