@@ -1,7 +1,7 @@
 Changelog
 =========
 
-2.0a1+cs.17 (unreleased)
+2.0a1+cs.17 (2023-03-05)
 ------------------------
 
 - upgrades for Plone 6 [Mikel Larreategi <mlarreategi@codesyntax.com>]
