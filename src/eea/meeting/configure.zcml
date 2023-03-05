@@ -1,11 +1,12 @@
 <configure
     xmlns="http://namespaces.zope.org/zope"
-    xmlns:zcml="http://namespaces.zope.org/zcml"
     xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
     xmlns:i18n="http://namespaces.zope.org/i18n"
-    i18n_domain="eea.meeting">
+    xmlns:zcml="http://namespaces.zope.org/zcml"
+    i18n_domain="eea.meeting"
+    >
 
-  <includeDependencies package="." />
+  <!-- <includeDependencies package="." /> -->
 
   <include file="profiles.zcml" />
   <include file="permissions.zcml" />
@@ -20,40 +21,48 @@
 
   <utility
       factory=".setuphandlers.HiddenProfiles"
-      name="eea.meeting-hiddenprofiles" />
+      name="eea.meeting-hiddenprofiles"
+      />
 
-   <subscriber
-      for="eea.meeting.interfaces.IMeeting zope.lifecycleevent.interfaces.IObjectAddedEvent"
+  <subscriber
+      for="eea.meeting.interfaces.IMeeting
+           zope.lifecycleevent.interfaces.IObjectAddedEvent"
       handler=".content.meeting.on_add"
       />
 
-   <subscriber
-      for="eea.meeting.interfaces.ISubscribers zope.lifecycleevent.interfaces.IObjectAddedEvent"
+  <subscriber
+      for="eea.meeting.interfaces.ISubscribers
+           zope.lifecycleevent.interfaces.IObjectAddedEvent"
       handler=".content.subscribers.on_add"
       />
 
-   <subscriber
-      for="eea.meeting.interfaces.ISubscriber zope.lifecycleevent.interfaces.IObjectAddedEvent"
+  <subscriber
+      for="eea.meeting.interfaces.ISubscriber
+           zope.lifecycleevent.interfaces.IObjectAddedEvent"
       handler=".content.subscriber.on_add"
       />
 
-   <subscriber
-      for="eea.meeting.interfaces.ISubscriber zope.lifecycleevent.interfaces.IObjectRemovedEvent"
+  <subscriber
+      for="eea.meeting.interfaces.ISubscriber
+           zope.lifecycleevent.interfaces.IObjectRemovedEvent"
       handler=".content.subscriber.on_delete"
       />
 
-   <subscriber
-      for="eea.meeting.interfaces.IMeeting zope.lifecycleevent.interfaces.IObjectModifiedEvent"
+  <subscriber
+      for="eea.meeting.interfaces.IMeeting
+           zope.lifecycleevent.interfaces.IObjectModifiedEvent"
       handler=".content.meeting.on_save"
       />
 
   <subscriber
-      for="eea.meeting.interfaces.ISubscribers Products.CMFCore.interfaces.IActionSucceededEvent"
+      for="eea.meeting.interfaces.ISubscribers
+           Products.CMFCore.interfaces.IActionSucceededEvent"
       handler=".content.subscribers.state_change"
       />
 
   <subscriber
-      for="eea.meeting.interfaces.ISubscriber Products.CMFCore.interfaces.IActionSucceededEvent"
+      for="eea.meeting.interfaces.ISubscriber
+           Products.CMFCore.interfaces.IActionSucceededEvent"
       handler=".content.subscriber.state_change"
       />
 
