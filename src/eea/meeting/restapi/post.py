@@ -45,7 +45,9 @@ class SubscribersManipulation(Service):
     def reply(self):
 
         if "IDisableCSRFProtection" in dir(plone.protect.interfaces):
-            alsoProvides(self.request, plone.protect.interfaces.IDisableCSRFProtection)
+            alsoProvides(
+                self.request, plone.protect.interfaces.IDisableCSRFProtection
+            )
         data = json_body(self.request)
         manipulation_type = data.get("manipulation_type", None)
         subscriberSelection = data.get("subscriberSelection", [])
@@ -64,7 +66,11 @@ class SubscribersManipulation(Service):
 
         if error is not None:
             self.request.response.setStatus(500)
-            return {"error": {"message": "There was an error handling your request"}}
+            return {
+                "error": {
+                    "message": "There was an error handling your request"
+                }
+            }
 
         subscribers = api.content.find(
             context=self.context, portal_type="eea.meeting.subscriber"
@@ -89,7 +95,9 @@ class Register(Service):
 
     def __call__(self):
         if "IDisableCSRFProtection" in dir(plone.protect.interfaces):
-            alsoProvides(self.request, plone.protect.interfaces.IDisableCSRFProtection)
+            alsoProvides(
+                self.request, plone.protect.interfaces.IDisableCSRFProtection
+            )
         subscribers = self.context.get("subscribers")
         try:
             self.validate(subscribers)
