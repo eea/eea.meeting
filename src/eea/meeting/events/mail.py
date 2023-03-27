@@ -189,7 +189,14 @@ class CustomMailActionExecutor(MailActionExecutor):
             msgAlternative = MIMEMultipart("alternative")
             msgRoot.attach(msgAlternative)
 
-            msgText = MIMEText("This is the alternative plain text message.")
+            portal_transforms = api.portal.get_tool(name="portal_transforms")
+            data = portal_transforms.convertTo(
+                "text/plain",
+                safe_text(message, "utf-8"),
+                mimetype="text/html",
+            )
+            msgText = MIMEText(safe_text(data.getData(), "utf-8"))
+
             msgAlternative.attach(msgText)
 
             msgHTML = MIMEText(safe_text(message, "utf-8"), "html")
