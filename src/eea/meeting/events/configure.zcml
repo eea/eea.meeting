@@ -1,171 +1,172 @@
 <configure
     xmlns="http://namespaces.zope.org/zope"
-    i18n_domain="eea.meeting"
+    xmlns:browser="http://namespaces.zope.org/browser"
     xmlns:plone="http://namespaces.plone.org/plone"
-    xmlns:browser="http://namespaces.zope.org/browser" >
+    i18n_domain="eea.meeting"
+    >
 
   <interface
-   interface="eea.meeting.events.interfaces.ISendEmailAddEvent"
-   type="plone.contentrules.rule.interfaces.IRuleEventType"
-   name="Send email after form submission"
-   />
+      interface="eea.meeting.events.interfaces.ISendEmailAddEvent"
+      type="plone.contentrules.rule.interfaces.IRuleEventType"
+      name="Send email after form submission"
+      />
 
   <interface
-   interface="eea.meeting.events.interfaces.ISendNewSubscriberEmailEvent"
-   type="plone.contentrules.rule.interfaces.IRuleEventType"
-   name="Send email for new subscriber."
-   />
+      interface="eea.meeting.events.interfaces.ISendNewSubscriberEmailEvent"
+      type="plone.contentrules.rule.interfaces.IRuleEventType"
+      name="Send email for new subscriber."
+      />
 
-   <subscriber
-   for="eea.meeting.events.interfaces.ISendEmailAddEvent"
-   handler="eea.meeting.events.rules.execute_event"
-   />
+  <subscriber
+      for="eea.meeting.events.interfaces.ISendEmailAddEvent"
+      handler="eea.meeting.events.rules.execute_event"
+      />
 
-   <subscriber
-   for="eea.meeting.events.interfaces.ISendNewSubscriberEmailEvent"
-   handler="eea.meeting.events.rules.execute_event"
-   />
+  <subscriber
+      for="eea.meeting.events.interfaces.ISendNewSubscriberEmailEvent"
+      handler="eea.meeting.events.rules.execute_event"
+      />
 
-   <adapter
-    for="*"
-    provides="plone.stringinterp.interfaces.IStringSubstitution"
-    factory=".adapters.SetMeetingContactEmail"
-    name="meeting_contact_email"
-    />
+  <adapter
+      factory=".adapters.SetMeetingContactEmail"
+      provides="plone.stringinterp.interfaces.IStringSubstitution"
+      for="*"
+      name="meeting_contact_email"
+      />
 
-   <adapter
-    for="*"
-    provides="plone.stringinterp.interfaces.IStringSubstitution"
-    factory=".adapters.SetMeetingContactName"
-    name="meeting_contact_name"
-    />
+  <adapter
+      factory=".adapters.SetMeetingContactName"
+      provides="plone.stringinterp.interfaces.IStringSubstitution"
+      for="*"
+      name="meeting_contact_name"
+      />
 
-   <adapter
-    for="*"
-    provides="plone.stringinterp.interfaces.IStringSubstitution"
-    factory=".adapters.SetMeetingURL"
-    name="meeting_url"
-    />
+  <adapter
+      factory=".adapters.SetMeetingURL"
+      provides="plone.stringinterp.interfaces.IStringSubstitution"
+      for="*"
+      name="meeting_url"
+      />
 
-   <adapter
-    for="*"
-    provides="plone.stringinterp.interfaces.IStringSubstitution"
-    factory=".adapters.SetEmailSender"
-    name="email_sender"
-    />
+  <adapter
+      factory=".adapters.SetEmailSender"
+      provides="plone.stringinterp.interfaces.IStringSubstitution"
+      for="*"
+      name="email_sender"
+      />
 
-    <adapter
-    for="*"
-    provides="plone.stringinterp.interfaces.IStringSubstitution"
-    factory=".adapters.SetEmailSubject"
-    name="email_subject"
-    />
+  <adapter
+      factory=".adapters.SetEmailSubject"
+      provides="plone.stringinterp.interfaces.IStringSubstitution"
+      for="*"
+      name="email_subject"
+      />
 
-    <adapter
-    for="*"
-    provides="plone.stringinterp.interfaces.IStringSubstitution"
-    factory=".adapters.SetEmailReceiver"
-    name="email_receiver"
-    />
+  <adapter
+      factory=".adapters.SetEmailReceiver"
+      provides="plone.stringinterp.interfaces.IStringSubstitution"
+      for="*"
+      name="email_receiver"
+      />
 
-    <adapter
-    for="*"
-    provides="plone.stringinterp.interfaces.IStringSubstitution"
-    factory=".adapters.SetEmailBody"
-    name="email_body"
-    />
+  <adapter
+      factory=".adapters.SetEmailBody"
+      provides="plone.stringinterp.interfaces.IStringSubstitution"
+      for="*"
+      name="email_body"
+      />
 
-    <adapter
-    for="*"
-    provides="plone.stringinterp.interfaces.IStringSubstitution"
-    factory=".adapters.SetEmailCC"
-    name="email_cc"
-    />
+  <adapter
+      factory=".adapters.SetEmailCC"
+      provides="plone.stringinterp.interfaces.IStringSubstitution"
+      for="*"
+      name="email_cc"
+      />
 
-    <adapter
-    for="*"
-    provides="plone.stringinterp.interfaces.IStringSubstitution"
-    factory=".adapters.SetEmailReceiverOnApproved"
-    name="subscriber_email"
-    />
+  <adapter
+      factory=".adapters.SetEmailReceiverOnApproved"
+      provides="plone.stringinterp.interfaces.IStringSubstitution"
+      for="*"
+      name="subscriber_email"
+      />
 
-    <adapter
-    for="*"
-    provides="plone.stringinterp.interfaces.IStringSubstitution"
-    factory=".adapters.SetNameReceiverOnApproved"
-    name="subscriber_name"
-    />
+  <adapter
+      factory=".adapters.SetNameReceiverOnApproved"
+      provides="plone.stringinterp.interfaces.IStringSubstitution"
+      for="*"
+      name="subscriber_name"
+      />
 
-    <adapter
-    for="*"
-    provides="plone.stringinterp.interfaces.IStringSubstitution"
-    factory=".adapters.SetUserIDReceiverOnApproved"
-    name="subscriber_userid"
-    />
+  <adapter
+      factory=".adapters.SetUserIDReceiverOnApproved"
+      provides="plone.stringinterp.interfaces.IStringSubstitution"
+      for="*"
+      name="subscriber_userid"
+      />
 
-    <adapter
-    for="*"
-    provides="plone.stringinterp.interfaces.IStringSubstitution"
-    factory=".adapters.SetMeetingPlaceOnApproved"
-    name="meeting_place"
-    />
+  <adapter
+      factory=".adapters.SetMeetingPlaceOnApproved"
+      provides="plone.stringinterp.interfaces.IStringSubstitution"
+      for="*"
+      name="meeting_place"
+      />
 
-    <adapter
-    for="*"
-    provides="plone.stringinterp.interfaces.IStringSubstitution"
-    factory=".adapters.SetMeetingPlaceOnRegister"
-    name="meeting_place_onregister"
-    />
+  <adapter
+      factory=".adapters.SetMeetingPlaceOnRegister"
+      provides="plone.stringinterp.interfaces.IStringSubstitution"
+      for="*"
+      name="meeting_place_onregister"
+      />
 
-    <adapter
-    for="*"
-    provides="plone.stringinterp.interfaces.IStringSubstitution"
-    factory=".adapters.SetMeetingWhenOnApproved"
-    name="meeting_when"
-    />
+  <adapter
+      factory=".adapters.SetMeetingWhenOnApproved"
+      provides="plone.stringinterp.interfaces.IStringSubstitution"
+      for="*"
+      name="meeting_when"
+      />
 
-    <adapter
-    for="*"
-    provides="plone.stringinterp.interfaces.IStringSubstitution"
-    factory=".adapters.SetMeetingWhenOnRegister"
-    name="meeting_when_onregister"
-    />
+  <adapter
+      factory=".adapters.SetMeetingWhenOnRegister"
+      provides="plone.stringinterp.interfaces.IStringSubstitution"
+      for="*"
+      name="meeting_when_onregister"
+      />
 
-    <adapter
-    for="*"
-    provides="plone.stringinterp.interfaces.IStringSubstitution"
-    factory=".adapters.SetMeetingTitleOnApproved"
-    name="meeting_title"
-    />
+  <adapter
+      factory=".adapters.SetMeetingTitleOnApproved"
+      provides="plone.stringinterp.interfaces.IStringSubstitution"
+      for="*"
+      name="meeting_title"
+      />
 
-    <!--Custom email trigger-->
+  <!--Custom email trigger-->
 
-    <adapter factory=".mail.CustomMailActionExecutor" />
+  <adapter factory=".mail.CustomMailActionExecutor" />
 
-    <browser:page
-       for="plone.app.contentrules.browser.interfaces.IRuleActionAdding"
-       name="eea.meeting.events.CustomMail"
-       class="plone.app.contentrules.actions.mail.MailAddFormView"
-       permission="plone.app.contentrules.ManageContentRules"
-       />
+  <browser:page
+      name="eea.meeting.events.CustomMail"
+      for="plone.app.contentrules.browser.interfaces.IRuleActionAdding"
+      class="plone.app.contentrules.actions.mail.MailAddFormView"
+      permission="plone.app.contentrules.ManageContentRules"
+      />
 
-     <browser:page
-       for="eea.meeting.events.mail.ICustomMailAction"
-       name="edit"
-       class="plone.app.contentrules.actions.mail.MailEditFormView"
-       permission="plone.app.contentrules.ManageContentRules"
-       />
+  <browser:page
+      name="edit"
+      for="eea.meeting.events.mail.ICustomMailAction"
+      class="plone.app.contentrules.actions.mail.MailEditFormView"
+      permission="plone.app.contentrules.ManageContentRules"
+      />
 
-    <plone:ruleAction
-        name="eea.meeting.events.CustomMail"
-        title="Send email and add to archive"
-        description="Send an email on the triggering object and save it to the archive"
-        for="*"
-        event="*"
-        addview="eea.meeting.events.CustomMail"
-        editview="edit"
-        schema=".mail.ICustomMailAction"
-        factory=".mail.CustomMailAction"
-        />
+  <plone:ruleAction
+      name="eea.meeting.events.CustomMail"
+      title="Send email and add to archive"
+      description="Send an email on the triggering object and save it to the archive"
+      for="*"
+      event="*"
+      schema=".mail.ICustomMailAction"
+      factory=".mail.CustomMailAction"
+      addview="eea.meeting.events.CustomMail"
+      editview="edit"
+      />
 
 </configure>
