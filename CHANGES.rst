@@ -4,7 +4,20 @@ Changelog
 2.0a1+cs.18 (unreleased)
 ------------------------
 
-- Nothing changed yet.
+- convert html to plain text for the text only version [Mikel Larreategi <mlarreategi@codesyntax.com>]
+
+- send emails in HTML format [Mikel Larreategi <mlarreategi@codesyntax.com>]
+
+- reformat ZCML [Mikel Larreategi <mlarreategi@codesyntax.com>]
+
+- lint [Mikel Larreategi <mlarreategi@codesyntax.com>]
+
+- copy email sending code from p.a.contentrules to customize [Mikel Larreategi <mlarreategi@codesyntax.com>]
+
+-  [Mikel Larreategi <mlarreategi@codesyntax.com>]
+
+- [ci skip] [Mikel Larreategi <mlarreategi@codesyntax.com>]
+
 
 
 2.0a1+cs.17 (2023-03-05)
