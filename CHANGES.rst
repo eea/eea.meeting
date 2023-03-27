@@ -1,7 +1,7 @@
 Changelog
 =========
 
-2.0a1+cs.18 (unreleased)
+2.0a1+cs.18 (2023-03-27)
 ------------------------
 
 - convert html to plain text for the text only version [Mikel Larreategi <mlarreategi@codesyntax.com>]
