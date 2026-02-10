@@ -25,7 +25,10 @@ class AddView(DefaultAddView):
 
                 self.form = MeetingAddForm
 
-            self.form_instance = self.form(aq_inner(self.context), self.request)
+            self.form_instance = self.form(
+                aq_inner(self.context),
+                self.request,
+            )
             self.form_instance.__name__ = self.__name__
 
         self.ti = ti

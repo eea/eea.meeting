@@ -84,16 +84,16 @@ class MeetingView(DefaultView):
             return self.get_meeting_contents()
 
         if (
-            public_items.portal_type == "Folder"
-            and private_items.portal_type == "eea.meeting.workspace"
+            public_items.portal_type == "Folder" and
+            private_items.portal_type == "eea.meeting.workspace"
         ):
 
             content_filter = {"portal_type": self.allowedPortalTypes}
 
-            if (
-                private_items.unrestrictedTraverse("current_user_has_access")()
-                == "has_access"
-            ):
+            has_access = private_items.unrestrictedTraverse(
+                "current_user_has_access"
+            )()
+            if has_access == "has_access":
                 return public_items.getFolderContents(
                     content_filter
                 ) + private_items.getFolderContents(content_filter)

@@ -78,8 +78,8 @@ class SendEmail(form.Form):
         self.search_user.update()
         self.widgets["body"].rows = 10
         if (
-            not self.actions.executedActions
-            and not self.widgets["receiver"].items
+            not self.actions.executedActions and
+            not self.widgets["receiver"].items
         ):
             for widget in self.widgets.values():
                 widget.disabled = "disabled"

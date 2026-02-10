@@ -27,10 +27,16 @@ class ISubscriber(Interface):
     )
 
     directives.widget(reimbursed=RadioFieldWidget)
-    reimbursed = schema.Bool(title=_("Reimbursed participation"), required=True)
+    reimbursed = schema.Bool(
+        title=_("Reimbursed participation"),
+        required=True,
+    )
 
     directives.widget(visa=RadioFieldWidget)
-    visa = schema.Bool(title=_("I need visa support letter"), required=True)
+    visa = schema.Bool(
+        title=_("I need visa support letter"),
+        required=True,
+    )
 
     role = schema.Choice(
         title=_("Role"),

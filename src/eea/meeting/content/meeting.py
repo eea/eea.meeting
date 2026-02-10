@@ -47,10 +47,10 @@ class Meeting(Container):
         subscribers = self.get_subscribers()
 
         if (
-            self.max_participants
-            and self.max_participants > 0
-            and not self.allow_register_above_max
-            and self.max_participants <= len(subscribers)
+            self.max_participants and
+            self.max_participants > 0 and
+            not self.allow_register_above_max and
+            self.max_participants <= len(subscribers)
         ):
             return False
         if not is_open:
@@ -93,16 +93,15 @@ class Meeting(Container):
                     return False
 
         return (
-            self.allow_register
-            and (not self.is_ended())
-            and (
+            self.allow_register and
+            (not self.is_ended()) and
+            (
                 (
-                    self.max_participants is not None
-                    and self.subscribers.approved_count()
-                    < self.max_participants
-                )
-                or (self.max_participants in [0, None])
-                or (self.allow_register_above_max is True)
+                    self.max_participants is not None and
+                    self.subscribers.approved_count() < self.max_participants
+                ) or
+                (self.max_participants in [0, None]) or
+                (self.allow_register_above_max is True)
             )
         )
 
@@ -220,20 +219,29 @@ def create_subscribers(container):
 def create_emails(container):
     """create emails"""
     createContentInContainer(
-        container, "eea.meeting.emails", title="Emails", id="emails"
+        container,
+        "eea.meeting.emails",
+        title="Emails",
+        id="emails",
     )
 
 
 def create_folder_for_public_items(container):
     """Create Public folder"""
-    obj = api.content.create(type="Folder", title="Public", container=container)
+    obj = api.content.create(
+        type="Folder",
+        title="Public",
+        container=container,
+    )
     api.content.transition(obj=obj, transition="publish")
 
 
 def create_folder_for_private_items(container):
     """Create Workspace"""
     obj = api.content.create(
-        type="eea.meeting.workspace", title="Workspace", container=container
+        type="eea.meeting.workspace",
+        title="Workspace",
+        container=container,
     )
     api.content.transition(obj=obj, transition="publish")
 

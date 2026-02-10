@@ -33,7 +33,9 @@ class Subscriber(Item):
             "last_name": member.getProperty("last_name", ""),
             "fullname": member.getProperty("fullname", ""),
             "telephone": member.getProperty("telephone", ""),
-            "phone_numbers": ", ".join(member.getProperty("phone_numbers", [])),
+            "phone_numbers": ", ".join(
+                member.getProperty("phone_numbers", [])
+            ),
             "institution": member.getProperty("institution", ""),
             "from_country": member.getProperty("from_country", ""),
             "from_city": member.getProperty("from_city", ""),
@@ -67,20 +69,20 @@ def state_change(obj, evt):
 
     if hasattr(evt, "action"):
         if (
-            evt.action == ACTION_APPROVE
-            and subscribers_state != "full"
-            and (
-                meeting.max_participants is not None
-                and subscribers.approved_count() >= meeting.max_participants
+            evt.action == ACTION_APPROVE and
+            subscribers_state != "full" and
+            (
+                meeting.max_participants is not None and
+                subscribers.approved_count() >= meeting.max_participants
             )
         ):
             api.content.transition(obj=subscribers, transition="to_full")
         elif (
-            evt.action == ACTION_REJECT
-            and subscribers_state == "full"
-            and (
-                meeting.max_participants is not None
-                and subscribers.approved_count() < meeting.max_participants
+            evt.action == ACTION_REJECT and
+            subscribers_state == "full" and
+            (
+                meeting.max_participants is not None and
+                subscribers.approved_count() < meeting.max_participants
             )
         ):
             api.content.transition(obj=subscribers, transition="to_open")
@@ -101,12 +103,12 @@ def on_delete(obj, evt):
     meeting = subscribers.get_meeting()
     subscribers_state = api.content.get_state(subscribers)
     if (
-        subscribers_state == "full"
-        and meeting.allow_register
-        and (
-            meeting.max_participants
-            and subscribers.approved_count() < meeting.max_participants
-            or meeting.max_participants is None
+        subscribers_state == "full" and
+        meeting.allow_register and
+        (
+            meeting.max_participants and
+            subscribers.approved_count() < meeting.max_participants or
+            meeting.max_participants is None
         )
     ):
         api.content.transition(obj=subscribers, transition="to_open")

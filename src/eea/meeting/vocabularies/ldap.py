@@ -45,10 +45,13 @@ class LDAPListingVocabulary(object):
 
         containing = context.REQUEST.get("search_user.widgets.containing")
 
-        if (
+        search_clicked = (
             context.REQUEST.get("search_user.buttons.search_user") is not None
-            or context.REQUEST.get("search_user.buttons.addCC") is not None
-        ):
+        )
+        add_cc_clicked = (
+            context.REQUEST.get("search_user.buttons.addCC") is not None
+        )
+        if search_clicked or add_cc_clicked:
             vocab = search_user(containing)
 
         return SimpleVocabulary([x for x in vocab])

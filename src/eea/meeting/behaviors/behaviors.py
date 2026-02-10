@@ -138,8 +138,8 @@ class SubscribersConstrainTypes(ConstrainTypesBehavior):
 
         if ISubscribers.providedBy(context) and subscriber in allowed:
             if not (
-                IMeeting.providedBy(context.aq_parent)
-                and context.aq_parent.can_register()
+                IMeeting.providedBy(context.aq_parent) and
+                context.aq_parent.can_register()
             ):
                 allowed.remove(subscriber)
 
