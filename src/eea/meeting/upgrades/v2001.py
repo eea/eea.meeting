@@ -9,6 +9,7 @@ logger = getLogger(__name__)
 
 
 def _default_blocks_layout():
+    """Return minimal blocks and layout defaults."""
     blocks = {
         "488c7be8-d15b-4885-abca-b133a2295be9": {
             "@type": "slate",
@@ -26,6 +27,7 @@ def _default_blocks_layout():
 
 
 def _ensure_blocks_layout(meeting):
+    """Override blocks and layout with minimal defaults."""
     defaults = _default_blocks_layout()
     meeting.blocks = defaults["blocks"]
     meeting.blocks_layout = defaults["blocks_layout"]
