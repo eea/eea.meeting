@@ -129,5 +129,18 @@
 
   </genericsetup:upgradeSteps>
 
+  <genericsetup:upgradeSteps
+    source="2000"
+    destination="2001"
+    profile="eea.meeting:default">
+
+    <genericsetup:upgradeStep
+      title="Set default blocks on meetings"
+      description="Initialize minimal blocks/blocks_layout for old meetings."
+      handler="eea.meeting.upgrades.v2001.upgrade"
+      />
+
+  </genericsetup:upgradeSteps>
+
   <include file="2000.zcml" />
 </configure>
