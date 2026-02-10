@@ -50,7 +50,5 @@ class MeetingWorkspace(Container):
             if has_access != "has_access":
                 self.block_access(workspace)
                 return {}
-            else:
-                return {}
-        else:
             return {}
+        return {}

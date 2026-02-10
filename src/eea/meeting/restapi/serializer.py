@@ -15,6 +15,7 @@ class SerializerToJsonMeeting(SerializeFolderToJson):
     """Serialize meeting objects to JSON."""
 
     def _extract_field_custom_ids(self, obj):
+        """Collect custom field ids from form blocks."""
         field_custom_ids = []
         blocks = getattr(obj, "blocks", None)
         if not blocks:
@@ -34,6 +35,7 @@ class SerializerToJsonMeeting(SerializeFolderToJson):
         return field_custom_ids
 
     def _get_anonymous_form(self, review_state, published):
+        """Return anonymous form metadata for a given review state."""
         anonymousforms_list = self.context.getFolderContents(
             {
                 "portal_type": "AnonymousForm",
