@@ -20,7 +20,11 @@ class ISubscriber(Interface):
         constraint=validate_userid,
     )
 
-    email = schema.TextLine(title=_("Email"), required=True, constraint=validate_email)
+    email = schema.TextLine(
+        title=_("Email"),
+        required=True,
+        constraint=validate_email,
+    )
 
     directives.widget(reimbursed=RadioFieldWidget)
     reimbursed = schema.Bool(title=_("Reimbursed participation"), required=True)

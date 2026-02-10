@@ -2,8 +2,6 @@
 # -*- coding: utf-8 -*-
 
 from logging import getLogger
-from eea.meeting.upgrades.base import reload_gs_profile
-
 logger = getLogger(__name__)
 
 

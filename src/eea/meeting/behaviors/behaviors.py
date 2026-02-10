@@ -49,9 +49,13 @@ class MeetingConstrainTypes(ConstrainTypesBehavior):
                 return_tids = self._filterByDefaults(
                     parent_constrain_adapter.getLocallyAllowedTypes(context)
                 )
-                allowed = [t for t in default_addable if t.getId() in return_tids]
+                allowed = [
+                    t for t in default_addable if t.getId() in return_tids
+                ]
         else:
-            raise Exception("Wrong constraint setting. %i is an invalid value", mode)
+            raise Exception(
+                "Wrong constraint setting. %i is an invalid value" % mode
+            )
 
         if IMeeting.providedBy(context) and context.get("subscribers"):
             if subscribers in allowed:
@@ -124,9 +128,13 @@ class SubscribersConstrainTypes(ConstrainTypesBehavior):
                 return_tids = self._filterByDefaults(
                     parent_constrain_adapter.getLocallyAllowedTypes(context)
                 )
-                allowed = [t for t in default_addable if t.getId() in return_tids]
+                allowed = [
+                    t for t in default_addable if t.getId() in return_tids
+                ]
         else:
-            raise Exception("Wrong constraint setting. %i is an invalid value", mode)
+            raise Exception(
+                "Wrong constraint setting. %i is an invalid value" % mode
+            )
 
         if ISubscribers.providedBy(context) and subscriber in allowed:
             if not (

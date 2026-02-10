@@ -1,10 +1,12 @@
+"""REST API POST services."""
 # -*- coding: utf-8 -*-
 import plone.protect.interfaces
-from eea.meeting.browser.views import add_subscriber
 from plone import api
 from plone.restapi.deserializer import json_body
 from plone.restapi.services import Service
 from zope.interface import alsoProvides
+
+from eea.meeting.browser.views import add_subscriber
 
 SUBSCRIBER_NOT_DELETED = 1
 SUBSCRIBER_NOT_APPROVED = 2
@@ -12,12 +14,14 @@ SUBSCRIBER_NOT_REJECTED = 3
 
 
 class SubscribersManipulation(Service):
+    """Manage subscribers via REST API."""
+
     def delete(self, subscribers):
         """delete"""
         try:
             self.context.manage_delObjects(subscribers)
             return None
-        except Exception as e:
+        except Exception:
             return SUBSCRIBER_NOT_DELETED
 
     def approve(self, subscribers):
@@ -25,7 +29,7 @@ class SubscribersManipulation(Service):
         try:
             self._change_state("approve", subscribers)
             return None
-        except Exception as e:
+        except Exception:
             return SUBSCRIBER_NOT_APPROVED
 
     def reject(self, subscribers):
@@ -33,7 +37,7 @@ class SubscribersManipulation(Service):
         try:
             self._change_state("reject", subscribers)
             return None
-        except Exception as e:
+        except Exception:
             return SUBSCRIBER_NOT_REJECTED
 
     def _change_state(self, state, subscribers):
@@ -43,10 +47,11 @@ class SubscribersManipulation(Service):
             api.content.transition(obj=elem, transition=state)
 
     def reply(self):
-
+        """Handle manipulation requests and return updated subscribers."""
         if "IDisableCSRFProtection" in dir(plone.protect.interfaces):
             alsoProvides(
-                self.request, plone.protect.interfaces.IDisableCSRFProtection
+                self.request,
+                plone.protect.interfaces.IDisableCSRFProtection,
             )
         data = json_body(self.request)
         manipulation_type = data.get("manipulation_type", None)
@@ -73,7 +78,8 @@ class SubscribersManipulation(Service):
             }
 
         subscribers = api.content.find(
-            context=self.context, portal_type="eea.meeting.subscriber"
+            context=self.context,
+            portal_type="eea.meeting.subscriber",
         )
 
         objects = [subscriber.getObject() for subscriber in subscribers]
@@ -96,7 +102,8 @@ class Register(Service):
     def __call__(self):
         if "IDisableCSRFProtection" in dir(plone.protect.interfaces):
             alsoProvides(
-                self.request, plone.protect.interfaces.IDisableCSRFProtection
+                self.request,
+                plone.protect.interfaces.IDisableCSRFProtection,
             )
         subscribers = self.context.get("subscribers")
         try:
@@ -145,12 +152,12 @@ class Register(Service):
                 "message": "You have succesfully registered to this meeting",
             }
             return result
-        else:
-            self.request.response.setStatus(201)
-            result = {
-                "message": "You have no email address in your profile",
-            }
-            return result
+
+        self.request.response.setStatus(201)
+        result = {
+            "message": "You have no email address in your profile",
+        }
+        return result
 
     def validate(self, subscribers):
         """validate"""

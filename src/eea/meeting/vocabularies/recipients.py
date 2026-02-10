@@ -1,14 +1,12 @@
 """ Recipients vocabulary
 """
 
+import plone.api as api
 from zope.interface import implementer
-
 from zope.schema.interfaces import IVocabularyFactory
 from zope.schema.vocabulary import SimpleVocabulary, SimpleTerm
 
 from eea.meeting.interfaces import IMeeting
-
-import plone.api as api
 
 
 @implementer(IVocabularyFactory)
@@ -21,17 +19,18 @@ class RecipientsVocabulary(object):
         if not IMeeting.providedBy(context.aq_parent):
             if IMeeting.providedBy(context.aq_parent.aq_parent):
                 # normally this vocabulary is called from the email_sender form
-                # in which the context is the 'emails' container. aq_parent should
+                # where the context is the 'emails' container. aq_parent should
                 # be the Meeting content.
                 query_path = context.aq_parent.aq_parent.getPhysicalPath()
             else:
-                # if aq_parent is not IMeeting, use the path of the current context
+                # if aq_parent is not IMeeting, use current context path
                 query_path = context.getPhysicalPath()
         else:
             query_path = context.aq_parent.getPhysicalPath()
 
         brains = portal_catalog(
-            portal_type="eea.meeting.subscriber", path="/".join(query_path)
+            portal_type="eea.meeting.subscriber",
+            path="/".join(query_path),
         )
 
         l = set()

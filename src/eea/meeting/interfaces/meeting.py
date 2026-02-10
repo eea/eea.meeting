@@ -8,7 +8,7 @@ from plone.app.textfield import RichText
 from plone.restapi.behaviors import BLOCKS_SCHEMA, LAYOUT_SCHEMA, IBlocks
 from plone.schema import JSONField
 from zope import schema
-from zope.interface import Interface, Invalid, invariant
+from zope.interface import Interface
 from zope.schema.vocabulary import SimpleTerm, SimpleVocabulary
 
 meeting_layout_blocks = {

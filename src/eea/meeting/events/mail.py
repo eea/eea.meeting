@@ -18,7 +18,6 @@ from plone.contentrules.rule.interfaces import IRuleElementData
 from plone.registry.interfaces import IRegistry
 from plone.stringinterp.interfaces import IStringInterpolator
 from Products.CMFCore.utils import getToolByName
-from Products.CMFPlone.interfaces.controlpanel import IMailSchema
 from Products.CMFPlone.utils import safe_text
 from Products.MailHost.MailHost import MailHostError
 from Products.statusmessages.interfaces import IStatusMessage
@@ -118,6 +117,7 @@ class CustomMailActionExecutor(MailActionExecutor):
         self.save_email()
 
     def send_email(self):
+        """Send email using mailhost settings."""
         mailhost = getToolByName(aq_inner(self.context), "MailHost")
         if not mailhost:
             raise ComponentLookupError(
@@ -154,14 +154,11 @@ class CustomMailActionExecutor(MailActionExecutor):
 
         recip_string = interpolator(self.element.recipients)
         if recip_string:  # check recipient is not None or empty string
-            # pylint: disable=consider-using-set-comprehension
-            recipients = set(
-                [
-                    str(mail.strip())
-                    for mail in recip_string.split(",")
-                    if mail.strip()
-                ]
-            )
+            recipients = {
+                str(mail.strip())
+                for mail in recip_string.split(",")
+                if mail.strip()
+            }
         else:
             recipients = set()
 

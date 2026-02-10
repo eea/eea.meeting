@@ -32,9 +32,9 @@ def post_install(context):
     # Add memcached
     if "MEMCache" not in site.objectIds():
         try:
-            oid = site.manage_addProduct["MemcachedManager"].manage_addMemcachedManager(
-                "MEMCache"
-            )
+            oid = site.manage_addProduct[
+                "MemcachedManager"
+            ].manage_addMemcachedManager("MEMCache")
             oid = oid
         except Exception as err:
             logger.exception(err)

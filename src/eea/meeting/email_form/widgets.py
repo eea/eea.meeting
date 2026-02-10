@@ -51,7 +51,11 @@ class CustomCheckBoxWidget(widget.HTMLInputWidget, CustomSequenceWidget):
             checked = self.isChecked(term)
             self_id = "%s-%i" % (self.id, count)
             if zope.schema.interfaces.ITitledTokenizedTerm.providedBy(term):
-                label = translate(term.title, context=self.request, default=term.title)
+                label = translate(
+                    term.title,
+                    context=self.request,
+                    default=term.title,
+                )
             else:
                 label = util.toUnicode(term.value)
             self.items.append(

@@ -38,19 +38,23 @@ class SearchUser(form.Form):
         data = data
         if errors:
             return False
+        return None
 
     @button.buttonAndHandler(_("Add"), name="addCC")
     def handle_addCC(self, action):
         """Add CC"""
         data, errors = self.extractData()
 
-        self._parent_form.widgets["cc"].value += "\n" + "\n".join(data["results"])
+        self._parent_form.widgets["cc"].value += "\n" + "\n".join(
+            data["results"]
+        )
 
         del self.widgets["results"].items
         self.widgets["results"].value = ""
 
         if errors:
             return False
+        return None
 
 
 class SendEmail(form.Form):
@@ -73,7 +77,10 @@ class SendEmail(form.Form):
         self.search_user = SearchUser(self.context, self.request, self)
         self.search_user.update()
         self.widgets["body"].rows = 10
-        if not self.actions.executedActions and not self.widgets["receiver"].items:
+        if (
+            not self.actions.executedActions
+            and not self.widgets["receiver"].items
+        ):
             for widget in self.widgets.values():
                 widget.disabled = "disabled"
             self.actions["send_email"].disabled = "disabled"
@@ -109,12 +116,17 @@ class SendEmail(form.Form):
 
         msg = _("Email successfully sent")
         IStatusMessage(self.request).addStatusMessage(msg, type="info")
-        self.request.response.redirect(self.context.getParentNode().absolute_url())
+        self.request.response.redirect(
+            self.context.getParentNode().absolute_url()
+        )
+        return None
 
     @button.buttonAndHandler(_("Cancel"), name="cancel_send")
     def cancel_send(self, action):
         """Cancel send"""
-        return self.request.response.redirect(self.context.aq_parent.absolute_url())
+        return self.request.response.redirect(
+            self.context.aq_parent.absolute_url()
+        )
 
 
 SendEmailView = wrap_form(SendEmail, index=FPT("send_email.pt"))

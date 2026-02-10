@@ -39,6 +39,7 @@ class Meeting(Container):
                 return api.content.get_state(subs[0])
 
             return None
+        return None
 
     def can_register(self):
         """Can register?"""
@@ -97,7 +98,8 @@ class Meeting(Container):
             and (
                 (
                     self.max_participants is not None
-                    and self.subscribers.approved_count() < self.max_participants
+                    and self.subscribers.approved_count()
+                    < self.max_participants
                 )
                 or (self.max_participants in [0, None])
                 or (self.allow_register_above_max is True)

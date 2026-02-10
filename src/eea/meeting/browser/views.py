@@ -2,12 +2,12 @@
 """
 
 from functools import partial
+
+import six
 from DateTime import DateTime
 from Products.Five.browser import BrowserView
 from Products.statusmessages.interfaces import IStatusMessage
-from eea.meeting import _
-from eea.meeting.content.meeting import create_subscribers
-from eea.meeting.content.subscribers import APPROVED_STATE
+import plone.api as api
 from plone.dexterity.browser.add import DefaultAddForm
 from plone.dexterity.browser.edit import DefaultEditForm
 from plone.dexterity.browser.view import DefaultView
@@ -15,14 +15,16 @@ from plone.dexterity.interfaces import IDexterityEditForm
 from plone.dexterity.utils import createContentInContainer
 from plone.z3cform import layout
 from plone.z3cform.fieldsets.extensible import FormExtender
-import plone.api as api
 from zope.component import getMultiAdapter
 from zope.component.hooks import getSite
 from zope.contentprovider.interfaces import IContentProvider
-from zope.interface import classImplements
-import six
-from eea.meeting.events.rules import SendNewSubscriberEmailEvent
 from zope.event import notify
+from zope.interface import classImplements
+
+from eea.meeting import _
+from eea.meeting.content.meeting import create_subscribers
+from eea.meeting.content.subscribers import APPROVED_STATE
+from eea.meeting.events.rules import SendNewSubscriberEmailEvent
 
 
 def add_subscriber(subscribers, **kwargs):
@@ -148,9 +150,9 @@ class MeetingFormExtender(FormExtender):
     def update(self):
         """update"""
         self.move("IGeolocatable.geolocation", after="location")
-        self.form.fields[
-            "IGeolocatable.geolocation"
-        ].field.title = "Event location on map"
+        self.form.fields["IGeolocatable.geolocation"].field.title = (
+            "Event location on map"
+        )
 
 
 class MeetingEditForm(DefaultEditForm):
@@ -181,7 +183,10 @@ class SubscribersView(BrowserView):
 
     def can_edit(self):
         """check permission"""
-        return api.user.has_permission("Modify portal content", obj=self.context)
+        return api.user.has_permission(
+            "Modify portal content",
+            obj=self.context,
+        )
 
 
 class SubscribersApi(BrowserView):
@@ -190,6 +195,7 @@ class SubscribersApi(BrowserView):
     def __call__(self):
         if self.request.method == "POST":
             return self.on_post()
+        return None
 
     def on_post(self):
         """on post"""
@@ -301,7 +307,10 @@ class RegisterUser(BrowserView):
             return []
 
         site = getSite()
-        cpanel = getMultiAdapter((site, self.request), name="usergroup-userprefs")
+        cpanel = getMultiAdapter(
+            (site, self.request),
+            name="usergroup-userprefs",
+        )
         return cpanel.doSearch(self.searchString)
 
     def _register(self, users):
@@ -350,11 +359,13 @@ class ViewEmail(BrowserView):
     """Email view in mail archive"""
 
     def has_receiver(self):
+        """Return receiver display value."""
         if isinstance(self.context.receiver, six.text_type) is not True:
             return ", ".join(self.context.receiver)
         return self.context.receiver
 
     def has_cc(self):
+        """Return cc display value."""
         if isinstance(self.context.receiver, six.text_type) is not True:
             return ", ".join(self.context.cc)
         return self.context.cc

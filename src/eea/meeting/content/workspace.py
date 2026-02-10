@@ -15,11 +15,15 @@ class MeetingWorkspace(Container):
         """Block access and redirect"""
         messages = IStatusMessage(workspace.REQUEST)
         messages.add(
-            "The content you tried to access is available only for \
-            approved participants. Please log in.",
+            (
+                "The content you tried to access is available only for "
+                "approved participants. Please log in."
+            ),
             type="info",
         )
-        return workspace.REQUEST.response.redirect(workspace.aq_parent.absolute_url())
+        return workspace.REQUEST.response.redirect(
+            workspace.aq_parent.absolute_url()
+        )
 
     def can_edit(self, meeting):
         """Check permission"""
@@ -34,13 +38,18 @@ class MeetingWorkspace(Container):
         # This code runs for this container and also for all its child items
         request = getRequest()
         workspaces = [
-            x for x in request.PARENTS[:-1] if x.portal_type == "eea.meeting.workspace"
+            x
+            for x in request.PARENTS[:-1]
+            if x.portal_type == "eea.meeting.workspace"
         ]
         if workspaces:
             workspace = workspaces[0]
-            has_access = workspace.restrictedTraverse("current_user_has_access")()
+            has_access = workspace.restrictedTraverse(
+                "current_user_has_access"
+            )()
             if has_access != "has_access":
                 self.block_access(workspace)
+                return {}
             else:
                 return {}
         else:

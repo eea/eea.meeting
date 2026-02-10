@@ -34,7 +34,9 @@ class Subscribers(Container):
     def get_subscribers(self):
         """Return list of subscribers"""
         return [
-            x for x in self.objectValues() if x.portal_type == "eea.meeting.subscriber"
+            x
+            for x in self.objectValues()
+            if x.portal_type == "eea.meeting.subscriber"
         ]
 
     def state(self):

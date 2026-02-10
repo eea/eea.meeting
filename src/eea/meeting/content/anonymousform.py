@@ -1,3 +1,4 @@
+"""Anonymous form content type."""
 # -*- coding: utf-8 -*-
 from plone.dexterity.content import Container
 from plone.supermodel import model
@@ -10,4 +11,4 @@ class IAnonymousForm(model.Schema):
 
 @implementer(IAnonymousForm)
 class AnonymousForm(Container):
-    """ """
+    """Anonymous form container."""

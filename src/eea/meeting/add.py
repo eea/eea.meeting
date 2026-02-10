@@ -10,5 +10,8 @@ def handler(obj, evt):
 def create_subscribers(container):
     """create subscribers"""
     createContentInContainer(
-        container, "eea.meeting.subscribers", title="Subscribers", id="subscribers"
+        container,
+        "eea.meeting.subscribers",
+        title="Subscribers",
+        id="subscribers",
     )
