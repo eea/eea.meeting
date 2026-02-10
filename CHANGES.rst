@@ -1,10 +1,10 @@
 Changelog
 =========
 
-2.0a1+cs.19 (unreleased)
+2.0a1+cs.19 (2026-02-10)
 ------------------------
 
-- Nothing changed yet.
+- add volto blocks and custom edit layout for eea.meeting content type [GhitaB]
 
 
 2.0a1+cs.18 (2023-03-27)
