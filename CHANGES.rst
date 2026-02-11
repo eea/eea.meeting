@@ -1,10 +1,10 @@
 Changelog
 =========
 
-2.0a1+cs.20 (unreleased)
+2.0a1+cs.20 (2026-02-11)
 ------------------------
 
-- Nothing changed yet.
+- fix: build.
 
 
 2.0a1+cs.19 (2026-02-10)
