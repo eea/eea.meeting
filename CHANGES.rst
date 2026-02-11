@@ -1,6 +1,12 @@
 Changelog
 =========
 
+2.0a1+cs.20 (unreleased)
+------------------------
+
+- Nothing changed yet.
+
+
 2.0a1+cs.19 (2026-02-10)
 ------------------------
 
@@ -203,7 +209,6 @@ Changelog
 
 - get current meeting subscribers after post [ionlizarazu <ilizarazu@codesyntax.com>]
 
-------------------
 - Improve: add Jenkins, improve code.
   [valentinab25, GhitaB #116841]
 

@@ -10,3 +10,5 @@
 !.gitattributes
 !.gitignore
 !.gitkeep
+.venv/
+dist/
